@@ -1,4 +1,5 @@
-- [JavaScript深入系列](https://github.com/mqyqingfeng/Blog)
+- [JavaScript深入系列](https://github.com/mqyqingfeng/Blog) #JavaScript
+	-
 	- [[1. JavaScript深入之从原型到原型链]]
 	-
 	-
