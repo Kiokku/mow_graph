@@ -4,7 +4,6 @@
 	- 什么是原型？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。
 	- ![image.png](../assets/image_1682417535419_0.png)
 - ## **____proto____**
-  collapsed:: true
 	- 这是每一个JavaScript对象(除了 null )都具有的一个属性，叫__proto__，这个属性会指向 [[#red]]==该对象的原型==。
 	- ```
 	  - function Person() {
