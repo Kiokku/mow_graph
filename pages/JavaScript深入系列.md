@@ -2,4 +2,5 @@
 	- [[JavaScript深入之从原型到原型链]]
 	- [[JavaScript深入之词法作用域和动态作用域]]
 	- [[JavaScript深入之执行上下文栈]]
+	- [[JavaScript深入之变量对象]]
 -
