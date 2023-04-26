@@ -1,10 +1,12 @@
 - > [https://github.com/mqyqingfeng/Blog/issues/2](https://github.com/mqyqingfeng/Blog/issues/2)
 -
 - ## **prototype-原型**
+- ---
 	- 什么是原型？你可以这样理解：每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型"继承"属性。
 	- ![image.png](../assets/image_1682417535419_0.png)
 - ## **____proto____**
-	- 这是每一个JavaScript对象(除了 null )都具有的一个属性，叫__proto__，这个属性会指向 [[#red]]==该对象的原型==。
+- ---
+	- 这是每一个JavaScript对象(除了 null )都具有的一个属性，叫__proto__，这个属性会指向 [[#blue]]==该对象的原型==。
 	- ```
 	  - function Person() {
 	  
@@ -16,7 +18,7 @@
 	- ![image.png](../assets/image_1682418471248_0.png)
 	- 那么原型是否有属性指向构造函数或者实例呢？
 - ## **constructor**
-  collapsed:: true
+- ---
 	- 原型指向构造函数倒是有的，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。
 	- ```
 	  - function Person() {
@@ -27,7 +29,7 @@
 	- ![image.png](../assets/image_1682418582138_0.png)
 	-
 - ## **实例与原型**
-  collapsed:: true
+- ---
 	- 当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。
 	- ```
 	  - function Person() {
@@ -40,17 +42,17 @@
 	    console.log(person.name) // Kevin
 	  ```
 - ## **原型的原型**
-  collapsed:: true
+- ---
 	- 在前面，我们已经讲了原型也是一个对象，既然是对象，我们就可以用最原始的方式创建它，那就是：
 	- ```
 	  var obj = new Object();
 	  obj.name = 'Kevin'
 	  console.log(obj.name) // Kevin
 	  ```
-	- 其实原型对象就是通过 Object 构造函数生成的，结合之前所讲，实例的 __proto__ 指向构造函数的 prototype ，所以我们再更新下关系图：
+	- 其实原型对象就是通过 Object 构造函数生成的，结合之前所讲，实例的 [[#blue]]==____proto____ 指向构造函数的 prototype== ，所以我们再更新下关系图：
 	- ![image.png](../assets/image_1682418685086_0.png)
 - ## **原型链**
-  collapsed:: true
+- ---
 	- 那 Object.prototype 的原型呢？**null**，我们可以打印：
 	- ```
 	  - console.log(Object.prototype.**proto** === null) // true
