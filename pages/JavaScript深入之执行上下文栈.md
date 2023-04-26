@@ -103,16 +103,20 @@
 	  checkscope()();
 	  ```
 	- 两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？
-	- 答案就是执行上下文栈的变化不一样。
-- 让我们模拟第一段代码：
-- ECStack.push(<checkscope> functionContext);
-  ECStack.push(<f> functionContext);
-  ECStack.pop();
-  ECStack.pop();
-- 让我们模拟第二段代码：
-- ECStack.push(<checkscope> functionContext);
-  ECStack.pop();
-  ECStack.push(<f> functionContext);
-  ECStack.pop();
-- 是不是有些不同呢？
-- 当然了，这样概括的回答执行上下文栈的变化不同，是不是依然有一种意犹未尽的感觉呢，为了更详细讲解两个函数执行上的区别，我们需要探究一下执行上下文到底包含了哪些内容，所以欢迎阅读下一篇《JavaScript深入之变量对象》。
+		- 1. 答案就是[[#blue]]==执行上下文栈的变化不一样==。
+	- 让我们模拟第一段代码：
+	- ```
+	  ECStack.push(<checkscope> functionContext);
+	  ECStack.push(<f> functionContext);
+	  ECStack.pop();
+	  ECStack.pop();
+	  ```
+	- 让我们模拟第二段代码：
+	- ```
+	  ECStack.push(<checkscope> functionContext);
+	  ECStack.pop();
+	  ECStack.push(<f> functionContext);
+	  ECStack.pop();
+	  ```
+	- 是不是有些不同呢？
+	- 当然了，这样概括的回答执行上下文栈的变化不同，是不是依然有一种意犹未尽的感觉呢，为了更详细讲解两个函数执行上的区别，我们需要探究一下执行上下文到底包含了哪些内容，所以欢迎阅读下一篇《JavaScript深入之变量对象》。
