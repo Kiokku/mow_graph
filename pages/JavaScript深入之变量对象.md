@@ -77,97 +77,113 @@
 	    var d = function() {};  
 	    b = 3;
 	  }  
+	  
 	  foo(1);
 	  ```
-- 在进入执行上下文后，这时候的 AO 是：
-- AO = {
-    arguments: {
-        0: 1,
-        length: 1
-    },
-    a: 1,
-    b: undefined,
-    c: reference to function c(){},
-    d: undefined
-  }
-- **代码执行**
-- 在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值
-- 还是上面的例子，当代码执行完后，这时候的 AO 是：
-- AO = {
-    arguments: {
-        0: 1,
-        length: 1
-    },
-    a: 1,
-    b: 3,
-    c: reference to function c(){},
-    d: reference to FunctionExpression "d"
-  }
-- 到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：
-- 全局上下文的变量对象初始化是全局对象
-- 函数上下文的变量对象初始化只包括 Arguments 对象
-- 在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
-- 在代码执行阶段，会再次修改变量对象的属性值
-- **思考题**
+	- 在进入执行上下文后，这时候的 AO 是：
+	- ```
+	  AO = {
+	    arguments: {
+	        0: 1,
+	        length: 1
+	    },
+	    a: 1,
+	    b: undefined,
+	    c: reference to function c(){},
+	    d: undefined
+	  }
+	  ```
 -
+- ## **代码执行**
 - ---
-- 最后让我们看几个例子：
-- 1.第一题
-- function foo() {
-    console.log(a);
-    a = 1;
-  }
-- foo(); // ???
-- function bar() {
-    a = 1;
-    console.log(a);
-  }
-  bar(); // ???
-- 第一段会报错：Uncaught ReferenceError: a is not defined。
-- 第二段会打印：1。
-- 这是因为函数中的 "a" 并没有通过 var 关键字声明，所有不会被存放在 AO 中。
-- 第一段执行 console 的时候， AO 的值是：
-- AO = {
-    arguments: {
-        length: 0
-    }
-  }
-- 没有 a 的值，然后就会到全局去找，全局也没有，所以会报错。
-- 当第二段执行 console 的时候，全局对象已经被赋予了 a 属性，这时候就可以从全局找到 a 的值，所以会打印 1。
-- 2.第二题
-- console.log(foo);
-- function foo(){
-    console.log("foo");
-  }
-- var foo = 1;
-- 会打印函数，而不是 undefined 。
-- 这是因为在进入执行上下文时，首先会处理函数声明，其次会处理变量声明，如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性。
-- 3.第三题
-- function test() {
-  console.log("out");
-  }
-  (function () {
-  if (false) {
-    function test() {
-      console.log("in");
-    }
-  }
-  test();
-  })();
-  // 为什么这里输出的结果不是out，而是直接报错呢？
-- 在 Chrome 中，块级作用域内的函数声明，会发生提升行为，但请注意这个提升至 IIFE 的 test 是 undefined（这点与起初的认知是稍微有点不同，对吧），这是浏览器 JS 引擎的行为，那使用圆括号去调用 undefined 肯定会报错。还记得在 Safari 14 的时候，这段代码并不会报错，因为提升至 IIFE 的 test 就是一个函数，因此不会报错。当我今天再去试的时候（Safari 15），已经会报错了，表现与当前最新的 Chrome 一致。
-- 另外，在 ES5 规则中，函数只能在全局作用域和函数作用域内声明，而不能在块内声明。注意，这是规则本身就不允许的，但是浏览器厂商在实现的时候，并没有严格遵循这一规定，不同 JS 引擎实现可能有所不同。因此，才会有上述的差异。
-- 总的来说，应遵循这一原则：函数声明请在全局或函数作用域内声明，若在块内，请使用函数表达式。在 ESLint 中专门有一个规则去检查这种情况：no-inner-declarations。
-- 与你疑问相关的，此前我写过一篇文章有提到，有兴趣可以看下：[点击这里](https://www.jianshu.com/p/0e90b0e8f2d4)。
-- 在遇到一些不太理解的 ES6 语法的时候，不妨使用 [Babel](https://links.jianshu.com/go?to=https%3A%2F%2Fwww.babeljs.cn%2Frepl%23%3Fbrowsers%3D%26build%3D%26builtIns%3Dfalse%26corejs%3D3.6%26spec%3Dfalse%26loose%3Dfalse%26code_lz%3DMYewdgziA2CmB00QHMAUAzEICUAoA3rgARHoCuYwALgJbilarZH5EC-xRokMCSamHLg7cocRCgxZsQA%26debug%3Dfalse%26forceAllTransforms%3Dfalse%26shippedProposals%3Dfalse%26circleciRepo%3D%26evaluate%3Dfalse%26fileSize%3Dfalse%26timeTravel%3Dfalse%26sourceType%3Dmodule%26lineWrap%3Dtrue%26presets%3Denv%252Creact%252Cstage-0%26prettier%3Dtrue%26targets%3D%26version%3D7.15.3%26externalPlugins%3D) 转换一下，看看它们是怎么实现的，说不定会有灵光一现的感觉。
-- function test() {
-    console.log("out");
-  }
-- (function () {
-    if (false) {
-        var _test = function _test() {
-            console.log("in");        
-        }
-    }
-    _test();  // AO: { _test: undefined }
-  })();
+	- 在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值
+	- 还是上面的例子，当代码执行完后，这时候的 AO 是：
+	- ```
+	  AO = {
+	    arguments: {
+	        0: 1,
+	        length: 1
+	    },
+	    a: 1,
+	    b: 3,
+	    c: reference to function c(){},
+	    d: reference to FunctionExpression "d"
+	  }
+	  ```
+	- 到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：
+		- 1. 全局上下文的变量对象初始化是全局对象
+		- 2. 函数上下文的变量对象初始化只包括 Arguments 对象
+		- 3. 在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值
+		- 4. 在代码执行阶段，会再次修改变量对象的属性值
+- ## **思考题**
+- ---
+	- 最后让我们看几个例子：
+	- 1. 第一题
+	  ```
+	    function foo() {
+	      console.log(a);  
+	      a = 1;  
+	    }  
+	    foo(); // ???
+	    function bar() {
+	      a = 1;  
+	      console.log(a);  
+	    }  
+	    bar(); // ???
+	  ```
+		- 第一段会报错：Uncaught ReferenceError: a is not defined。
+		- 第二段会打印：1。
+		- 这是因为函数中的 "a" 并没有通过 var 关键字声明，所有不会被存放在 AO 中。
+		- 第一段执行 console 的时候， AO 的值是：
+		- ```
+		  AO = {
+		    arguments: {
+		        length: 0
+		    }
+		  }
+		  ```
+		- 没有 a 的值，然后就会到全局去找，全局也没有，所以会报错。
+		- 当第二段执行 console 的时候，全局对象已经被赋予了 a 属性，这时候就可以从全局找到 a 的值，所以会打印 1。
+	- 2. 第二题
+	  ```
+	    console.log(foo);
+	    function foo(){
+	      console.log("foo");  
+	    }  
+	    var foo = 1;
+	  ```
+		- 会打印函数，而不是 undefined 。
+		- 这是因为在[[#blue]]==进入执行上下文时，首先会处理函数声明，其次会处理变量声明==，如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性。
+	- 3.[[$red]]==第三题==
+	- ```
+	  function test() {
+	  console.log("out");
+	  }
+	  (function () {
+	  if (false) {
+	    function test() {
+	      console.log("in");
+	    }
+	  }
+	  test();
+	  })();
+	  // 为什么这里输出的结果不是out，而是直接报错呢？
+	  ```
+		- 在 Chrome 中，块级作用域内的函数声明，会发生提升行为，但请注意这个提升至 IIFE 的[[#blue]]== test== 是 [[#blue]]==undefined==（这点与起初的认知是稍微有点不同，对吧），这是浏览器 JS 引擎的行为，那[[#blue]]==使用圆括号去调用 undefined 肯定会报错==。还记得在 Safari 14 的时候，这段代码并不会报错，因为提升至 IIFE 的 test 就是一个函数，因此不会报错。当我今天再去试的时候（Safari 15），已经会报错了，表现与当前最新的 Chrome 一致。
+		- 另外，在 ES5 规则中，函数只能在全局作用域和函数作用域内声明，而不能在块内声明。注意，这是规则本身就不允许的，但是浏览器厂商在实现的时候，并没有严格遵循这一规定，不同 JS 引擎实现可能有所不同。因此，才会有上述的差异。
+		- 总的来说，应遵循这一原则：[[#blue]]==函数声明请在全局或函数作用域内声明，若在块内，请使用函数表达式==。在 ESLint 中专门有一个规则去检查这种情况：[[#green]]==no-inner-declarations==。
+		- 与你疑问相关的，此前我写过一篇文章有提到，有兴趣可以看下：[点击这里](https://www.jianshu.com/p/0e90b0e8f2d4)。
+		- 在遇到一些不太理解的 ES6 语法的时候，不妨使用 [Babel](https://links.jianshu.com/go?to=https%3A%2F%2Fwww.babeljs.cn%2Frepl%23%3Fbrowsers%3D%26build%3D%26builtIns%3Dfalse%26corejs%3D3.6%26spec%3Dfalse%26loose%3Dfalse%26code_lz%3DMYewdgziA2CmB00QHMAUAzEICUAoA3rgARHoCuYwALgJbilarZH5EC-xRokMCSamHLg7cocRCgxZsQA%26debug%3Dfalse%26forceAllTransforms%3Dfalse%26shippedProposals%3Dfalse%26circleciRepo%3D%26evaluate%3Dfalse%26fileSize%3Dfalse%26timeTravel%3Dfalse%26sourceType%3Dmodule%26lineWrap%3Dtrue%26presets%3Denv%252Creact%252Cstage-0%26prettier%3Dtrue%26targets%3D%26version%3D7.15.3%26externalPlugins%3D) 转换一下，看看它们是怎么实现的，说不定会有灵光一现的感觉。
+		- ```
+		    function test() {
+		      console.log("out");  
+		    }  
+		    (function () {
+		      if (false) {  
+		          var _test = function _test() {  
+		              console.log("in");  
+		          }  
+		      }  
+		      _test();  // AO: { _test: undefined }  
+		    })();
+		  ```
