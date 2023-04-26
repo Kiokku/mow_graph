@@ -4,4 +4,5 @@
 	- [[JavaScript深入之执行上下文栈]]
 	- [[JavaScript深入之变量对象]]
 	- [[JavaScript深入之作用域链]]
+	- [[JavaScript深入之从ECMAScript规范解读this]]
 -
