@@ -53,16 +53,15 @@
 	- ![image.png](../assets/image_1682418685086_0.png)
 - ## **原型链**
 - ---
-	- 那 Object.prototype 的原型呢？**null**，我们可以打印：
+	- 那 Object.prototype 的原型呢？[[#blue]]==**null**==，我们可以打印：
 	- ```
 	  - console.log(Object.prototype.**proto** === null) // true
 	  ```
-	- 所以 Object.prototype.__proto__ 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。所以查找属性的时候查到 Object.prototype 就可以停止查找了。
+	- 所以 Object.prototype.____proto____ 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。所以查找属性的时候查到 Object.prototype 就可以停止查找了。
 	- 最后一张关系图也可以更新为：
 	- ![image.png](../assets/image_1682418748617_0.png)
-	- 顺便还要说一下，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。
+	- 顺便还要说一下，图中由[[#blue]]==相互关联的原型组成的链状结构就是原型链==，也就是蓝色的这条线。
 - ## **补充**
-  collapsed:: true
 	- 最后，补充三点大家可能不会注意的地方：
 		- **constructor**
 			- ```
@@ -76,7 +75,7 @@
 					  person.constructor === Person.prototype.constructor
 					  ```
 		- **____proto____**
-			- 其次是 __proto__ ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.__proto__ 时，可以理解成返回了 Object.getPrototypeOf(obj)。
+			- 其次是 ____proto____ ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中，实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.____proto____ 时，可以理解成返回了 Object.getPrototypeOf(obj)。
 		- **真的是继承吗？**
 			- 最后是关于继承，前面我们讲到“每一个对象都会从原型‘继承’属性”，实际上，继承是一个十分具有迷惑性的说法，引用《你不知道的JavaScript》中的话，就是：
 			- 继承意味着复制操作，然而 JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，**委托**的说法反而更准确些。
