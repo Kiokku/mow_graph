@@ -300,4 +300,6 @@
 	  console.log((false || foo.bar)()); // 1
 	  
 	  ```
+	- 此外，又如何确定调用函数的对象是谁呢？在写文章之初，我就面临着这些问题，最后还是放弃从多个情形下给大家讲解 this 指向的思路，而是追根溯源的从 ECMASciript 规范讲解 this 的指向，尽管从这个角度写起来和读起来都比较吃力，但是一旦多读几遍，明白原理，绝对会给你一个全新的视角看待 this 。[[#blue]]==而你也就能明白，尽管 foo() 和 (foo.bar = foo.bar)() 最后结果都指向了 undefined，但是两者从规范的角度上却有着本质的区别==。
+- [参考《现代JavaScript》Reference Type](https://zh.javascript.info/reference-type)
 -
