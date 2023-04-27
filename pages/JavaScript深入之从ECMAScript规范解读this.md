@@ -102,3 +102,47 @@
 - ## **如何确定this的值**
 - ---
 	- 关于 Reference 讲了那么多，为什么要讲 Reference 呢？到底 Reference 跟本文的主题 this 有哪些关联呢？如果你能耐心看完之前的内容，以下开始进入高能阶段：
+	- 看规范 11.2.3 Function Calls：
+	- 这里讲了当函数调用的时候，如何确定 this 的取值。
+	- 只看第一步、第六步、第七步：
+	- > 1. Let *ref* be the result of evaluating MemberExpression.
+	- > 6. If Type(*ref*) is Reference, then
+	- > ```
+	  a.If IsPropertyReference(ref) is true, then
+	  ```
+		- >```
+		  i.Let thisValue be GetBase(ref).
+		  ```
+	- > ```
+	  b.Else, the base of ref is an Environment Record
+	  ```
+		- > ```
+		  i.Let thisValue be the result of calling the ImplicitThisValue concrete method of GetBase(ref).
+		  ```
+	- > 7. Else, Type(*ref*) is not Reference.
+	- >```
+	  a. Let thisValue be undefined.
+	  ```
+	- 让我们描述一下：
+		- 1. 计算 MemberExpression 的结果赋值给 ref
+		  2. 判断 ref 是不是一个 Reference 类型
+		- ```
+		  2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)
+		  2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)
+		  2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
+		  ```
+-
+- ## **具体分析**
+- ---
+	- 让我们一步一步看：
+		- 1. 计算 MemberExpression 的结果赋值给 ref
+	- 什么是 [[#blue]]==MemberExpression==？看规范 11.2 Left-Hand-Side Expressions：
+	- [[#blue]]==MemberExpression== :
+		- - PrimaryExpression // 原始表达式 可以参见《JavaScript权威指南第四章》
+		- - FunctionExpression // 函数定义表达式
+		- - MemberExpression [ Expression ] // 属性访问表达式
+		- - MemberExpression . IdentifierName // 属性访问表达式
+		- - new MemberExpression Arguments // 对象创建表达式
+	- 举个例子：
+	-
+-
