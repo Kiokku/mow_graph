@@ -134,7 +134,8 @@
 -
 - ## **具体分析**
 - ---
-	- 1. 计算 MemberExpression 的结果赋值给 ref
+	- collapsed:: true
+	  1. 计算 MemberExpression 的结果赋值给 ref
 		- 什么是 [[#blue]]==MemberExpression==？看规范 11.2 Left-Hand-Side Expressions：
 		- [[#blue]]==MemberExpression== :
 			- - PrimaryExpression // 原始表达式 可以参见《JavaScript权威指南第四章》
@@ -191,7 +192,7 @@
 		  //示例5
 		  console.log((foo.bar, foo.bar)());
 		  ```
-			- ### foo.bar()
+			- ### 1. foo.bar()
 			- 在示例 1 中，MemberExpression 计算的结果是 foo.bar，那么 foo.bar 是不是一个 Reference 呢？
 			- 查看规范 11.2.1 Property Accessors，这里展示了一个计算的过程，什么都不管了，就看最后一步：
 			- > Return a value of type Reference whose base value is baseValue and whose referenced name is propertyNameString, and whose strict mode flag is strict.
@@ -214,3 +215,59 @@
 			  this = GetBase(ref)
 			  ```
 			- GetBase 也已经铺垫了，获得 base value 值，这个例子中就是foo，所以 this 的值就是 foo ，示例1的结果就是 2！
+			- ### 2. (foo.bar)()
+			- foo.bar 被 () 包住，查看规范 11.1.6 The Grouping Operator
+			- 直接看结果部分：
+			- > Return the result of evaluating Expression. This may be of type Reference.
+			- > NOTE This algorithm does not apply GetValue to the result of evaluating Expression.
+			- 实际上 () 并[[#blue]]==没有对 MemberExpression 进行计算==，所以其实跟示例 1 的结果是一样的。
+			- ### 3. (foo.bar = foo.bar)()
+			- 看示例3，有[[#blue]]==赋值操作符==，查看规范 11.13.1 Simple Assignment ( = ):
+				- 计算的第三步：
+				- > 3.Let rval be GetValue(rref).
+			- 因为使用了 GetValue，所以返回的值[[#blue]]==不是 Reference 类型==，
+			- 按照之前讲的判断逻辑：
+			- > 2.3 如果 ref 不是Reference，那么 this 的值为 undefined
+			- this 为 undefined，[[#blue]]==非严格模式下==，this 的值为 undefined 的时候，其值会被[[#blue]]==隐式转换为全局对象==。
+			- ### 4. (false || foo.bar)()
+			- 看示例4，[[#blue]]==逻辑与算法==，查看规范 11.11 Binary Logical Operators：
+				- 计算第二步：
+				- > 2.Let lval be GetValue(lref).
+			- 因为使用了 GetValue，所以返回的不是 Reference 类型，this 为 undefined
+			- ### 5. (foo.bar, foo.bar)()
+			- 看示例5，逗号操作符，查看规范11.14 Comma Operator ( , )
+				- 计算第二步：
+				- > 2.Call GetValue(lref).
+			- 因为使用了 GetValue，所以返回的不是 Reference 类型，this 为 undefined
+		- ### 揭晓结果
+		- ```
+		  var value = 1;
+		  
+		  var foo = {
+		    value: 2,
+		    bar: function () {
+		      return this.value;
+		    }
+		  }
+		  
+		  //示例1
+		  console.log(foo.bar()); // 2
+		  //示例2
+		  console.log((foo.bar)()); // 2
+		  //示例3
+		  console.log((foo.bar = foo.bar)()); // 1
+		  //示例4
+		  console.log((false || foo.bar)()); // 1
+		  //示例5
+		  console.log((foo.bar, foo.bar)()); // 1
+		  ```
+		- 注意：以上是在[[#blue]]==非严格模式下==的结果，严格模式下因为 this 返回 undefined，所以示例 3 会报错。
+		- ### 补充
+		- ```
+		  function foo() {
+		      console.log(this)
+		  }
+		  
+		  foo(); 
+		  ```
+		-
