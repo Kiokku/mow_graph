@@ -302,4 +302,9 @@
 	  ```
 	- 此外，又如何确定调用函数的对象是谁呢？在写文章之初，我就面临着这些问题，最后还是放弃从多个情形下给大家讲解 this 指向的思路，而是追根溯源的从 ECMASciript 规范讲解 this 的指向，尽管从这个角度写起来和读起来都比较吃力，但是一旦多读几遍，明白原理，绝对会给你一个全新的视角看待 this 。[[#blue]]==而你也就能明白，尽管 foo() 和 (foo.bar = foo.bar)() 最后结果都指向了 undefined，但是两者从规范的角度上却有着本质的区别==。
 - [参考《现代JavaScript》Reference Type](https://zh.javascript.info/reference-type)
+	- 为确保 `obj.method()` 调用正常运行，JavaScript 玩了个小把戏 —— 点 `'.'` 返回的不是一个函数，而是一个特殊的 [Reference Type](https://tc39.github.io/ecma262/#sec-reference-specification-type) 的值。
+	- 对属性 `obj.method` 访问的结果不是一个函数，而是一个 Reference Type 的值。
+	- Reference Type 是一个特殊的“中间人”内部类型，目的是从 `.` 传递信息给 `()` 调用。
+	- 任何例如赋值 `method = obj.method` 等其他的操作，都会将 Reference Type 作为一个整体丢弃掉，而会取 `obj.method`（一个函数）的值并继续传递。所以任何后续操作都“丢失”了 `this`。
+	- 因此，`this` 的值仅在函数直接被通过点符号 `obj.method()` 或方括号 `obj['method']()` 语法（此处它们作用相同）调用时才被正确传递。还有很多种解决这个问题的方式，例如 [func.bind()](https://zh.javascript.info/bind#solution-2-bind)。
 -
