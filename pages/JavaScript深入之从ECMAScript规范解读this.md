@@ -191,3 +191,26 @@
 		  //示例5
 		  console.log((foo.bar, foo.bar)());
 		  ```
+			- ### foo.bar()
+			- 在示例 1 中，MemberExpression 计算的结果是 foo.bar，那么 foo.bar 是不是一个 Reference 呢？
+			- 查看规范 11.2.1 Property Accessors，这里展示了一个计算的过程，什么都不管了，就看最后一步：
+			- > Return a value of type Reference whose base value is baseValue and whose referenced name is propertyNameString, and whose strict mode flag is strict.
+			- 我们得知该表达式返回了一个 Reference 类型！
+			- 根据之前的内容，我们知道该值为：
+			- ```
+			  var Reference = {
+			    base: foo,
+			    name: 'bar',
+			    strict: false
+			  };
+			  ```
+			- 接下来按照 2.1 的判断流程走：
+			- > 2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)
+			- 该值是 Reference 类型，那么 IsPropertyReference(ref) 的结果是多少呢？
+			- 前面我们已经铺垫了 IsPropertyReference 方法，如果 base value 是一个对象，结果返回 true。
+			- base value 为 foo，是一个对象，所以 IsPropertyReference(ref) 结果为 true。
+			- 这个时候我们就可以确定 this 的值了：
+			- ```
+			  this = GetBase(ref)
+			  ```
+			- GetBase 也已经铺垫了，获得 base value 值，这个例子中就是foo，所以 this 的值就是 foo ，示例1的结果就是 2！
