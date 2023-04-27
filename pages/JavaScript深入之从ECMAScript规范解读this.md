@@ -14,3 +14,36 @@
 	- 英文版：[http://es5.github.io/#x15.1](http://es5.github.io/#x15.1)
 	- 中文版：[http://yanhaijing.com/es5/#115](http://yanhaijing.com/es5/#115)
 	- 让我们开始了解规范吧！
+- ## **Types**
+- ---
+	- ECMAScript 的类型分为[[#blue]]==语言类型==和[[#blue]]==规范类型==。
+	- ECMAScript 语言类型是开发者直接使用 ECMAScript 可以操作的。其实就是我们常说的[[#blue]]==Undefined==, [[#blue]]==Null==, [[#blue]]==Boolean==, [[#blue]]==String==, [[#blue]]==Number==, 和 [[#blue]]==Object==。
+	- 而规范类型相当于 meta-values，是用来用算法描述 ECMAScript 语言结构和 ECMAScript 语言类型的。规范类型包括：[[#blue]]==Reference==, [[#blue]]==List==, [[#blue]]==Completion==, [[#blue]]==Property Descriptor==, [[#blue]]==Property Identifier==, [[#blue]]==Lexical Environment==, 和 [[#blue]]==Environment Record==。
+	- 没懂？没关系，我们只要知道在 ECMAScript 规范中还有一种只存在于规范中的类型，它们的作用是用来描述语言底层行为逻辑。
+	- 今天我们要讲的重点是便是其中的 [[#blue]]==Reference== 类型。它与 this 的指向有着密切的关联。
+-
+- ## **Reference**
+- ---
+	- 那什么又是 Reference ？
+	- > The Reference type is used to explain the behaviour of such operators as delete, typeof, and the assignment operators.
+	- 所以 Reference 类型就是用来解释诸如 delete、typeof 以及赋值等操作行为的。
+- 抄袭尤雨溪大大的话，就是：
+- >
+- 这里的 Reference 是一个 Specification Type，也就是 “只存在于规范里的抽象类型”。它们是为了更好地描述语言的底层行为逻辑才存在的，但并不存在于实际的 js 代码中。
+- 再看接下来的这段具体介绍 Reference 的内容：
+- >
+- A Reference is a resolved name binding.
+- >
+- A Reference consists of three components, the base value, the referenced name and the Boolean valued strict reference flag.
+- >
+- The base value is either undefined, an Object, a Boolean, a String, a Number, or an environment record (10.2.1).
+- >
+- A base value of undefined indicates that the reference could not be resolved to a binding. The referenced name is a String.
+- 这段讲述了 Reference 的构成，由三个组成部分，分别是：
+- base value
+- referenced name
+- strict reference
+- 可是这些到底是什么呢？
+- 我们简单的理解的话：
+- base value 就是属性所在的对象或者就是 EnvironmentRecord，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。
+- referenced name 就是属性的名称。
