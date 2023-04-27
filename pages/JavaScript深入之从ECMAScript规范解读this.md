@@ -27,23 +27,47 @@
 	- 那什么又是 Reference ？
 	- > The Reference type is used to explain the behaviour of such operators as delete, typeof, and the assignment operators.
 	- 所以 Reference 类型就是用来解释诸如 delete、typeof 以及赋值等操作行为的。
-- 抄袭尤雨溪大大的话，就是：
-- >
-- 这里的 Reference 是一个 Specification Type，也就是 “只存在于规范里的抽象类型”。它们是为了更好地描述语言的底层行为逻辑才存在的，但并不存在于实际的 js 代码中。
-- 再看接下来的这段具体介绍 Reference 的内容：
-- >
-- A Reference is a resolved name binding.
-- >
-- A Reference consists of three components, the base value, the referenced name and the Boolean valued strict reference flag.
-- >
-- The base value is either undefined, an Object, a Boolean, a String, a Number, or an environment record (10.2.1).
-- >
-- A base value of undefined indicates that the reference could not be resolved to a binding. The referenced name is a String.
-- 这段讲述了 Reference 的构成，由三个组成部分，分别是：
-- base value
-- referenced name
-- strict reference
-- 可是这些到底是什么呢？
-- 我们简单的理解的话：
-- base value 就是属性所在的对象或者就是 EnvironmentRecord，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。
-- referenced name 就是属性的名称。
+	- 抄袭尤雨溪大大的话，就是：
+	- > 这里的 Reference 是一个 Specification Type，也就是 “只存在于规范里的抽象类型”。它们是为了更好地描述语言的底层行为逻辑才存在的，但[[#red]]==并不存在于实际的 js 代码中==。
+	- 再看接下来的这段具体介绍 Reference 的内容：
+	- > A Reference is a resolved name binding.
+	- > A Reference consists of three components, the base value, the referenced name and the Boolean valued strict reference flag.
+	- > The base value is either undefined, an Object, a Boolean, a String, a Number, or an environment record (10.2.1).
+	- > A base value of undefined indicates that the reference could not be resolved to a binding. The referenced name is a String.
+	- 这段讲述了 Reference 的构成，由三个组成部分，分别是：
+		- base value
+		- referenced name
+		- strict reference
+	- 可是这些到底是什么呢？
+	- 我们简单的理解的话：
+	- base value 就是属性所在的对象或者就是 Environment Record，它的值只可能是 undefined, an Object, a Boolean, a String, a Number, or an environment record 其中的一种。
+	- referenced name 就是属性的名称。
+	- 举个例子：
+	- ```
+	  var foo = 1;
+	  
+	  // 对应的Reference是：
+	  var fooReference = {
+	      base: EnvironmentRecord,
+	      name: 'foo',
+	      strict: false
+	  };
+	  ```
+	- 再举个例子：
+	- ```
+	  var foo = {
+	      bar: function () {
+	          return this;
+	      }
+	  };
+	   
+	  foo.bar(); // foo
+	  
+	  // bar对应的Reference是：
+	  var BarReference = {
+	      base: foo,
+	      propertyName: 'bar',
+	      strict: false
+	  };
+	  
+	  ```
