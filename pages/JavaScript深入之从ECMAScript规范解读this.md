@@ -134,15 +134,60 @@
 -
 - ## **具体分析**
 - ---
-	- 让我们一步一步看：
-		- 1. 计算 MemberExpression 的结果赋值给 ref
-	- 什么是 [[#blue]]==MemberExpression==？看规范 11.2 Left-Hand-Side Expressions：
-	- [[#blue]]==MemberExpression== :
-		- - PrimaryExpression // 原始表达式 可以参见《JavaScript权威指南第四章》
-		- - FunctionExpression // 函数定义表达式
-		- - MemberExpression [ Expression ] // 属性访问表达式
-		- - MemberExpression . IdentifierName // 属性访问表达式
-		- - new MemberExpression Arguments // 对象创建表达式
-	- 举个例子：
-	-
--
+	- 1. 计算 MemberExpression 的结果赋值给 ref
+		- 什么是 [[#blue]]==MemberExpression==？看规范 11.2 Left-Hand-Side Expressions：
+		- [[#blue]]==MemberExpression== :
+			- - PrimaryExpression // 原始表达式 可以参见《JavaScript权威指南第四章》
+			- - FunctionExpression // 函数定义表达式
+			- - MemberExpression [ Expression ] // 属性访问表达式
+			- - MemberExpression . IdentifierName // 属性访问表达式
+			- - new MemberExpression Arguments // 对象创建表达式
+		- 举个例子：
+		- ```
+		  function foo() {
+		      console.log(this)
+		  }
+		  
+		  foo(); // MemberExpression 是 foo
+		  
+		  function foo() {
+		      return function() {
+		          console.log(this)
+		      }
+		  }
+		  
+		  foo()(); // MemberExpression 是 foo()
+		  
+		  var foo = {
+		      bar: function () {
+		          return this;
+		      }
+		  }
+		  
+		  foo.bar(); // MemberExpression 是 foo.bar
+		  ```
+		- 所以简单理解 [[#blue]]==MemberExpression 其实就是()左边的部分==。
+	- 2. 判断 ref 是不是一个 Reference 类型。
+		- 关键就在于看规范是如何处理各种 MemberExpression，[[#blue]]==返回的结果是不是一个Reference类型==。
+		- 举最后一个例子：
+		- ```
+		  var value = 1;
+		  
+		  var foo = {
+		    value: 2,
+		    bar: function () {
+		      return this.value;
+		    }
+		  }
+		  
+		  //示例1
+		  console.log(foo.bar());
+		  //示例2
+		  console.log((foo.bar)());
+		  //示例3
+		  console.log((foo.bar = foo.bar)());
+		  //示例4
+		  console.log((false || foo.bar)());
+		  //示例5
+		  console.log((foo.bar, foo.bar)());
+		  ```
