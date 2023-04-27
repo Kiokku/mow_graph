@@ -71,3 +71,34 @@
 	  };
 	  
 	  ```
+	- 而且规范中还提供了获取 Reference 组成部分的方法，比如 [[#blue]]==GetBase== 和 [[#blue]]==IsPropertyReference==。
+	- 这两个方法很简单，简单看一看：
+		- 1. GetBase
+			- > GetBase(V). Returns the base value component of the reference V.
+			- 返回 reference 的 base value。
+		- 2. IsPropertyReference
+			- > IsPropertyReference(V). Returns true if either the base value is an object or HasPrimitiveBase(V) is true; otherwise returns false.
+			- 简单的理解：如果 base value 是一个对象，就返回true。
+-
+- ## **GetValue**
+- ---
+	- 除此之外，紧接着在 8.7.1 章规范中就讲了一个用于从 Reference 类型获取对应值的方法： [[#blue]]==GetValue==。
+	- 简单模拟 GetValue 的使用：
+	- ```
+	  var foo = 1;
+	  
+	  var fooReference = {
+	      base: EnvironmentRecord,
+	      name: 'foo',
+	      strict: false
+	  };
+	  
+	  GetValue(fooReference) // 1;
+	  ```
+	- GetValue 返回对象属性真正的值，但是要注意：
+		- **==调用 GetValue，返回的将是具体的值，而不再是一个 Reference==**
+	- 这个很重要，这个很重要，这个很重要。
+-
+- ## **如何确定this的值**
+- ---
+	- 关于 Reference 讲了那么多，为什么要讲 Reference 呢？到底 Reference 跟本文的主题 this 有哪些关联呢？如果你能耐心看完之前的内容，以下开始进入高能阶段：
