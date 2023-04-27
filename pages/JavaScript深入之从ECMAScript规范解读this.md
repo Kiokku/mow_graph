@@ -270,4 +270,34 @@
 		  
 		  foo(); 
 		  ```
-		-
+		- MemberExpression 是 foo，解析标识符，查看规范 10.3.1 Identifier Resolution，会返回一个 Reference 类型的值：
+		- ```
+		  var fooReference = {
+		      base: EnvironmentRecord,
+		      name: 'foo',
+		      strict: false
+		  };
+		  ```
+		- 接下来进行判断：
+			- > 2.1 如果 ref 是 Reference，并且 IsPropertyReference(ref) 是 true, 那么 this 的值为 GetBase(ref)
+		- 因为 base value 是 EnvironmentRecord，并不是一个 Object 类型，还记得前面讲过的 base value 的取值可能吗？ 只可能是 undefined, an Object, a Boolean, a String, a Number, 和 an environment record 中的一种。
+		- IsPropertyReference(ref) 的结果为 false，进入下个判断：
+			- > 2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)
+		- 查看规范 10.2.1.1.6，[[#blue]]==ImplicitThisValue 方法==的介绍：该函数始终返回 undefined。
+		- 所以最后 this 的值就是 undefined。
+- ## **多说一句**
+- ---
+	- 尽管我们可以简单的理解 this 为调用函数的对象，如果是这样的话，如何解释下面这个例子呢？
+	- ```
+	  var value = 1;
+	  
+	  var foo = {
+	    value: 2,
+	    bar: function () {
+	      return this.value;
+	    }
+	  }
+	  console.log((false || foo.bar)()); // 1
+	  
+	  ```
+-
