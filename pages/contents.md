@@ -8,7 +8,7 @@
 		- [[JavaScript深入之从ECMAScript规范解读this]]
 		- [[JavaScript深入之执行上下文]]
 		-
-- 算法笔记
+- 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 - 正则表达式
