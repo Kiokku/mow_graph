@@ -1,6 +1,6 @@
 - > [https://github.com/mqyqingfeng/Blog/issues/7](https://github.com/mqyqingfeng/Blog/issues/7)
 -
-- ## **前言**
+- ## 前言
 - ---
 	- 在《JavaScript深入之执行上下文栈》中讲到，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。
 	- 对于每个执行上下文，都有三个重要属性
@@ -14,7 +14,7 @@
 	- 英文版：[http://es5.github.io/#x15.1](http://es5.github.io/#x15.1)
 	- 中文版：[http://yanhaijing.com/es5/#115](http://yanhaijing.com/es5/#115)
 	- 让我们开始了解规范吧！
-- ## **Types**
+- ## Types
 - ---
 	- ECMAScript 的类型分为[[#blue]]==语言类型==和[[#blue]]==规范类型==。
 	- ECMAScript 语言类型是开发者直接使用 ECMAScript 可以操作的。其实就是我们常说的[[#blue]]==Undefined==, [[#blue]]==Null==, [[#blue]]==Boolean==, [[#blue]]==String==, [[#blue]]==Number==, 和 [[#blue]]==Object==。
@@ -22,7 +22,7 @@
 	- 没懂？没关系，我们只要知道在 ECMAScript 规范中还有一种只存在于规范中的类型，它们的作用是用来描述语言底层行为逻辑。
 	- 今天我们要讲的重点是便是其中的 [[#blue]]==Reference== 类型。它与 this 的指向有着密切的关联。
 -
-- ## **Reference**
+- ## Reference
 - ---
 	- 那什么又是 Reference ？
 	- > The Reference type is used to explain the behaviour of such operators as delete, typeof, and the assignment operators.
@@ -80,7 +80,7 @@
 			- > IsPropertyReference(V). Returns true if either the base value is an object or HasPrimitiveBase(V) is true; otherwise returns false.
 			- 简单的理解：如果 base value 是一个对象，就返回true。
 -
-- ## **GetValue**
+- ## GetValue
 - ---
 	- 除此之外，紧接着在 8.7.1 章规范中就讲了一个用于从 Reference 类型获取对应值的方法： [[#blue]]==GetValue==。
 	- 简单模拟 GetValue 的使用：
@@ -99,7 +99,7 @@
 		- **==调用 GetValue，返回的将是具体的值，而不再是一个 Reference==**
 	- 这个很重要，这个很重要，这个很重要。
 -
-- ## **如何确定this的值**
+- ## 如何确定this的值
 - ---
 	- 关于 Reference 讲了那么多，为什么要讲 Reference 呢？到底 Reference 跟本文的主题 this 有哪些关联呢？如果你能耐心看完之前的内容，以下开始进入高能阶段：
 	- 看规范 11.2.3 Function Calls：
@@ -132,7 +132,7 @@
 		  2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
 		  ```
 -
-- ## **具体分析**
+- ## 具体分析
 - ---
 	- collapsed:: true
 	  1. 计算 MemberExpression 的结果赋值给 ref
@@ -285,7 +285,7 @@
 			- > 2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)
 		- 查看规范 10.2.1.1.6，[[#blue]]==ImplicitThisValue 方法==的介绍：该函数始终返回 undefined。
 		- 所以最后 this 的值就是 undefined。
-- ## **多说一句**
+- ## 多说一句
 - ---
 	- 尽管我们可以简单的理解 this 为调用函数的对象，如果是这样的话，如何解释下面这个例子呢？
 	- ```
