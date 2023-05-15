@@ -38,4 +38,33 @@
 	  checkscope();
 	  ```
 		- 1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈
+			- ```
+			      ECStack = [
+			          globalContext
+			      ];
+			  ```
+		- 2.全局上下文初始化。初始化的同时，checkscope 函数被创建，保存作用域链到函数的内部属性[[scope]]
+			- ```
+			      globalContext = {
+			          VO: [global],
+			          Scope: [globalContext.VO],
+			          this: globalContext.VO
+			      }
+			      
+			      checkscope.[[scope]] = [
+			        globalContext.VO
+			      ];
+			  ```
+		- 3.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈
+			- ```
+			      ECStack = [
+			          checkscopeContext,
+			          globalContext
+			      ];
+			  ```
+		- 4.checkscope 函数执行上下文初始化：
+			- - 复制函数 [[scope]] 属性创建作用域链，
+			  - 用 arguments 创建活动对象，
+			  - 初始化活动对象，即加入形参、函数声明、变量声明，
+			  - 将活动对象压入 checkscope 作用域链顶端。
 		-
