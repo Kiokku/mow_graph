@@ -63,8 +63,48 @@
 			      ];
 			  ```
 		- 4.checkscope 函数执行上下文初始化：
-			- - 复制函数 [[scope]] 属性创建作用域链，
-			  - 用 arguments 创建活动对象，
-			  - 初始化活动对象，即加入形参、函数声明、变量声明，
-			  - 将活动对象压入 checkscope 作用域链顶端。
+			- 1. 复制函数 `[[scope]]` 属性创建作用域链，
+			  2. 用 arguments 创建活动对象，
+			  3. 初始化活动对象，即加入形参、函数声明、变量声明，
+			  4. 将活动对象压入 checkscope 作用域链顶[[]]
+			- 同时 f 函数被创建，保存作用域链到 f 函数的内部属性`[[scope]]`
+			  collapsed:: true
+				- ```
+				      checkscopeContext = {
+				          AO: {
+				              arguments: {
+				                  length: 0
+				              },
+				              scope: undefined,
+				              f: reference to function f(){}
+				          },
+				          Scope: [AO, globalContext.VO],
+				          this: undefined
+				      }
+				  ```
+		- 5.执行 f 函数，创建 f 函数执行上下文，f 函数执行上下文被压入执行上下文栈
+			- ```
+			      ECStack = [
+			          fContext,
+			          checkscopeContext,
+			          globalContext
+			      ];
+			  ```
+		- 6.f 函数执行上下文初始化, 以下跟第 4 步相同：
+			- 1. 复制函数 `[[scope]]` 属性创建作用域链
+			  2. 用 arguments 创建活动对象
+			  3. 初始化活动对象，即加入形参、函数声明、变量声明
+			  4. 将活动对象压入 f 作用域链顶端
+			- ```
+			      fContext = {
+			          AO: {
+			              arguments: {
+			                  length: 0
+			              }
+			          },
+			          Scope: [AO, checkscopeContext.AO, globalContext.VO],
+			          this: undefined
+			      }
+			  ```
+		- 7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值
 		-
