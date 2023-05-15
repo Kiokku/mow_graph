@@ -107,4 +107,18 @@
 			      }
 			  ```
 		- 7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值
-		-
+		- 8.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出
+			- ```
+			      ECStack = [
+			          checkscopeContext,
+			          globalContext
+			      ];
+			  ```
+		- 9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出
+			- ```
+			      ECStack = [
+			          globalContext
+			      ];
+			  ```
+- ## 重要参考
+	- [《一道js面试题引发的思考》](https://github.com/kuitos/kuitos.github.io/issues/18)
