@@ -40,4 +40,21 @@
 	  var foo = checkscope();
 	  foo();
 	  ```
-	- 首先我们要分析一下这段代码中执行上下文栈和执行上下文的变化情况。
+	- 首先我们要分析一下这段代码中执行上下文栈和执行上下文的变化情况：
+		- 1. 进入全局代码，创建全局执行上下文，全局执行上下文压入执行上下文栈
+		  2. 全局执行上下文初始化
+		  3. 执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 执行上下文被压入执行上下文栈
+		  4. checkscope 执行上下文初始化，创建变量对象、作用域链、this等
+		  5. checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出
+		  6. 执行 f 函数，创建 f 函数执行上下文，f 执行上下文被压入执行上下文栈
+		  7. f 执行上下文初始化，创建变量对象、作用域链、this等
+		  8. f 函数执行完毕，f 函数上下文从执行上下文栈中弹出
+	- 了解到这个过程，我们应该思考一个问题，那就是：
+		- 当 f 函数执行的时候，[[#red]]==checkscope 函数上下文已经被销毁了啊==(即从执行上下文栈中被弹出)，怎么还会读取到 checkscope 作用域下的 scope 值呢？
+	- 当我们了解了具体的执行过程后，我们知道 f 执行上下文维护了一个作用域链：
+		- ```
+		  fContext = {
+		      Scope: [AO, checkscopeContext.AO, globalContext.VO],
+		  }
+		  ```
+	- 对的，就是因为这个作用域链，f 函数依然可以读取到 checkscopeContext.AO 的值，说明当 f 函数引用了 checkscopeContext.AO 中的值的时候，即使 checkscopeContext 被销毁了，但是 JavaScript 依然会让 checkscopeContext.AO 活在内存中，f 函数依然可以通过 f 函数的作用域链找到它，正是因为 JavaScript 做到了这一点，从而实现了闭包这个概念。
