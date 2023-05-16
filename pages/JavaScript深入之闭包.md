@@ -1,3 +1,9 @@
 - > [https://github.com/mqyqingfeng/Blog/issues/9](https://github.com/mqyqingfeng/Blog/issues/9)
 -
--
+- ## 定义
+	- MDN 对闭包的定义为：
+	- > 闭包是指那些能够访问自由变量的函数。
+	- 那什么是自由变量呢？
+	- > `自由变量`是指在函数中使用的，但既不是函数参数也不是函数的局部变量的变量。
+	- 由此，我们可以看出闭包共有两部分组成：
+	- >
