@@ -74,17 +74,67 @@
 	  data[1]();
 	  data[2]();
 	  ```
-	- 答案是都是 3，让我们分析一下原因：
-	- 当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
-		- ```
-		  globalContext = {
-		      VO: {
-		          data: [...],
-		          i: 3
-		      }
-		  }
-		  ```
-	- 当执行 data[0] 函数的时候，data[0] 函数的作用域链为：
-		- ```
-		  ```
-		-
+		- 答案是都是 3，让我们分析一下原因：
+		- 当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
+			- ```
+			  globalContext = {
+			      VO: {
+			          data: [...],
+			          i: 3
+			      }
+			  }
+			  ```
+		- 当执行 data[0] 函数的时候，data[0] 函数的作用域链为：
+			- ```
+			  data[0]Context = {
+			      Scope: [AO, globalContext.VO]
+			  }
+			  ```
+		- data[0]Context 的 AO 并没有 i 值，所以会从 globalContext.VO 中查找，i 为 3，所以打印的结果就是 3。
+		- data[1] 和 data[2] 是一样的道理。
+	- 所以让我们改成闭包看看：
+	- ```
+	  var data = [];
+	  
+	  for (var i = 0; i < 3; i++) {
+	    data[i] = (function (i) {
+	          return function(){
+	              console.log(i);
+	          }
+	    })(i);
+	  }
+	  
+	  data[0]();
+	  data[1]();
+	  data[2]();
+	  ```
+		- 当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
+			- ```
+			  globalContext = {
+			      VO: {
+			          data: [...],
+			          i: 3
+			      }
+			  }
+			  ```
+		- 跟没改之前一模一样。
+		- 当执行 data[0] 函数的时候，data[0] 函数的作用域链发生了改变：
+			- ```
+			  data[0]Context = {
+			      Scope: [AO, 匿名函数Context.AO, globalContext.VO]
+			  }
+			  ```
+		- 匿名函数执行上下文的AO为：
+			- ```
+			  匿名函数Context = {
+			      AO: {
+			          arguments: {
+			              0: 0,
+			              length: 1
+			          },
+			          i: 0
+			      }
+			  }
+			  ```
+		- data[0]Context 的 AO 并没有 i 值，所以会沿着作用域链从匿名函数 Context.AO 中查找，这时候就会找 i 为 0，找到了就不会往 globalContext.VO 中查找了，即使 globalContext.VO 也有 i 的值(值为3)，所以打印的结果就是0。
+		- data[1] 和 data[2] 是一样的道理。
