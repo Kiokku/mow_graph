@@ -60,3 +60,31 @@
 	- 对的，就是因为这个[[#blue]]==作用域链==，f 函数依然可以读取到 checkscopeContext.AO 的值，说明当 f 函数引用了 checkscopeContext.AO 中的值的时候，即使 checkscopeContext 被销毁了，但是 JavaScript 依然会让 checkscopeContext.AO 活在内存中，f 函数依然可以通过 f 函数的作用域链找到它，正是因为 JavaScript 做到了这一点，从而实现了闭包这个概念。
 	- 在这里再补充一个《JavaScript权威指南》英文原版对闭包的定义:
 	- > This combination of a function object and a scope (a set of variable bindings) in which the function’s variables are resolved is called a closure in the computer science literature.
+- ## 必刷题
+	- ```
+	  var data = [];
+	  
+	  for (var i = 0; i < 3; i++) {
+	    data[i] = function () {
+	      console.log(i);
+	    };
+	  }
+	  
+	  data[0]();
+	  data[1]();
+	  data[2]();
+	  ```
+	- 答案是都是 3，让我们分析一下原因：
+	- 当执行到 data[0] 函数之前，此时全局上下文的 VO 为：
+		- ```
+		  globalContext = {
+		      VO: {
+		          data: [...],
+		          i: 3
+		      }
+		  }
+		  ```
+	- 当执行 data[0] 函数的时候，data[0] 函数的作用域链为：
+		- ```
+		  ```
+		-
