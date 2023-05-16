@@ -26,4 +26,18 @@
 			  2. 在代码中引用了自由变量
 	-
 	- 接下来就来讲讲实践上的闭包。
--
+- ## 分析
+	- ```
+	  var scope = "global scope";
+	  function checkscope(){
+	      var scope = "local scope";
+	      function f(){
+	          return scope;
+	      }
+	      return f;
+	  }
+	  
+	  var foo = checkscope();
+	  foo();
+	  ```
+	- 首先我们要分析一下这段代码中执行上下文栈和执行上下文的变化情况。
