@@ -8,6 +8,7 @@
 		- [[JavaScript深入之从ECMAScript规范解读this]]
 		- [[JavaScript深入之执行上下文]]
 		- [[JavaScript深入之闭包]]
+		- [[JavaScript深入之参数按值传递]]
 		-
 - 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]
