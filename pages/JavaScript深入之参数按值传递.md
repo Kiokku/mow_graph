@@ -32,4 +32,20 @@
 	  foo(obj);
 	  console.log(obj.value) // 2
 	  ```
-	-
+	- 哎，不对啊，连我们的红宝书都说了 ECMAScript 中所有函数的参数都是按值传递的，这怎么能按"引用传递"成功呢？
+	- 而这究竟是不是引用传递呢？
+- ## 第三种传递方式
+	- 不急，让我们再看个例子：
+	- ```
+	  var obj = {
+	      value: 1
+	  };
+	  function foo(o) {
+	      o = 2;
+	      console.log(o); //2
+	  }
+	  foo(obj);
+	  console.log(obj.value) // 1
+	  ```
+	- 如果 JavaScript 采用的是引用传递，外层的值也会被修改呐，这怎么又没被改呢？所以真的不是引用传递吗？
+	- 这就要讲到其实还有第三种传递方式，叫按共享传递。
