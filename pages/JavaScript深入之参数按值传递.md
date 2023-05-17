@@ -1,0 +1,8 @@
+- > [https://github.com/mqyqingfeng/Blog/issues/10](https://github.com/mqyqingfeng/Blog/issues/10)
+-
+- ## 定义
+	- 在《JavaScript高级程序设计》第三版 4.1.3，讲到传递参数：
+	- > ECMAScript中所有函数的参数都是[[#blue]]==按值传递==的。
+	- > 把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。
+- ## 按值传递
+	-
