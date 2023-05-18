@@ -111,7 +111,7 @@
 	      for(var i = 1, len = arguments.length; i < len; i++) {
 	          args.push('arguments[' + i + ']');
 	      }
-	      eval('context.fn(' + args +')'); // ???
+	      eval('context.fn(' + args +')'); // 拼接 'context.fn（' 和 args 和  ')'
 	      delete context.fn;
 	  }
 	  
