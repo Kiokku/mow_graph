@@ -20,5 +20,7 @@
 	- [[#blue]]==需求设计==
 		- **需求设计规范 (SRS: Software Requirement Specific）**
 	- [[#blue]]==项目初始化==
-		- `框架`: create-react
+		- `框架`: [[$blue]]==create-react-app==
+		- `项目依赖`：
+			- `npm install typescript-plugin-css-modules --save-dev`
 		-
