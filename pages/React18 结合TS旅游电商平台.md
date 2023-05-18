@@ -18,4 +18,7 @@
 	- [[#blue]]==界面设计==
 		- **UI设计规范**
 	- [[#blue]]==需求设计==
-		- 需求设计规范（ ![image.png](../assets/image_1684419748463_0.png)(SRS: Software Requirement Specific ）
+		- **需求设计规范 (SRS: Software Requirement Specific）**
+	- [[#blue]]==项目初始化==
+		- `框架`: create-react
+		-
