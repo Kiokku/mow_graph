@@ -71,4 +71,64 @@
 	  // 18
 	  // 1
 	  ```
+	- 注意：传入的参数并不确定，这可咋办？
+	- 不急，我们可以从 Arguments 对象中取值，取出第二个到最后一个参数，然后放到一个数组里。
+	- 比如这样：
+	- ```
+	  // 以上个例子为例，此时的arguments为：
+	  // arguments = {
+	  //      0: foo,
+	  //      1: 'kevin',
+	  //      2: 18,
+	  //      length: 3
+	  // }
+	  // 因为arguments是类数组对象，所以可以用for循环
+	  var args = [];
+	  for(var i = 1, len = arguments.length; i < len; i++) {
+	      args.push('arguments[' + i + ']');
+	  }
+	  
+	  // 执行后 args为 ["arguments[1]", "arguments[2]"]
+	  ```
+	- 不定长的参数问题解决了，我们接着要把这个参数数组放到要执行的函数的参数里面去。
+	- ```
+	  // 将数组里的元素作为多个参数放进函数的形参里
+	  context.fn(args.join(','))
+	  // (O_o)??
+	  // 这个方法肯定是不行的啦！！！
+	  ```
+	- 也许有人想到用 ES6 的方法，不过 call 是 ES3 的方法，我们为了模拟实现一个 ES3 的方法，要用到ES6的方法，好像……，嗯，也可以啦。但是我们这次用 eval 方法拼成一个函数，类似于这样：
+	- ```
+	  eval('context.fn(' + args +')')
+	  ```
+	- 这里 args 会自动调用 Array.toString() 这个方法。
+	- 所以我们的第二版克服了两个大问题，代码如下：
+	- ```
+	  // 第二版
+	  Function.prototype.call2 = function(context) {
+	      context.fn = this;
+	      var args = [];
+	      for(var i = 1, len = arguments.length; i < len; i++) {
+	          args.push('arguments[' + i + ']');
+	      }
+	      eval('context.fn(' + args +')');
+	      delete context.fn;
+	  }
+	  
+	  // 测试一下
+	  var foo = {
+	      value: 1
+	  };
+	  
+	  function bar(name, age) {
+	      console.log(name)
+	      console.log(age)
+	      console.log(this.value);
+	  }
+	  
+	  bar.call2(foo, 'kevin', 18); 
+	  // kevin
+	  // 18
+	  // 1
+	  ```
 	-
