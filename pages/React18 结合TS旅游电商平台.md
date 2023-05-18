@@ -1,0 +1,9 @@
+- > https://coding.imooc.com/learn/list/475.html
+-
+- ## 项目规划
+	- [[#blue]]==业务规划图==
+		- ![image.png](../assets/image_1684418859848_0.png)
+	- [[#blue]]==页面规划==
+		- `产品模块`
+		- ![image.png](../assets/image_1684419068793_0.png)
+		- `用户魔`
