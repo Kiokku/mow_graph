@@ -16,5 +16,42 @@
 	  bar.call(foo); // 1
 	  ```
 	- 注意两点：
-	- call 改变了 this 的指向，指向到 foo
-	- bar 函数执行了
+		- 1. call 改变了 this 的指向，指向到 foo
+		  2. bar 函数执行了
+- ## 模拟实现第一步
+	- 我们模拟的步骤可以分为：
+		- 1. 将函数设为对象的属性
+		  2. 执行该函数
+		  3. 删除该函数
+	- 以上个例子为例，就是：
+	- ```
+	  // 第一步
+	  foo.fn = bar
+	  // 第二步
+	  foo.fn()
+	  // 第三步
+	  delete foo.fn
+	  ```
+	- 根据这个思路，我们可以尝试着去写第一版的 **call2** 函数：
+	- ```
+	  // 第一版
+	  Function.prototype.call2 = function(context) {
+	      // 首先要获取调用call的函数，用this可以获取
+	      context.fn = this;
+	      context.fn();
+	      delete context.fn;
+	  }
+	  
+	  // 测试一下
+	  var foo = {
+	      value: 1
+	  };
+	  
+	  function bar() {
+	      console.log(this.value);
+	  }
+	  
+	  bar.call2(foo); // 1
+	  ```
+- ## 模拟实现第二步
+	-
