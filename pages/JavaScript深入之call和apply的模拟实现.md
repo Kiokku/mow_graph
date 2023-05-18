@@ -134,4 +134,73 @@
 - ## 模拟实现第三步
 	- **1.this 参数可以传 null，当为 null 的时候，视为指向 window**
 	- **2.函数是可以有返回值的！**
+	- ```
+	  // 第三版
+	  Function.prototype.call2 = function (context) {
+	      var context = context || window;
+	      context.fn = this;
+	  
+	      var args = [];
+	      for(var i = 1, len = arguments.length; i < len; i++) {
+	          args.push('arguments[' + i + ']');
+	      }
+	  
+	      var result = eval('context.fn(' + args +')');
+	  
+	      delete context.fn
+	      return result;
+	  }
+	  
+	  // 测试一下
+	  var value = 2;
+	  
+	  var obj = {
+	      value: 1
+	  }
+	  
+	  function bar(name, age) {
+	      console.log(this.value);
+	      return {
+	          value: this.value,
+	          name: name,
+	          age: age
+	      }
+	  }
+	  
+	  bar.call2(null); // 2
+	  
+	  console.log(bar.call2(obj, 'kevin', 18));
+	  // 1
+	  // Object {
+	  //    value: 1,
+	  //    name: 'kevin',
+	  //    age: 18
+	  // }
+	  ```
+- ## apply的模拟实现
+	- `apply` 函数与 `call` 函数类似，它也允许你在一个特定的上下文中调用一个函数。不同之处在于，apply 函数需要将参数作为数组传递。它的语法如下：
+	- ```
+	  function.apply(context, [argsArray])
+	  ```
+	- ```
+	  Function.prototype.apply = function (context, arr) {
+	      var context = Object(context) || window;
+	      context.fn = this;
+	  
+	      var result;
+	      if (!arr) {
+	          result = context.fn();
+	      }
+	      else {
+	          var args = [];
+	          for (var i = 0, len = arr.length; i < len; i++) {
+	              args.push('arr[' + i + ']');
+	          }
+	          result = eval('context.fn(' + args + ')')
+	      }
+	  
+	      delete context.fn
+	      return result;
+	  }
+	  ```
 	-
