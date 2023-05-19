@@ -21,6 +21,7 @@
 		- **需求设计规范 (SRS: Software Requirement Specific）**
 	- [[#blue]]==项目初始化==
 		- `框架`: [[$blue]]==create-react-app==
-		- `项目依赖`：
+		- `项目依赖及配置文件`：
 			- `npm install typescript-plugin-css-modules --save-dev`
+			- `tsconfig.json CSS modules .vscode custom.d.ts`
 		-
