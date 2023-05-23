@@ -135,4 +135,61 @@
 	      return fBound;
 	  }
 	  ```
-	-
+- ## 构造函数效果的优化实现
+	- 但是在这个写法中，我们直接将 fBound.prototype = this.prototype，我们直接修改 fBound.prototype 的时候，也会直接修改绑定函数的 prototype。这个时候，我们可以通过一个空函数来进行中转：
+	- ```
+	  // 第四版
+	  Function.prototype.bind2 = function (context) {
+	  
+	      var self = this;
+	      var args = Array.prototype.slice.call(arguments, 1);
+	  
+	      var fNOP = function () {};
+	  
+	      var fBound = function () {
+	          var bindArgs = Array.prototype.slice.call(arguments);
+	          return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
+	      }
+	  
+	      fNOP.prototype = this.prototype;
+	      fBound.prototype = new fNOP();
+	      return fBound;
+	  }
+	  ```
+- ## 几个小问题
+	- **1.调用 bind 的不是函数咋办？**
+		- 不行，我们要报错！
+		- ```
+		  if (typeof this !== "function") {
+		    throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+		  }
+		  ```
+	- **2.我要在线上用**
+		- ```
+		  Function.prototype.bind = Function.prototype.bind || function () {
+		      ……
+		  };
+		  ```
+- ## 最终代码
+	- ```
+	  Function.prototype.bind2 = function (context) {
+	  
+	      if (typeof this !== "function") {
+	        throw new Error("Function.prototype.bind - what is trying to be bound is not callable");
+	      }
+	  
+	      var self = this;
+	      var args = Array.prototype.slice.call(arguments, 1);
+	  
+	      var fNOP = function () {};
+	  
+	      var fBound = function () {
+	          var bindArgs = Array.prototype.slice.call(arguments);
+	          return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
+	      }
+	  
+	      fNOP.prototype = this.prototype;
+	      fBound.prototype = new fNOP();
+	      return fBound;
+	  }
+	  ```
