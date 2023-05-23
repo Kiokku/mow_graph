@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
@@ -11,11 +12,16 @@
 		- [[JavaScript深入之参数按值传递]]
 		- [[JavaScript深入之call和apply的模拟实现]]
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
+	- [[散列表]]
+	-
 - 正则表达式
+  collapsed:: true
 	- [[正则表达式的定义]]
 	- [[正则表达式初阶技能]]
 - 实战项目
+  collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
