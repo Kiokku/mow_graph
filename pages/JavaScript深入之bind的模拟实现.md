@@ -7,4 +7,42 @@
 		- 返回一个函数
 		- 可以传入参数
 - ## 返回函数的模拟实现
-	-
+	- 从第一个特点开始，我们举个例子：
+		- ```
+		  var foo = {
+		      value: 1
+		  };
+		  
+		  function bar() {
+		      console.log(this.value);
+		  }
+		  
+		  // 返回了一个函数
+		  var bindFoo = bar.bind(foo); 
+		  
+		  bindFoo(); // 1
+		  ```
+	- 关于指定 this 的指向，我们可以使用 call 或者 apply 实现
+	- ```
+	  // 第一版
+	  Function.prototype.bind2 = function (context) {
+	      var self = this;
+	      return function () {
+	          return self.apply(context);
+	      }
+	  
+	  }
+	  ```
+	- ```
+	  var foo = {
+	      value: 1
+	  };
+	  
+	  function bar() {
+	  	return this.value;
+	  }
+	  
+	  var bindFoo = bar.bind(foo);
+	  
+	  console.log(bindFoo()); // 1
+	  ```
