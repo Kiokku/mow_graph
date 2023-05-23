@@ -10,6 +10,7 @@
 		- [[JavaScript深入之闭包]]
 		- [[JavaScript深入之参数按值传递]]
 		- [[JavaScript深入之call和apply的模拟实现]]
+		- [[JavaScript深入之bind的模拟实现]]
 - 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
