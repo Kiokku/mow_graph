@@ -1,3 +1,4 @@
 - > https://github.com/mqyqingfeng/Blog/issues/14
 -
--
+- ## 类数组对象
+	-
