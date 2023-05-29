@@ -15,7 +15,6 @@
 		- [[JavaScript深入之new的模拟实现]]
 		- [[JavaScript深入之类数组对象与arguments]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
