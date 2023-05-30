@@ -179,6 +179,24 @@
 		  person1.getName(); // kevin
 		  person2.getName();  // daisy
 		  ```
-		-
-		-
+- ### 5.1 寄生构造函数模式
+	- ```
+	  function Person(name) {
+	  
+	      var o = new Object();
+	      o.name = name;
+	      o.getName = function () {
+	          console.log(this.name);
+	      };
+	  
+	      return o;
+	  
+	  }
+	  
+	  var person1 = new Person('kevin');
+	  console.log(person1 instanceof Person) // false
+	  console.log(person1 instanceof Object)  // true
+	  ```
+	-
+	-
 -
