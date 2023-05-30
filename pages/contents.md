@@ -1,6 +1,5 @@
 - JavaScript
 	- [[JavaScript深入系列]]
-	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -14,7 +13,9 @@
 		- [[JavaScript深入之bind的模拟实现]]
 		- [[JavaScript深入之new的模拟实现]]
 		- [[JavaScript深入之类数组对象与arguments]]
+		- [[JavaScript深入之创建对象的多种方式以及优缺点]]
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
