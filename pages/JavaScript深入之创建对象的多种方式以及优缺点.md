@@ -156,6 +156,9 @@
 			  3. 然后 Person.apply(obj)
 			  4. 返回这个对象
 		- 注意这个时候，回顾下 apply 的实现步骤，会执行 obj.Person 方法，这个时候就会执行 if 语句里的内容，注意构造函数的 prototype 属性指向了实例的原型，使用字面量方式直接覆盖 Person.prototype，并不会更改实例的原型的值，person1 依然是指向了以前的原型，而不是 Person.prototype。而之前的原型是没有 getName 方法的，所以就报错了！
+		- 先将person1指向Person.prototype(是一个对象)，字面
+		- ![image.png](../assets/image_1685433623875_0.png){:height 576, :width 660}
+		-
 		-
 		- 如果就是想用字面量方式写代码，可以尝试下这种：
 		- ```
