@@ -157,4 +157,28 @@
 			  4. 返回这个对象
 		- 注意这个时候，回顾下 apply 的实现步骤，会执行 obj.Person 方法，这个时候就会执行 if 语句里的内容，注意构造函数的 prototype 属性指向了实例的原型，使用字面量方式直接覆盖 Person.prototype，并不会更改实例的原型的值，person1 依然是指向了以前的原型，而不是 Person.prototype。而之前的原型是没有 getName 方法的，所以就报错了！
 		-
+		- 如果就是想用字面量方式写代码，可以尝试下这种：
+		- ```
+		  function Person(name) {
+		      this.name = name;
+		      if (typeof this.getName != "function") {
+		          Person.prototype = {
+		              constructor: Person,
+		              getName: function () {
+		                  console.log(this.name);
+		              }
+		          }
+		  
+		          return new Person(name);
+		      }
+		  }
+		  
+		  var person1 = new Person('kevin');
+		  var person2 = new Person('daisy');
+		  
+		  person1.getName(); // kevin
+		  person2.getName();  // daisy
+		  ```
+		-
+		-
 -
