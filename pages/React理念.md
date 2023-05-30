@@ -1,0 +1,7 @@
+- > https://react.iamkasong.com/preparation/idea.html#react%E7%90%86%E5%BF%B5
+-
+- ## React理念
+	- > 我们认为，React 是用 JavaScript 构建**快速响应**的大型 Web 应用程序的首选方式。它在 Facebook 和 Instagram 上表现优秀。
+- ## CPU的瓶颈
+	- JS可以操作DOM，`GUI渲染线程`与`JS线程`是互斥的。所以**JS脚本执行**和**浏览器布局、绘制**不能同时执行。
+	-

@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
@@ -35,5 +36,9 @@
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - React技术揭秘
-	-
+	- 理念篇
+		- 第一章 React理念
+			- [[React理念]]
+			-
+			-
 - The Missing Semester of Your CS Education
