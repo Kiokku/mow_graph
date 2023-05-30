@@ -116,7 +116,7 @@
 		- ```
 		  function Person(name) {
 		      this.name = name;
-		      if (typeof this.getName != "function") {   // 相当于constructor，只执行一次
+		      if (typeof this.getName != "function") {
 		          Person.prototype.getName = function () {
 		              console.log(this.name);
 		          }
@@ -197,6 +197,57 @@
 	  console.log(person1 instanceof Person) // false
 	  console.log(person1 instanceof Object)  // true
 	  ```
-	-
-	-
--
+	- 寄生-构造函数-模式，也就是说寄生在构造函数的一种方法。
+	- 这样的方法可以在特殊情况下使用。比如我们想创建一个具有额外方法的特殊数组，但是又不想直接修改Array构造函数，我们可以这样写：
+		- ```
+		  function SpecialArray() {
+		      var values = new Array();
+		  
+		      for (var i = 0, len = arguments.length; i < len; i++) {
+		          values.push(arguments[i]);
+		      }
+		  
+		      values.toPipedString = function () {
+		          return this.join("|");
+		      };
+		      return values;
+		  }
+		  
+		  var colors = new SpecialArray('red', 'blue', 'green');
+		  var colors2 = SpecialArray('red2', 'blue2', 'green2');
+		  
+		  
+		  console.log(colors);
+		  console.log(colors.toPipedString()); // red|blue|green
+		  
+		  console.log(colors2);
+		  console.log(colors2.toPipedString()); // red2|blue2|green2
+		  ```
+	- 你会发现，其实所谓的寄生构造函数模式就是比工厂模式在创建对象的时候，多使用了一个new，实际上两者的结果是一样的。
+	- [[#red]]==在可以使用其他模式的情况下，不要使用这种模式。==
+- ## 5.2 稳妥构造函数模式
+	- ```
+	  function person(name){
+	      var o = new Object();
+	      o.sayName = function(){
+	          console.log(name);
+	      };
+	      return o;
+	  }
+	  
+	  var person1 = person('kevin');
+	  
+	  person1.sayName(); // kevin
+	  
+	  person1.name = "daisy";
+	  
+	  person1.sayName(); // kevin
+	  
+	  console.log(person1.name); // daisy
+	  ```
+	- 所谓稳妥对象，指的是**没有公共属性**，而且**其方法也不引用 this 的对象**。
+	- 与寄生构造函数模式有两点不同：
+		- 1. 新创建的实例方法不引用 this
+		  2. 不使用 new 操作符调用构造函数
+	- 稳妥对象最适合在一些安全的环境中。
+	- 稳妥构造函数模式也跟工厂模式一样，[[#red]]==无法识别对象所属类型==。
