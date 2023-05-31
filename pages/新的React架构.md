@@ -25,7 +25,15 @@
 		    }
 		  }
 		  ```
-		-
+		- 那么React16是如何解决中断更新时DOM渲染不完全的问题呢？
+		- 在React16中，**Reconciler**与**Renderer**不再是交替工作。当**Scheduler**将任务交给**Reconciler**后，**Reconciler**会为变化的虚拟DOM打上代表增/删/更新的标记，类似这样：
+			- ```
+			  export const Placement = /*             */ 0b0000000000010;
+			  export const Update = /*                */ 0b0000000000100;
+			  export const PlacementAndUpdate = /*    */ 0b0000000000110;
+			  export const Deletion = /*              */ 0b0000000001000;
+			  ```
+		- 整个**Scheduler**与**Reconciler**的工作都在内存中进行。只有当所有组件都完成**Reconciler**的工作，才会统一交给**Renderer**。
 		-
 		-
 		-
