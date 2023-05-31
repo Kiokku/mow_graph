@@ -41,6 +41,7 @@
 		- 第一章 React理念
 			- [[React理念]]
 			- [[老的React架构]]
+			- [[新的React架构]]
 			-
 - The Missing Semester of Your CS Education
 	- [[shell]]
