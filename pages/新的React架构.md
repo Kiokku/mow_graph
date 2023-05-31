@@ -45,6 +45,11 @@
 			  logseq.order-list-type:: number
 			- 当前帧没有剩余时间
 			  logseq.order-list-type:: number
-		-
-		-
-		-
+		- > 实际上，由于**Scheduler**和**Reconciler**都是平台无关的，所以`React`为他们单独发了一个包[react-Reconciler (opens new window)](https://www.npmjs.com/package/react-reconciler)。你可以用这个包自己实现一个`ReactDOM`，具体见**参考资料**
+- ## 总结
+	- 通过本节我们知道了`React16`采用新的`Reconciler`。
+	- `Reconciler`内部采用了`Fiber`的架构。
+- ## 参考资料
+	- [「英文 外网」Building a Custom React Renderer | React前经理Sophie Alpert](https://www.youtube.com/watch?v=CGpMlWVcHok&list=PLPxbbTqCLbGHPxZpw4xj_Wwg8-fdNxJRh&index=7)
+	- > [同步/Debounce/Throttle/并发 情况下性能对比Demo](https://codesandbox.io/s/concurrent-3h48s?file=/src/index.js)
+-
