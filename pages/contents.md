@@ -15,7 +15,6 @@
 		- [[JavaScript深入之类数组对象与arguments]]
 		- [[JavaScript深入之创建对象的多种方式以及优缺点]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
