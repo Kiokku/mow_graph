@@ -124,5 +124,101 @@
 	  console.log(child2.age); // 20
 	  console.log(child2.colors); // ["red", "blue", "green"]
 	  ```
+	- [[#green]]==优点==：融合原型链继承和构造函数的优点，是 JavaScript 中最常用的继承模式。
+- ## 4.原型式继承
+	- ```
+	  function createObj(o) {
+	      function F(){}
+	      F.prototype = o;
+	      return new F();
+	  }
+	  ```
+	- 就是 ES5 Object.create 的模拟实现，将传入的对象作为创建的对象的原型。
+	- [[#red]]==缺点==：
+		- 包含引用类型的属性值始终都会共享相应的值，这点跟原型链继承一样。
+		- ```
+		  var person = {
+		      name: 'kevin',
+		      friends: ['daisy', 'kelly']
+		  }
+		  
+		  var person1 = createObj(person);
+		  var person2 = createObj(person);
+		  
+		  person1.name = 'person1';
+		  console.log(person2.name); // kevin
+		  
+		  person1.friends.push('taylor');
+		  console.log(person2.friends); // ["daisy", "kelly", "taylor"]
+		  ```
+		- 注意：修改`person1.name`的值，`person2.name`的值并未发生改变，并不是因为`person1`和`person2`有独立的 name 值，而是因为`person1.name = 'person1'`，给`person1`添加了 name 值，并非修改了原型上的 name 值。
+- ## 5. 寄生式继承
+	- 创建一个仅用于封装继承过程的函数，该函数在内部以某种形式来做增强对象，最后返回对象。
+	- ```
+	  function createObj (o) {
+	      var clone = Object.create(o);
+	      clone.sayName = function () {
+	          console.log('hi');
+	      }
+	      return clone;
+	  }
+	  ```
+	- [[#red]]==缺点==：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。
+- ## 6. 寄生组合式继承
+	- 组合继承最大的缺点是会调用两次父构造函数。
+	- 一次是设置子类型实例的原型的时候：
+	- ```
+	  Child.prototype = new Parent();
+	  ```
+	- 一次在创建子类型实例的时候：
+	- ```
+	  var child1 = new Child('kevin', '18');
+	  ```
+	- 那么我们该如何精益求精，避免这一次重复调用呢？
+	- 如果我们不使用 Child.prototype = new Parent() ，而是间接的让 Child.prototype 访问到 Parent.prototype 呢？
+	- 看看如何实现：
+	- ```
+	  function Parent (name) {
+	      this.name = name;
+	      this.colors = ['red', 'blue', 'green'];
+	  }
+	  
+	  Parent.prototype.getName = function () {
+	      console.log(this.name)
+	  }
+	  
+	  function Child (name, age) {
+	      Parent.call(this, name);
+	      this.age = age;
+	  }
+	  
+	  // 关键的三步
+	  var F = function () {};
+	  
+	  F.prototype = Parent.prototype;
+	  
+	  Child.prototype = new F();
+	  
+	  
+	  var child1 = new Child('kevin', '18');
+	  
+	  console.log(child1);
+	  ```
+	- 最后我们封装一下这个继承方法：
+	- ```
+	  function object(o) {
+	      function F() {}
+	      F.prototype = o;
+	      return new F();
+	  }
+	  
+	  function prototype(child, parent) {
+	      var prototype = object(parent.prototype);
+	      prototype.constructor = child;
+	      child.prototype = prototype;
+	  }
+	  
+	  // 当我们使用的时候：
+	  prototype(Child, Parent);
+	  ```
 	-
--
