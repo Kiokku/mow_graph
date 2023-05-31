@@ -33,7 +33,18 @@
 			  export const PlacementAndUpdate = /*    */ 0b0000000000110;
 			  export const Deletion = /*              */ 0b0000000001000;
 			  ```
-		- 整个**Scheduler**与**Reconciler**的工作都在内存中进行。只有当所有组件都完成**Reconciler**的工作，才会统一交给**Renderer**。
+		- 整个**Scheduler**与**Reconciler**的工作都在内存中进行。[[#green]]==只有当所有组件都完成**Reconciler**的工作，才会统一交给**Renderer**。==
+	- ### Renderer（渲染器）
+	  background-color:: blue
+		- **Renderer**根据**Reconciler**为虚拟DOM打的标记，同步执行对应的DOM操作。
+		- > [乘法demo](https://codesandbox.io/s/fervent-sutherland-pf7sg?file=/src/App.js)
+		- 在React16架构中整个更新流程为：
+		- ![image.png](../assets/image_1685544210209_0.png){:height 279, :width 644}
+		- 其中红框中的步骤随时可能由于以下原因被中断：
+			- 有其他更高优任务需要先更新
+			  logseq.order-list-type:: number
+			- 当前帧没有剩余时间
+			  logseq.order-list-type:: number
 		-
 		-
 		-
