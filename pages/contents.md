@@ -44,5 +44,6 @@
 			- [[新的React架构]]
 			-
 - The Missing Semester of Your CS Education
+  collapsed:: true
 	- [[shell]]
 	-
