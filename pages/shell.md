@@ -46,4 +46,8 @@
 			  missing:~$ curl --head --silent google.com | grep --ignore-case content-length | cut --delimiter=' ' -f2
 			  219
 			  ```
-			-
+	- ### 一个功能全面又强大的工具
+	  background-color:: blue
+		- `root`: 根用户几乎不受任何限制，他可以创建、读取、更新和删除系统中的任何文件。 通常在我们并不会以根用户的身份直接登录系统，因为这样可能会因为某些错误的操作而破坏系统。
+		- `sudo`:  它的作用是让您可以以 su（**super user** 或 **root** 的简写）的身份执行一些操作。 当您遇到拒绝访问（**permission denied**）的错误时，通常是因为此时您必须是根用户才能操作。
+		-
