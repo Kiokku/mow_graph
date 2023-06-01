@@ -27,7 +27,7 @@
 	- ### 在程序间创建连接
 	  background-color:: blue
 		- 在 shell 中，程序有两个主要的“流”：输入流和输出流。
-		- 最简单的重定向是 `< file` 和 `> file`：将程序的输入输出流分别重定向到文件：
+		- 最简单的重定向是**输入** `< file` 和**输出** `> file`：将程序的输入输出流分别重定向到文件：
 			- ```
 			  missing:~$ echo hello > hello.txt
 			  missing:~$ cat hello.txt
@@ -38,7 +38,8 @@
 			  missing:~$ cat hello2.txt
 			  hello
 			  ```
-		- `>>`：向一个文件追加内容，`|` 操作符允许我们将一个程序的输出和另外一个程序的输入连接起来：
+		- `cat`:  连接，打印文件
+		- `>>`：向一个文件追加内容，`|` 操作符(pipe)允许我们将一个程序的输出和另外一个程序的输入连接起来：
 			- ```
 			  missing:~$ ls -l / | tail -n1
 			  drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
