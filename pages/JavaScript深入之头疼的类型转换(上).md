@@ -59,4 +59,11 @@
 - ## 原始值转字符
 	- 我们使用 `String` 函数将类型转换成字符串类型
 	- 如果 `String` 函数不传参数，返回空字符串，如果有参数，调用 `ToString(value)`
+	- |参数类型|结果|
+	  |--|--|
+	  |Undefined|"undefined"|
+	  |Null|"null"|
+	  |Boolean|如果参数是 true，返回 "true"。参数为 false，返回 "false"|
+	  |Number|比较复杂，可以看例子|
+	  |String|返回与之相等的值|
 	-
