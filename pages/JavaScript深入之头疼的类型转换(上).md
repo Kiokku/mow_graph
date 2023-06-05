@@ -92,4 +92,44 @@
 	  var b = new Number(a);
 	  console.log(typeof b); // object
 	  ```
+- ## 对象转布尔值
+	- 对象到布尔值的转换非常简单：所有对象(包括数组和函数)都转换为 true。对于包装对象也是这样，举个例子：
+	- ```
+	  console.log(Boolean(new Boolean(false))) // true
+	  ```
+- ## 对象转字符串和数字
+	- JavaScript 对象有两个不同的方法来执行转换，一个是 `toString`，一个是 `valueOf`。注意这个跟上面所说的 `ToString` 和 `ToNumber` 是不同的，[[#blue]]==这两个方法是真实暴露出来的方法。==
+	- 所有的对象[[#red]]==除了 null 和 undefined 之外==的任何值都具有 `toString` 方法，通常情况下，它和使用 String 方法返回的结果一致。`toString` 方法的作用在于返回一个反映这个对象的字符串，然而这才是情况复杂的开始。
+	- ### toString
+	  background-color:: blue
+		- Object.prototype.toString 方法会根据这个对象的[[class]]内部属性，返回由 "[object " 和 class 和 "]" 三个部分组成的字符串。举个例子：
+		- ```
+		  Object.prototype.toString.call({a: 1}) // "[object Object]"
+		  ({a: 1}).toString() // "[object Object]"
+		  ({a: 1}).toString === Object.prototype.toString // true
+		  ```
+		- 当调用对象的 toString 方法时，其实调用的是 Object.prototype 上的 toString 方法。
+		- 然而 JavaScript 下的很多类根据各自的特点，定义了更多版本的 toString 方法。例如:
+			- 1. 数组的 toString 方法将每个数组元素转换成一个字符串，并在元素之间添加逗号后合并成结果字符串。
+			  2. 函数的 toString 方法返回源代码字符串。
+			  3. 日期的 toString 方法返回一个可读的日期和时间字符串。
+			  4. RegExp 的 toString 方法返回一个表示正则表达式直接量的字符串。
+		- ```
+		  console.log(({}).toString()) // [object Object]
+		  
+		  console.log([].toString()) // ""
+		  console.log([0].toString()) // 0
+		  console.log([1, 2, 3].toString()) // 1,2,3
+		  console.log((function(){var a = 1;}).toString()) // function (){var a = 1;}
+		  console.log((/\d+/g).toString()) // /\d+/g
+		  console.log((new Date(2010, 0, 1)).toString()) // Fri Jan 01 2010 00:00:00 GMT+0800 (CST)
+		  ```
+	- ### valueOf
+	  background-color:: blue
+		- 表示对象的原始值。默认的 valueOf 方法返回这个对象本身，数组、函数、正则简单的继承了这个默认方法，也会返回对象本身。[[#blue]]==日期是一个例外，它会返回它的一个内容表示: 1970 年 1 月 1 日以来的毫秒数。==
+		- ```
+		  var date = new Date(2017, 4, 21);
+		  console.log(date.valueOf()) // 1495296000000
+		  ```
+- ## 对象接着转字符串和数字
 	-
