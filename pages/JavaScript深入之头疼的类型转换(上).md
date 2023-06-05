@@ -66,4 +66,19 @@
 	  |Boolean|如果参数是 true，返回 "true"。参数为 false，返回 "false"|
 	  |Number|比较复杂，可以看例子|
 	  |String|返回与之相等的值|
-	-
+	- ```
+	  console.log(String()) // 空字符串
+	  
+	  console.log(String(undefined)) // undefined
+	  console.log(String(null)) // null
+	  
+	  console.log(String(false)) // false
+	  console.log(String(true)) // true
+	  
+	  console.log(String(0)) // 0
+	  console.log(String(-0)) // 0
+	  console.log(String(NaN)) // NaN
+	  console.log(String(Infinity)) // Infinity
+	  console.log(String(-Infinity)) // -Infinity
+	  console.log(String(1)) // 1
+	  ```
