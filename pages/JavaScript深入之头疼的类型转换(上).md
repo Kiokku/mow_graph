@@ -82,3 +82,14 @@
 	  console.log(String(-Infinity)) // -Infinity
 	  console.log(String(1)) // 1
 	  ```
+	- 注意这里的 `ToString` 和上一节的 `ToNumber` 都是底层规范实现的方法，并没有直接暴露出来。
+- ## 原始值转对象
+	- 原始值到对象的转换非常简单，原始值通过调用 String()、Number() 或者 Boolean() 构造函数，转换为它们各自的包装对象。
+	- null 和 undefined 属于例外，当将它们用在期望是一个对象的地方都会造成一个类型错误 (TypeError) 异常，而不会执行正常的转换。
+	- ```
+	  var a = 1;
+	  console.log(typeof a); // number
+	  var b = new Number(a);
+	  console.log(typeof b); // object
+	  ```
+	-
