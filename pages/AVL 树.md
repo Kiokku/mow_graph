@@ -168,4 +168,46 @@
 		      return node;
 		  }
 		  ```
-		-
+	- ### 删除节点
+	  background-color:: blue
+		- 类似地，在二叉搜索树的删除节点方法的基础上，需要从底至顶地执行旋转操作，使所有失衡节点恢复平衡。
+		- ```
+		  /* 删除节点 */
+		  remove(val) {
+		      this.root = this.#removeHelper(this.root, val);
+		  }
+		  
+		  /* 递归删除节点（辅助方法） */
+		  #removeHelper(node, val) {
+		      if (node === null) return null;
+		      /* 1. 查找节点，并删除之 */
+		      if (val < node.val) node.left = this.#removeHelper(node.left, val);
+		      else if (val > node.val)
+		          node.right = this.#removeHelper(node.right, val);
+		      else {
+		          if (node.left === null || node.right === null) {
+		              const child = node.left !== null ? node.left : node.right;
+		              // 子节点数量 = 0 ，直接删除 node 并返回
+		              if (child === null) return null;
+		              // 子节点数量 = 1 ，直接删除 node
+		              else node = child;
+		          } else {
+		              // 子节点数量 = 2 ，则将中序遍历的下个节点删除，并用该节点替换当前节点
+		              let temp = node.right;
+		              while (temp.left !== null) {
+		                  temp = temp.left;
+		              }
+		              node.right = this.#removeHelper(node.right, temp.val);
+		              node.val = temp.val;
+		          }
+		      }
+		      this.#updateHeight(node); // 更新节点高度
+		      /* 2. 执行旋转操作，使该子树重新恢复平衡 */
+		      node = this.#rotate(node);
+		      // 返回子树的根节点
+		      return node;
+		  }
+		  ```
+	- ### 查找节点
+	  background-color:: blue
+		- AVL 树的节点查找操作与二叉搜索树一致，在此不再赘述。
