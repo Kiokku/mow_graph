@@ -132,4 +132,5 @@
 		  console.log(date.valueOf()) // 1495296000000
 		  ```
 - ## 对象接着转字符串和数字
+	- 了解了 toString 方法和 valueOf 方法，我们分析下从对象到字符串是如何转换的。看规范 [ES5 9.8](http://es5.github.io/#x9.8)，其实就是 ToString 方法的对应表，只是这次我们加上 Object 的转换规则：
 	-
