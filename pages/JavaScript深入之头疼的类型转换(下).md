@@ -43,9 +43,28 @@
 	  background-color:: green
 		- ```
 		  // 两者结果一致
-		  console.log([] + {}); // 
-		  console.log({} + []);
+		  console.log([] + {}); // "[object Object]"
+		  console.log({} + []); // "[object Object]"
 		  ```
-		- - lprim = ToPrimitive([])，lprim = ""
-		  - rprim = ToPrimitive({})，相当于调用 ToPrimitive({}, Number)，先调用 valueOf 方法，返回对象本身，因为不是原始值，调用 toString 方法，返回 "[object Object]"
-		  - lprim 和 rprim 都是字符串，执行拼接操作
+		- 1. lprim = ToPrimitive([])，lprim = ""
+		  2. rprim = ToPrimitive({})，相当于调用 ToPrimitive({}, Number)，先调用 valueOf 方法，返回对象本身，因为不是原始值，调用 toString 方法，返回 "[object Object]"
+		  3. lprim 和 rprim 都是字符串，执行拼接操作
+		- ```
+		  console.log(1 + true); // 2
+		  console.log({} + {}); // "[object Object][object Object]"
+		  console.log(new Date(2017, 04, 21) + 1) // "Sun May 21 2017 00:00:00 GMT+0800 (CST)1"
+		  ```
+	- ### 注意
+	  background-color:: blue
+		- 如果你直接在 `Chrome` 或者 `Firebug` 开发工具中的命令行直接输入，你也许会惊讶的看到一些结果的不同，比如：
+		- ![image.png](../assets/image_1686038140320_0.png)
+		- 我们尝试着加一个括号：
+		- ![image.png](../assets/image_1686038178117_0.png)
+		- 在不加括号的时候，`{}` 被当成了一个[[#blue]]==独立的空代码块==，所以 `{} + []` 变成了 `+[]`，结果就变成了 `0`
+		- [[#red]]==问题==：
+			- ```
+			  > {} + {}
+			  // 火狐： NaN
+			  // 谷歌： "[object Object][object Object]"
+			  ```
+			- 如果 `{}` 被当成一个独立的代码块，那么这句话相当于 `+{}`，相当于 `Number({})`，结果自然是 `NaN`，可是 `Chrome` 却在这里返回了正确的值。
