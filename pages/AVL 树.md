@@ -95,4 +95,13 @@
 		  ```
 	- ### 先左旋后右旋
 	  background-color:: blue
+		- 对于下图中的失衡节点 3，仅使用左旋或右旋都无法使子树恢复平衡。此时需要先左旋后右旋，即**先对** `child` **执行「左旋」**，**再对** `node`**执行「右旋」**。
+		- ![image.png](../assets/image_1686062663968_0.png)
+	- ### 先右旋后左旋
+	  background-color:: blue
+		- ![image.png](../assets/image_1686062768370_0.png)
+	- ### 旋转的选择
+	  background-color:: green
+		- 下图展示的四种失衡情况与上述案例逐个对应，分别需要采用右旋、左旋、先右后左、先左后右的旋转操作。
+		- ![image.png](../assets/image_1686062833227_0.png)
 		-
