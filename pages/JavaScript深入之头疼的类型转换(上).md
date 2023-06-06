@@ -133,4 +133,16 @@
 		  ```
 - ## 对象接着转字符串和数字
 	- 了解了 toString 方法和 valueOf 方法，我们分析下从对象到字符串是如何转换的。看规范 [ES5 9.8](http://es5.github.io/#x9.8)，其实就是 ToString 方法的对应表，只是这次我们加上 Object 的转换规则：
-	-
+		- |参数类型|结果|
+		  |--|--|
+		  |Object|1. primValue = ToPrimitive(input, String)[:br]2. 返回ToString(primValue).|
+	- 所谓的 ToPrimitive 方法，其实就是输入一个值，然后返回一个一定是基本类型的值。
+	- 我们总结一下，当我们用 String 方法转化一个值的时候，如果是基本类型，就参照 “原始值转字符” 这一节的对应表，如果不是基本类型，我们会将调用一个 ToPrimitive 方法，将其转为基本类型，然后再参照“原始值转字符” 这一节的对应表进行转换。
+- ## ToPrimitive
+	- ToPrimitive 函数语法表示如下：
+		- ```
+		  ToPrimitive(input[, PreferredType])
+		  ```
+		- `input`: 表示要处理的输入值。
+		- `PreferredType`: 非必填，表示希望转换成的类型，有两个值可以选，Number 或者 String。
+		-
