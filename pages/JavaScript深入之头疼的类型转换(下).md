@@ -68,3 +68,15 @@
 			  // 谷歌： "[object Object][object Object]"
 			  ```
 			- 如果 `{}` 被当成一个独立的代码块，那么这句话相当于 `+{}`，相当于 `Number({})`，结果自然是 `NaN`，可是 `Chrome` 却在这里返回了正确的值。
+				- [原文在这](https://juejin.cn/post/6844903558526009352#heading-23)
+				  大概在chrome版本49之前，Chrome控制台上面的输出结果基本和Firefox一致，之后在chrome上有人提出bug，[Issue 499864](https://bugs.chromium.org/p/chromium/issues/detail?id=499864)，大概意思就是说我在控制台输入{a: 4, b: 5}你给我报个错干嘛，我就是想要一个对象而已。Chrome没过多久就修复了，修复的方式也特别666，就是凡是语句以{开头，以}结尾，我解析的时候就包裹一层括号在外面。[git记录](https://chromium.googlesource.com/chromium/src.git/+/4fd348fdb9c0b3842829acdfb2b82c86dacd8e0a%5E!/#F2)，里面的关键代码如下:
+				- ```
+				  +    if (/^\s*\{/.test(text) && /\}\s*$/.test(text))
+				  +        text = '(' + text + ')';
+				  ```
+				- 故在chrome下{} + {} 即是({} + {})
+				  故这里的花括号正确地被解析成了对象
+- ## == 相等
+	- ### 规范
+	  background-color:: blue
+		-
