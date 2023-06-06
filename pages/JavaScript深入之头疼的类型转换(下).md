@@ -85,5 +85,53 @@
 				- i. x是Undefined，返回true
 				  ii. x是Null，返回true
 				  iii. x是数字：
-					-
-		-
+					- a. x是NaN，返回false
+					  b. y是NaN，返回false
+					  c. x与y相等，返回true
+					  d. x是+0，y是-0，返回true
+					  e. x是-0，y是+0，返回true
+					  f. 返回false
+				- iv. x是字符串，完全相等返回true,否则返回false
+				  v. x是布尔值，x和y都是true或者false，返回true，否则返回false
+				  vi. x和y指向同一个对象，返回true，否则返回false
+			- 2. x是null并且y是undefined，返回true
+			- 3. x是undefined并且y是null，返回true
+			- 4. x是数字，y是字符串，判断x == ToNumber(y)
+			- 5. x是字符串，y是数字，判断ToNumber(x) == y
+			- 6. x是布尔值，判断ToNumber(x) == y
+			- 7. y是布尔值，判断x ==ToNumber(y)
+			- 8. x是字符串或者数字，y是对象，判断x == ToPrimitive(y)
+			- 9. x是对象，y是字符串或者数字，判断ToPrimitive(x) == y
+			- 10. 返回false
+	- ### 1. null和undefined
+	  background-color:: green
+		- ```
+		  console.log(null == undefined); // true
+		  ```
+	- ### 2. 字符串与数字
+	  background-color:: green
+		- ```
+		  console.log('1' == 1); // true
+		  ```
+	- ### 3. 布尔值和其他类型
+	  background-color:: green
+		- ```
+		  console.log(true == '2') // false
+		  ```
+		- 规范第6、7步：
+		- > 6.x是布尔值，判断ToNumber(x) == y
+		- > 7.y是布尔值，判断x ==ToNumber(y)
+		- 当一方出现布尔值的时候，就会对这一方的值进行ToNumber处理，也就是说true会被转化成1.
+	- ### 4. 对象与非对象
+	  background-color:: green
+		- ```
+		  console.log( 42 == ['42']); // true
+		  ```
+	- ### 其他
+	  background-color:: red
+		- ```
+		  console.log(false == undefined); // false
+		  ```
+		- `false == undefined` 相当于 `0 == undefined` 不符合上面的情形，执行最后一步 返回 `false`
+		- ```
+		  ```
