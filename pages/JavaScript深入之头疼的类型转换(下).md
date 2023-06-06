@@ -134,4 +134,27 @@
 		  ```
 		- `false == undefined` 相当于 `0 == undefined` 不符合上面的情形，执行最后一步 返回 `false`
 		- ```
+		  console.log(false == []); // true
 		  ```
+		- `false == []` 相当于 `0 == []` 相当于 `0 == ''` 相当于 `0 == 0`，结果返回 `true`
+		- ```
+		  console.log([] == ![]); // true
+		  ```
+		- 首先会执行 `![]` 操作，转换成 false，相当于 `[] == false` 相当于 `[] == 0` 相当于 `'' == 0` 相当于 `0 == 0`，结果返回 `true`
+		- [[#red]]==最后再举一些会让人踩坑的例子==:
+			- ```
+			  console.log(false == "0"); // true
+			  console.log(false == 0); // true
+			  console.log(false == "") // true
+			  
+			  console.log("" == 0); // true
+			  console.log("" == []); // true
+			  
+			  console.log([] == 0); // true
+			  
+			  console.log("" == [null]); // true
+			  console.log(0 == "\n"); //true
+			  console.log([] == 0); // true
+			  ```
+		-
+		-
