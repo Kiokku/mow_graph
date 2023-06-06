@@ -79,4 +79,11 @@
 - ## == 相等
 	- ### 规范
 	  background-color:: blue
+		- `"=="` 用于比较两个值是否相等，当要比较的两个值类型不一样的时候，就会发生类型的转换。
+		- 当执行x == y 时：
+			- 1. 如果x与y是同一类型：
+				- i. x是Undefined，返回true
+				  ii. x是Null，返回true
+				  iii. x是数字：
+					-
 		-
