@@ -17,6 +17,7 @@
 		- [[JavaScript深入之继承的多种方式和优缺点]]
 		- [[JavaScript深入之浮点数精度]]
 		- [[JavaScript深入之头疼的类型转换(上)]]
+		- [[JavaScript深入之头疼的类型转换(下]]
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
 	- [[时间复杂度与空间复杂度]]
