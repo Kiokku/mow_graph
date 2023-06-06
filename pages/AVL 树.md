@@ -54,6 +54,45 @@
 	  background-color:: blue
 		- ![image.png](../assets/image_1686061749681_0.png){:height 360, :width 619}
 		- ![image.png](../assets/image_1686061767637_0.png)
-	- ![image.png](../assets/image_1686061796701_0.png)
-	- ![image.png](../assets/image_1686061810635_0.png)
-	-
+		- ![image.png](../assets/image_1686061796701_0.png)
+		- 此外，如果节点 `child` 本身有右子节点（记为 `grandChild` ），则需要在「右旋」中添加一步：将 `grandChild` 作为 `node` 的左子节点。
+		- ![image.png](../assets/image_1686061971914_0.png)
+		- “向右旋转”是一种形象化的说法，实际上需要通过修改节点指针来实现，代码如下所示。
+		- ```
+		  /* 右旋操作 */
+		  #rightRotate(node) {
+		      const child = node.left;
+		      const grandChild = child.right;
+		      // 以 child 为原点，将 node 向右旋转
+		      child.right = node;
+		      node.left = grandChild;
+		      // 更新节点高度
+		      this.#updateHeight(node);
+		      this.#updateHeight(child);
+		      // 返回旋转后子树的根节点
+		      return child;
+		  }
+		  ```
+	- ### 左旋
+	  background-color:: blue
+		- 相应的，如果考虑上述失衡二叉树的“镜像”，则需要执行「左旋」操作。
+		- ![image.png](../assets/image_1686062182855_0.png)
+		- ![image.png](../assets/image_1686062196875_0.png)
+		- ```
+		  /* 左旋操作 */
+		  #leftRotate(node) {
+		      const child = node.right;
+		      const grandChild = child.left;
+		      // 以 child 为原点，将 node 向左旋转
+		      child.left = node;
+		      node.right = grandChild;
+		      // 更新节点高度
+		      this.#updateHeight(node);
+		      this.#updateHeight(child);
+		      // 返回旋转后子树的根节点
+		      return child;
+		  }
+		  ```
+	- ### 先左旋后右旋
+	  background-color:: blue
+		-
