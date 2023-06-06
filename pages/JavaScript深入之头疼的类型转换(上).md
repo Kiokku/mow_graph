@@ -145,4 +145,40 @@
 		  ```
 		- `input`: 表示要处理的输入值。
 		- `PreferredType`: 非必填，表示希望转换成的类型，有两个值可以选，Number 或者 String。
-		-
+		- 当不传入 PreferredType 时，如果 input 是日期类型，相当于传入 String，否则，都相当于传入 Number。
+		- 如果传入的 input 是 Undefined、Null、Boolean、Number、String 类型，直接返回该值。
+		- 如果是 [[#blue]]==ToPrimitive(obj, Number)==，处理步骤如下：
+			- 1. 如果 obj 为 基本类型，直接返回
+			  2. 否则，调用 valueOf 方法，如果返回一个原始值，则 JavaScript 将其返回。
+			  3. 否则，调用 toString 方法，如果返回一个原始值，则 JavaScript 将其返回。
+			  4. 否则，JavaScript 抛出一个类型错误异常。
+		- 如果是 [[#blue]]==ToPrimitive(obj, String)==，处理步骤如下：
+			- 1. 如果 obj为 基本类型，直接返回
+			  2. 否则，调用 toString 方法，如果返回一个原始值，则 JavaScript 将其返回。
+			  3. 否则，调用 valueOf 方法，如果返回一个原始值，则 JavaScript 将其返回。
+			  4. 否则，JavaScript 抛出一个类型错误异常。
+- ## 对象转字符串
+  background-color:: green
+	- 所以总结下，对象转字符串(就是 Number() 函数)可以概括为：
+		- 1. 如果对象具有 toString 方法，则调用这个方法。如果他返回一个原始值，JavaScript 将这个值转换为字符串，并返回这个字符串结果。
+		  2. 如果对象没有 toString 方法，或者这个方法并不返回一个原始值，那么 JavaScript 会调用 valueOf 方法。如果存在这个方法，则 JavaScript 调用它。如果返回值是原始值，JavaScript 将这个值转换为字符串，并返回这个字符串的结果。
+		  3. 否则，JavaScript 无法从 toString 或者 valueOf 获得一个原始值，这时它将抛出一个类型错误异常。
+- ## 对象转数字
+  background-color:: green
+	- 对象转数字的过程中，JavaScript 做了同样的事情，只是它会首先尝试 valueOf 方法
+		- 1. 如果对象具有 valueOf 方法，且返回一个原始值，则 JavaScript 将这个原始值转换为数字并返回这个数字
+		  2. 否则，如果对象具有 toString 方法，且返回一个原始值，则 JavaScript 将其转换并返回。
+		  3. 否则，JavaScript 抛出一个类型错误异常。
+	- ```
+	  console.log(Number({})) // NaN
+	  console.log(Number({a : 1})) // NaN
+	  
+	  console.log(Number([])) // 0
+	  console.log(Number([0])) // 0
+	  console.log(Number([1, 2, 3])) // NaN
+	  console.log(Number(function(){var a = 1;})) // NaN
+	  console.log(Number(/\d+/g)) // NaN
+	  console.log(Number(new Date(2010, 0, 1))) // 1262275200000
+	  console.log(Number(new Error('a'))) // NaN
+	  ```
+	-
