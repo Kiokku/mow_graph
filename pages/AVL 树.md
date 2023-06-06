@@ -143,4 +143,29 @@
 		      return node;
 		  }
 		  ```
+- ## AVL 树常用操作
+	- ### 插入节点
+	  background-color:: blue
+		- 「AVL 树」的节点插入操作与「二叉搜索树」在主体上类似。唯一的区别在于，在 AVL 树中插入节点后，从该节点到根节点的路径上可能会出现一系列失衡节点。因此，**我们需要从这个节点开始，自底向上执行旋转操作，使所有失衡节点恢复平衡**。
+		- ```
+		  /* 插入节点 */
+		  insert(val) {
+		      this.root = this.#insertHelper(this.root, val);
+		  }
+		  
+		  /* 递归插入节点（辅助方法） */
+		  #insertHelper(node, val) {
+		      if (node === null) return new TreeNode(val);
+		      /* 1. 查找插入位置，并插入节点 */
+		      if (val < node.val) node.left = this.#insertHelper(node.left, val);
+		      else if (val > node.val)
+		          node.right = this.#insertHelper(node.right, val);
+		      else return node; // 重复节点不插入，直接返回
+		      this.#updateHeight(node); // 更新节点高度
+		      /* 2. 执行旋转操作，使该子树重新恢复平衡 */
+		      node = this.#rotate(node);
+		      // 返回子树的根节点
+		      return node;
+		  }
+		  ```
 		-
