@@ -104,4 +104,43 @@
 	  background-color:: green
 		- 下图展示的四种失衡情况与上述案例逐个对应，分别需要采用右旋、左旋、先右后左、先左后右的旋转操作。
 		- ![image.png](../assets/image_1686062833227_0.png)
+		- 在代码中，我们通过判断失衡节点的平衡因子以及较高一侧子节点的平衡因子的正负号，来确定失衡节点属于上图中的哪种情况。
+		- |失衡节点的平衡因子|子节点的平衡因子|应采用的旋转方法|
+		  |--|--|--|
+		  |$>0$（即左偏树）|$>=0$|右旋|
+		  |$>0$（即左偏树）|$<0$|先左旋后右旋|
+		  |$<0$（即右偏树）|$<=0$|左旋|
+		  |$<0$（即右偏树）|$>0$|先右旋后左旋|
+		- 为了便于使用，我们将旋转操作封装成一个函数。
+		- ```
+		  /* 执行旋转操作，使该子树重新恢复平衡 */
+		  #rotate(node) {
+		      // 获取节点 node 的平衡因子
+		      const balanceFactor = this.balanceFactor(node);
+		      // 左偏树
+		      if (balanceFactor > 1) {
+		          if (this.balanceFactor(node.left) >= 0) {
+		              // 右旋
+		              return this.#rightRotate(node);
+		          } else {
+		              // 先左旋后右旋
+		              node.left = this.#leftRotate(node.left);
+		              return this.#rightRotate(node);
+		          }
+		      }
+		      // 右偏树
+		      if (balanceFactor < -1) {
+		          if (this.balanceFactor(node.right) <= 0) {
+		              // 左旋
+		              return this.#leftRotate(node);
+		          } else {
+		              // 先右旋后左旋
+		              node.right = this.#rightRotate(node.right);
+		              return this.#leftRotate(node);
+		          }
+		      }
+		      // 平衡树，无需旋转，直接返回
+		      return node;
+		  }
+		  ```
 		-
