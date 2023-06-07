@@ -190,4 +190,29 @@
 	  }
 	  console.log(value);
 	  ```
-	-
+	- 改变量名，使内外层的变量名称不一样。
+	- 循环中的 let 声明：
+	- ```
+	  var funcs = [];
+	  for (let i = 0; i < 10; i++) {
+	      funcs[i] = function () {
+	          console.log(i);
+	      };
+	  }
+	  funcs[0](); // 0
+	  ```
+	- Babel 巧妙的编译成了：
+	- ```
+	  var funcs = [];
+	  
+	  var _loop = function _loop(i) {
+	      funcs[i] = function () {
+	          console.log(i);
+	      };
+	  };
+	  
+	  for (var i = 0; i < 10; i++) {
+	      _loop(i);
+	  }
+	  funcs[0](); // 0
+	  ```
