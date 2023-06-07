@@ -164,4 +164,30 @@
 	  
 	  funcs[0]() // 'c'
 	  ```
+	- 那如果把 var 改成 let 或者 const 呢？
+	- 使用 let，结果自然会是 'a'，const 呢？ 报错还是 'a'?
+	- [[#blue]]==结果是正确打印 'a'，这是因为在 for in 循环中，每次迭代不会修改已有的绑定，而是会创建一个新的绑定。==
+- ## Babel
+	- 在 Babel 中是如何编译 let 和 const 的呢？我们来看看编译后的代码：
+	- ```
+	  let value = 1;
+	  ```
+	- 编译为:
+	- ```
+	  var value = 1;
+	  ```
+	- 我们可以看到 Babel 直接将 let 编译成了 var，如果是这样的话，那么我们来写个例子：
+	- ```
+	  if (false) {
+	      let value = 1;
+	  }
+	  console.log(value); // Uncaught ReferenceError: value is not defined
+	  ```
+	- 如果还是直接编译成 var，打印的结果肯定是 undefined，然而 Babel 很聪明，它编译成了：
+	- ```
+	  if (false) {
+	      var _value = 1;
+	  }
+	  console.log(value);
+	  ```
 	-
