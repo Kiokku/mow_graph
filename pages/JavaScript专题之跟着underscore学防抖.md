@@ -60,4 +60,98 @@
 		- **我不希望非要等到事件停止触发后才执行，我希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行。**
 		- 我们加个 immediate 参数判断是否是立刻执行。
 		- ```
+		  // 第四版
+		  function debounce(func, wait, immediate) {
+		  
+		      var timeout;
+		  
+		      return function () {
+		          var context = this;
+		          var args = arguments;
+		  
+		          if (timeout) clearTimeout(timeout);
+		          if (immediate) {
+		              // 如果已经执行过，不再执行
+		              var callNow = !timeout;
+		              timeout = setTimeout(function(){
+		                  timeout = null;
+		              }, wait)
+		              if (callNow) func.apply(context, args)
+		          }
+		          else {
+		              timeout = setTimeout(function(){
+		                  func.apply(context, args)
+		              }, wait);
+		          }
+		      }
+		  }
+		  ```
+	- ### 返回值
+	  background-color:: blue
+		- 要返回函数的执行结果，但是当 immediate 为 false 的时候，因为使用了 setTimeout ，我们将 func.apply(context, args) 的返回值赋给变量，最后再 return 的时候，值将会一直是 undefined，所以我们只在 immediate 为 true 的时候返回函数的执行结果。
+		- ```
+		  // 第五版
+		  function debounce(func, wait, immediate) {
+		  
+		      var timeout, result;
+		  
+		      return function () {
+		          var context = this;
+		          var args = arguments;
+		  
+		          if (timeout) clearTimeout(timeout);
+		          if (immediate) {
+		              // 如果已经执行过，不再执行
+		              var callNow = !timeout;
+		              timeout = setTimeout(function(){
+		                  timeout = null;
+		              }, wait)
+		              if (callNow) result = func.apply(context, args)
+		          }
+		          else {
+		              timeout = setTimeout(function(){
+		                  func.apply(context, args)
+		              }, wait);
+		          }
+		          return result;
+		      }
+		  }
+		  ```
+	- ### 取消
+	  background-color:: blue
+		- 取消 debounce 函数
+		- ```
+		  // 第六版
+		  function debounce(func, wait, immediate) {
+		  
+		      var timeout, result;
+		  
+		      var debounced = function () {
+		          var context = this;
+		          var args = arguments;
+		  
+		          if (timeout) clearTimeout(timeout);
+		          if (immediate) {
+		              // 如果已经执行过，不再执行
+		              var callNow = !timeout;
+		              timeout = setTimeout(function(){
+		                  timeout = null;
+		              }, wait)
+		              if (callNow) result = func.apply(context, args)
+		          }
+		          else {
+		              timeout = setTimeout(function(){
+		                  func.apply(context, args)
+		              }, wait);
+		          }
+		          return result;
+		      };
+		  
+		      debounced.cancel = function() {
+		          clearTimeout(timeout);
+		          timeout = null;
+		      };
+		  
+		      return debounced;
+		  }
 		  ```
