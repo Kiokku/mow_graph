@@ -23,6 +23,8 @@
 	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		-
+	- [[ES6系列]]
+		- [[ES6 系列之 let 和 const]]
 - 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
