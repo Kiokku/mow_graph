@@ -84,4 +84,19 @@
 	  }
 	  funcs[0](); // 3
 	  ```
+	- ES6 的 let 为这个问题提供了新的解决方法：
+	- ```
+	  var funcs = [];
+	  for (let i = 0; i < 3; i++) {
+	      funcs[i] = function () {
+	          console.log(i);
+	      };
+	  }
+	  funcs[0](); // 0
+	  ```
+	- 问题在于，上面讲了 let 不提升，不能重复声明，**不能绑定全局作用域**等等特性，可是为什么在这里就能正确打印出 i 值呢？
+	- 如果要追究这个问题，就要抛弃掉之前所讲的这些特性！这是因为 let 声明在循环内部的行为是标准中专门定义的，不一定就与 let 的不提升特性有关，其实，在早期的 let 实现中就不包含这一行为。
+	- 我们查看[ECMAScript 规范第 13.7.4.7 节](http://www.ecma-international.org/ecma-262/6.0/#sec-for-statement-runtime-semantics-labelledevaluation)
+	- [[#blue]]==在 for 循环中使用 let 和 var，底层会使用不同的处理方式。==
 	-
+-
