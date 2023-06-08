@@ -77,5 +77,20 @@
 		- 对应的`Fiber树`结构：
 		- ![image.png](../assets/image_1686224077038_0.png){:height 462, :width 470}
 		- > 这里需要提一下，为什么父级指针叫做`return`而不是`parent`或者`father`呢？因为作为一个工作单元，`return`指节点执行完`completeWork`（本章后面会介绍）后会返回的下一个节点。子`Fiber节点`及其兄弟节点完成工作后会返回其父级节点，所以用`return`指代父级节点。
-		-
+	- ### 作为静态的数据结构
+	  id:: 6481bceb-d0be-43b0-9ec0-1c3b27323af4
+	  background-color:: blue
+		- 作为一种静态的数据结构，保存了组件相关的信息：
+		- ```
+		  // Fiber对应组件的类型 Function/Class/Host...
+		  this.tag = tag;
+		  // key属性
+		  this.key = key;
+		  // 大部分情况同type，某些情况不同，比如FunctionComponent使用React.memo包裹
+		  this.elementType = null;
+		  // 对于 FunctionComponent，指函数本身，对于ClassComponent，指class，对于HostComponent，指DOM节点tagName
+		  this.type = null;
+		  // Fiber对应的真实DOM节点
+		  this.stateNode = null;
+		  ```
 		-
