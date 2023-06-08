@@ -93,4 +93,30 @@
 		  // Fiber对应的真实DOM节点
 		  this.stateNode = null;
 		  ```
-		-
+	- ### 作为动态的工作单元
+	  background-color:: blue
+		- 作为动态的工作单元，`Fiber`中如下参数保存了本次更新相关的信息，我们会在后续的更新流程中使用到具体属性时再详细介绍
+		- ```
+		  // 保存本次更新造成的状态改变相关信息
+		  this.pendingProps = pendingProps;
+		  this.memoizedProps = null;
+		  this.updateQueue = null;
+		  this.memoizedState = null;
+		  this.dependencies = null;
+		  
+		  this.mode = mode;
+		  
+		  // 保存本次更新会造成的DOM操作
+		  this.effectTag = NoEffect;
+		  this.nextEffect = null;
+		  
+		  this.firstEffect = null;
+		  this.lastEffect = null;
+		  
+		  // 调度优先级相关
+		  this.lanes = NoLanes;
+		  this.childLanes = NoLanes;
+		  ```
+- ## 参考资料
+	- [Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/BV1it411p7v6?from=search&seid=3508901752524570226)
+	-
