@@ -137,4 +137,61 @@
 		  <span>3<span>
 		  ```
 		- [[#blue]]==其实就是匹配每行前面的空格，然后将其替换为空字符串。==
+		- ```
+		  // stripIndents 第一版
+		  function stripIndents(template, ...expressions) {
+		      let result = template.reduce((prev, next, i) => {
+		          let expression = expressions[i - 1];
+		          return prev + expression + next;
+		      });
+		  
+		  
+		      result = result.replace(/\n[^\S\n]*/g, '\n');
+		      result = result.trim();
+		  
+		      return result;
+		  }
+		  ```
+		- 最难的或许就是这个正则表达式了：
+		- ```
+		  result = result.replace(/\n[^\S\n]*/g, '\n');
+		  ```
+		- `\S` 表示匹配一个非空白字符
+		- `[^\S\n]` 表示匹配`非空白字符`和`换行符`之外的字符，其实也就是空白字符去除换行符
+		- `\n[^\S\n]*` 表示匹配换行符以及换行符后的多个不包含换行符的空白字符
+	- ### includeArrays
+	  background-color:: blue
+		- 为了避免 ${} 表达式中返回一个数组，自动转换会导致多个逗号的问题，需要每次都将数组最后再 join('') 一下，再看一遍例子：
+		- ```
+		  let arr = [{value: 1}, {value: 2}];
+		  let message = `
+		  	<ul>
+		  		${arr.map((item) => {
+		  			return `
+		  				<li>${item.value}</li>
+		  			`
+		  		}).join('')}
+		  	</ul>
+		  `;
+		  console.log(message);
+		  ```
+		- 利用标签模板，我们可以轻松的解决这个问题：
+		- ```
+		  function includeArrays(template, ...expressions) {
+		      let result = template.reduce((prev, next, i) => {
+		  
+		          let expression = expressions[i - 1];
+		  
+		          if (Array.isArray(expression)) {
+		              expression = expression.join('');
+		          }
+		  
+		          return prev + expression + next;
+		      });
+		  
+		      result = result.trim();
+		  
+		      return result;
+		  }
+		  ```
 		-
