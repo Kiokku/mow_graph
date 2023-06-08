@@ -73,4 +73,68 @@
 	  }
 	  ```
 	- 你也可以这样写：
+	- ```
+	  function message(literals, ...values) {
+	  	let result = literals.reduce((prev, next, i) => {
+	  	    let value = values[i - 1];
+	  	    return prev + value + next;
+	  	});
+	  
+	  	return result;
+	  }
+	  ```
+	- ### oneLine
+	  background-color:: blue
+		- 讲完了基础，我们可以来看一些实际的需求：
+		- ```
+		  let message = `
+		  	Hi,
+		  	Daisy!
+		  	I am
+		  	Kevin.
+		  `;
+		  ```
+		- [[#blue]]==出于可读性或者其他原因，我希望书写的时候是换行的，但是最终输出的字符是在一行，==这就需要借助模板标签来实现了，我们尝试写一个这样的函数：
+		- ```
+		  // oneLine 第一版
+		  function oneLine(template, ...expressions) {
+		      let result = template.reduce((prev, next, i) => {
+		          let expression = expressions[i - 1];
+		          return prev + expression + next;
+		      });
+		  
+		      result = result.replace(/(\s+)/g, " ");
+		      result = result.trim();
+		  
+		      return result;
+		  }
+		  ```
+		- 实现原理很简单，拼合回去然后将多个空白符如换行符、空格等替换成一个空格。
+		- 使用如下：
+		- ```
+		  let message = oneLine `
+		      Hi,
+		      Daisy!
+		      I am
+		      Kevin.
+		  `;
+		  console.log(message); // Hi, Daisy! I am Kevin.
+		  ```
+	- ### stripIndents
+	  background-color:: blue
+		- 假设有这样一段 HTML：
+		- ```
+		  let html = `
+		  	<span>1<span>
+		  	<span>2<span>
+		  		<span>3<span>
+		  `;
+		  ```
+		- 为了保持可读性，我希望最终输入的样式为：
+		- ```
+		  <span>1<span>
+		  <span>2<span>
+		  <span>3<span>
+		  ```
+		- [[#blue]]==其实就是匹配每行前面的空格，然后将其替换为空字符串。==
 		-
