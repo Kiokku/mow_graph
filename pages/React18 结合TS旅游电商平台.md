@@ -26,4 +26,11 @@
 			- `tsconfig.json` 加载css-modules插件plugins
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
-		-
+- ## 主页开发
+	- [[#blue]]==文件夹结构==
+		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
+		- `index.ts`：导出组件，避免过长的组件引用地址
+			- ```
+			  import { Header, Footer } from "./components";
+			  ```
+	-
