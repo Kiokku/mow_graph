@@ -27,4 +27,50 @@
 	  let message = `<ul><li>${x}</li><li>${x + y}</li></ul>`;
 	  console.log(message); // <ul><li>1</li><li>3</li></ul>
 	  ```
-	-
+	- ```
+	  let arr = [{value: 1}, {value: 2}];
+	  let message = `
+	  	<ul>
+	  		${arr.map((item) => {
+	  			return `
+	  				<li>${item.value}</li>
+	  			`
+	  		})}
+	  	</ul>
+	  `;
+	  console.log(message);
+	  ```
+- ## 标签模板
+	- 模板标签是一个非常重要的能力，模板字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串，举个例子：
+	- ```
+	  let x = 'Hi', y = 'Kevin';
+	  var res = message`${x}, I am ${y}`;
+	  console.log(res);
+	  ```
+	- 我们可以自定义 message 函数来处理返回的字符串:
+	- ```
+	  // literals 文字
+	  // 注意在这个例子中 literals 的第一个元素和最后一个元素都是空字符串
+	  function message(literals, value1, value2) {
+	  	console.log(literals); // [ "", ", I am ", "" ]
+	  	console.log(value1); // Hi
+	  	console.log(value2); // Kevin
+	  }
+	  ```
+	- 我们利用这些参数将其拼合回去：
+	- ```
+	  function message(literals, ...values) {
+	  	let result = '';
+	  
+	  	for (let i = 0; i < values.length; i++) {
+	  		result += literals[i];
+	  		result += values[i];
+	  	}
+	  
+	  	result += literals[literals.length - 1];
+	  
+	  	return result;
+	  }
+	  ```
+	- 你也可以这样写：
+		-
