@@ -56,6 +56,7 @@
 			- [[老的React架构]]
 			- [[新的React架构]]
 			- [[Fiber架构的心智模型]]
+			- [[Fiber架构的实现原理]]
 			-
 - The Missing Semester of Your CS Education
 	- [[shell]]
