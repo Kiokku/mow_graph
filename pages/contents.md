@@ -22,6 +22,8 @@
 	- [[JavaScript专题系列]]
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
+		- [[JavaScript专题之数组去重]]
+		-
 	- [[ES6系列]]
 	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
