@@ -47,6 +47,8 @@
 - ## update时
 	- ### 1. 接下来我们点击`p节点`触发状态改变，这会开启一次新的`render阶段`并构建一棵新的`workInProgress Fiber 树`。
 	  background-color:: blue
+		- ![image.png](../assets/image_1686298957004_0.png){:height 608, :width 466}
 		-
-	-
-	-
+		- 和`mount`时一样，`workInProgress fiber`的创建可以复用`current Fiber树`对应的节点数据。
+	- ### 2. `workInProgress Fiber 树`在`render阶段`完成构建后进入`commit阶段`渲染到页面上。渲染完毕后，`workInProgress Fiber 树`变为`current Fiber 树`。
+		- ![image.png](../assets/image_1686299073811_0.png){:height 516, :width 339}
