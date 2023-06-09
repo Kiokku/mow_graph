@@ -38,6 +38,15 @@
 		  ```
 	- ### 2. 接下来进入`render阶段`，根据组件返回的`JSX`在内存中依次创建`Fiber节点`并连接在一起构建`Fiber树`，被称为`workInProgress Fiber树`。（下图中右侧为内存中构建的树，左侧为页面显示的树）
 	  background-color:: blue
+		- ![image.png](../assets/image_1686298357360_0.png){:height 541, :width 413}
+		- 在构建`workInProgress Fiber树`时会尝试复用`current Fiber树`中已有的`Fiber节点`内的属性，在`首屏渲染`时只有`rootFiber`存在对应的`current fiber`（即`rootFiber.alternate`）。
+	- ### 3. 图中右侧已构建完的`workInProgress Fiber树`在`commit阶段`渲染到页面。
+	  background-color:: blue
+		- 此时`DOM`更新为右侧树对应的样子。`fiberRootNode`的`current`指针指向`workInProgress Fiber树`使其变为`current Fiber 树`。
+		- ![image.png](../assets/image_1686298766570_0.png){:height 599, :width 373}
+- ## update时
+	- ### 1. 接下来我们点击`p节点`触发状态改变，这会开启一次新的`render阶段`并构建一棵新的`workInProgress Fiber 树`。
+	  background-color:: blue
 		-
 	-
 	-
