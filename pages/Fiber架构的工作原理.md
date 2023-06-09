@@ -13,4 +13,18 @@
 	  currentFiber.alternate === workInProgressFiber;
 	  workInProgressFiber.alternate === currentFiber;
 	  ```
+	- 当`workInProgress Fiber树`构建完成交给`Renderer`渲染在页面上后，应用根节点的`current`指针指向`workInProgress Fiber树`，此时`workInProgress Fiber树`就变为`current Fiber树`。
+	- 每次状态更新都会产生新的`workInProgress Fiber树`，通过`current`与`workInProgress`的替换，完成`DOM`更新。
+- ## mount时
+	- 考虑如下例子：
+	- ```
+	  function App() {
+	    const [num, add] = useState(0);
+	    return (
+	      <p onClick={() => add(num + 1)}>{num}</p>
+	    )
+	  }
+	  
+	  ReactDOM.render(<App/>, document.getElementById('root'));
+	  ```
 	-
