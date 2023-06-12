@@ -136,4 +136,76 @@
 		- `iteratee`：传入一个函数，可以对每个元素进行重新的计算，然后根据处理的结果进行去重
 	- 至此，我们已经仿照着 underscore 的思路写了一个 unique 函数，具体可以查看 [Github](https://github.com/jashkenas/underscore/blob/master/underscore.js#L562)。
 - ## filter
-	-
+	- indexOf 的方法：
+	- ```
+	  var array = [1, 2, 1, 1, '1'];
+	  
+	  function unique(array) {
+	      var res = array.filter(function(item, index, array){
+	          return array.indexOf(item) === index;
+	      })
+	      return res;
+	  }
+	  
+	  console.log(unique(array));
+	  ```
+	- 排序去重的方法：
+	- ```
+	  var array = [1, 2, 1, 1, '1'];
+	  
+	  function unique(array) {
+	      return array.concat().sort().filter(function(item, index, array){
+	          return !index || item !== array[index - 1]
+	      })
+	  }
+	  
+	  console.log(unique(array));
+	  ```
+- ## Object 键值对
+	- 这种方法是利用一个空的 Object 对象，我们把数组的值存成 Object 的 key 值，比如 Object[value1] = true，在判断另一个值的时候，如果 Object[value2]存在的话，就说明该值是重复的。示例代码如下：
+	- ```
+	  var array = [1, 2, 1, 1, '1'];
+	  
+	  function unique(array) {
+	      var obj = {};
+	      return array.filter(function(item, index, array){
+	          return obj.hasOwnProperty(item) ? false : (obj[item] = true)
+	      })
+	  }
+	  
+	  console.log(unique(array)); // [1, 2]
+	  ```
+	- 我们可以发现，是有问题的，因为 1 和 '1' 是不同的，但是这种方法会判断为同一个值，这是因为对象的键值只能是字符串，所以我们可以使用 `typeof item + item` 拼成字符串作为 key 值来避免这个问题：
+	- ```
+	  var array = [1, 2, 1, 1, '1'];
+	  
+	  function unique(array) {
+	      var obj = {};
+	      return array.filter(function(item, index, array){
+	          return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)
+	      })
+	  }
+	  
+	  console.log(unique(array)); // [1, 2, "1"]
+	  ```
+	- 然而，即便如此，我们依然无法正确区分出两个对象，比如 {value: 1} 和 {value: 2}，因为 `typeof item + item` 的结果都会是 `object[object Object]`，不过我们可以使用 **JSON.stringify** 将对象序列化：
+	- ```
+	  var array = [{value: 1}, {value: 1}, {value: 2}];
+	  
+	  function unique(array) {
+	      var obj = {};
+	      return array.filter(function(item, index, array){
+	          console.log(typeof item + JSON.stringify(item))
+	          return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)
+	      })
+	  }
+	  
+	  console.log(unique(array)); // [{value: 1}, {value: 2}]
+	  ```
+	- 看似已经万无一失，但考虑到 `JSON.stringify` 任何一个正则表达式的结果都是 `{}`，所以这个方法并[[#red]]==不适用于处理正则表达式去重==。(引用[勘误](https://github.com/mqyqingfeng/Blog/issues/212) )
+	- ```
+	  console.log(JSON.stringify(/a/)); // {}
+	  console.log(JSON.stringify(/b/)); // {}
+	  ```
+- ## ES6
+	- 我们可以使用 Set 和 Map 数据结构，以 Set 为例，ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
