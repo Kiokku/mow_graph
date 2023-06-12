@@ -94,4 +94,46 @@
 	  ```
 - ## 优化
 	- 新需求：字母的大小写视为一致，比如'a'和'A'，保留一个就可以了！
+	- 虽然我们可以先处理数组中的所有数据，比如将所有的字母转成小写，然后再传入unique函数，但是有没有方法可以省掉处理数组的这一遍循环，直接就在去重的循环中做呢？让我们去完成这个需求：
+	- ```
+	  var array3 = [1, 1, 'a', 'A', 2, 2];
+	  
+	  // 第二版
+	  // iteratee 英文释义：迭代 重复
+	  function unique(array, isSorted, iteratee) {
+	      var res = [];
+	      var seen = [];
+	  
+	      for (var i = 0, len = array.length; i < len; i++) {
+	          var value = array[i];
+	          var computed = iteratee ? iteratee(value, i, array) : value;
+	          if (isSorted) {
+	              if (!i || seen !== computed) {
+	                  res.push(value)
+	              }
+	              seen = computed;
+	          }
+	          else if (iteratee) {
+	              if (seen.indexOf(computed) === -1) {
+	                  seen.push(computed);
+	                  res.push(value);
+	              }
+	          }
+	          else if (res.indexOf(value) === -1) {
+	              res.push(value);
+	          }        
+	      }
+	      return res;
+	  }
+	  
+	  console.log(unique(array3, false, function(item){
+	      return typeof item == 'string' ? item.toLowerCase() : item
+	  })); // [1, "a", 2]
+	  ```
+	- 函数传递三个参数：
+		- `array`：表示要去重的数组，必填
+		- `isSorted`：表示函数传入的数组是否已排过序，如果为 true，将会采用更快的方法进行去重
+		- `iteratee`：传入一个函数，可以对每个元素进行重新的计算，然后根据处理的结果进行去重
+	- 至此，我们已经仿照着 underscore 的思路写了一个 unique 函数，具体可以查看 [Github](https://github.com/jashkenas/underscore/blob/master/underscore.js#L562)。
+- ## filter
 	-
