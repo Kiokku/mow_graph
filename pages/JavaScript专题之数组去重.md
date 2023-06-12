@@ -209,3 +209,29 @@
 	  ```
 - ## ES6
 	- 我们可以使用 Set 和 Map 数据结构，以 Set 为例，ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+	- ```
+	  var array = [1, 2, 1, 1, '1'];
+	  
+	  function unique(array) {
+	     return Array.from(new Set(array));
+	  }
+	  
+	  console.log(unique(array)); // [1, 2, "1"]
+	  ```
+	- 可以再简化下：
+	- ```
+	  function unique(array) {
+	      return [...new Set(array)];
+	  }
+	  
+	  或
+	  
+	  var unique = (a) => [...new Set(a)]
+	  ```
+	- 此外，如果用 Map 的话：
+	- ```
+	  function unique (arr) {
+	      const seen = new Map()
+	      return arr.filter((a) => !seen.has(a) && seen.set(a, 1))
+	  }
+	  ```
