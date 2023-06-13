@@ -121,3 +121,15 @@
 	          typeof obj;
 	  }
 	  ```
+- ## isFunction
+	- ```
+	  function isFunction(obj) {
+	      return type(obj) === "function";
+	  }
+	  ```
+- ## 数组
+	- ```
+	  var isArray = Array.isArray || function( obj ) {
+	      return type(obj) === "array";
+	  }
+	  ```
