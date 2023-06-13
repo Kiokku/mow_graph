@@ -23,6 +23,7 @@
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
+		- [[JavaScript专题之类型判断(上)]]
 		-
 	- [[ES6系列]]
 	  collapsed:: true
