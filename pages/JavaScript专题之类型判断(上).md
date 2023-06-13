@@ -101,7 +101,7 @@
 	          typeof obj;
 	  }
 	  ```
-	- [[#red]]==兼容性问题==：在 IE6 中，null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]。
+	- [[#red]]==兼容性问题???==：在 IE6 中，null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]。
 	- ```
 	  // 第二版
 	  var class2type = {};
