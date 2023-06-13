@@ -46,4 +46,45 @@
 	- ### 6. 没有 super
 	  background-color:: blue
 		- 连原型都没有，自然也不能通过 super 来访问原型的属性，所以箭头函数也是没有 super 的，不过跟 this、arguments、new.target 一样，这些值由外围最近一层非箭头函数决定。
-	-
+- ## 总结
+	- 箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this，arguments，super或 new.target。这些函数表达式最适合用于非方法函数(non-method functions)，并且它们不能用作构造函数。
+	- 那么什么是 non-method functions 呢？
+	- [[#blue]]==对象属性中的函数就被称之为 method，那么 non-mehtod 就是指不被用作对象属性中的函数==。
+	- ```
+	  var obj = {
+	    i: 10,
+	    b: () => console.log(this.i, this),
+	    c: function() {
+	      console.log( this.i, this)
+	    }
+	  }
+	  obj.b();
+	  // undefined Window
+	  obj.c();
+	  // 10, Object {...}
+	  ```
+- ## 自执行函数
+	- 自执行函数的形式为：
+	- ```
+	  (function(){
+	      console.log(1)
+	  })()
+	  ```
+	- 或者
+	- ```
+	  (function(){
+	      console.log(1)
+	  }())
+	  ```
+	- 利用箭头简化自执行函数的写法：
+	- ```
+	  (() => {
+	      console.log(1)
+	  })()
+	  ```
+	- [[#red]]==但是注意，使用以下这种写法却会报错：==
+	- ```
+	  (() => {
+	      console.log(1)
+	  }())
+	  ```
