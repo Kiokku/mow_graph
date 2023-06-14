@@ -42,4 +42,66 @@
 		  
 		  console.log(s1 === s2); // false
 		  ```
-	-
+	- **7. Symbol 值不能与其他类型的值进行运算，会报错。**
+		- ```
+		  var sym = Symbol('My symbol');
+		  
+		  console.log("your symbol is " + sym); // TypeError: can't convert symbol to string
+		  ```
+	- **8. Symbol 值可以显式转为字符串。**
+		- ```
+		  var sym = Symbol('My symbol');
+		  
+		  console.log(String(sym)); // 'Symbol(My symbol)'
+		  console.log(sym.toString()); // 'Symbol(My symbol)'
+		  ```
+	- **9. Symbol 值可以作为标识符，用于对象的属性名，可以保证不会出现同名的属性。**
+		- ```
+		  var mySymbol = Symbol();
+		  
+		  // 第一种写法
+		  var a = {};
+		  a[mySymbol] = 'Hello!';
+		  
+		  // 第二种写法
+		  var a = {
+		    [mySymbol]: 'Hello!'
+		  };
+		  
+		  // 第三种写法
+		  var a = {};
+		  Object.defineProperty(a, mySymbol, { value: 'Hello!' });
+		  
+		  // 以上写法都得到同样结果
+		  console.log(a[mySymbol]); // "Hello!"
+		  ```
+	- **10. Symbol 作为属性名，该属性不会出现在 for...in、for...of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。**
+		- ```
+		  var obj = {};
+		  var a = Symbol('a');
+		  var b = Symbol('b');
+		  
+		  obj[a] = 'Hello';
+		  obj[b] = 'World';
+		  
+		  var objectSymbols = Object.getOwnPropertySymbols(obj);
+		  
+		  console.log(objectSymbols);
+		  // [Symbol(a), Symbol(b)]
+		  ```
+	- **11. 如果我们希望使用同一个 Symbol 值，可以使用 Symbol.for。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建并返回一个以该字符串为名称的 Symbol 值。**
+		- ```
+		  var s1 = Symbol.for('foo');
+		  var s2 = Symbol.for('foo');
+		  
+		  console.log(s1 === s2); // true
+		  ```
+	- **12. Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。**
+		- ```
+		  var s1 = Symbol.for("foo");
+		  console.log(Symbol.keyFor(s1)); // "foo"
+		  
+		  var s2 = Symbol("foo");
+		  console.log(Symbol.keyFor(s2) ); // undefined
+		  ```
+		-
