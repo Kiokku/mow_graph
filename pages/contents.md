@@ -69,6 +69,7 @@
 			- [[Fiber架构的工作原理]]
 		- 第二章 前置知识
 			- [[源码的文件结构]]
+			- [[调试源码]]
 			-
 - The Missing Semester of Your CS Education
 	- [[shell]]
