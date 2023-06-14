@@ -1,4 +1,4 @@
 - > https://github.com/mqyqingfeng/Blog/issues/32
 -
 - ## 数组的浅拷贝
-	-
+	- 如果是数组，我们可以利用数组的一些方法比如：`slice`、`concat` 返回一个新数组的特性来实现拷贝。
