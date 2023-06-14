@@ -93,8 +93,10 @@
 		- ```
 		  var s1 = Symbol.for('foo');
 		  var s2 = Symbol.for('foo');
+		  var s3 = Symbol('foo');
 		  
 		  console.log(s1 === s2); // true
+		  console.log(s1 === s3); // false
 		  ```
 	- **12. Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。**
 		- ```
@@ -104,4 +106,46 @@
 		  var s2 = Symbol("foo");
 		  console.log(Symbol.keyFor(s2) ); // undefined
 		  ```
-		-
+- ## 分析
+	- 如果我们要模拟实现一个 Symbol 的话，基本的思路就是构建一个 Symbol 函数，然后直接返回一个独一无二的值。
+	- 当调用 Symbol 的时候，会采用以下步骤：
+		- 1. 如果使用 new ，就报错
+		  2. 如果 description 是 undefined，让 descString 为 undefined
+		  3. 否则 让 descString 为 ToString(description)
+		  4. 如果报错，就返回
+		  5. 返回一个新的唯一的 Symbol 值，它的内部属性 `[[Description]]` 值为 descString
+	- 考虑到还需要定义一个 `[[Description]]` 属性，如果直接返回一个基本类型的值，是无法做到这一点的，所以我们最终还是返回一个对象。
+- ## 第一版
+	- ```
+	  // 第一版
+	  (function() {
+	      var root = this;
+	  
+	      var SymbolPolyfill = function Symbol(description) {
+	  
+	          // 实现特性第 2 点：Symbol 函数前不能使用 new 命令
+	          if (this instanceof SymbolPolyfill) throw new TypeError('Symbol is not a constructor');
+	  
+	          // 实现特性第 5 点：如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。
+	          var descString = description === undefined ? undefined : String(description)
+	  
+	          var symbol = Object.create(null)
+	  
+	          Object.defineProperties(symbol, {
+	              '__Description__': {
+	                  value: descString,
+	                  writable: false,
+	                  enumerable: false,
+	                  configurable: false
+	              }
+	          });
+	  
+	          // 实现特性第 6 点，因为调用该方法，返回的是一个新对象，两个对象之间，只要引用不同，就不会相同
+	          return symbol;
+	      }
+	  
+	      root.SymbolPolyfill = SymbolPolyfill;
+	  })();
+	  ```
+	-
+-
