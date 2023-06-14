@@ -25,6 +25,7 @@
 		- [[JavaScript专题之数组去重]]
 		- [[JavaScript专题之类型判断(上)]]
 		- [[JavaScript专题之类型判断(下)]]
+		- [[JavaScript专题之深浅拷贝]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]
