@@ -1,5 +1,6 @@
 - JavaScript
 	- [[JavaScript深入系列]]
+	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -19,6 +20,7 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
+	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -29,6 +31,7 @@
 		- [[JavaScript专题之如何求数组的最大值和最小值]]
 		-
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -36,6 +39,7 @@
 		- [[ES6 系列之迭代器与 for of]]
 		-
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -56,6 +60,7 @@
 		-
 	-
 - 正则表达式
+  collapsed:: true
 	- [[正则表达式的定义]]
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
@@ -64,6 +69,7 @@
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - React技术揭秘
+  collapsed:: true
 	- 理念篇
 		- 第一章 React理念
 			- [[React理念]]
