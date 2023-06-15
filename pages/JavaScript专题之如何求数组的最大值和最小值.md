@@ -34,5 +34,20 @@
 - ## eval
 	- Math.max 支持[[#blue]]==传多个参数==来进行比较，那么我们如何将一个数组转换成参数传进 Math.max 函数呢？eval 便是一种
 	- ```
+	  var arr = [6, 4, 1, 8, 2, 11, 23];
+	  
+	  var max = eval("Math.max(" + arr + ")");
+	  console.log(max)
 	  ```
+- ## apply
+	- ```
+	  var arr = [6, 4, 1, 8, 2, 11, 23];
+	  console.log(Math.max.apply(null, arr))
+	  ```
+- ## ES6 扩展运算符
+	- ```
+	  var arr = [6, 4, 1, 8, 2, 11, 23];
+	  console.log(Math.max(...arr))
+	  ```
+	-
 -
