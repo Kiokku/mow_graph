@@ -1,0 +1,8 @@
+- > https://github.com/mqyqingfeng/Blog/issues/33
+-
+- ## extend 基本用法
+	- [[#blue]]==合并两个或者更多的对象的内容到第一个对象中。==
+	- `jQuery.extend( target [, object1 ] [, objectN ] )`
+	- 第一个参数 `target`，表示要拓展的目标，称它为目标对象。
+	- 后面的参数，都传入对象，内容都会复制到目标对象中，称它们为待复制对象。
+	-

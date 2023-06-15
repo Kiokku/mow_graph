@@ -26,6 +26,7 @@
 		- [[JavaScript专题之类型判断(上)]]
 		- [[JavaScript专题之类型判断(下)]]
 		- [[JavaScript专题之深浅拷贝]]
+		- [[JavaScript专题之从零实现jQuery的extend]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]
