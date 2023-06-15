@@ -17,4 +17,22 @@
 	  }
 	  console.log(result);
 	  ```
+- ## reduce
+	- ```
+	  var arr = [6, 4, 1, 8, 2, 11, 23];
+	  
+	  var result = arr.reduce((prev, next) => Math.max(prev, next));
+	  console.log(result);
+	  ```
+- ## 排序
+	- ```
+	  var arr = [6, 4, 1, 8, 2, 11, 23];
+	  
+	  arr.sort(function(a,b){return a - b;});
+	  console.log(arr[arr.length - 1])
+	  ```
+- ## eval
+	- Math.max 支持[[#blue]]==传多个参数==来进行比较，那么我们如何将一个数组转换成参数传进 Math.max 函数呢？eval 便是一种
+	- ```
+	  ```
 -
