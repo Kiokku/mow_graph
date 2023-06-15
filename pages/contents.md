@@ -27,6 +27,7 @@
 		- [[JavaScript专题之类型判断(下)]]
 		- [[JavaScript专题之深浅拷贝]]
 		- [[JavaScript专题之从零实现jQuery的extend]]
+		- [[JavaScript专题之如何求数组的最大值和最小值]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]

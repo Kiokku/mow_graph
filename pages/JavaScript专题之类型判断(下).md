@@ -1,6 +1,7 @@
 - > https://github.com/mqyqingfeng/Blog/issues/30
 -
 - ## plainObject
+  id:: 648a87c2-5741-40d9-a704-381260b5c1e3
 	- plainObject 来自于 jQuery，可以翻译成纯粹的对象，所谓"纯粹的对象"，就是该对象是通过 "{}" 或 "new Object" 创建的，该对象含有零个或者多个键值对。
 	- 之所以要判断是不是 plainObject，是为了跟其他的 JavaScript对象如 null，数组，宿主对象（documents）等作区分，因为这些用 typeof 都会返回object。
 	- ```

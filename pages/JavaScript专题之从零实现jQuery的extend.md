@@ -113,7 +113,7 @@
 	- 在实现上，核心的部分还是跟上篇实现的深浅拷贝函数一致，如果要复制的对象的属性值是一个对象，就[[#blue]]==递归调用 extend==。不过 extend 的实现中，多了很多细节上的判断，比如第一个参数是否是布尔值，target 是否是一个对象，不传参数时的默认值等。
 - ## target 是函数
 	- 在我们的实现中，`typeof target` 必须等于 `object`，我们才会在这个 `target` 基础上进行拓展，然而我们用 `typeof` 判断一个函数时，会返回`function`，也就是说，我们无法在一个函数上进行拓展！
-	- 所以在这里我们还要判断是不是函数，这时候我们便可以使用[[JavaScript专题之类型判断(上)]]中写得 ((648a87c2-89ac-4696-8afb-f60f57a568c3)) 函数:
+	- 所以在这里我们还要判断是不是函数，这时候我们便可以使用[[JavaScript专题之类型判断(上)]]中写得 [isFunction](logseq://graph/mow_graph?block-id=648a87c2-89ac-4696-8afb-f60f57a568c3) 函数:
 		- ```
 		  if (typeof target !== "object" && !isFunction(target)) {
 		      target = {};
@@ -123,4 +123,129 @@
 	- 递归调用extend时，判断目标属性值跟要复制的对象的属性值类型是否一致:
 		- 如果待复制对象属性值类型为数组，目标属性值类型不为数组的话，目标属性值就设为 []
 		- 如果待复制对象属性值类型为对象，目标属性值类型不为对象的话，目标属性值就设为 {}
-	-
+	- 结合着[[JavaScript专题之类型判断(下)]]中的 [isPlainObject](logseq://graph/mow_graph?block-id=648a87c2-5741-40d9-a704-381260b5c1e3) 函数，我们可以对类型进行更细致的划分：
+		- ```
+		  
+		  var clone, copyIsArray;
+		  
+		  ...
+		  
+		  if (deep && copy && (isPlainObject(copy) ||
+		          (copyIsArray = Array.isArray(copy)))) {
+		  
+		      if (copyIsArray) {
+		          copyIsArray = false;
+		          clone = src && Array.isArray(src) ? src : [];
+		  
+		      } else {
+		          clone = src && isPlainObject(src) ? src : {};
+		      }
+		  
+		      target[name] = extend(deep, clone, copy);
+		  
+		  } else if (copy !== undefined) {
+		      target[name] = copy;
+		  }
+		  ```
+- ## 循环引用
+	- 实际上，我们还可能遇到一个循环引用的问题，举个例子：
+	- ```
+	  var a = {name : b};
+	  var b = {name : a}
+	  var c = extend(a, b);
+	  console.log(c);
+	  ```
+	- 为了避免这个问题，我们需要判断要复制的对象属性是否等于 target，如果等于，我们就跳过：
+	- ```
+	  ...
+	  src = target[name];
+	  copy = options[name];
+	  
+	  if (target === copy) {
+	      continue;
+	  }
+	  ...
+	  ```
+- ## 最终代码
+	- ```
+	  
+	  // isPlainObject 函数来自于  [JavaScript专题之类型判断(下) ](https://github.com/mqyqingfeng/Blog/issues/30)
+	  var class2type = {};
+	  var toString = class2type.toString;
+	  var hasOwn = class2type.hasOwnProperty;
+	  
+	  function isPlainObject(obj) {
+	      var proto, Ctor;
+	      if (!obj || toString.call(obj) !== "[object Object]") {
+	          return false;
+	      }
+	      proto = Object.getPrototypeOf(obj);
+	      if (!proto) {
+	          return true;
+	      }
+	      Ctor = hasOwn.call(proto, "constructor") && proto.constructor;
+	      return typeof Ctor === "function" && hasOwn.toString.call(Ctor) === hasOwn.toString.call(Object);
+	  }
+	  
+	  
+	  function extend() {
+	      // 默认不进行深拷贝
+	      var deep = false;
+	      var name, options, src, copy, clone, copyIsArray;
+	      var length = arguments.length;
+	      // 记录要复制的对象的下标
+	      var i = 1;
+	      // 第一个参数不传布尔值的情况下，target 默认是第一个参数
+	      var target = arguments[0] || {};
+	      // 如果第一个参数是布尔值，第二个参数是 target
+	      if (typeof target == 'boolean') {
+	          deep = target;
+	          target = arguments[i] || {};
+	          i++;
+	      }
+	      // 如果target不是对象，我们是无法进行复制的，所以设为 {}
+	      if (typeof target !== "object" && !isFunction(target)) {
+	          target = {};
+	      }
+	  
+	      // 循环遍历要复制的对象们
+	      for (; i < length; i++) {
+	          // 获取当前对象
+	          options = arguments[i];
+	          // 要求不能为空 避免 extend(a,,b) 这种情况
+	          if (options != null) {
+	              for (name in options) {
+	                  // 目标属性值
+	                  src = target[name];
+	                  // 要复制的对象的属性值
+	                  copy = options[name];
+	  
+	                  // 解决循环引用
+	                  if (target === copy) {
+	                      continue;
+	                  }
+	  
+	                  // 要递归的对象必须是 plainObject 或者数组
+	                  if (deep && copy && (isPlainObject(copy) ||
+	                          (copyIsArray = Array.isArray(copy)))) {
+	                      // 要复制的对象属性值类型需要与目标属性值相同
+	                      if (copyIsArray) {
+	                          copyIsArray = false;
+	                          clone = src && Array.isArray(src) ? src : [];
+	  
+	                      } else {
+	                          clone = src && isPlainObject(src) ? src : {};
+	                      }
+	  
+	                      target[name] = extend(deep, clone, copy);
+	  
+	                  } else if (copy !== undefined) {
+	                      target[name] = copy;
+	                  }
+	              }
+	          }
+	      }
+	  
+	      return target;
+	  };
+	  ```

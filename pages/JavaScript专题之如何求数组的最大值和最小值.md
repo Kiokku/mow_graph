@@ -1,0 +1,7 @@
+- > https://github.com/mqyqingfeng/Blog/issues/35
+-
+- ## Math.max
+	- JavaScript 提供了 Math.max 函数返回一组数中的最大值，用法是：`Math.max([value1[,value2, ...]])`
+	- 值得注意的是：
+		-
+	-
