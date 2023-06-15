@@ -122,6 +122,7 @@
 	  }
 	  ```
 - ## isFunction
+  id:: 648a87c2-89ac-4696-8afb-f60f57a568c3
 	- ```
 	  function isFunction(obj) {
 	      return type(obj) === "function";
