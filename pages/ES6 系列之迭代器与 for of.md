@@ -89,5 +89,56 @@
 		- 1. `entries()`： 返回一个遍历器对象，用来遍历[key, value]组成的数组。对于数组，键名就是索引值。
 		  2. keys() 返回一个遍历器对象，用来遍历所有的键名。
 		  3. values() 返回一个遍历器对象，用来遍历所有的键值。
-		-
+	- Map 类型与数组类似，但是对于 Set 类型需要注意以下：
+	- ```
+	  var colors = new Set(["red", "green", "blue"]);
+	  
+	  for (let index of colors.keys()) {
+	      console.log(index);
+	  }
+	  
+	  // red
+	  // green
+	  // blue
+	  
+	  for (let color of colors.values()) {
+	      console.log(color);
+	  }
+	  
+	  // red
+	  // green
+	  // blue
+	  
+	  for (let item of colors.entries()) {
+	      console.log(item);
+	  }
+	  
+	  // [ "red", "red" ]
+	  // [ "green", "green" ]
+	  // [ "blue", "blue" ]
+	  ```
+	- Set 类型的 keys() 和 values() 返回的是相同的迭代器，这也意味着在[[#blue]]== Set 这种数据结构中键名与键值相同==。
+	- 而且每个集合类型都有一个默认的迭代器，在 for-of 循环中，如果没有显式指定则使用默认的迭代器。[[#blue]]==数组和 Set 集合的默认迭代器是 values() 方法==，[[#green]]==Map 集合的默认迭代器是 entries() 方法==。
+	- 也就是为什么直接 for of 遍历 Set 和 Map 数据结构，会有不同的数据结构返回：
+	- ```
+	  const values = new Set([1, 2, 3]);
+	  
+	  for (let value of values) {
+	      console.log(value);
+	  }
+	  
+	  // 1
+	  // 2
+	  // 3
+	  
+	  const values = new Map([["key1", "value1"], ["key2", "value2"]]);
+	  for (let value of values) {
+	      console.log(value);
+	  }
+	  
+	  // ["key1", "value1"]
+	  // ["key2", "value2"]
+	  ```
+- ## Babel 是如何编译 for of 的
+	- TODO
 	-
