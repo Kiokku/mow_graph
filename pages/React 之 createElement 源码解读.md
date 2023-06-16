@@ -1,8 +1,10 @@
 - > https://juejin.cn/post/7160981608885927972
 -
 - ## createElement
+  collapsed:: true
 	- ### 源码
 	  background-color:: pink
+	  collapsed:: true
 		- `PATH：src/react/packages/react/src/ReactElement.js`
 		- ```
 		  // 简化后
@@ -90,4 +92,87 @@
 		- [[#red]]==这就是为什么在组件中，我们明明传入了 `key` 和`ref`，但我们无法通过 `this.props.key` 或者 `this.props.ref` 来获取传入的值，就是因为在这里被去除掉了。==
 	- ### 第三段代码 children
 	  background-color:: pink
-		-
+		- ```
+		  const childrenLength = arguments.length - 2;
+		    if (childrenLength === 1) {
+		      props.children = children;
+		    } else if (childrenLength > 1) {
+		      const childArray = Array(childrenLength);
+		      for (let i = 0; i < childrenLength; i++) {
+		        childArray[i] = arguments[i + 2];
+		      }
+		      props.children = childArray;
+		  }
+		  ```
+	- ### 第四段代码 defaultProps
+	  background-color:: pink
+		- 处理组件的`defaultProps`，无论是函数组件还是类组件都支持 `defaultProps`
+	- ### 第五段代码 owner
+	  background-color:: pink
+		- ```
+		    // 第五段
+		    return ReactElement(
+		      type,
+		      key,
+		      ref,
+		      self,
+		      source,
+		      ReactCurrentOwner.current,
+		      props,
+		    );
+		  
+		  ```
+		- [[#blue]]==`ReactCurrentOwner.current`==： 就是指向处于构建过程中的组件的 owner，具体作用在以后的文章中还有介绍，现在可以简单的理解为，它就是用于**记录临时变量**。
+- ## ReactElement
+	- ### 源码
+	  background-color:: pink
+		- ```
+		  const ReactElement = function(type, key, ref, self, source, owner, props) {
+		    const element = {
+		      // This tag allows us to uniquely identify this as a React Element
+		      $$typeof: REACT_ELEMENT_TYPE,
+		  
+		      // Built-in properties that belong on the element
+		      type: type,
+		      key: key,
+		      ref: ref,
+		      props: props,
+		  
+		      // Record the component responsible for creating this element.
+		      _owner: owner,
+		    };
+		  
+		    return element;
+		  };
+		  
+		  ```
+	- ### REACT_ELEMENT_TYPE
+	  background-color:: pink
+		- ```
+		  export const REACT_ELEMENT_TYPE = Symbol.for('react.element');
+		  ```
+		- 它就是一个唯一常量值，用于标示是 React 元素节点
+		- `$$typeof`：主要是为了处理 web 安全问题，试想这样一段代码：
+			- ```
+			  let message = { text: expectedTextButGotJSON };
+			  
+			  // React 0.13 中有风险
+			  <p>
+			    {message.text}
+			  </p>
+			  ```
+			- 如果 `expectedTextButGotJSON`是来自于服务器的值，比如：
+			- ```
+			  // 服务端允许用户存储 JSON
+			  let expectedTextButGotJSON = {
+			    type: 'div',
+			    props: {
+			      dangerouslySetInnerHTML: {
+			        __html: '/* something bad */'
+			      },
+			    },
+			    // ...
+			  };
+			  let message = { text: expectedTextButGotJSON };
+			  ```
+			- 这就很容易受到 XSS 攻击，虽然这个攻击是来自服务器端的漏洞，但使用 React 我们可以处理的更好。如果我们用 Symbol 标记每个 React 元素，因为服务端的数据不会有 `Symbol.for('react.element')`，[[#green]]==React 就可以检测 `element.$$typeof`，如果元素丢失或者无效，则可以拒绝处理该元素，==这样就保证了安全性。
