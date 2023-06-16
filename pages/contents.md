@@ -32,7 +32,6 @@
 		- [[JavaScript专题之学underscore在数组中查找指定元素]]
 		-
 	- [[ES6系列]]
-	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
