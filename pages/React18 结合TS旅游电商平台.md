@@ -43,7 +43,7 @@
 			- JS劫持浏览器路由，生成[[#green]]==虚拟路由==动态渲染页面dom元素。
 	- ### React路由解决方案
 	  background-color:: pink
-		- [[#blue]]==`react-router`-v5==
+		- #### [[#blue]]==`react-router`-v5==
 			- `安装`：`yarn add react-router-dom`
 			- `react-router-dom`：用于浏览器，处理Web App的路由。
 			- `react-router-native`：用于React Native，处理手机App的路由。
@@ -54,4 +54,7 @@
 			- > `npm install --save-dev`
 			  > `--save`安装依赖时自动添加版本号信息到package-json.js
 			  > `-dev`安装依赖到devDependencies
+			- `<BrowserRouter />`：路由导航与原生浏览器操作行为一致
+			- `<Route />`：路由的路径解析原理与原生浏览器一致，可以自动识别url路径
+			- `<Switch />`：路由的切换以页面为单位，不要页面堆叠
 			-
