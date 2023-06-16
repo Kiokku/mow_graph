@@ -1,3 +1,5 @@
 - > https://github.com/mqyqingfeng/Blog/issues/37
 -
--
+- ## findIndex
+	- ES6 对数组新增了 findIndex 方法，它会返回数组中满足提供的函数的第一个元素的索引，否则返回 -1。
+	-
