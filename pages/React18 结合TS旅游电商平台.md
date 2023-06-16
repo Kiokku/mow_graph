@@ -66,4 +66,6 @@
 				  const params = useParams()
 				  const match = useRouteMatch()
 				  ```
-			- `<Link />`：
+			- `<Link to={} />`：代替history.push()
+-
+-
