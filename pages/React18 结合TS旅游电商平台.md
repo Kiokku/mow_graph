@@ -47,4 +47,6 @@
 			- `安装`：`yarn add react-router-dom`
 			- `react-router-dom`：用于浏览器，处理Web App的路由。
 			- `react-router-native`：用于React Native，处理手机App的路由。
-			- `react-router-redux`：
+			- `react-router-redux`：路由中间件，处理redux集成。
+			- `react-router-config`：静态配置路由。
+			-
