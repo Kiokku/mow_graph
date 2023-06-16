@@ -35,4 +35,10 @@
 			  import { Header, Footer } from "./components";
 			  ```
 	-
-- ##
+- ## 路由系统
+	- ### 路由与SPA
+	  background-color:: pink
+		- `SPA`：单页网站应用
+			- JS、HTML、CSS文件打包为一个文件，一次性丢给浏览器。
+			- JS劫持浏览器路由，生成[[#green]]==虚拟路由==动态渲染页面dom元素。
+		-
