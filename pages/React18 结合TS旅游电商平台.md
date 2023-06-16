@@ -58,5 +58,12 @@
 			- `<BrowserRouter />`：路由导航与原生浏览器操作行为一致
 			- `<Route />`：路由的路径解析原理与原生浏览器一致，可以自动识别url路径，`component`中传递`history`，`location`，`match`的props
 			- `<Switch />`：路由的切换以页面为单位，不要页面堆叠
-			- `withRouter`：HOC，
-			-
+			- `withRouter`：HOC，向页面子组件传递路由props（history、location、match）
+			- `useRouter`：Hook，向页面组件传递路由信息
+				- ```
+				  const history = useHistory()
+				  const location = useLocation()
+				  const params = useParams()
+				  const match = useRouteMatch()
+				  ```
+			- `<Link />`：
