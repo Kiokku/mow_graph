@@ -70,20 +70,20 @@
 	-
 - 实战项目
 	- [[React18 结合TS旅游电商平台]]
-- React技术揭秘
-  collapsed:: true
-	- 理念篇
-		- 第一章 React理念
-			- [[React理念]]
-			- [[老的React架构]]
-			- [[新的React架构]]
-			- [[Fiber架构的心智模型]]
-			- [[Fiber架构的实现原理]]
-			- [[Fiber架构的工作原理]]
-		- 第二章 前置知识
-			- [[源码的文件结构]]
-			- [[调试源码]]
-			-
+- React
+	- React技术揭秘
+		- 理念篇
+			- 第一章 React理念
+				- [[React理念]]
+				- [[老的React架构]]
+				- [[新的React架构]]
+				- [[Fiber架构的心智模型]]
+				- [[Fiber架构的实现原理]]
+				- [[Fiber架构的工作原理]]
+			- 第二章 前置知识
+				- [[源码的文件结构]]
+				- [[调试源码]]
+				- [[深入理解JSX]]
 - The Missing Semester of Your CS Education
 	- [[shell]]
 	- [[shell工具和脚本]]
