@@ -116,4 +116,27 @@
 	  
 	  }
 	  ```
+	- [[#blue]]==strict：==当遍历数组元素时，如果元素不是数组，就会对 strict 取反的结果进行判断，如果设置 strict 为 true，就会跳过不进行任何处理，这意味着可以过滤非数组的元素。
+	- [[#blue]]==shallow 和 strct 各种值对应的结果：==
+		- `shallow true + strict false` ：正常扁平一层
+		  `shallow false + strict false` ：正常扁平所有层
+		  `shallow true + strict true` ：去掉非数组元素
+		  `shallow false + strict true` ： 返回一个[]
+- ## _.flatten
+	- ```
+	  _.flatten = function(array, shallow) {
+	      return flatten(array, shallow, false);
+	  };
+	  ```
+	- 在正常的扁平中，我们并不需要去掉非数组元素。
+- ## _.union
+	- 该函数传入多个数组，然后返回传入的数组的并集。
+	- ```
+	  _.union([1, 2, 3], [101, 2, 1, 10], [2, 1]);
+	  => [1, 2, 3, 101, 10]
+	  
+	  // 如果传入的参数并不是数组，就会将该参数跳过
+	  _.union([1, 2, 3], [101, 2, 1, 10], 4, 5);
+	  => [1, 2, 3, 101, 10]
+	  ```
 	-
