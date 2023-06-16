@@ -29,4 +29,26 @@
 		  3. `entries()`：返回键值对的遍历器
 		  4. `forEach()`：使用回调函数遍历每个成员，无返回值
 	- **注意 keys()、values()、entries() 返回的是遍历器**
+	- ```
+	  let set = new Set(['a', 'b', 'c']);
+	  console.log(set.keys()); // SetIterator {"a", "b", "c"}
+	  console.log([...set.keys()]); // ["a", "b", "c"]
+	  
+	  
+	  console.log(set.values()); // SetIterator {"a", "b", "c"}
+	  console.log([...set.values()]); // ["a", "b", "c"]
+	  
+	  console.log(set.entries()); // SetIterator {"a", "b", "c"}
+	  console.log([...set.entries()]); // [["a", "a"], ["b", "b"], ["c", "c"]]
+	  
+	  set.forEach((value, key) => console.log(key + ': ' + value));
+	  // 1: 1
+	  // 2: 2
+	  // 3: 3
+	  ```
+	- [[#blue]]==属性：==
+		- 1. `Set.prototype.constructor`：构造函数，默认就是 Set 函数。
+		  2. `Set.prototype.size`：返回 Set 实例的成员总数。
+- ## 模拟实现第一版
+	- 简单的 Set 数据结构，实现 add、delete、has、clear、forEach 方法
 	-
