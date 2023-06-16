@@ -20,7 +20,6 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
-	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -29,6 +28,7 @@
 		- [[JavaScript专题之深浅拷贝]]
 		- [[JavaScript专题之从零实现jQuery的extend]]
 		- [[JavaScript专题之如何求数组的最大值和最小值]]
+		- [[JavaScript专题之数组扁平化]]
 		-
 	- [[ES6系列]]
 	  collapsed:: true
