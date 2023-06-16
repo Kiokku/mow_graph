@@ -29,6 +29,7 @@
 		- [[JavaScript专题之从零实现jQuery的extend]]
 		- [[JavaScript专题之如何求数组的最大值和最小值]]
 		- [[JavaScript专题之数组扁平化]]
+		- [[JavaScript专题之学underscore在数组中查找指定元素]]
 		-
 	- [[ES6系列]]
 	  collapsed:: true

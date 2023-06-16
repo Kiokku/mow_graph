@@ -139,4 +139,31 @@
 	  _.union([1, 2, 3], [101, 2, 1, 10], 4, 5);
 	  => [1, 2, 3, 101, 10]
 	  ```
-	-
+	- 为了实现这个效果，我们可以将传入的所有数组扁平化，然后去重，因为只能传入数组，这时候我们直接设置 strict 为 true，就可以跳过传入的非数组的元素。
+	- ```
+	  function unique(array) {
+	     return Array.from(new Set(array));
+	  }
+	  
+	  _.union = function() {
+	      return unique(flatten(arguments, true, true));
+	  }
+	  ```
+- ## _.difference
+	- 语法为：`_.difference(array, *others)`
+	- 效果是取出来自 array 数组，并且不存在于多个 other 数组的元素。[[#blue]]==跟 _.union 一样，都会排除掉不是数组的元素。==
+	- ```
+	  _.difference([1, 2, 3, 4, 5], [5, 2, 10], [4], 3);
+	  => [1, 3]
+	  ```
+	- 实现方法也很简单，扁平 others 的数组，筛选出 array 中不在扁平化数组中的值：
+	- ```
+	  function difference(array, ...rest) {
+	  
+	      rest = flatten(rest, true, true);
+	  
+	      return array.filter(function(item){
+	          return rest.indexOf(item) === -1;
+	      })
+	  }
+	  ```
