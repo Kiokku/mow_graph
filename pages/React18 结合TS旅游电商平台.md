@@ -44,6 +44,7 @@
 	- ### React路由解决方案
 	  background-color:: pink
 		- #### [[#blue]]==`react-router`-v5==
+			- [react-router v5 文档](https://v5.reactrouter.com/)
 			- `安装`：`yarn add react-router-dom`
 			- `react-router-dom`：用于浏览器，处理Web App的路由。
 			- `react-router-native`：用于React Native，处理手机App的路由。
@@ -55,6 +56,7 @@
 			  > `--save`安装依赖时自动添加版本号信息到package-json.js
 			  > `-dev`安装依赖到devDependencies
 			- `<BrowserRouter />`：路由导航与原生浏览器操作行为一致
-			- `<Route />`：路由的路径解析原理与原生浏览器一致，可以自动识别url路径
+			- `<Route />`：路由的路径解析原理与原生浏览器一致，可以自动识别url路径，`component`中传递`history`，`location`，`match`的props
 			- `<Switch />`：路由的切换以页面为单位，不要页面堆叠
+			- `withRouter`：HOC，
 			-
