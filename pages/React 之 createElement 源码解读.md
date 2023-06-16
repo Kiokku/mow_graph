@@ -76,4 +76,18 @@
 		- [babel-preset-react 的文档](https://link.juejin.cn/?target=https%3A%2F%2Fwww.babeljs.cn%2Fdocs%2Fbabel-preset-react)
 			- > **development**
 			  > boolean 类型，默认值为 false. 这可以用于开启特定于开发环境的某些行为，例如添加 __source 和 __self。 在与 env 参数 配置或 js 配置文件 配合使用时，此功能很有用。
-	-
+	- ### 第二段代码 props 对象
+	  background-color:: pink
+		- ```
+		  // 第二段
+		  for (propName in config) {
+		      if (config.hasOwnProperty(propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
+		        props[propName] = config[propName];
+		      }
+		  }
+		  ```
+		- 构建一个 props 对象，去除传入的 `key`、`ref`、`__self`、`__source`属性
+		- [[#red]]==这就是为什么在组件中，我们明明传入了 `key` 和`ref`，但我们无法通过 `this.props.key` 或者 `this.props.ref` 来获取传入的值，就是因为在这里被去除掉了。==
+	- ### 第三段代码 children
+	  background-color:: pink
+		-
