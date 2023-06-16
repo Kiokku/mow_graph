@@ -23,7 +23,11 @@
 	    let source = null;
 	  
 	    if (config != null) {
-	      // 将 config 处理后赋值给 props
+	      // 将 config 处理后赋值给 props(key, ref, self, source)
+	      // let key = '' + config.key;
+	      // let ref = config.ref;
+	    	// let self = config.__self;
+	    	// let source = config.__source;
 	      // ...省略
 	    }
 	  
