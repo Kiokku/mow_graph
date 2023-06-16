@@ -41,4 +41,10 @@
 		- `SPA`：单页网站应用
 			- JS、HTML、CSS文件打包为一个文件，一次性丢给浏览器。
 			- JS劫持浏览器路由，生成[[#green]]==虚拟路由==动态渲染页面dom元素。
-		-
+	- ### React路由解决方案
+	  background-color:: pink
+		- [[#blue]]==`react-router`-v5==
+			- `安装`：`yarn add react-router-dom`
+			- `react-router-dom`：用于浏览器，处理Web App的路由。
+			- `react-router-native`：用于React Native，处理手机App的路由。
+			- `react-router-redux`：
