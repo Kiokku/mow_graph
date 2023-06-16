@@ -64,4 +64,5 @@
 	    return element;
 	  };
 	  ```
+	- `React.createElement`最终会调用`ReactElement`方法返回一个包含组件数据的对象，该对象有个参数`$$typeof: REACT_ELEMENT_TYPE`标记了该对象是个`React Element`。
 	-
