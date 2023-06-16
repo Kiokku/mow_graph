@@ -53,5 +53,5 @@
 			- > ⚠️官方或半官方typing支持：`npm install @type/XXXXXX`
 			- > `npm install --save-dev`
 			  > `--save`安装依赖时自动添加版本号信息到package-json.js
-			  > `-dev`安装依赖到devDependence
+			  > `-dev`安装依赖到devDependencies
 			-
