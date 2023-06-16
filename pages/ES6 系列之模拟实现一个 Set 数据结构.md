@@ -50,5 +50,130 @@
 		- 1. `Set.prototype.constructor`：构造函数，默认就是 Set 函数。
 		  2. `Set.prototype.size`：返回 Set 实例的成员总数。
 - ## 模拟实现第一版
-	- 简单的 Set 数据结构，实现 add、delete、has、clear、forEach 方法
+	- 简单的 Set 数据结构，实现 `add`、`delete`、`has`、`clear`、`forEach` 方法
+	- ```
+	  /**
+	   * 模拟实现第一版
+	   */
+	  (function(global) {
+	  
+	      function Set(data) {
+	          this._values = [];
+	          this.size = 0;
+	  
+	          data && data.forEach(function(item) {
+	              this.add(item);
+	          }, this);
+	      }
+	  
+	      Set.prototype['add'] = function(value) {
+	          if (this._values.indexOf(value) == -1) {
+	              this._values.push(value);
+	              ++this.size;
+	          }
+	          return this;
+	      }
+	  
+	      Set.prototype['has'] = function(value) {
+	          return (this._values.indexOf(value) !== -1);
+	      }
+	  
+	      Set.prototype['delete'] = function(value) {
+	          var idx = this._values.indexOf(value);
+	          if (idx == -1) return false;
+	          this._values.splice(idx, 1);
+	          --this.size;
+	          return true;
+	      }
+	  
+	      Set.prototype['clear'] = function(value) {
+	          this._values = [];
+	          this.size = 0;
+	      }
+	  
+	      Set.prototype['forEach'] = function(callbackFn, thisArg) {
+	          thisArg = thisArg || global;
+	          for (var i = 0; i < this._values.length; i++) {
+	              callbackFn.call(thisArg, this._values[i], this._values[i], this);
+	          }
+	      }
+	  
+	      Set.length = 0;
+	  
+	      global.Set = Set;
+	  
+	  })(this)
+	  ```
+- ## 模拟实现第二版
+	- 模拟实现的 Set 其实可以添加多个 NaN 而不会去重，然而对于真正的 Set 数据结构：
+	- ```
+	  let set = new Set();
+	  set.add(NaN);
+	  set.add(NaN);
+	  console.log(set.size); // 1
+	  ```
+	- 所以我们[[#blue]]==需要对 NaN 这个值进行单独的处理==。
+	- 处理的方式是当判断添加的值是 NaN 时，将其替换为一个独一无二的值，比如说一个很难重复的字符串类似于 `@@NaNValue`，当然了，说到独一无二的值，我们也可以直接使用 Symbol，代码如下：
+	- ```
+	  /**
+	   * 模拟实现第二版
+	   */
+	  (function(global) {
+	  
+	      var NaNSymbol = Symbol('NaN');
+	  
+	      var encodeVal = function(value) {
+	          return value !== value ? NaNSymbol : value;
+	      }
+	  
+	      var decodeVal = function(value) {
+	          return (value === NaNSymbol) ? NaN : value;
+	      }
+	  
+	      function Set(data) {
+	          this._values = [];
+	          this.size = 0;
+	  
+	          data && data.forEach(function(item) {
+	              this.add(item);
+	          }, this);
+	  
+	      }
+	  
+	      Set.prototype['add'] = function(value) {
+	          value = encodeVal(value);
+	          if (this._values.indexOf(value) == -1) {
+	              this._values.push(value);
+	              ++this.size;
+	          }
+	          return this;
+	      }
+	  
+	      Set.prototype['has'] = function(value) {
+	          return (this._values.indexOf(encodeVal(value)) !== -1);
+	      }
+	  
+	      Set.prototype['delete'] = function(value) {
+	          var idx = this._values.indexOf(encodeVal(value));
+	          if (idx == -1) return false;
+	          this._values.splice(idx, 1);
+	          --this.size;
+	          return true;
+	      }
+	  
+	      Set.prototype['clear'] = function(value) {
+	          ...
+	      }
+	  
+	      Set.prototype['forEach'] = function(callbackFn, thisArg) {
+	          ...
+	      }
+	  
+	      Set.length = 0;
+	  
+	      global.Set = Set;
+	  
+	  })(this)
+	  ```
+	-
 	-
