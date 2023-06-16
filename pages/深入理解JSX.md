@@ -86,4 +86,22 @@
 	  console.log('这是Element：', <AppFunc/>);
 	  ```
 	- ![image.png](../assets/image_1686909530088_0.png)
-	- `ClassComponent`： 对应的`Element`的`type`字段为`AppClass`自身。
+	- `ClassComponent`：对应的`Element`的`type`字段为`AppClass`自身。
+	- `FunctionComponent`：对应的`Element`的`type`字段为`AppFunc`自身。
+	- `React`通过`ClassComponent`实例原型上的`isReactComponent`变量判断是否是`ClassComponent`。
+		- ```
+		  ClassComponent.prototype.isReactComponent = {};
+		  ```
+- ## JSX与Fiber节点
+	- `JSX`是一种描述当前组件内容的数据结构，他不包含组件**schedule**、**reconcile**、**render**所需的相关信息。
+	- 如下信息就不包括在`JSX`中：
+		- 组件在更新中的`优先级`
+		- 组件的`state`
+		- 组件被打上的用于**Renderer**的`标记`
+	- 这些内容都包含在`Fiber节点`中。
+	- [[#blue]]==在组件`mount`时==：`Reconciler`根据`JSX`描述的组件内容生成组件对应的`Fiber节点`。
+	- [[#blue]]==在`update`时==：`Reconciler`将`JSX`与`Fiber节点`保存的数据对比，生成组件对应的`Fiber节点`，并根据对比结果为`Fiber节点`打上`标记`。
+- ## 参考资料
+	- [如何干掉知乎的全部DIV -- 通过这篇文章在运行时修改`React.createElement`达到消除页面所有`div`元素的效果(opens new window)](https://mp.weixin.qq.com/s/ICjOlJL-fUGRb2S_xqBT7Q)
+	- [React官网Blog，关于React Component, Element, Instance, Reconciliation的简介](https://reactjs.org/blog/2015/12/18/react-components-elements-and-instances.html)
+	-
