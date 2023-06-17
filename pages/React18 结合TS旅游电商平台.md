@@ -43,18 +43,20 @@
 			- JS劫持浏览器路由，生成[[#green]]==虚拟路由==动态渲染页面dom元素。
 	- ### React路由解决方案
 	  background-color:: pink
-		- #### [[#blue]]==`react-router`-v5==
+		- #### react-router v5
+		  background-color:: green
 			- [react-router v5 文档](https://v5.reactrouter.com/)
-			- `安装`：`yarn add react-router-dom`
+			- `安装`：`npm i react-router-dom@5.3.4`
 			- `react-router-dom`：用于浏览器，处理Web App的路由。
 			- `react-router-native`：用于React Native，处理手机App的路由。
 			- `react-router-redux`：路由中间件，处理redux集成。
 			- `react-router-config`：静态配置路由。
 			- > 注意⚠️：react-router没有提供TypeScript支持，需要安装react-router类型定义：`@types/react-router-dom`
-			- > ⚠️官方或半官方typing支持：`npm install @type/XXXXXX`
+			- > ⚠️官方或半官方typing支持：`npm install @types/XXXXXX`
 			- > `npm install --save-dev`
-			  > `--save`安装依赖时自动添加版本号信息到package-json.js
-			  > `-dev`安装依赖到devDependencies
+			  >> `--save`安装依赖时自动添加版本号信息到package-json.js
+			  >
+			  >> `-dev`安装依赖到devDependencies
 			- `<BrowserRouter />`：路由导航与原生浏览器操作行为一致
 			- `<Route />`：路由的路径解析原理与原生浏览器一致，可以自动识别url路径，`component`中传递`history`，`location`，`match`的props
 			- `<Switch />`：路由的切换以页面为单位，不要页面堆叠
