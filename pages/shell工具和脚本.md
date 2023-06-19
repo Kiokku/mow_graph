@@ -113,4 +113,15 @@
 			  find . -name '*.png' -exec convert {} {}.jpg \;
 			  ```
 		- [`fd`](https://github.com/sharkdp/fd) 是一个更简单、更快速、更友好的程序，它可以用来作为`find`的替代品。
-		-
+		- [`locate`](https://man7.org/linux/man-pages/man1/locate.1.html)
+	- ### 查找代码
+	  background-color:: pink
+		- [`grep`](https://man7.org/linux/man-pages/man1/grep.1.html)命令，它是用于对输入文本进行匹配的通用工具。
+			- `-C` ：获取查找结果的上下文（Context）。
+			- `-v` 将对结果进行反选（Invert），也就是输出不匹配的结果。
+	- ### 查找 shell 命令
+	  background-color:: pink
+		- `history` 命令允许您以程序员的方式来访问shell中输入的历史命令。
+		- `Ctrl+R` 对命令历史记录进行回溯搜索。敲 `Ctrl+R` 后您可以输入子串来进行匹配，查找历史命令行。
+		- `Ctrl+R` 可以配合 [fzf](https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r) 使用。`fzf` 是一个通用对模糊查找工具，它可以和很多命令一起使用。这里我们可以对历史命令进行模糊查找并将结果以赏心悦目的格式输出。
+		- **基于历史的自动补全**：这一功能在 [zsh](https://github.com/zsh-users/zsh-autosuggestions) 中也可以使用，它可以极大的提高用户体验。
