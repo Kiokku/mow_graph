@@ -105,3 +105,12 @@
 			  # 查找所有大小在500k至10M的tar.gz文件
 			  find . -size +500k -size -10M -name '*.tar.gz'
 			  ```
+			- 除了列出所寻找的文件之外，find 还能对所有查找到的文件进行操作。这能极大地简化一些单调的任务。
+			- ```
+			  # 删除全部扩展名为.tmp 的文件
+			  find . -name '*.tmp' -exec rm {} \;
+			  # 查找全部的 PNG 文件并将其转换为 JPG
+			  find . -name '*.png' -exec convert {} {}.jpg \;
+			  ```
+		- [`fd`](https://github.com/sharkdp/fd) 是一个更简单、更快速、更友好的程序，它可以用来作为`find`的替代品。
+		-
