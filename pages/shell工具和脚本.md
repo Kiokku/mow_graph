@@ -52,5 +52,39 @@
 	  background-color:: pink
 		- `$( CMD)`：执行`CMD` 这个命令时，它的输出结果会替换掉 `$( CMD )`。
 	- **进程替换**（*process substitution*）
-		- `<( CMD )`：
-		-
+	  background-color:: pink
+		- `<( CMD )`：执行 `CMD` 并将结果输出到一个临时文件中，并将 `<( CMD )` 替换成临时文件名。
+	- **通配**（*globbing*）：执行脚本时，我们经常需要提供形式类似的参数，它可以基于文件扩展名展开表达式。
+	  background-color:: green
+		- **通配符**：当你想要利用通配符进行匹配时，你可以分别[[#green]]==使用 `?` 和 `*` 来匹配一个或任意个字符==。例如，对于文件`foo`, `foo1`, `foo2`, `foo10` 和 `bar`, `rm foo?`这条命令会删除`foo1` 和 `foo2` ，而`rm foo*` 则会删除除了`bar`之外的所有文件。
+		- **花括号**`{}`：当你有一系列的指令，其中包含一段公共子串时，可以用花括号来自动展开这些命令。这在批量移动或转换文件时非常方便。
+		- ```
+		  convert image.{png,jpg}
+		  # 会展开为
+		  convert image.png image.jpg
+		  
+		  cp /path/to/project/{foo,bar,baz}.sh /newpath
+		  # 会展开为
+		  cp /path/to/project/foo.sh /path/to/project/bar.sh /path/to/project/baz.sh /newpath
+		  
+		  # 也可以结合通配使用
+		  mv *{.py,.sh} folder
+		  # 会移动所有 *.py 和 *.sh 文件
+		  
+		  mkdir foo bar
+		  
+		  # 下面命令会创建foo/a, foo/b, ... foo/h, bar/a, bar/b, ... bar/h这些文件
+		  touch {foo,bar}/{a..h}
+		  touch foo/x bar/y
+		  # 比较文件夹 foo 和 bar 中包含文件的不同
+		  diff <(ls foo) <(ls bar)
+		  # 输出
+		  # < x
+		  # ---
+		  # > y
+		  ```
+	- **[shellcheck](https://github.com/koalaman/shellcheck)**:帮助你定位sh/bash脚本中的错误。
+	  background-color:: pink
+	- **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))**
+	  background-color:: pink
+	-
