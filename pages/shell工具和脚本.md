@@ -48,7 +48,9 @@
 		  false ; echo "This will always run"
 		  # This will always run
 		  ```
-	-
-		-
-		-
+	- **命令替换**（*command substitution*）：以变量的形式获取一个命令的输出。
+	  background-color:: pink
+		- `$( CMD)`：执行`CMD` 这个命令时，它的输出结果会替换掉 `$( CMD )`。
+	- **进程替换**（*process substitution*）
+		- `<( CMD )`：
 		-
