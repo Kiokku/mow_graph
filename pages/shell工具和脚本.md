@@ -87,4 +87,21 @@
 	  background-color:: pink
 	- **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))**
 	  background-color:: pink
-	-
+- ## Shell 工具
+	- ### 查看命令如何使用
+	  background-color:: pink
+		- [`man`](https://man7.org/linux/man-pages/man1/man.1.html) 命令是手册（manual）的缩写，它提供了命令的用户手册。
+		- [TLDR pages](https://tldr.sh/) 是一个很不错的替代品，它提供了一些案例，可以帮助您快速找到正确的选项。
+	- ### 查找文件
+	  background-color:: pink
+		- [`find`](https://man7.org/linux/man-pages/man1/find.1.html)：`find`命令会递归地搜索符合条件的文件，例如：
+			- ```
+			  # 查找所有名称为src的文件夹
+			  find . -name src -type d
+			  # 查找所有文件夹路径中包含test的python文件
+			  find . -path '*/test/*.py' -type f
+			  # 查找前一天修改的所有文件
+			  find . -mtime -1
+			  # 查找所有大小在500k至10M的tar.gz文件
+			  find . -size +500k -size -10M -name '*.tar.gz'
+			  ```
