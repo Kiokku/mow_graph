@@ -33,4 +33,52 @@
 - ## 应用
 	- ### 1. 在 DOM 对象上保存相关数据
 	  background-color:: pink
-		-
+		- ```
+		  let wm = new WeakMap(), element = document.querySelector(".element");
+		  wm.set(element, "data");
+		  
+		  let value = wm.get(elemet);
+		  console.log(value); // data
+		  
+		  element.parentNode.removeChild(element);
+		  element = null;
+		  ```
+	- ### 2. 数据缓存
+	  background-color:: pink
+		- 当我们需要**关联对象和数据**，比如在不修改原有对象的情况下储存某些属性或者根据对象储存一些计算的值等，而又不想管理这些数据的死活时非常适合考虑使用 WeakMap。数据缓存就是一个非常好的例子：
+		- ```
+		  const cache = new WeakMap();
+		  function countOwnKeys(obj) {
+		      if (cache.has(obj)) {
+		          console.log('Cached');
+		          return cache.get(obj);
+		      } else {
+		          console.log('Computed');
+		          const count = Object.keys(obj).length;
+		          cache.set(obj, count);
+		          return count;
+		      }
+		  }
+		  ```
+	- ### 3. 私有属性
+	  background-color:: pink
+		- WeakMap 也可以被用于实现私有变量，不过在 ES6 中实现私有变量的方式有很多种，这只是其中一种：
+		- ```
+		  const privateData = new WeakMap();
+		  
+		  class Person {
+		      constructor(name, age) {
+		          privateData.set(this, { name: name, age: age });
+		      }
+		  
+		      getName() {
+		          return privateData.get(this).name;
+		      }
+		  
+		      getAge() {
+		          return privateData.get(this).age;
+		      }
+		  }
+		  
+		  export default Person;
+		  ```
