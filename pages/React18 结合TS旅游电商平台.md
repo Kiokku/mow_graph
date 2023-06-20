@@ -71,5 +71,7 @@
 			- `<Link to={} />`：代替history.push()
 		- #### react-router v6
 		  background-color:: green
+			- `<BrowserRouter />` `<Routes />` `<Route />`：v6废除了`<Switch />`，使用这三个组件的固定搭配。
+			-
 			-
 -
