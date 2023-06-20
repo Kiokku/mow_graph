@@ -77,4 +77,76 @@
 	      return deepEq(a, b);
 	  };
 	  ```
--
+	- 如果我们添加上了`typeof b !== function`这句，当 a 是基本类型，而 b 是函数的时候，就会进入 `deepEq 函数`，而去掉这一句，就会进入直接进入 false，实际上 基本类型和函数肯定是不会相等的，所以[[#green]]==这样做代码又少，又可以让一种情况更早退出==。
+- ## String 对象
+	- `Object.prototype.toString`判断类型：
+	- ```
+	  var toString = Object.prototype.toString;
+	  toString.call('Curly'); // "[object String]"
+	  toString.call(new String('Curly')); // "[object String]"
+	  ```
+	- [[#blue]]==隐式类型转换==判断字符串和字符串包装对象是相等:
+	- ```
+	  console.log('Curly' + '' === new String('Curly') + ''); // true
+	  ```
+- ## 更多对象
+	- **Boolean**
+		- ```
+		  var a = true;
+		  var b = new Boolean(true);
+		  
+		  console.log(+a === +b) // true
+		  ```
+	- **Date**
+		- ```
+		  var a = new Date(2009, 9, 25);
+		  var b = new Date(2009, 9, 25);
+		  
+		  console.log(+a === +b) // true
+		  ```
+	- **RegExp**
+		- ```
+		  var a = /a/i;
+		  var b = new RegExp(/a/i);
+		  
+		  console.log('' + a === '' + b) // true
+		  ```
+	- **Number**
+		- ```
+		  var a = Number(NaN);
+		  var b = Number(NaN);
+		  
+		  function eq() {
+		      // 判断 Number(NaN) Object(NaN) 等情况
+		      if (+a !== +a) return +b !== +b;
+		      // 其他判断 ...
+		  }
+		  
+		  console.log(eq(a, b)); // true
+		  ```
+- ## deepEq 函数
+	- ```
+	  var toString = Object.prototype.toString;
+	  
+	  function deepEq(a, b) {
+	      var className = toString.call(a);
+	      if (className !== toString.call(b)) return false;
+	  
+	      switch (className) {
+	          case '[object RegExp]':
+	          case '[object String]':
+	              return '' + a === '' + b;
+	          case '[object Number]':
+	              if (+a !== +a) return +b !== +b;
+	              return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+	        case '[object Date]':
+	        case '[object Boolean]':
+	              return +a === +b;
+	      }
+	  
+	      // 其他判断
+	  }
+	  ```
+- ## 构造函数实例
+	-
+	-
