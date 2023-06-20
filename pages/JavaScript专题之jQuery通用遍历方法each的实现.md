@@ -17,7 +17,7 @@
 	  ```
 - ## 第一版
 	- 首先，我们要根据参数的类型进行判断，[[#green]]==如果是数组，就调用 for 循环==，[[#blue]]==如果是对象，就使用 for in 循环==，[[#green]]==有一个例外是类数组对象，对于类数组对象，我们依然可以使用 for 循环==。
-	- 那么又该如何判断类数组对象和数组呢？实际上，我们在[《JavaScript专题之类型判断(下)》](https://github.com/mqyqingfeng/Blog/issues/30)就讲过jQuery 数组和类数组对象判断函数 isArrayLike 的实现。
+	- [JavaScript专题之类型判断(下)]中的判断函数 `isArrayLike`来判断类数组对象和数组。
 	- ```
 	  // 第一版
 	  function each(obj, callback) {
@@ -37,4 +37,23 @@
 	      return obj;
 	  }
 	  ```
+- ## 中止循环
+	- 我们只用把：`callback(i, obj[i])`
+	- 替换成：`if (callback(i, obj[i]) === false) break`
+- ## this
+	- 我们在实际的开发中，我们有时会在 callback 函数中用到 this
+	- 指定 this，我们可以使用 call 或者 apply：
+		- 我们把：
+		- ```
+		  if (callback(i, obj[i]) === false) {
+		      break;
+		  }
+		  ```
+		- 替换成：
+		- ```
+		  if (callback.call(obj[i], i, obj[i]) === false) {
+		      break;
+		  }`
+		  ```
+		-
 -
