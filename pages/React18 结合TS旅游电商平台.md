@@ -72,5 +72,8 @@
 		- #### react-router v6
 		  background-color:: green
 			- `<BrowserRouter />` `<Routes />` `<Route />`：v6废除了`<Switch />`，使用这三个组件的固定搭配。
-			- [[#red]]==~~`withRouter`~~==：v6
+			- [[#red]]==~~`withRouter`~~==：v6 全面倒向**函数式组件**，不再支持类组件HOC。
+			- `useRouter`：`useLocation`、[[#red]]==~~`useHistory`~~==、[[#green]]==`useNavigate`==、`useParams`
+			- `<Link />`
+			-
 -
