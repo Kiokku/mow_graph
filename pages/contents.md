@@ -31,6 +31,7 @@
 		- [[JavaScript专题之数组扁平化]]
 		- [[JavaScript专题之学underscore在数组中查找指定元素]]
 		- [[JavaScript专题之jQuery通用遍历方法each的实现]]
+		- [[JavaScript专题之如何判断两个对象相等]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]

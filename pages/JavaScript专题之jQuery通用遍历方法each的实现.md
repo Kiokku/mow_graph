@@ -55,5 +55,28 @@
 		      break;
 		  }`
 		  ```
-		-
--
+- ## 最终的 each 源码：
+	- ```
+	  function each(obj, callback) {
+	      var length, i = 0;
+	  
+	      if (isArrayLike(obj)) {
+	          length = obj.length;
+	          for (; i < length; i++) {
+	              if (callback.call(obj[i], i, obj[i]) === false) {
+	                  break;
+	              }
+	          }
+	      } else {
+	          for (i in obj) {
+	              if (callback.call(obj[i], i, obj[i]) === false) {
+	                  break;
+	              }
+	          }
+	      }
+	  
+	      return obj;
+	  }
+	  ```
+- ## 性能比较
+	- [[#green]]==for 循环的性能是明显好于 each 函数==，call 会导致性能损失，但也正是 call 的存在，我们才能将 this 指向循环中当前的元素。
