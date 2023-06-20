@@ -147,6 +147,21 @@
 	      // 其他判断
 	  }
 	  ```
-- ## 构造函数实例
-	-
+- ## 构造函数实例相等
+	- 我们看个例子：
+	- ```
+	  function Person() {
+	      this.name = name;
+	  }
+	  
+	  function Animal() {
+	      this.name = name
+	  }
+	  
+	  var person = new Person('Kevin');
+	  var animal = new Animal('Kevin');
+	  
+	  eq(person, animal) // ???
+	  ```
+	- 虽然 `person` 和 `animal` 都是 `{name: 'Kevin'}`，但是 `person` 和 `animal` [[#red]]==属于不同**构造函数**的实例，为了做出区分，我们认为是不同的对象。==
 	-
