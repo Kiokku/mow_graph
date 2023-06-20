@@ -1,7 +1,7 @@
 - > https://github.com/mqyqingfeng/Blog/issues/92
 -
 - ## WeakMap特性
-	- ### 1. WeakMap 只接受对象作为键名
+	- ### 1. WeakMap 只接受**对象**作为键名
 	  background-color:: pink
 		- ```
 		  const map = new WeakMap();
@@ -10,5 +10,27 @@
 		  map.set(null, 2);
 		  // TypeError: Invalid value used as weak map key
 		  ```
+	- ### 2. WeakMap 的键名所引用的对象是弱引用
+		- > 在计算机程序设计中，弱引用与强引用相对，是指**不能确保其引用的对象不会被垃圾回收器回收的引用**。 一个对象若只被弱引用所引用，则被认为是不可访问（或弱可访问）的，并因此可能在任何时刻被回收。
+		- ```
+		  let map = new Map();
+		  let key = new Array(5 * 1024 * 1024); //Obj
+		  
+		  // 建立了 map 对 key 所引用对象的强引用
+		  map.set(key, 1);
+		  // key = null 不会导致 key 的原引用对象被回收
+		  key = null;
+		  ```
+		- 当设置 `key = null` 时，只是去掉了 key 对 Obj 的强引用，并没有去除 arr 对 Obj 的强引用，所以 Obj 还是不会被回收掉。
+		- ```
+		  const wm = new WeakMap();
+		  let key = new Array(5 * 1024 * 1024);
+		  wm.set(key, 1);
+		  key = null;
+		  ```
+		- 当我们设置 `wm.set(key, 1)` 时，其实建立了 wm 对 key 所引用的对象的弱引用，但因为 `let key = new Array(5 * 1024 * 1024)` 建立了 key 对所引用对象的强引用，被引用的对象并不会被回收，但是当我们设置 `key = null` 的时候，就只有 wm 对所引用对象的弱引用，下次垃圾回收机制执行的时候，该引用对象就会被回收掉。
+	- [[#red]]==WeakMap只有四个方法可用：get()、set()、has()、delete()==
+- ## 应用
+	- ### 1. 在 DOM 对象上保存相关数据
+	  background-color:: pink
 		-
--
