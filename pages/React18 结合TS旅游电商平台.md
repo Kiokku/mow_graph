@@ -77,5 +77,14 @@
 			- `<Link />`
 			- [[#blue]]==支持类组件==：HOC
 				- ```
+				  export const withRouter = (Component) => {
+				      const WrappedComponent = (props) => {
+				          const navigate = useNavigate()
+				          return (
+				              <Component navigate={navigate} {...props} />
+				          )
+				      }
+				      return WrappedComponent
+				  }
 				  ```
 -
