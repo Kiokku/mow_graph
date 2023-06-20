@@ -164,4 +164,67 @@
 	  eq(person, animal) // ???
 	  ```
 	- 虽然 `person` 和 `animal` 都是 `{name: 'Kevin'}`，但是 `person` 和 `animal` [[#red]]==属于不同**构造函数**的实例，为了做出区分，我们认为是不同的对象。==
+	- ```
+	  function isFunction(obj) {
+	      return toString.call(obj) === '[object Function]'
+	  }
+	  
+	  function deepEq(a, b) {
+	      // 接着上面的内容
+	      var areArrays = className === '[object Array]';
+	      // 不是数组
+	      if (!areArrays) {
+	          // 过滤掉两个函数的情况
+	          if (typeof a != 'object' || typeof b != 'object') return false;
+	  
+	          var aCtor = a.constructor, bCtor = b.constructor;
+	          // aCtor 和 bCtor 必须都存在并且都不是 Object 构造函数的情况下，aCtor 不等于 bCtor， 那这两个对象就真的不相等啦
+	          if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) && ('constructor' in a && 'constructor' in b)) {
+	              return false;
+	          }
+	      }
+	  
+	      // 下面还有好多判断
+	  }
+	  ```
+- ## 数组相等
+	- 递归遍历：
+	- ```
+	  function deepEq(a, b) {
+	      // 再接着上面的内容
+	      if (areArrays) {
+	  
+	          length = a.length;
+	          if (length !== b.length) return false;
+	  
+	          while (length--) {
+	              if (!eq(a[length], b[length])) return false;
+	           }
+	      } 
+	      else {
+	  
+	          var keys = Object.keys(a), key;
+	          length = keys.length;
+	  
+	          if (Object.keys(b).length !== length) return false;
+	  
+	          while (length--) {
+	              key = keys[length];
+	              if (!(b.hasOwnProperty(key) && eq(a[key], b[key]))) return false;
+	          }
+	      }
+	      return true;
+	  
+	  }
+	  ```
+- ## 循环引用
+	- 举个简单的例子：
+	- ```
+	  a = {abc: null};
+	  b = {abc: null};
+	  a.abc = a;
+	  b.abc = b;
+	  
+	  eq(a, b)
+	  ```
 	-
