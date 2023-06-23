@@ -45,4 +45,9 @@
 	  // Property 'location' does not exist on type '{ name: string; age: number; }'.
 	  ```
 - ## 类型工具（Types for Tooling）
+	- 类型检查器因为有类型信息，可以检查比如说是否正确获取了一个变量的属性。也正是因为有这个信息，它也可以在你输入的时候，列出你可能想要使用的属性。
+	- 这意味着 TypeScript 对你编写代码也很有帮助，核心的类型检查器不仅可以提供错误信息，还可以提供代码补全功能。
+	- 还可以支持“快速修复”功能，即自动的修复错误，重构成组织清晰的代码。同时也支持导航功能，比如跳转到变量定义的地方，或者找到一个给定的变量所有的引用。
+- ## `tsc`   TypeScript 编译器（tsc，the TypeScript compiler）
+- ## 报错时仍产出文件（Emitting with Errors）
 	-
