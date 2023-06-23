@@ -75,4 +75,8 @@
 	- >尽管默认的目标是 ES3 版本，但是大多数的浏览器都已经支持 ES2015 了，因此大部分开发者可以安全的指定为 ES2015 或者更新的版本，除非你非要兼容某个问题浏览器。
 - ## 严格模式（Strictness）
 	- TypeScript 有几个严格模式设置的开关。除非特殊说明，文档里的例子都是在严格模式下写的。CLI 里的 [strict](https://www.typescriptlang.org/tsconfig/#strict)配置项，或者 [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)中的 `"strict": true` 可以同时开启，也可以分开设置。在这些设置里，你最需要了解的是 [noImplicitAny](https://www.typescriptlang.org/tsconfig#noImplicitAny)和 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)。
-	-
+- ## `noImplicitAny`
+	- 在某些时候，TypeScript 并不会为我们推断类型，这时候就会回退到最宽泛的类型：`any` 。这倒不是最糟糕的事情，毕竟回退到 `any`就跟我们写 JavaScript 没啥一样了。
+	- 但是，[[#blue]]==经常使用 `any` 有违背我们使用 TypeScript 的目的==。你程序使用的类型越多，你在验证和工具上得到的帮助就会越多，这也意味着写代码的时候会遇到更少的 bug。启用 [noImplicitAny](https://www.typescriptlang.org/tsconfig#noImplicitAny)配置项后，当类型被隐式推断为 `any` 时，会抛出一个错误。
+- ## `strictNullChecks`
+	- 默认情况下，像 `null` 和 `undefined` 这样的值可以赋值给其他的类型。这可以让我们更方便的写一些代码。但是忘记处理 `null` 和 `undefined` 也导致了不少的 bug，甚至有些人会称呼它为[价值百万的错误](https://www.youtube.com/watch?v=ybrQvs4x0Ps)！ [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项会让我们更明确的处理 `null` 和 `undefined`，也会让我们免于忧虑是否忘记处理 `null` 和 `undefined` 。

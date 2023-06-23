@@ -1,0 +1,6 @@
+- > https://ts.yayujs.com/handbook/EverydayType.html
+-
+- ## 原始类型:   `string` ， `number`   和   `boolean` （The primitives）
+	- JavaScript 的三个非常常用的[原始类型](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)：`string`，`number` 和 `boolean`
+- ## 数组（Array）
+	- 声明一个类似于 `[1, 2, 3]` 的数组类型，你需要用到语法 `number[]`
