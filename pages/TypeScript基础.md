@@ -50,4 +50,29 @@
 	- 还可以支持“快速修复”功能，即自动的修复错误，重构成组织清晰的代码。同时也支持导航功能，比如跳转到变量定义的地方，或者找到一个给定的变量所有的引用。
 - ## `tsc`   TypeScript 编译器（tsc，the TypeScript compiler）
 - ## 报错时仍产出文件（Emitting with Errors）
-	- 在刚才的例子中，有一个细节你可能没有注意到，那就是如果我们打开编译输出的文件，我们会发现文件依然发生了改动。这是不是有点奇怪？`tsc` 明明已经报错了，为什么还要再编译文件？这就要讲到 TypeScript 一个核心的观点：大部分时候，你要比 TypeScript 更清楚你的代码。
+	- 在刚才的例子中，有一个细节你可能没有注意到，那就是如果我们打开编译输出的文件，我们会发现文件依然发生了改动。这是不是有点奇怪？`tsc` 明明已经报错了，为什么还要再编译文件？这就要讲到[[#green]]==TypeScript 一个核心的观点：大部分时候，你要比 TypeScript 更清楚你的代码。==
+	- 举个例子，假如你正在把你的代码迁移成 TypeScript，这会产生很多类型检查错误，而你不得不为类型检查器处理掉所有的错误，这时候你就要想了，明明之前的代码可以正常工作，TypeScript 为什么要阻止代码正常运行呢？
+	- 所以 TypeScript 并不会阻碍你。当然了，你如果想要 TypeScript 更严厉一些，你可以使用 [noEmitOnError](https://www.typescriptlang.org/tsconfig#noEmitOnError)编译选项，试着改下你的 `hello.ts` 文件，然后运行 `tsc`:`tsc --noEmitOnError hello.ts`
+- ## 显示类型（Explicit Types）
+	- ```
+	  function greet(person: string, date: Date) {
+	    console.log(`Hello ${person}, today is ${date.toDateString()}!`);
+	  }
+	  ```
+	- 我们所做的就是给 `person` 和 `date` 添加了**类型注解（type annotations）**
+- ## 类型抹除（Erased Types）
+	- ```
+	  "use strict";
+	  function greet(person, date) {
+	      console.log("Hello " + person + ", today is " + date.toDateString() + "!");
+	  }
+	  greet("Maddison", new Date());
+	  ```
+	- [[#red]]==类型注解并不是 JavaScript 的一部分。==所以并没有任何浏览器或者运行环境可以直接运行 TypeScript 代码。这就是为什么 TypeScript 需要一个编译器，它需要将 TypeScript 代码转换为 JavaScript 代码，然后你才可以运行它。所以大部分 TypeScript 独有的代码会被抹除，在这个例子中，像我们的类型注解就全部被抹除了。
+- ## 降级（Downleveling）
+	- TypeScript 默认转换为 `ES3`，一个 ECMAScript 非常老的版本。我们也可以使用 [target (opens new window)](https://www.typescriptlang.org/tsconfig#target)选项转换为比较新的一些版本，比如执行 `--target es2015` 会转换为 ECMAScript 2015, 这意味着转换后的代码可以在任何支持 ECMAScript 2015 的地方运行。
+	- 执行 `tsc --target es2015 hello.ts`
+	- >尽管默认的目标是 ES3 版本，但是大多数的浏览器都已经支持 ES2015 了，因此大部分开发者可以安全的指定为 ES2015 或者更新的版本，除非你非要兼容某个问题浏览器。
+- ## 严格模式（Strictness）
+	- TypeScript 有几个严格模式设置的开关。除非特殊说明，文档里的例子都是在严格模式下写的。CLI 里的 [strict](https://www.typescriptlang.org/tsconfig/#strict)配置项，或者 [tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)中的 `"strict": true` 可以同时开启，也可以分开设置。在这些设置里，你最需要了解的是 [noImplicitAny](https://www.typescriptlang.org/tsconfig#noImplicitAny)和 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)。
+	-
