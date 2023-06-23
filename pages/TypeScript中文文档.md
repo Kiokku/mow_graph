@@ -1,2 +1,5 @@
-- > https://ts.yayujs.com/
+- > [TypeScript中文文档](https://ts.yayujs.com/)
+	- ### 基础
+		- [[TypeScript基础]]
 	-
+-

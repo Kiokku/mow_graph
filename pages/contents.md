@@ -45,6 +45,9 @@
 		-
 - TypeScript
 	- [[TypeScript中文文档]]
+		- 基础
+			- [[TypeScript基础]]
+			-
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
 	- [[时间复杂度与空间复杂度]]
