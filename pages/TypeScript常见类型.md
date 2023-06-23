@@ -3,4 +3,9 @@
 - ## 原始类型:   `string` ， `number`   和   `boolean` （The primitives）
 	- JavaScript 的三个非常常用的[原始类型](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)：`string`，`number` 和 `boolean`
 - ## 数组（Array）
-	- 声明一个类似于 `[1, 2, 3]` 的数组类型，你需要用到语法 `number[]`
+	- 声明一个类似于 `[1, 2, 3]` 的数组类型，你需要用到语法 `number[]` `string[]`
+	- > ⚠️ 注意
+	  > `[number]` 和 `number[]` 表示不同的意思，参考[元组](https://www.typescriptlang.org/docs/handbook/2/objects.html#tuple-types)章节
+- ## `any`
+	- TypeScript 有一个特殊的类型，`any`，当你不希望一个值导致类型检查错误的时候，就可以设置为 `any` 。
+	-
