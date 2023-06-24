@@ -199,4 +199,22 @@
 				  // Change 2
 				  handleRequest(req.url, req.method as "GET");
 				  ```
+				- 修改 1 表示“我有意让 `req.method` 的类型为字面量类型 `"GET"`，这会阻止未来可能赋值为 `"GUESS"` 等字段”。修改 2 表示“我知道 `req.method` 的值是 `"GET"`”.
+			- 2. 你也可以使用 `as const` 把整个对象转为一个类型字面量：
+				- ```
+				  const req = { url: "https://example.com", method: "GET" } as const;
+				  handleRequest(req.url, req.method);
+				  ```
+				- `as const` 效果跟 `const` 类似，但是对类型系统而言，它可以[[#green]]==确保所有的属性都被赋予一个字面量类型==，而不是一个更通用的类型比如 `string` 或者 `number` 。
+- ## `null`   和   `undefined`
+	- JavaScript 有两个原始类型的值，用于表示空缺或者未初始化，他们分别是 `null` 和 `undefined` 。
+	- TypeScript 有两个对应的同名类型。它们的行为取决于是否打开了 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项。
+	- ### `strictNullChecks`   关闭
+	  background-color:: red
+		- 当 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项关闭的时候，如果一个值可能是 `null` 或者 `undefined`，它依然可以被正确的访问，或者被赋值给任意类型的属性。这有点类似于没有空值检查的语言 (比如 C# ，Java) 。这些检查的缺少，是导致 bug 的主要源头，所以我们始终推荐开发者[[#green]]==开启== [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项。
+	- ### `strictNullChecks`   打开
+	  background-color:: green
+		- 当 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项打开的时候，如果一个值可能是 `null` 或者 `undefined`，你需要在用它的方法或者属性之前，先检查这些值，就像用可选的属性之前，先检查一下 是否是 `undefined` ，我们也可以使用[[#blue]]==类型收窄（narrowing）==检查值是否是 `null`。
+- ## 非空断言操作符（后缀   `!` ）(Non-null Assertion Operator)
+	-
 	-
