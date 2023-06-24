@@ -134,5 +134,24 @@
 	  background-color:: pink
 		- [[#blue]]==类型别名和接口非常相似，大部分时候，你可以任意选择使用。==接口的几乎所有特性都可以在 `type` 中使用，[[#red]]==两者最关键的差别在于类型别名本身无法添加新的属性，而**接口是可以扩展的**。==
 - ## 类型断言（Type Assertions）
+	- `as`：你可以使用类型断言将一个类型指定为一个更具体的类型：
+	- ```
+	  const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
+	  ```
+	- 也可以使用尖括号语法 `<Type>` （注意不能在 `.tsx` 文件内使用），是等价的：
+	- ```
+	  const myCanvas = <HTMLCanvasElement>document.getElementById("main_canvas");
+	  ```
+	- TypeScript 仅仅[[#red]]==允许类型断言转换为一个更加具体或者更不具体的类型。==这个规则可以阻止一些不可能的强制类型转换，比如：
+	- ```
+	  const x = "hello" as number;
+	  // Conversion of type 'string' to type 'number' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+	  ```
+	- 有的时候，这条规则会显得非常保守，阻止了你原本有效的类型转换。如果发生了这种事情，[[#green]]==你可以使用双重断言，先断言为 `any` （或者是 `unknown`），然后再断言为期望的类型==：
+	- ```
+	  const a = (expr as any) as T;
+	  ```
+- ## 字面量类型（Literal Types）
+	- 除了常见的类型 `string` 和 `number` ，我们也可以将类型声明为**更具体**的数字或者字符串。
 	-
 	-
