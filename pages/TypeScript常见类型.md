@@ -216,5 +216,27 @@
 	  background-color:: green
 		- 当 [strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)选项打开的时候，如果一个值可能是 `null` 或者 `undefined`，你需要在用它的方法或者属性之前，先检查这些值，就像用可选的属性之前，先检查一下 是否是 `undefined` ，我们也可以使用[[#blue]]==类型收窄（narrowing）==检查值是否是 `null`。
 - ## 非空断言操作符（后缀   `!` ）(Non-null Assertion Operator)
-	-
-	-
+	- TypeScript 提供了一个特殊的语法，可以在不做任何检查的情况下，从类型中移除 `null` 和 `undefined`，这就是在任意表达式后面写上 `!` ，这是一个有效的类型断言，表示它的值不可能是 `null` 或者 `undefined`：
+	- ```
+	  function liveDangerously(x?: number | null) {
+	    // No error
+	    console.log(x!.toFixed());
+	  }
+	  ```
+	- 就像其他的类型断言，这也不会更改任何运行时的行为。[[#red]]==重要的事情说一遍，只有当你明确的知道这个值不可能是 `null` 或者 `undefined` 时才使用 `!` 。==
+- ## 枚举（Enums）
+	- 枚举是 TypeScript 添加的新特性，用于描述一个值可能是多个常量中的一个。不同于大部分的 TypeScript 特性，这并不是一个类型层面的增量，而是会添加到语言和运行时。
+- ## 不常见的原始类型（Less Common Primitives）
+	- ### bigInt
+	  background-color:: pink
+		- **ES2020** 引入原始类型 `BigInt`，用于表示非常大的整数：
+		- ```
+		  // Creating a bigint via the BigInt function
+		  const oneHundred: bigint = BigInt(100);
+		   
+		  // Creating a BigInt via the literal syntax
+		  const anotherHundred: bigint = 100n;
+		  
+		  ```
+	- ### symbol
+	  background-color:: pink

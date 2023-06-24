@@ -1,0 +1,4 @@
+- > https://ts.yayujs.com/handbook/Narrowing.html
+-
+- ## 类型收窄（Narrowing）
+	-
