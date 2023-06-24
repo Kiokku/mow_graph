@@ -30,4 +30,52 @@
 		  }
 		  ```
 	- ### 返回值类型注解（Return Type Annotations）
+	  background-color:: pink
+		- ```
+		  function getFavoriteNumber(): number {
+		    return 26;
+		  }
+		  ```
+	- ### 匿名函数（Anonymous Functions）
+	  background-color:: pink
+		- 匿名函数有一点不同于函数声明，[[#green]]==当 TypeScript 知道一个匿名函数将被怎样调用的时候，匿名函数的参数会被自动的指定类型。==
+		- ```
+		  // No type annotations here, but TypeScript can spot the bug
+		  const names = ["Alice", "Bob", "Eve"];
+		   
+		  // Contextual typing for function
+		  names.forEach(function (s) {
+		    console.log(s.toUppercase());
+		    // Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?
+		  });
+		   
+		  // Contextual typing also applies to arrow functions
+		  names.forEach((s) => {
+		    console.log(s.toUppercase());
+		    // Property 'toUppercase' does not exist on type 'string'. Did you mean 'toUpperCase'?
+		  });
+		  ```
+		- 尽管参数 `s` 并没有添加类型注解，但 TypeScript 根据 `forEach` 函数的类型，以及传入的数组的类型，最后推断出了 `s` 的类型。
+		- 这个过程被称为**上下文推断（contextual typing）**。
+- ## 对象类型（Object Types）
+	- 定义一个对象类型，我们只需要简单的列出它的属性和对应的类型。
+	- ```
+	  // The parameter's type annotation is an object type
+	  function printCoord(pt: { x: number; y: number }) {
+	    console.log("The coordinate's x value is " + pt.x);
+	    console.log("The coordinate's y value is " + pt.y);
+	  }
+	  printCoord({ x: 3, y: 7 });
+	  ```
+	- ### 可选属性（Optional Properties）
+	  background-color:: pink
+		- 对象类型可以指定一些甚至所有的属性为可选的，你只需要在属性名后添加一个 `?` ：
+		- ```
+		  function printName(obj: { first: string; last?: string }) {
+		    // ...
+		  }
+		  // Both OK
+		  printName({ first: "Bob" });
+		  printName({ first: "Alice", last: "Alisson" });
+		  ```
 		-
