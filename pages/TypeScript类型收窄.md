@@ -50,5 +50,11 @@
 	- JavaScript 中有一个 `in` 操作符可以判断一个对象是否有对应的属性名。TypeScript 也可以通过这个收窄类型。
 - ## instanceof 收窄
 	- `instanceof` 也是一种类型保护，TypeScript 也可以通过识别 `instanceof` 正确的类型收窄。
--
+- ## 赋值语句（Assignments）
+	- TypeScript 可以根据赋值语句的右值，正确的收窄左值。
+- ## 控制流分析（Control flow analysis）
+	- 现在我们看看在 `if` `while`等条件控制语句中的类型保护，基于**可达性**(**reachability**) 的代码分析就叫做控制流分析(control flow analysis)。
+- ## 类型判断式(type predicates)
+	- 所谓 `predicate` 就是一个返回 `boolean` 值的函数。
+	-
 -
