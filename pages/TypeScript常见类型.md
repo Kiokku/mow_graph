@@ -153,5 +153,50 @@
 	  ```
 - ## 字面量类型（Literal Types）
 	- 除了常见的类型 `string` 和 `number` ，我们也可以将类型声明为**更具体**的数字或者字符串。
-	-
+	- 字面量类型本身并没有什么太大用：
+	- ```
+	  let x: "hello" = "hello";
+	  // OK
+	  x = "hello";
+	  // ...
+	  x = "howdy";
+	  // Type '"howdy"' is not assignable to type '"hello"'.
+	  ```
+	- 如果**结合联合类型**，就显得有用多了。举个例子，当函数只能传入一些固定的字符串时：
+	- ```
+	  function printText(s: string, alignment: "left" | "right" | "center") {
+	    // ...
+	  }
+	  printText("Hello, world", "left");
+	  printText("G'day, mate", "centre");
+	  // Argument of type '"centre"' is not assignable to parameter of type '"left" | "right" | "center"'.
+	  ```
+	- ### 字面量推断（Literal Inference）
+	  background-color:: pink
+		- 当你初始化变量为一个对象的时候，TypeScript 会假设这个对象的属性的值未来会被修改，举个例子，如果你写下这样的代码：
+		- ```
+		  const obj = { counter: 0 };
+		  if (someCondition) {
+		    obj.counter = 1;
+		  }
+		  ```
+		- TypeScript 并不会认为 `obj.counter` 之前是 `0`， 现在被赋值为 `1` 是一个错误。换句话说，`obj.counter` 必须是 `number` 类型，但不要求一定是 `0`，因为类型可以决定读写行为。
+		- 这也同样应用于字符串:
+		- ```
+		  declare function handleRequest(url: string, method: "GET" | "POST"): void;
+		  
+		  const req = { url: "https://example.com", method: "GET" };
+		  handleRequest(req.url, req.method);
+		  
+		  // Argument of type 'string' is not assignable to parameter of type '"GET" | "POST"'.
+		  ```
+		- 在上面这个例子里，**`req.method` 被推断为 `string`** ，而不是 `"GET"`，因为在创建 `req` 和 调用 `handleRequest` 函数之间，可能还有其他的代码，或许会将 `req.method` 赋值一个新字符串比如 `"Guess"` 。[[#red]]==所以 TypeScript 就报错了。==
+		- [[#blue]]==有两种方式可以解决：==
+			- 1. 添加一个类型断言改变推断结果：
+				- ```
+				  // Change 1:
+				  const req = { url: "https://example.com", method: "GET" as "GET" };
+				  // Change 2
+				  handleRequest(req.url, req.method as "GET");
+				  ```
 	-
