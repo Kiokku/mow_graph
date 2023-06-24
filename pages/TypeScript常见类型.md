@@ -78,4 +78,24 @@
 		  printName({ first: "Bob" });
 		  printName({ first: "Alice", last: "Alisson" });
 		  ```
-		-
+- ## 联合类型（Union Types）
+	- TypeScript 类型系统允许你使用一系列的操作符，基于已经存在的类型构建新的类型。
+	- ### 定义一个联合类型（Defining a Union Type）
+	  background-color:: pink
+		- 一个联合类型是由两个或者更多类型组成的类型，表示值可能是这些类型中的任意一个。这其中每个类型都是联合类型的**成员（members）**。
+		- ```
+		  function printId(id: number | string) {
+		    console.log("Your ID is: " + id);
+		  }
+		  // OK
+		  printId(101);
+		  // OK
+		  printId("202");
+		  // Error
+		  printId({ myID: 22342 });
+		  // Argument of type '{ myID: number; }' is not assignable to parameter of type 'string | number'.
+		  // Type '{ myID: number; }' is not assignable to type 'number'.
+		  ```
+	- ### 使用联合类型（Working with Union Types）
+	  background-color:: pink
+		- TypeScript 会要求你做的事情，[[#red]]==必须对每个联合的成员都是有效的。==举个例子，如果你有一个联合类型 `string | number` , 你不能使用只存在 `string` 上的方法：
