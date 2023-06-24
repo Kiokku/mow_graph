@@ -56,5 +56,50 @@
 	- 现在我们看看在 `if` `while`等条件控制语句中的类型保护，基于**可达性**(**reachability**) 的代码分析就叫做控制流分析(control flow analysis)。
 - ## 类型判断式(type predicates)
 	- 所谓 `predicate` 就是一个返回 `boolean` 值的函数。
+	- 如果你想直接通过代码控制类型的改变， 你可以自定义一个类型保护。实现方式是定义一个函数，这个函数返回的类型是类型判断式，示例如下：
+	- ```
+	  function isFish(pet: Fish | Bird): pet is Fish {
+	    return (pet as Fish).swim !== undefined;
+	  }
+	  ```
+	- `pet is Fish`就是我们的**类型判断式**，[[#green]]==一个类型判断式采用 `parameterName is Type`的形式，但 `parameterName` 必须是当前函数的参数名。==
+- ## 可辨别联合（Discriminated unions）
+	- 让我们试想有这样一个处理 `Shape` （比如 `Circles`、`Squares` ）的函数，`Circles` 会记录它的半径属性，`Squares` 会记录它的边长属性，我们使用一个 `kind` 字段来区分判断处理的是 `Circles` 还是 `Squares`，这是初始的 `Shape` 定义：
+	- ```
+	  interface Shape {
+	    kind: "circle" | "square";
+	    radius?: number;
+	    sideLength?: number;
+	  }
+	  ```
+	- 现在我们写一个获取面积的 `getArea` 函数，而圆和正方形的计算面积的方式有所不同，我们先处理一下是 `Circle` 的情况：
+	- ```
+	  function getArea(shape: Shape) {
+	    if (shape.kind === "circle") {
+	      return Math.PI * shape.radius ** 2;
+	  		// Object is possibly 'undefined'.
+	    }
+	  }
+	  ```
+	- > 在 `strictNullChecks` 模式下，即便我们判断 `kind` 是 `circle` 的情况，但由于 `radius` 是一个可选属性，TypeScript 依然会认为 `radius` 可能是 `undefined`。
+	- 此时 `Shape`的问题在于[[#red]]==类型检查器并没有方法根据 `kind` 属性判断 `radius` 和 `sideLength` 属性是否存在==，而这点正是我们需要告诉类型检查器的，所以我们可以这样定义 `Shape`:
+	- ```
+	  interface Circle {
+	    kind: "circle";
+	    radius: number;
+	  }
+	   
+	  interface Square {
+	    kind: "square";
+	    sideLength: number;
+	  }
+	   
+	  type Shape = Circle | Square;
+	  ```
+	- [[#green]]==当联合类型中的每个类型，都包含了一个共同的字面量类型的属性，TypeScript 就会认为这是一个**可辨别联合（discriminated union）**，然后可以将具体成员的类型进行收窄。==
+- ## never 类型
+	- 当进行收窄的时候，如果你把所有可能的类型都穷尽了，TypeScript 会使用一个 `never` 类型来表示一个不可能存在的状态。
+- ## 穷尽检查（Exhaustiveness checking）
+	-
 	-
 -
