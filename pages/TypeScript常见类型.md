@@ -98,4 +98,40 @@
 		  ```
 	- ### 使用联合类型（Working with Union Types）
 	  background-color:: pink
-		- TypeScript 会要求你做的事情，[[#red]]==必须对每个联合的成员都是有效的。==举个例子，如果你有一个联合类型 `string | number` , 你不能使用只存在 `string` 上的方法：
+		- TypeScript 会要求你做的事情，[[#red]]==必须对每个联合的成员都是有效的。==举个例子，如果你有一个联合类型 `string | number` , 你不能使用只存在 `string` 上的方法。
+- ## 类型别名（Type Aliases）
+	- `type`
+	- ```
+	  type Point = {
+	    x: number;
+	    y: number;
+	  };
+	   
+	  // Exactly the same as the earlier example
+	  function printCoord(pt: Point) {
+	    console.log("The coordinate's x value is " + pt.x);
+	    console.log("The coordinate's y value is " + pt.y);
+	  }
+	   
+	  printCoord({ x: 100, y: 100 });
+	  ```
+- ## 接口（Interfaces）
+	- 接口声明（interface declaration）是命名对象类型的另一种方式：
+	- ```
+	  interface Point {
+	    x: number;
+	    y: number;
+	  }
+	   
+	  function printCoord(pt: Point) {
+	    console.log("The coordinate's x value is " + pt.x);
+	    console.log("The coordinate's y value is " + pt.y);
+	  }
+	   
+	  printCoord({ x: 100, y: 100 });
+	  ```
+	- ### 类型别名`type`和接口`interface`的不同
+	  background-color:: pink
+		- [[#blue]]==类型别名和接口非常相似，大部分时候，你可以任意选择使用。==接口的几乎所有特性都可以在 `type` 中使用，[[#red]]==两者最关键的差别在于类型别名本身无法添加新的属性，而**接口是可以扩展的**。==
+		-
+	-
