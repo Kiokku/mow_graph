@@ -51,4 +51,24 @@
 	- > 注意此时函数返回值的类型是 `any`，如果能返回第一个元素的具体类型就更好了。
 	- 在 TypeScript 中，[[#blue]]==**泛型**就是被用来描述两个值之间的对应关系。==我们需要在函数签名里声明一个**类型参数 (type parameter)**：
 	- ```
+	  function firstElement<Type>(arr: Type[]): Type | undefined {
+	    return arr[0];
+	  }
 	  ```
+	- > 通过给函数添加一个类型参数 `Type`，并且在两个地方使用它，我们就在函数的输入(即数组)和函数的输出(即返回值)之间创建了一个关联。
+	- 现在当我们调用它，一个更具体的类型就会被判断出来：
+	- ```
+	  // s is of type 'string'
+	  const s = firstElement(["a", "b", "c"]);
+	  // n is of type 'number'
+	  const n = firstElement([1, 2, 3]);
+	  // u is of type undefined
+	  const u = firstElement([]);
+	  ```
+	- ### 推断（Inference）
+	  background-color:: pink
+		- 在上面的例子中，我们没有明确指定 `Type` 的类型，类型是被 TypeScript 自动推断出来的。
+	- ### 约束（Constraints）
+	  background-color:: pink
+		- 有的时候，我们想关联两个值，但只能操作值的一些固定字段，这种情况，我们可以使用**约束（constraint）**对类型参数进行限制。
+		-
