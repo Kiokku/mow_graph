@@ -1,0 +1,3 @@
+- > https://ts.yayujs.com/handbook/MoreOnFunctions.html
+-
+-

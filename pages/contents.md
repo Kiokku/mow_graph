@@ -49,6 +49,8 @@
 			- [[TypeScript基础]]
 			- [[TypeScript常见类型]]
 			- [[TypeScript类型收窄]]
+			- [[TypeScript函数]]
+			-
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
 	- [[时间复杂度与空间复杂度]]
