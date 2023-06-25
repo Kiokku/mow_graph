@@ -71,4 +71,64 @@
 	- ### 约束（Constraints）
 	  background-color:: pink
 		- 有的时候，我们想关联两个值，但只能操作值的一些固定字段，这种情况，我们可以使用**约束（constraint）**对类型参数进行限制。
+		- 让我们写一个函数，函数返回两个值中更长的那个。为此，我们需要保证传入的值有一个 `number` 类型的 `length` 属性。我们使用 [[#green]]==`extends` 语法==来约束函数参数：
+		- ```
+		  function longest<Type extends { length: number }>(a: Type, b: Type) {
+		    if (a.length >= b.length) {
+		      return a;
+		    } else {
+		      return b;
+		    }
+		  }
+		   
+		  // longerArray is of type 'number[]'
+		  const longerArray = longest([1, 2], [1, 2, 3]);
+		  // longerString is of type 'alice' | 'bob'
+		  const longerString = longest("alice", "bob");
+		  // Error! Numbers don't have a 'length' property
+		  const notOK = longest(10, 100);
+		  // Argument of type 'number' is not assignable to parameter of type '{ length: number; }'.
+		  ```
+	- ### 泛型约束实战（Working with Constrained Values）
+	  background-color:: green
+		- 这是一个使用[[#red]]==泛型约束常出现的错误==：
+		- ```
+		  function minimumLength<Type extends { length: number }>(
+		    obj: Type,
+		    minimum: number
+		  ): Type {
+		    if (obj.length >= minimum) {
+		      return obj;
+		    } else {
+		      return { length: minimum };
+		      // Type '{ length: number; }' is not assignable to type 'Type'.
+		      // '{ length: number; }' is assignable to the constraint of type 'Type', but 'Type' could be instantiated with a different subtype of constraint '{ length: number; }'.
+		    }
+		  }
+		  ```
+		- > 而这其中的问题就在于[[#blue]]==函数理应返回与传入参数相同类型的对象==，而不仅仅是符合约束的对象。我们可以写出这样一段反例：
+		- ```
+		  // 'arr' gets value { length: 6 }
+		  const arr = minimumLength([1, 2, 3], 6);
+		  // and crashes here because arrays have
+		  // a 'slice' method, but not the returned object!
+		  console.log(arr.slice(0));
+		  ```
+	- ### 声明类型参数 （Specifying Type Arguments）
+	  background-color:: pink
+		- TypeScript 通常能自动推断泛型调用中传入的类型参数，但也并不能总是推断出。举个例子，有这样一个合并两个数组的函数：
+		- ```
+		  function combine<Type>(arr1: Type[], arr2: Type[]): Type[] {
+		    return arr1.concat(arr2);
+		  }
+		  
+		  const arr = combine([1, 2, 3], ["hello"]);
+		  // Type 'string' is not assignable to type 'number'.
+		  ```
+		- 如果你执意要这样做，你可以[[#green]]==手动指定 `Type`==：
+		- ```
+		  const arr = combine<string | number>([1, 2, 3], ["hello"]);
+		  ```
+	- ### 写一个好的泛型函数的一些建议
+	  background-color:: blue
 		-
