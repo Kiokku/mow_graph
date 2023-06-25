@@ -100,6 +100,43 @@
 - ## never 类型
 	- 当进行收窄的时候，如果你把所有可能的类型都穷尽了，TypeScript 会使用一个 `never` 类型来表示一个不可能存在的状态。
 - ## 穷尽检查（Exhaustiveness checking）
-	-
-	-
--
+	- [[#blue]]==never 类型可以赋值给任何类型，然而，没有类型可以赋值给 `never` （除了 `never` 自身）。==这就意味着你可以在 `switch` 语句中使用 `never` 来做一个穷尽检查。
+	- 举个例子，给 `getArea` 函数添加一个 `default`，把 `shape` 赋值给 `never` 类型，当出现还没有处理的分支情况时，`never` 就会发挥作用。
+	- ```
+	  type Shape = Circle | Square;
+	   
+	  function getArea(shape: Shape) {
+	    switch (shape.kind) {
+	      case "circle":
+	        return Math.PI * shape.radius ** 2;
+	      case "square":
+	        return shape.sideLength ** 2;
+	      default:
+	        const _exhaustiveCheck: never = shape;
+	        return _exhaustiveCheck;
+	    }
+	  }
+	  ```
+	- 当我们给 `Shape` 类型添加一个新成员，却没有做对应处理的时候，就会导致一个 TypeScript 错误：
+	- ```
+	  interface Triangle {
+	    kind: "triangle";
+	    sideLength: number;
+	  }
+	   
+	  type Shape = Circle | Square | Triangle;
+	   
+	  function getArea(shape: Shape) {
+	    switch (shape.kind) {
+	      case "circle":
+	        return Math.PI * shape.radius ** 2;
+	      case "square":
+	        return shape.sideLength ** 2;
+	      default:
+	        const _exhaustiveCheck: never = shape;
+	        // Type 'Triangle' is not assignable to type 'never'.
+	        return _exhaustiveCheck;
+	    }
+	  }
+	  ```
+	- > 因为 TypeScript 的收窄特性，执行到 `default` 的时候，类型被收窄为 `Triangle`，但因为任何类型都不能赋值给 `never` 类型，这就会产生一个编译错误。通过这种方式，你就可以确保 `getArea` 函数总是穷尽了所有 `shape` 的可能性。
