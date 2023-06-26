@@ -59,7 +59,7 @@
 	  }
 	  
 	  function curry(fn, length) {
-	  
+	  	// fn.length的值为函数形参的数量；
 	      length = length || fn.length;
 	  
 	      var slice = Array.prototype.slice;
@@ -102,5 +102,28 @@
 	  
 	  fn1()()()() // 1
 	  ```
-	-
+	- 回到真正的 curry 函数，我们以下面的例子为例：
+	- ```
+	  var fn0 = function(a, b, c, d) {
+	      return [a, b, c, d];
+	  }
+	  
+	  var fn1 = curry(fn0);
+	  
+	  fn1("a", "b")("c")("d")
+	  ```
+	- 当执行 fn1("a", "b") 时：
+	  background-color:: blue
+	- ```
+	  fn1("a", "b")
+	  // 相当于
+	  curry(fn0)("a", "b")
+	  // 相当于
+	  curry(sub_curry(fn0, "a", "b"))
+	  // 相当于
+	  // 注意 ... 只是一个示意，表示该函数执行时传入的参数会作为 fn0 后面的参数传入
+	  curry(function(...){
+	      return fn0("a", "b", ...)
+	  })
+	  ```
 	-
