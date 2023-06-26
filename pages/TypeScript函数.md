@@ -300,4 +300,51 @@
 		  }
 		  ```
 		- > 尽可能的使用联合类型替代重载
+	- ### 在函数中声明 this (Declaring   `this`   in a Function)
+	  background-color:: pink
+		- TypeScript 会通过代码流分析函数中的 `this` 会是什么类型，举个例子：
+		- ```
+		  const user = {
+		    id: 123,
+		   
+		    admin: false,
+		    becomeAdmin: function () {
+		      this.admin = true;
+		    },
+		  };
+		  ```
+		- TypeScript 能够理解函数 `user.becomeAdmin` 中的 `this` 指向的是外层的对象 `user`。
+		- 在 JavaScript 中，`this` 是保留字，所以不能当做参数使用。但 [[#green]]==TypeScript 可以允许你在函数体内声明 `this` 的类型==。
+		- ```
+		  interface DB {
+		    filterUsers(filter: (this: User) => boolean): User[];
+		  }
+		   
+		  const db = getDB();
+		  const admins = db.filterUsers(function (this: User) {
+		    return this.admin;
+		  });
+		  ```
+- ## 其他需要知道的类型（Other Types to Know About）
+	- ### `void`
+		- `void` 表示一个函数并不会返回任何值，当函数并没有任何返回值，或者返回不了明确的值的时候，就应该用这种类型。
+		- > void 跟 undefined 不一样
+		  > 
+		  > 在 JavaScript 中，一个函数并不会返回任何值，会隐式返回 `undefined`，但是 `void` 和 `undefined` 在 TypeScript 中并不一样。
+	- ### `object`
+		- 这个特殊的类型 `object` 可以表示任何不是原始类型（primitive）的值 (`string`、`number`、`bigint`、`boolean`、`symbol`、`null`、`undefined`)。[[#red]]==`object` 不同于空对象类型 `{ }`，也不同于全局类型 `Object`。==
+	- ### `unknown`
+		- `unknown` 类型可以表示任何值。有点类似于 `any`，但是更安全，因为[[#red]]==对 `unknown` 类型的值做任何事情都是不合法的==：
+		- ```
+		  function f1(a: any) {
+		    a.b(); // OK
+		  }
+		  function f2(a: unknown) {
+		    a.b();
+		    // Object is of type 'unknown'.
+		  }
+		  ```
+	- ### `never`
+		- `never` 类型表示一个值不会再被观察到 (observed)。
+		- 作为一个返回类型时，它表示这个函数会丢一个[[#blue]]==异常，或者会结束程序==的执行。
 		-
