@@ -162,4 +162,34 @@
 			    return arr.filter(func);
 			  }
 			  ```
-			- >
+			- > 我们创建了一个并没有关联两个值的类型参数 `Func`，这是一个危险信号，因为它意味着调用者不得不毫无理由的手动指定一个额外的类型参数。`Func` 什么也没做，却导致函数更难阅读和推断。
+		- #### 类型参数应该出现两次 （Type Parameters Should Appear Twice）
+		  background-color:: green
+			- ```
+			  function greet<Str extends string>(s: Str) {
+			    console.log("Hello, " + s);
+			  }
+			   
+			  greet("world");
+			  
+			  // 其实我们可以如此简单的写这个函数
+			  function greet(s: string) {
+			    console.log("Hello, " + s);
+			  }
+			  
+			  ```
+- ## 可选参数（Optional Parameters）
+	- JavaScript 中的函数经常会被传入非固定数量的参数，举个例子：`number` 的 `toFixed` 方法就支持传入一个可选的参数，我们可以使用 `?` 表示这个参数是可选的：
+	- ```
+	  function f(n: number) {
+	    console.log(n.toFixed()); // 0 arguments
+	    console.log(n.toFixed(3)); // 1 argument
+	  }
+	  
+	  function f(x?: number) {
+	    // ...
+	  }
+	  f(); // OK
+	  f(10); // OK
+	  ```
+	-
