@@ -374,4 +374,83 @@
 		- > 在 TypeScript 中，剩余参数的类型会被隐式设置为 `any[]` 而不是 `any`，如果你要设置具体的类型，必须是 `Array<T>` 或者 `T[]`的形式，再或者就是元组类型（tuple type）。
 	- ### 剩余参数-实参（Rest Arguments）
 	  background-color:: pink
+		- 我们可以借助一个使用 `...` 语法的数组，为函数提供不定数量的实参。举个例子，数组的 `push` 方法就可以接受任何数量的实参：
+		- ```
+		  const arr1 = [1, 2, 3];
+		  const arr2 = [4, 5, 6];
+		  arr1.push(...arr2);
+		  ```
+		- 注意一般情况下，TypeScript 并不会假定数组是不变的(immutable)，这会导致一些意外的行为：
+		- ```
+		  // 类型被推断为 number[] -- "an array with zero or more numbers",
+		  // not specifically two numbers
+		  const args = [8, 5];
+		  const angle = Math.atan2(...args);
+		  // A spread argument must either have a tuple type or be passed to a rest parameter.\
+		  ```
+		- 修复这个问题需要你写一点代码，通常来说, 使用 `as const` 是最直接有效的解决方法：
+		- ```
+		  // Inferred as 2-length tuple
+		  const args = [8, 5] as const;
+		  // OK
+		  const angle = Math.atan2(...args);
+		  ```
+- ## 参数解构（Parameter Destructuring）
+	- 你可以使用参数解构方便的将作为参数提供的对象解构为函数体内一个或者多个局部变量，在 JavaScript 中，是这样的：
+	- ```
+	  function sum({ a, b, c }) {
+	    console.log(a + b + c);
+	  }
+	  sum({ a: 10, b: 3, c: 9 });
+	  ```
+	- 在解构语法后，要写上对象的类型注解：
+	- ```
+	  function sum({ a, b, c }: { a: number; b: number; c: number }) {
+	    console.log(a + b + c);
+	  }
+	  ```
+	- 这个看起来有些繁琐，你也可以这样写：
+	- ```
+	  // 跟上面是有一样的
+	  type ABC = { a: number; b: number; c: number };
+	  function sum({ a, b, c }: ABC) {
+	    console.log(a + b + c);
+	  }
+	  ```
+- ## 函数的可赋值性 （Assignability of Functions）
+	- ### 返回   `void`
+	  background-color:: pink
+		- 当**基于上下文的类型推导（Contextual Typing）**推导出返回类型为 `void` 的时候，并不会强制函数一定不能返回内容。换句话说，如果这样一个返回 `void` 类型的函数类型[[#green]]== `(type vf = () => void)`， 当被应用的时候，也是可以返回任何值的，但返回的值会被忽略掉。==
+		- ```
+		  type voidFunc = () => void;
+		   
+		  const f1: voidFunc = () => {
+		    return true;
+		  };
+		   
+		  const f2: voidFunc = () => true;
+		   
+		  const f3: voidFunc = function () {
+		    return true;
+		  };
+		  
+		  // 而且即便这些函数的返回值赋值给其他变量，也会维持 void 类型：
+		  const v1 = f1();
+		   
+		  const v2 = f2();
+		   
+		  const v3 = f3();
+		  ```
+		- 另外还有一个特殊的例子需要注意，[[#red]]==当一个函数字面量定义返回一个 `void` 类型，函数是一定不能返回任何东西的==：
+		- ```
+		  function f2(): void {
+		    // @ts-expect-error
+		    return true;
+		  }
+		   
+		  const f3 = function (): void {
+		    // @ts-expect-error
+		    return true;
+		  };
+		  ```
 		-

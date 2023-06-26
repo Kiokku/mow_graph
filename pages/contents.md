@@ -50,6 +50,7 @@
 			- [[TypeScript常见类型]]
 			- [[TypeScript类型收窄]]
 			- [[TypeScript函数]]
+			- [[TypeScript对象类型]]
 			-
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
