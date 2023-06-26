@@ -239,4 +239,18 @@
 	  // No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.
 	  ```
 	- > 在这个例子中，我们写了两个函数重载，一个接受一个参数，另外一个接受三个参数。[[#green]]==前面两个函数签名被称为重载签名 (overload signatures)==。
-	-
+	  >
+	  > 然后，我们写了一个兼容签名的函数实现，我们称之为[[#green]]==实现签名 (implementation signature)== ，[[#red]]==但这个签名不能被直接调用。尽管我们在函数声明中，在一个必须参数后，声明了两个可选参数，它依然不能被传入两个参数进行调用。==
+	- ### 重载签名和实现签名（Overload Signatures and the Implementation Signature）
+	  background-color:: pink
+		- 这是一个常见的困惑。大家常会这样写代码，但是又不理解为什么会报错：·
+		- ```
+		  function fn(x: string): void;
+		  function fn() {
+		    // ...
+		  }
+		  // Expected to be able to call with zero arguments
+		  fn();
+		  Expected 1 arguments, but got 0.
+		  ```
+		- > 实现签名对外界来说是**不可见**的。当写一个重载函数的时候，你应该总是需要来两个或者更多的签名在实现签名之上。
