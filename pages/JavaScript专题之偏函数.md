@@ -38,6 +38,41 @@
 		      };
 		  };
 		  ```
-		-
-	-
+		- 我们来写个 demo 验证下 this 的指向：
+		- ```
+		  function add(a, b) {
+		      return a + b + this.value;
+		  }
+		  
+		  // var addOne = add.bind(null, 1);
+		  var addOne = partial(add, 1);
+		  
+		  var value = 1;
+		  var obj = {
+		      value: 2,
+		      addOne: addOne
+		  }
+		  obj.addOne(2); // ???
+		  // 使用 bind 时，结果为 4
+		  // 使用 partial 时，结果为 5
+		  ```
+	- ### 第二版
+	  background-color:: pink
+		- 然而正如 curry 函数可以使用占位符一样，我们希望 partial 函数也可以实现这个功能，我们再来写第二版：
+		- ```
+		  // 第二版
+		  var _ = {};
+		  
+		  function partial(fn) {
+		      var args = [].slice.call(arguments, 1);
+		      return function() {
+		          var position = 0, len = args.length;
+		          for(var i = 0; i < len; i++) {
+		              args[i] = args[i] === _ ? arguments[position++] : args[i]
+		          }
+		          while(position < arguments.length) args.push(arguments[position++]);
+		          return fn.apply(this, args);
+		      };
+		  };
+		  ```
 	-
