@@ -39,4 +39,26 @@
 	  ```
 	- 依旧[[#red]]==没有解决调用时都必须进行一次判断的问题==。
 - ## 解决四：惰性函数
-	-
+	- 解决原理很简单，[[#green]]==重写函数==。
+	- ```
+	  var foo = function() {
+	      var t = new Date();
+	      foo = function() {
+	          return t;
+	      };
+	      return foo();
+	  };
+	  ```
+- ## 更多应用
+	- DOM 事件添加中，为了兼容现代浏览器和 IE 浏览器，我们需要对浏览器环境进行一次判断：
+	- ```
+	  // 简化写法
+	  function addEvent (type, el, fn) {
+	      if (window.addEventListener) {
+	          el.addEventListener(type, fn, false);
+	      }
+	      else if(window.attachEvent){
+	          el.attachEvent('on' + type, fn);
+	      }
+	  }
+	  ```
