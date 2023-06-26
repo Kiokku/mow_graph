@@ -35,6 +35,7 @@
 		- [[JavaScript专题之偏函数]]
 		- [[JavaScript专题之惰性函数]]
 		- [[JavaScript专题之函数组合]]
+		- [[JavaScript专题之函数记忆]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]

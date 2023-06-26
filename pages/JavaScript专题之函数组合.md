@@ -234,5 +234,49 @@
 		  
 		  getIncompleteTaskSummaries('Scott')
 		  ```
-		- 直接使用 ramda.js，你可以省去编写基本函数:
+	- ### 直接使用 ramda.js:
+	  background-color:: pink
+		- ```
+		  // 第三版 使用 ramda.js
+		  var fetchData = function() {
+		      return Promise.resolve(data)
+		  };
+		  
+		  var getIncompleteTaskSummaries = function(membername) {
+		      return fetchData()
+		          .then(R.prop('tasks'))
+		          .then(R.filter(R.propEq('username', membername)))
+		          .then(R.filter(R.propEq('complete', false)))
+		          .then(R.map(R.pick(['id', 'dueDate', 'title', 'priority'])))
+		          .then(R.sortBy(R.prop('dueDate')))
+		          .then(console.log)
+		  };
+		  
+		  getIncompleteTaskSummaries('Scott')
+		  ```
+	- ### 使用 compose
+	  background-color:: pink
+		- ```
+		  // 第四版 使用 compose
+		  var fetchData = function() {
+		      return Promise.resolve(data)
+		  };
+		  
+		  var getIncompleteTaskSummaries = function(membername) {
+		      return fetchData()
+		          .then(R.compose(
+		              console.log,
+		              R.sortBy(R.prop('dueDate')),
+		              R.map(R.pick(['id', 'dueDate', 'title', 'priority'])
+		              ),
+		              R.filter(R.propEq('complete', false)),
+		              R.filter(R.propEq('username', membername)),
+		              R.prop('tasks'),
+		          ))
+		  };
+		  
+		  getIncompleteTaskSummaries('Scott')
+		  ```
+		- compose 是从右到左依此执行，当然你也可以写一个从左到右的版本，但是从右向左执行更加能够反映数学上的含义。
+		- ramda.js 提供了一个 R.pipe 函数，可以做的从左到右。
 -
