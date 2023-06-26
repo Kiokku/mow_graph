@@ -34,6 +34,7 @@
 		- [[JavaScript专题之如何判断两个对象相等]]
 		- [[JavaScript专题之函数柯里化]]
 		- [[JavaScript专题之偏函数]]
+		- [[JavaScript专题之惰性函数]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]

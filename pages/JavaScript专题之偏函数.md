@@ -75,4 +75,11 @@
 		      };
 		  };
 		  ```
-	-
+		- 我们验证一下：
+		- ```
+		  var subtract = function(a, b) { return b - a; };
+		  subFrom20 = partial(subtract, _, 20);
+		  subFrom20(5);
+		  ```
+- ## 写在最后
+	- 值得注意的是：underscore 和 lodash 都提供了 partial 函数，但只有 lodash 提供了 curry 函数。
