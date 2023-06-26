@@ -19,4 +19,30 @@
 - ## 优化
 	- 试想我们写个 compose 函数：
 	- ```
+	  var compose = function(f,g) {
+	      return function(x) {
+	          return f(g(x));
+	      };
+	  };
+	  
+	  var greet = compose(hello, toUpperCase);
+	  greet('kevin');
 	  ```
+	- 利用 compose 将两个函数组合成一个函数，让[[#blue]]==代码从右向左运行==，而不是由内而外运行，可读性大大提升。这便是**函数组合**。
+	- `compose(d, c, b, a)`
+- ## compose
+	- underscore 的 compose 函数的实现：
+	- ```
+	  function compose() {
+	      var args = arguments;
+	      var start = args.length - 1;
+	      return function() {
+	          var i = start;
+	          var result = args[start].apply(this, arguments);
+	          while (i--) result = args[i].call(this, result);
+	          return result;
+	      };
+	  };
+	  ```
+	-
+-
