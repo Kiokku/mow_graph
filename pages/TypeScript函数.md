@@ -192,4 +192,32 @@
 	  f(); // OK
 	  f(10); // OK
 	  ```
+	- ### 回调中的可选参数（Optional Parameters in Callbacks）
+	  background-color:: pink
+		- 在你学习过可选参数和函数类型表达式后，你很容易在包含了回调函数的函数中，犯下面这种错误：
+		- ```
+		  function myForEach(arr: any[], callback: (arg: any, index?: number) => void) {
+		    for (let i = 0; i < arr.length; i++) {
+		      callback(arr[i], i);
+		    }
+		  }
+		  ```
+		- 将 `index?`作为一个可选参数，本意是希望下面这些调用是合法的：
+		- ```
+		  myForEach([1, 2, 3], (a) => console.log(a));
+		  myForEach([1, 2, 3], (a, i) => console.log(a, i));
+		  ```
+		- 但 TypeScript 并不会这样认为，TypeScript 认为想表达的是回调函数可能只会被传入一个参数，换句话说，`myForEach` 函数也可能是这样的：
+		- ```
+		  function myForEach(arr: any[], callback: (arg: any, index?: number) => void) {
+		    for (let i = 0; i < arr.length; i++) {
+		      // I don't feel like providing the index today
+		      callback(arr[i]);
+		    }
+		  }
+		  ```
+		- 那如何修改呢？不设置为可选参数其实就可以。
+		- 在 JavaScript 中，如果你调用一个函数的时候，传入了比需要更多的参数，额外的参数就会被忽略。TypeScript 也是同样的做法。
+		- > 当你写一个回调函数的类型时,**不要写一个可选参数**, 除非你真的打算调用函数的时候不传入实参。
+- ## 函数重载（Function Overloads）
 	-
