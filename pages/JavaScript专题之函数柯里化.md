@@ -47,5 +47,32 @@
 	      };
 	  };
 	  ```
+	- 已经有柯里化的感觉了，但是还没有达到要求，不过我们可以把这个函数用作辅助函数，帮助我们写真正的 curry 函数。
+- ## 第二版
+	- ```
+	  // 第二版
+	  function sub_curry(fn) {
+	      var args = [].slice.call(arguments, 1);
+	      return function() {
+	          return fn.apply(this, args.concat([].slice.call(arguments)));
+	      };
+	  }
+	  
+	  function curry(fn, length) {
+	  
+	      length = length || fn.length;
+	  
+	      var slice = Array.prototype.slice;
+	  
+	      return function() {
+	          if (arguments.length < length) {
+	              var combined = [fn].concat(slice.call(arguments));
+	              return curry(sub_curry.apply(this, combined), length - arguments.length);
+	          } else {
+	              return fn.apply(this, arguments);
+	          }
+	      };
+	  }
+	  ```
 	-
 	-
