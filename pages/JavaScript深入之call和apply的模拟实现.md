@@ -203,8 +203,4 @@
 	      return result;
 	  }
 	  ```
-- ## pointfree
-	- > [pointfree参考](https://www.ruanyifeng.com/blog/2017/03/pointfree.html)
-	  >
-	  >**不使用所要处理的值，只合成运算过程。**中文可以译作"无值"风格。
-	- pointfree 指的是函数无须提及将要操作的数据是什么样的。依然是以最初的需求为例：
+-

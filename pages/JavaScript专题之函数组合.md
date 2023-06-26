@@ -44,5 +44,26 @@
 	      };
 	  };
 	  ```
-	-
+- ## pointfree
+	- > [pointfree参考](https://www.ruanyifeng.com/blog/2017/03/pointfree.html)
+	  >
+	  >**不使用所要处理的值，只合成运算过程。**中文可以译作"无值"风格。
+	- pointfree 指的是函数无须提及将要操作的数据是什么样的。依然是以最初的需求为例：
+	- ```
+	  // 需求：输入 'kevin'，返回 'HELLO, KEVIN'。
+	  
+	  // 非 pointfree，因为提到了数据：name
+	  var greet = function(name) {
+	      return ('hello ' + name).toUpperCase();
+	  }
+	  
+	  // pointfree
+	  // 先定义基本运算，这些可以封装起来复用
+	  var toUpperCase = function(x) { return x.toUpperCase(); };
+	  var hello = function(x) { return 'HELLO, ' + x; };
+	  
+	  var greet = compose(hello, toUpperCase);
+	  greet('kevin');
+	  ```
+	- 我们再举个稍微复杂一点的例子，为了方便书写，我们需要借助在[[JavaScript专题之函数柯里化]]中写到的 curry 函数：
 -
