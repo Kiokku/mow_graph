@@ -347,4 +347,31 @@
 	- ### `never`
 		- `never` 类型表示一个值不会再被观察到 (observed)。
 		- 作为一个返回类型时，它表示这个函数会丢一个[[#blue]]==异常，或者会结束程序==的执行。
+	- ### `Function`
+		- 在 JavaScript，全局类型 `Function` 描述了 `bind`、`call`、`apply` 等属性，以及其他所有的函数值。
+		- 它也有一个特殊的性质，就是 `Function` 类型的值总是可以被调用，结果会返回 `any` 类型：
+		- ```
+		  function doSomething(f: Function) {
+		    f(1, 2, 3);
+		  }
+		  ```
+		- > 如果你准备接受一个黑盒的函数，但是又不打算调用它，`() => void` 会更安全一些。
+- ## 剩余参数（Rest Parameters and Arguments）
+	- ### `parameters`   与   `arguments`
+	  background-color:: pink
+		- `arguments` 和 `parameters` 都可以表示函数的参数，由于本节内容做了具体的区分，所以我们定义 `parameters` 表示我们定义函数时设置的名字即**形参**，`arguments` 表示我们实际传入函数的参数即**实参**。
+	- ### 剩余参数-形参（Rest Parameters）
+	  background-color:: pink
+		- 我们也可以通过使用剩余参数语法（rest parameters），[[#green]]==定义一个可以传入数量不受限制的函数参数的函数==。
+		- 剩余参数必须放在所有参数的最后面，并使用 `...` 语法：
+		- ```
+		  function multiply(n: number, ...m: number[]) {
+		    return m.map((x) => n * x);
+		  }
+		  // 'a' gets value [10, 20, 30, 40]
+		  const a = multiply(10, 1, 2, 3, 4);
+		  ```
+		- > 在 TypeScript 中，剩余参数的类型会被隐式设置为 `any[]` 而不是 `any`，如果你要设置具体的类型，必须是 `Array<T>` 或者 `T[]`的形式，再或者就是元组类型（tuple type）。
+	- ### 剩余参数-实参（Rest Arguments）
+	  background-color:: pink
 		-
