@@ -253,4 +253,51 @@
 		  fn();
 		  Expected 1 arguments, but got 0.
 		  ```
-		- > 实现签名对外界来说是**不可见**的。当写一个重载函数的时候，你应该总是需要来两个或者更多的签名在实现签名之上。
+		- > 实现签名对外界来说是**不可见**的。当写一个重载函数的时候，你应该总是需要来[[#green]]==两个或者更多的签名在实现签名之上==。
+		- 实现签名必须和重载签名必须**兼容（compatible）**，举个例子，这些函数之所以报错就是因为它们的实现签名并没有正确的和重载签名匹配。
+		- ```
+		  function fn(x: boolean): void;
+		  // Argument type isn't right
+		  function fn(x: string): void;
+		  // This overload signature is not compatible with its implementation signature.
+		  function fn(x: boolean) {}
+		  ------------------------------------------
+		  function fn(x: string): string;
+		  // Return type isn't right
+		  function fn(x: number): boolean;
+		  This overload signature is not compatible with its implementation signature.
+		  function fn(x: string | number) {
+		    return "oops";
+		  }
+		  ```
+	- ### 写一个好的函数重载的一些建议
+	  background-color:: pink
+		- 让我们设想这样一个函数，该函数返回数组或者字符串的长度：
+		- ```
+		  function len(s: string): number;
+		  function len(arr: any[]): number;
+		  function len(x: any) {
+		    return x.length;
+		  }
+		  ```
+		- > 这个函数代码功能实现了，也没有什么报错，但我们不能传入一个可能是字符串或者是数组的值，因为 TypeScript 只能一次用一个函数重载处理一次函数调用。
+		- ```
+		  len(""); // OK
+		  len([0]); // OK
+		  len(Math.random() > 0.5 ? "hello" : [0]);
+		  No overload matches this call.
+		    Overload 1 of 2, '(s: string): number', gave the following error.
+		      Argument of type 'number[] | "hello"' is not assignable to parameter of type 'string'.
+		        Type 'number[]' is not assignable to type 'string'.
+		    Overload 2 of 2, '(arr: any[]): number', gave the following error.
+		      Argument of type 'number[] | "hello"' is not assignable to parameter of type 'any[]'.
+		        Type 'string' is not assignable to type 'any[]'.
+		  ```
+		- 因为两个函数重载都有相同的参数数量和相同的返回类型，我们可以写一个无重载版本的函数替代：
+		- ```
+		  function len(x: any[] | string) {
+		    return x.length;
+		  }
+		  ```
+		- > 尽可能的使用联合类型替代重载
+		-
