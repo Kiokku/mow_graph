@@ -147,4 +147,19 @@
 			  // b: any (bad)
 			  const b = firstElement2([1, 2, 3]);
 			  ```
-			-
+			- > 第一眼看上去，两个函数可太相似了，但是第一个函数的写法可比第二个函数好太多了。第一个函数可以推断出返回的类型是 `number`，但第二个函数推断的返回类型却是 `any`，因为 TypeScript 不得不用约束的类型来推断 `arr[0]` 表达式，而[[#red]]==不是等到函数调用的时候再去推断这个元素==。
+		- #### 使用更少的类型参数 (Use Fewer Type Parameters)
+		  background-color:: green
+			- ```
+			  function filter1<Type>(arr: Type[], func: (arg: Type) => boolean): Type[] {
+			    return arr.filter(func);
+			  }
+			   
+			  function filter2<Type, Func extends (arg: Type) => boolean>(
+			    arr: Type[],
+			    func: Func
+			  ): Type[] {
+			    return arr.filter(func);
+			  }
+			  ```
+			- >
