@@ -221,4 +221,22 @@
 		- > 当你写一个回调函数的类型时,**不要写一个可选参数**, 除非你真的打算调用函数的时候不传入实参。
 - ## 函数重载（Function Overloads）
 	- 一些 JavaScript 函数在调用的时候可以**传入不同数量和类型的参数**。举个例子。你可以写一个函数，返回一个日期类型 `Date`，这个函数接收一个时间戳（一个参数）或者一个 月/日/年 的格式 (三个参数)。
-	- 在 TypeScript 中，我们可以通过写重载签名 (overlaod signatures) 说明一个函数的不同调用方法。 我们需要写一些函数签名 (通常两个或者更多)，然后再写函数体的内容：
+	- 在 TypeScript 中，我们可以通过写**重载签名 (overlaod signatures)** 说明一个函数的不同调用方法。 我们需要写一些函数签名 (通常两个或者更多)，然后再写函数体的内容：
+	- ```
+	  function makeDate(timestamp: number): Date;
+	  function makeDate(m: number, d: number, y: number): Date;
+	  function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+	    if (d !== undefined && y !== undefined) {
+	      return new Date(y, mOrTimestamp, d);
+	    } else {
+	      return new Date(mOrTimestamp);
+	    }
+	  }
+	  const d1 = makeDate(12345678);
+	  const d2 = makeDate(5, 5, 5);
+	  const d3 = makeDate(1, 3);
+	  
+	  // No overload expects 2 arguments, but overloads do exist that expect either 1 or 3 arguments.
+	  ```
+	- > 在这个例子中，我们写了两个函数重载，一个接受一个参数，另外一个接受三个参数。[[#green]]==前面两个函数签名被称为重载签名 (overload signatures)==。
+	-
