@@ -65,5 +65,38 @@
 	  var greet = compose(hello, toUpperCase);
 	  greet('kevin');
 	  ```
-	- 我们再举个稍微复杂一点的例子，为了方便书写，我们需要借助在[[JavaScript专题之函数柯里化]]中写到的 curry 函数：
+	- 我们再举个稍微复杂一点的例子，为了方便书写，我们需要借助在[[JavaScript专题之函数柯里化]]中写到的 [curry](logseq://graph/mow_graph?block-id=6499b665-8c15-47cb-9c47-99390f3239b0) 函数：
+	- ```
+	  // 需求：输入 'kevin daisy kelly'，返回 'K.D.K'
+	  
+	  // 非 pointfree，因为提到了数据：name
+	  var initials = function (name) {
+	      return name.split(' ').map(compose(toUpperCase, head)).join('. ');
+	  };
+	  
+	  // pointfree
+	  // 先定义基本运算
+	  var split = curry(function(separator, str) { return str.split(separator) })
+	  var head = function(str) { return str.slice(0, 1) }
+	  var toUpperCase = function(str) { return str.toUpperCase() }
+	  var join = curry(function(separator, arr) { return arr.join(separator) })
+	  var map = curry(function(fn, arr) { return arr.map(fn) })
+	  
+	  var initials = compose(join('.'), map(compose(toUpperCase, head)), split(' '));
+	  
+	  initials("kevin daisy kelly");
+	  ```
+	- 也许你会想，这种写法好麻烦呐，我们还需要定义那么多的基础函数……可是如果有工具库已经帮你写好了呢？比如 [ramda.js](http://ramda.cn/docs/)：
+	- ```
+	  // 使用 ramda.js
+	  var initials = R.compose(R.join('.'), R.map(R.compose(R.toUpper, R.head)), R.split(' '));
+	  ```
+	- >Pointfree 的本质就是[[#blue]]==使用一些通用的函数，组合出各种复杂运算。==上层运算不要直接操作数据，而是通过底层函数去处理。即不使用所要处理的值，只合成运算过程。
+	  >
+	  > Pointfree 模式能够帮助我们减少不必要的命名，让代码保持简洁和通用，更符合语义，更容易复用，测试也变得轻而易举。
+- ## 实战
+  id:: 6499c79d-5687-4265-8139-d0c2d9d00a29
+	- 这个例子来自于 [Favoring Curry](http://fr.umio.us/favoring-curry/)，[[#green]]==建议阅读==，有助于加深对柯里化的理解：
+	-
+	-
 -
