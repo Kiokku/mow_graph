@@ -126,4 +126,67 @@
 	      return fn0("a", "b", ...)
 	  })
 	  ```
-	-
+	- 当执行 fn1("a", "b")("c") 时，函数返回：
+	  background-color:: blue
+	- ```
+	  curry(sub_curry(function(...){
+	      return fn0("a", "b", ...)
+	  }), "c")
+	  // 相当于
+	  curry(function(...){
+	      return (function(...) {return fn0("a", "b", ...)})("c")
+	  })
+	  // 相当于
+	  curry(function(...){
+	       return fn0("a", "b", "c", ...)
+	  })
+	  ```
+	- 当执行 fn1("a", "b")("c")("d") 时，此时 arguments.length < length 为 false ，执行 fn(arguments)，相当于：
+	  background-color:: blue
+	- ```
+	  (function(...){
+	      return fn0("a", "b", "c", ...)
+	  })("d")
+	  // 相当于
+	  fn0("a", "b", "c", "d")
+	  ```
+	- > 所以，其实整段代码又很好理解：sub_curry 的作用就是用函数包裹原函数，然后给原函数传入之前的参数，当执行 fn0(...)(...) 的时候，执行包裹函数，返回原函数，然后再调用 sub_curry 再包裹原函数，然后将新的参数混合旧的参数再传入原函数，直到函数参数的数目达到要求为止。
+- ## 更易懂的实现
+	- ```
+	  function curry(fn, args) {
+	      var length = fn.length;
+	  
+	      args = args || [];
+	  
+	      return function() {
+	  
+	          var _args = args.slice(0),
+	  
+	              arg, i;
+	  
+	          for (i = 0; i < arguments.length; i++) {
+	  
+	              arg = arguments[i];
+	  
+	              _args.push(arg);
+	  
+	          }
+	          if (_args.length < length) {
+	              return curry.call(this, fn, _args);
+	          }
+	          else {
+	              return fn.apply(this, _args);
+	          }
+	      }
+	  }
+	  
+	  
+	  var fn = curry(function(a, b, c) {
+	      console.log([a, b, c]);
+	  });
+	  
+	  fn("a", "b", "c") // ["a", "b", "c"]
+	  fn("a", "b")("c") // ["a", "b", "c"]
+	  fn("a")("b")("c") // ["a", "b", "c"]
+	  fn("a")("b", "c") // ["a", "b", "c"]
+	  ```
