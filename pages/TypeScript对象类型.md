@@ -113,6 +113,62 @@
 		  	// Property 'name' of type 'string' is not assignable to 'string' index type 'number'.
 		  }
 		  ```
-	-
-		-
+- ## 属性继承（Extending Types）
+	- 有时我们需要一个比其他类型更具体的类型。举个例子，假设我们有一个 `BasicAddress` 类型用来描述在美国邮寄信件和包裹的所需字段。
+	- ```
+	  interface BasicAddress {
+	    name?: string;
+	    street: string;
+	    city: string;
+	    country: string;
+	    postalCode: string;
+	  }
+	  
+	  ```
+	- 这在一些情况下已经满足了，但同一个地址的建筑往往还有不同的单元号，我们可以再写一个 `AddressWithUnit`，这样写固然可以，但为了加一个字段，就是要完全的拷贝一遍。
+	- 我们可以改成继承 `BasicAddress`的方式来实现：
+	- ```
+	  interface BasicAddress {
+	    name?: string;
+	    street: string;
+	    city: string;
+	    country: string;
+	    postalCode: string;
+	  }
+	   
+	  interface AddressWithUnit extends BasicAddress {
+	    unit: string;
+	  }
+	  ```
+	- 接口也可以[[#green]]==继承多个类型：==
+	- ```
+	  interface Colorful {
+	    color: string;
+	  }
+	   
+	  interface Circle {
+	    radius: number;
+	  }
+	   
+	  interface ColorfulCircle extends Colorful, Circle {}
+	   
+	  const cc: ColorfulCircle = {
+	    color: "red",
+	    radius: 42,
+	  };
+	  ```
+- ## 交叉类型（Intersection Types）
+	- TypeScript 也提供了名为交叉类型（Intersection types）的方法，[[#blue]]==用于合并已经存在的对象类型==。
+	- 交叉类型的定义需要用到 `&` 操作符：
+	- ```
+	  interface Colorful {
+	    color: string;
+	  }
+	  interface Circle {
+	    radius: number;
+	  }
+	   
+	  type ColorfulCircle = Colorful & Circle;
+	  ```
+- ## 接口继承与交叉类型（Interfaces vs Intersections）
 	-
