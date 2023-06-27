@@ -61,6 +61,7 @@
 			- [[TypeScript函数]]
 			- [[TypeScript对象类型]]
 			- [[TypeScript泛型]]
+			- [[TypeScript keyof 操作符]]
 			-
 - 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]

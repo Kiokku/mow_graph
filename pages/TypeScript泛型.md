@@ -116,5 +116,59 @@
 	    return arg;
 	  }
 	  ```
-	-
+	- 我们需要传入符合约束条件的值：
+	- ```
+	  loggingIdentity({ length: 10, value: 3 });
+	  ```
+- ## 在泛型约束中使用类型参数（Using Type Parameters in Generic Constraints）
+	- 你可以声明一个类型参数，这个类型参数被其他类型参数约束。
+	- 举个例子，我们希望获取一个对象给定属性名的值，为此，我们需要确保我们不会获取 `obj` 上不存在的属性。所以我们在两个类型之间建立一个约束：
+	- ```
+	  function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
+	    return obj[key];
+	  }
+	   
+	  let x = { a: 1, b: 2, c: 3, d: 4 };
+	   
+	  getProperty(x, "a");
+	  getProperty(x, "m");
+	  
+	  // Argument of type '"m"' is not assignable to parameter of type '"a" | "b" | "c" | "d"'.
+	  ```
+- ## 在泛型中使用类类型（Using Class Types in Generics）
+	- 在 TypeScript 中，当使用工厂模式创建实例的时候，有必要通过他们的构造函数推断出类的类型，举个例子：
+	- ```
+	  function create<Type>(c: { new (): Type }): Type {
+	    return new c();
+	  }
+	  ```
+	- 下面是一个更复杂的例子，使用原型属性推断和约束，构造函数和类实例的关系。
+	- ```
+	  class BeeKeeper {
+	    hasMask: boolean = true;
+	  }
+	   
+	  class ZooKeeper {
+	    nametag: string = "Mikle";
+	  }
+	   
+	  class Animal {
+	    numLegs: number = 4;
+	  }
+	   
+	  class Bee extends Animal {
+	    keeper: BeeKeeper = new BeeKeeper();
+	  }
+	   
+	  class Lion extends Animal {
+	    keeper: ZooKeeper = new ZooKeeper();
+	  }
+	   
+	  function createInstance<A extends Animal>(c: new () => A): A {
+	    return new c();
+	  }
+	   
+	  createInstance(Lion).keeper.nametag;
+	  createInstance(Bee).keeper.hasMask;
+	  ```
 	-
