@@ -213,4 +213,100 @@
 	- ### `Array`   类型（The Array Type）
 	  background-color:: pink
 		- 我们之前讲过 `Array` 类型，当我们这样写类型 `number[]` 或者 `string[]` 的时候，其实它们只是 `Array<number>` 和 `Array<string>` 的简写形式而已。
+		- `Array` 本身就是一个泛型：
+		- ```
+		  interface Array<Type> {
+		    /**
+		     * Gets or sets the length of the array.
+		     */
+		    length: number;
+		   
+		    /**
+		     * Removes the last element from an array and returns it.
+		     */
+		    pop(): Type | undefined;
+		   
+		    /**
+		     * Appends new elements to an array, and returns the new length of the array.
+		     */
+		    push(...items: Type[]): number;
+		   
+		    // ...
+		  }
+		  ```
+		- 现代 JavaScript 也提供其他是泛型的数据结构，比如 `Map<K, V>` ， `Set<T>` 和 `Promise<T>`。因为 `Map` 、`Set` 、`Promise`的行为表现，它们可以跟任何类型搭配使用。
+	- ### `ReadonlyArray`   类型（The ReadonlyArray Type）
+	  background-color:: pink
+		- `ReadonlyArray` 是一个特殊类型，它可以描述数组不能被改变。
+		- ```
+		  function doStuff(values: ReadonlyArray<string>) {
+		    // We can read from 'values'...
+		    const copy = values.slice();
+		    console.log(`The first value is ${values[0]}`);
+		   
+		    // ...but we can't mutate 'values'.
+		    values.push("hello!");
+		    // Property 'push' does not exist on type 'readonly string[]'.
+		  }
+		  ```
+		- TypeScript 也针对 `ReadonlyArray<Type>` 提供了更简短的写法 `readonly Type[]`。
+		- ```
+		  function doStuff(values: readonly string[]) {
+		    // We can read from 'values'...
+		    const copy = values.slice();
+		    console.log(`The first value is ${values[0]}`);
+		   
+		    // ...but we can't mutate 'values'.
+		    values.push("hello!");
+		    // Property 'push' does not exist on type 'readonly string[]'.
+		  }
+		  ```
+		- 最后有一点要注意，就是 `Arrays` 和 `ReadonlyArray` 并[[#red]]==不能双向赋值==：
+		- ```
+		  let x: readonly string[] = [];
+		  let y: string[] = [];
+		   
+		  x = y; // ok
+		  y = x; // The type 'readonly string[]' is 'readonly' and cannot be assigned to the mutable type 'string[]'.
+		  ```
+	- ### 元组类型（Tuple Types）
+	  background-color:: pink
+		- 元组类型是另外一种 `Array` 类型，当你明确知道数组包含多少个元素，并且每个位置元素的类型都明确知道的时候，就适合使用元组类型。
+		- ```
+		  type StringNumberPair = [string, number];
+		  ```
+		- `StringNumberPair` 描述了一个数组，索引 0 的值的类型是 `string`，索引 1 的值的类型是 `number`。
+		- > 元组类型在重度依赖约定的 API 中很有用，因为它会让每个元素的意义都很明显。当我们解构的时候，元组给了我们命名变量的自由度。在上面的例子中，我们可以命名元素 `0` 和 `1` 为我们想要的名字。
+		  >
+		  >> 然而，也不是每个用户都这样认为，所以有的时候，使用一个带有描述属性名字的对象也许是个更好的方式。
+		- 除了长度检查，简单的元组类型跟声明了 `length` 属性和具体的索引属性的 `Array` 是一样的。
+		- ```
+		  interface StringNumberPair {
+		    // specialized properties
+		    length: 2;
+		    0: string;
+		    1: number;
+		   
+		    // Other 'Array<string | number>' members...
+		    slice(start?: number, end?: number): Array<string | number>;
+		  }
+		  ```
+		- 在元组类型中，你也可以写一个**可选属性**，但可选元素必须在最后面，而且也会影响类型的 `length` 。
+		- ```
+		  type Either2dOr3d = [number, number, number?];
+		   
+		  function setCoordinate(coord: Either2dOr3d) {
+		    const [x, y, z] = coord;         
+		    // const z: number | undefined
+		   
+		    console.log(`Provided coordinates had ${coord.length} dimensions`);
+		    // (property) length: 2 | 3
+		  }
+		  ```
+		- Tuples 也可以使用剩余元素语法，但必须是 array/tuple 类型：
+		- ```
+		  type StringNumberBooleans = [string, number, ...boolean[]];
+		  type StringBooleansNumber = [string, ...boolean[], number];
+		  type BooleansStringNumber = [...boolean[], string, number];
+		  ```
 		-
