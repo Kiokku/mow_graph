@@ -68,4 +68,20 @@
 	  console.log(memoizedAdd({value: 1})) // 1
 	  console.log(memoizedAdd({value: 2})) // 1
 	  ```
+	- 两者都返回了 1，显然是有问题的，所以我们看看 underscore 的 memoize 函数是如何实现的：
+	- ```
+	  // 第二版 (来自 underscore 的实现)
+	  var memoize = function(func, hasher) {
+	      var memoize = function(key) {
+	          var cache = memoize.cache;
+	          var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+	          if (!cache[address]) {
+	              cache[address] = func.apply(this, arguments);
+	          }
+	          return cache[address];
+	      };
+	      memoize.cache = {};
+	      return memoize;
+	  };
+	  ```
 	-
