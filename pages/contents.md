@@ -48,6 +48,7 @@
 		- [[ES6 系列之模拟实现一个 Set 数据结构]]
 		- [[ES6 系列之 WeakMap]]
 		- [[ES6 系列之我们来聊聊 Promise]]
+		- [[ES6 系列之 Generator 的自动执行]]
 		-
 - TypeScript
   collapsed:: true

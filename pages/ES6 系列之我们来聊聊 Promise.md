@@ -261,4 +261,56 @@
 - ## promisify
 	- 因为 callback 语法传参比较明确，最后一个参数传入回调函数，回调函数的第一个参数是一个错误信息，如果没有错误，就是 null，所以我们可以直接写出一个简单的 promisify 方法：
 	- ```
+	  function promisify(original) {
+	      return function (...args) {
+	          return new Promise((resolve, reject) => {
+	              args.push(function callback(err, ...values) {
+	                  if (err) {
+	                      return reject(err);
+	                  }
+	                  return resolve(...values)
+	              });
+	              original.call(this, ...args);
+	          });
+	      };
+	  }
 	  ```
+- ## Promise 的局限性
+	- ### 1. 错误被吃掉
+	  background-color:: pink
+		- 举个例子：
+		- ```
+		  throw new Error('error');
+		  console.log(233333);
+		  ```
+		- > 在这种情况下，因为 throw error 的缘故，代码被阻断执行，并不会打印 233333。
+		- ```
+		  const promise = new Promise(null);
+		  console.log(233333);
+		  ```
+		- > 以上代码依然会被阻断执行，这是因为如果通过无效的方式使用 Promise，并且出现了一个错误阻碍了正常 Promise 的构造，结果会得到一个立刻跑出的异常，而不是一个被拒绝的 Promise。
+		- ```
+		  let promise = new Promise(() => {
+		      throw new Error('error')
+		  });
+		  console.log(2333333);
+		  ```
+		- > 这次会正常的打印 `233333`，说明 Promise 内部的错误不会影响到 Promise 外部的代码，而这种情况我们就通常称为 **“吃掉错误”**。
+		- 而正是因为错误被吃掉，Promise 链中的错误很容易被忽略掉，这也是为什么会[[#blue]]==一般推荐在 Promise 链的最后添加一个 **catch 函数**，因为对于一个没有错误处理函数的 Promise 链，任何错误都会在链中被传播下去，直到你注册了错误处理函数。==
+	- ### 2. 单一值
+	  background-color:: pink
+		- Promise 只能有一个完成值或一个拒绝原因，然而在真实使用的时候，往往需要传递多个值，一般做法都是构造一个对象或数组，然后再传递，then 中获得这个值后，又会进行取值赋值的操作，每次封装和解封都无疑让代码变得笨重。
+	- ### 3. 无法取消
+	  background-color:: pink
+		- Promise 一旦新建它就会立即执行，无法中途取消。
+	- ### 4. 无法得知 pending 状态
+	  background-color:: pink
+		- 当处于 pending 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
+- ## 参考
+	- 1. 《你不知道的 JavaScript 中卷》
+	  2. [Promise 的 N 种用法](https://segmentfault.com/l/1500000008757392)
+	  3. [JavaScript Promise 迷你书](http://liubin.org/promises-book/#promise-done)
+	  4. [Promises/A+规范](http://www.ituring.com.cn/article/66566)
+	  5. [Promise 如何使用](https://www.cnblogs.com/ZHONGZHENHUA/p/8486616.html)
+	  6. [Promise Anti-patterns](https://github.com/mqyqingfeng/Blog/issues/taoofcode.net/promise-anti-patterns/)
+	  7. [一道关于Promise应用的面试题](http://www.cnblogs.com/dojo-lzz/p/5495671.html)
