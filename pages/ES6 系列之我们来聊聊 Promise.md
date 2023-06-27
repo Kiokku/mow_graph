@@ -52,4 +52,19 @@
 		      })
 		  });
 		  ```
+		- 使用 Promise 后：
+		- ```
+		  request(url)
+		  .then(function(result) {
+		      return writeFileAsynv('1.txt', result)
+		  })
+		  .then(function(result) {
+		      return request(url2)
+		  })
+		  .catch(function(e){
+		      handleError(e)
+		  });
+		  ```
+	- ### 2. 控制反转再反转
+	  background-color:: green
 		-
