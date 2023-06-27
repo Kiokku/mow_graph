@@ -67,4 +67,25 @@
 		  ```
 	- ### 2. 控制反转再反转
 	  background-color:: green
+		- 前面我们讲到使用第三方回调 API 的时候，可能会遇到如下问题：
+			- 1. 回调函数执行多次
+			  2 回调函数没有执行
+			  3. 回调函数有时同步执行有时异步执行
+		- 对于**第一个问题**，Promise 只能 resolve 一次，剩下的调用都会被忽略。
+		- 对于**第二个问题**，我们可以使用 Promise.race 函数来解决：
+			- ```
+			  function timeoutPromise(delay) {
+			      return new Promise( function(resolve,reject){
+			          setTimeout( function(){
+			              reject( "Timeout!" );
+			          }, delay );
+			      } );
+			  }
+			  
+			  Promise.race( [
+			      foo(),
+			      timeoutPromise( 3000 )
+			  ] )
+			  .then(function(){}, function(err){});
+			  ```
 		-
