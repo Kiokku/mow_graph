@@ -113,6 +113,6 @@
 		  	// Property 'name' of type 'string' is not assignable to 'string' index type 'number'.
 		  }
 		  ```
-		-
+	-
 		-
 	-
