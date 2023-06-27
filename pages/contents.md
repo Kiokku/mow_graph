@@ -47,6 +47,7 @@
 		- [[ES6 系列之迭代器与 for of]]
 		- [[ES6 系列之模拟实现一个 Set 数据结构]]
 		- [[ES6 系列之 WeakMap]]
+		- [[ES6 系列之我们来聊聊 Promise]]
 		-
 - TypeScript
   collapsed:: true
