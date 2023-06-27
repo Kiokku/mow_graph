@@ -65,5 +65,56 @@
 	   
 	  let myIdentity: { <Type>(arg: Type): Type } = identity;
 	  ```
+	- 这可以引导我们写出[[#blue]]==第一个泛型接口==，让我们使用上个例子中的对象字面量，然后把它的代码移动到接口里：
+	- ```
+	  interface GenericIdentityFn {
+	    <Type>(arg: Type): Type;
+	  }
+	   
+	  function identity<Type>(arg: Type): Type {
+	    return arg;
+	  }
+	   
+	  let myIdentity: GenericIdentityFn = identity;
+	  ```
+	- 有的时候，我们会希望将泛型参数作为整个接口的参数，这可以让我们清楚的知道传入的是什么参数 (举个例子：`Dictionary<string>` 而不是 `Dictionary`)。而且接口里其他的成员也可以看到：
+	- ```
+	  interface GenericIdentityFn<Type> {
+	    (arg: Type): Type;
+	  }
+	   
+	  function identity<Type>(arg: Type): Type {
+	    return arg;
+	  }
+	   
+	  let myIdentity: GenericIdentityFn<number> = identity;
+	  ```
+- ## 泛型类（Generic Classes）
+	- 泛型类写法上类似于泛型接口。在类名后面，使用尖括号中 `<>` 包裹住类型参数列表：
+	- ```
+	  class GenericNumber<NumType> {
+	    zeroValue: NumType;
+	    add: (x: NumType, y: NumType) => NumType;
+	  }
+	   
+	  let myGenericNumber = new GenericNumber<number>();
+	  myGenericNumber.zeroValue = 0;
+	  myGenericNumber.add = function (x, y) {
+	    return x + y;
+	  };
+	  ```
+- ## 泛型约束（Generic Constraints）
+	- 相比于能兼容任何类型，我们更愿意**约束**这个函数。只要类型有这个成员，我们就允许使用它，但必须至少要有这个成员。为此，我们需要列出对 `Type` 约束中的必要条件。
+	- 为此，我们需要创建一个接口，用来描述约束。这里，我们创建了一个只有 `.length` 属性的接口，然后我们使用这个接口和 `extends` 关键词实现了约束：
+	- ```
+	  interface Lengthwise {
+	    length: number;
+	  }
+	   
+	  function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
+	    console.log(arg.length); // Now we know it has a .length property, so no more error
+	    return arg;
+	  }
+	  ```
 	-
 	-
