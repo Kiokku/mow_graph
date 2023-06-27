@@ -58,3 +58,14 @@
 	  >需要注意的是，函数记忆只是一种编程技巧，[[#green]]==本质上是牺牲算法的空间复杂度以换取更优的时间复杂度==，在客户端 JavaScript 中代码的执行时间复杂度往往成为瓶颈，因此在大多数场景下，这种牺牲空间换取时间的做法以提升程序执行效率的做法是非常可取的。
 - ## 第二版
 	- 因为第一版使用了 join 方法，我们很容易想到当参数是对象的时候，就会自动调用 toString 方法转换成 `[Object object]`，再拼接字符串作为 key 值。我们写个 demo 验证一下这个问题：
+	- ```
+	  var propValue = function(obj){
+	      return obj.value
+	  }
+	  
+	  var memoizedAdd = memoize(propValue)
+	  
+	  console.log(memoizedAdd({value: 1})) // 1
+	  console.log(memoizedAdd({value: 2})) // 1
+	  ```
+	-
