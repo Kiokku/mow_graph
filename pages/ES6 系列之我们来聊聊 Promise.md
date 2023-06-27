@@ -174,4 +174,64 @@
 		  
 		      return _recursive(0);
 		  }
+		  
+		  //good
+		  function workMyCollection(arr) {
+		      return Promise.all(arr.map(function(item) {
+		          return doSomethingAsync(item);
+		      }));
+		  }
+		  
+		  //good
+		  function workMyCollection(arr) {
+		      return arr.reduce(function(promise, item) {
+		          return promise.then(function(result) {
+		              return doSomethingAsyncWithResult(item, result);
+		          });
+		      }, Promise.resolve());
+		  }
 		  ```
+	- ### 4. catch
+	  background-color:: green
+		- ```
+		  // bad
+		  somethingAync.then(function() {
+		      return somethingElseAsync();
+		  }, function(err) {
+		      handleMyError(err);
+		  });
+		  ```
+		- 如果 somethingElseAsync 抛出错误，是无法被捕获的。你可以写成：
+		- ```
+		  // good
+		  somethingAsync
+		  .then(function() {
+		      return somethingElseAsync()
+		  })
+		  .then(null, function(err) {
+		      handleMyError(err);
+		  });
+		  
+		  // good
+		  somethingAsync()
+		  .then(function() {
+		      return somethingElseAsync();
+		  })
+		  .catch(function(err) {
+		      handleMyError(err);
+		  });
+		  ```
+- ## 红绿灯问题
+	- > 🏁 **题目**：红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？（用 Promse 实现）
+	- 三个亮灯函数已经存在：
+	- ```
+	  function red(){
+	      console.log('red');
+	  }
+	  function green(){
+	      console.log('green');
+	  }
+	  function yellow(){
+	      console.log('yellow');
+	  }
+	  ```
