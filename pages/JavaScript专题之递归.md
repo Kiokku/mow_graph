@@ -41,5 +41,28 @@
 	  }
 	  ```
 	- 两者又有什么区别呢？答案就是[[#red]]==执行上下文栈的变化不一样==。
-	-
+	- 我们模拟下第一个**尾调用**函数执行时的执行上下文栈变化：
+	- ```
+	  // 伪代码
+	  ECStack.push(<f> functionContext);
+	  
+	  ECStack.pop();
+	  
+	  ECStack.push(<g> functionContext);
+	  
+	  ECStack.pop();
+	  ```
+	- 我们再来模拟一下第二个**非尾调用**函数执行时的执行上下文栈变化：
+	- ```
+	  ECStack.push(<f> functionContext);
+	  
+	  ECStack.push(<g> functionContext);
+	  
+	  ECStack.pop();
+	  
+	  ECStack.pop();
+	  ```
+	- 也就说尾调用函数执行时，虽然也调用了一个函数，但是因为原来的的函数执行完毕，执行上下文会被弹出，执行上下文栈中相当于只多压入了一个执行上下文。然而非尾调用函数，就会创建多个执行上下文压入执行上下文栈。
+	- 函数调用自身，称为递归。如果[[#blue]]==尾调用自身，就称为尾递归==。
+- ## 阶乘函数优化
 	-
