@@ -88,4 +88,90 @@
 			  ] )
 			  .then(function(){}, function(err){});
 			  ```
-		-
+		- 对于**第三个问题**，为什么有的时候会同步执行有的时候回异步执行呢？
+			- ```
+			  var cache = {...};
+			  function downloadFile(url) {
+			        if(cache.has(url)) {
+			              // 如果存在cache，这里为同步调用
+			             return Promise.resolve(cache.get(url));
+			        }
+			       return fetch(url).then(file => cache.set(url, file)); // 这里为异步调用
+			  }
+			  console.log('1');
+			  getValue.then(() => console.log('2'));
+			  console.log('3');
+			  ```
+			- 如果将这种同步和异步混用的代码作为内部实现，只暴露接口给外部调用，调用方由于无法判断是到底是异步还是同步状态，影响程序的可维护性和可测试性。
+			- [[#red]]==简单来说就是同步和异步共存的情况无法保证程序逻辑的一致性。==
+			- 然而 Promise 解决了这个问题，我们来看个例子：
+			- ```
+			  var promise = new Promise(function (resolve){
+			      resolve();
+			      console.log(1);
+			  });
+			  promise.then(function(){
+			      console.log(2);
+			  });
+			  console.log(3);
+			  
+			  // 1 3 2
+			  ```
+			- > [[#blue]]==PromiseA+ 规范也有明确的规定：==
+			  > 实践中要确保 onFulfilled 和 onRejected 方法异步执行，且应该在 then 方法被调用的那一轮事件循环之后的新执行栈中执行。
+- ## Promise 反模式
+	- ### 1. Promise 嵌套
+	  background-color:: green
+		- ```
+		  // bad
+		  loadSomething().then(function(something) {
+		      loadAnotherthing().then(function(another) {
+		          DoSomethingOnThem(something, another);
+		      });
+		  });
+		  
+		  // good
+		  Promise.all([loadSomething(), loadAnotherthing()])
+		  .then(function ([something, another]) {
+		      DoSomethingOnThem(...[something, another]);
+		  });
+		  ```
+	- ### 2. 断开的 Promise 链
+	  background-color:: green
+		- ```
+		  // bad
+		  function anAsyncCall() {
+		      var promise = doSomethingAsync();
+		      promise.then(function() {
+		          somethingComplicated();
+		      });
+		  
+		      return promise;
+		  }
+		  
+		  // good
+		  function anAsyncCall() {
+		      var promise = doSomethingAsync();
+		      return promise.then(function() {
+		          somethingComplicated()
+		      });
+		  }
+		  ```
+	- ### 3. 混乱的集合
+	  background-color:: green
+		- ```
+		  // bad
+		  function workMyCollection(arr) {
+		      var resultArr = [];
+		      function _recursive(idx) {
+		          if (idx >= resultArr.length) return resultArr;
+		  
+		          return doSomethingAsync(arr[idx]).then(function(res) {
+		              resultArr.push(res);
+		              return _recursive(idx + 1);
+		          });
+		      }
+		  
+		      return _recursive(0);
+		  }
+		  ```
