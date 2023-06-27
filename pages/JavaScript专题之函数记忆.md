@@ -84,4 +84,51 @@
 	      return memoize;
 	  };
 	  ```
+	- 如果要支持多参数，我们就需要传入 hasher 函数，自定义存储的 key 值。所以我们考虑使用 JSON.stringify：
+	- ```
+	  var add = function(a, b, c) {
+	    return a + b + c
+	  }
+	  
+	  var memoizedAdd = memoize(add, function(){
+	      var args = Array.prototype.slice.call(arguments)
+	      return JSON.stringify(args)
+	  })
+	  
+	  console.log(memoizedAdd(1, 2, 3)) // 6
+	  console.log(memoizedAdd(1, 2, 4)) // 7
+	  ```
+	- 如果使用 JSON.stringify，参数是对象的问题也可以得到解决，因为存储的是对象序列化后的字符串。
+- ## 适用场景
+	- 我们以斐波那契数列为例：
+	- ```
+	  var count = 0;
+	  var fibonacci = function(n){
+	      count++;
+	      return n < 2? n : fibonacci(n-1) + fibonacci(n-2);
+	  };
+	  for (var i = 0; i <= 10; i++){
+	      fibonacci(i)
+	  }
+	  
+	  console.log(count) // 453
+	  ```
+	- 我们会发现最后的 count 数为 453，也就是说 fibonacci 函数被调用了 453 次！
+	- 使用函数记忆呢？
+	- ```
+	  var count = 0;
+	  var fibonacci = function(n) {
+	      count++;
+	      return n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+	  };
+	  
+	  fibonacci = memoize(fibonacci)
+	  
+	  for (var i = 0; i <= 10; i++) {
+	      fibonacci(i)
+	  }
+	  
+	  console.log(count) // 12
+	  ```
+	- 我们会发现最后的总次数为 12 次，因为使用了函数记忆，调用次数从 453 次降低为了 12 次!
 	-
