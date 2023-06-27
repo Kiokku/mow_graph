@@ -171,4 +171,46 @@
 	  type ColorfulCircle = Colorful & Circle;
 	  ```
 - ## 接口继承与交叉类型（Interfaces vs Intersections）
-	-
+	- 这两种方式在合并类型上看起来很相似，但实际上还是有很大的不同。[[#green]]==最原则性的不同就是在于冲突怎么处理==，这也是你决定选择那种方式的主要原因。
+	- ```
+	  interface Colorful {
+	    color: string;
+	  }
+	  
+	  interface ColorfulSub extends Colorful {
+	    color: number
+	  }
+	  
+	  // Interface 'ColorfulSub' incorrectly extends interface 'Colorful'.
+	  // Types of property 'color' are incompatible.
+	  // Type 'number' is not assignable to type 'string'.
+	  
+	  ```
+	- 使用继承的方式，如果[[#red]]==重写类型会导致编译错误==，但交叉类型不会：
+	- ```
+	  interface Colorful {
+	    color: string;
+	  }
+	  
+	  type ColorfulSub = Colorful & {
+	    color: number
+	  }
+	  ```
+	- > 虽然不会报错，那 `color` 属性的类型是什么呢，答案是 `never`，取得是 `string` 和 `number` 的交集。
+- ## 泛型对象类型（Generic Object Types）
+	- 我们创建一个泛型 `Box` ，它声明了一个类型参数 (type parameter)：
+	- ```
+	  interface Box<Type> {
+	    contents: Type;
+	  }
+	  ```
+	- > 你可以这样理解：`Box` 的 `Type` 就是 `contents` 拥有的类型 `Type`。
+	- 当我们引用 `Box` 的时候，我们需要给予一个类型实参替换掉 `Type`：
+	- ```
+	  let box: Box<string>;
+	  ```
+	- 把 `Box` 想象成一个实际类型的模板，`Type` 就是一个占位符，可以被替代为具体的类型。
+	- ### `Array`   类型（The Array Type）
+	  background-color:: pink
+		- 我们之前讲过 `Array` 类型，当我们这样写类型 `number[]` 或者 `string[]` 的时候，其实它们只是 `Array<number>` 和 `Array<string>` 的简写形式而已。
+		-
