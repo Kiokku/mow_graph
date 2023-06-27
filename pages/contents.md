@@ -49,6 +49,7 @@
 		- [[ES6 系列之 WeakMap]]
 		- [[ES6 系列之我们来聊聊 Promise]]
 		- [[ES6 系列之 Generator 的自动执行]]
+		- [[ES6 系列之我们来聊聊 Async]]
 		-
 - TypeScript
   collapsed:: true
