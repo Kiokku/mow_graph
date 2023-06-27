@@ -309,4 +309,36 @@
 		  type StringBooleansNumber = [string, ...boolean[], number];
 		  type BooleansStringNumber = [...boolean[], string, number];
 		  ```
-		-
+		- 有**剩余元素**的元组并不会设置 `length`，因为它只知道在不同位置上的已知元素信息：
+		- ```
+		  const a: StringNumberBooleans = ["hello", 1];
+		  const b: StringNumberBooleans = ["beautiful", 2, true];
+		  const c: StringNumberBooleans = ["world", 3, true, false, true, false, true];
+		  
+		  console.log(a.length); // (property) length: number
+		  
+		  type StringNumberPair = [string, number];
+		  const d: StringNumberPair = ['1', 1];
+		  console.log(d.length); // (property) length: 2
+		  ```
+		- 可选元素和剩余元素的存在，使得 TypeScript 可以在参数列表里使用元组，就像这样：
+		- ```
+		  function readButtonInput(...args: [string, number, ...boolean[]]) {
+		    const [name, version, ...input] = args;
+		    // ...
+		  }
+		  ```
+		- 基本等同于：
+		- ```
+		  function readButtonInput(name: string, version: number, ...input: boolean[]) {
+		    // ...
+		  }
+		  ```
+	- ### `readonly`   元组类型（readonly Tuple Types）
+	  background-color:: pink
+		- 元组类型也是可以设置 `readonly` 的：
+		- ```
+		  function doSomething(pair: readonly [string, number]) {
+		    // ...
+		  }
+		  ```

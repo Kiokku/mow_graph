@@ -1,0 +1,6 @@
+- > https://ts.yayujs.com/handbook/Generics.html
+-
+- ## 泛型（Generics）
+	- 在比如 C# 和 Java 语言中，用来创建可复用组件的工具，我们称之为泛型（generics）。利用泛型，我们可以创建一个支持众多类型的组件，这让用户可以使用自己的类型消费（consume）这些组件。
+- ## Generics 初探（Hello World of Generics）
+	-

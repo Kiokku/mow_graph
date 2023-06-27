@@ -60,6 +60,7 @@
 			- [[TypeScript类型收窄]]
 			- [[TypeScript函数]]
 			- [[TypeScript对象类型]]
+			- [[TypeScript泛型]]
 			-
 - 算法笔记（以JavaScript为实现语言）
 	- [[时间复杂度与空间复杂度]]
