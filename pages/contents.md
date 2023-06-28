@@ -1,6 +1,6 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
+	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -39,6 +39,7 @@
 		- [[JavaScript专题之函数记忆]]
 		- [[JavaScript专题之递归]]
 		- [[JavaScript专题之乱序]]
+		- [[JavaScript专题之解读 v8 排序源码]]
 		-
 	- [[ES6系列]]
 		- [[ES6 系列之 let 和 const]]
