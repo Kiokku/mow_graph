@@ -1,0 +1,4 @@
+- > https://ts.yayujs.com/handbook/IndexedAccessTypes.html
+-
+- ## 索引访问类型（Indexed Access Types）
+	-

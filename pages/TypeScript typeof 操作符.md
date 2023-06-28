@@ -15,4 +15,61 @@
 	  let shouldContinue: typeof msgbox("Are you sure you want to continue?");
 	  // ',' expected.
 	  ```
-	-
+- ## 对对象使用   `typeof`
+	- ```
+	  const person = { name: "kevin", age: "18" }
+	  type Kevin = typeof person;
+	  
+	  // type Kevin = {
+	  // 		name: string;
+	  // 		age: string;
+	  // }
+	  ```
+- ## 对函数使用   `typeof`
+	- ```
+	  function identity<Type>(arg: Type): Type {
+	    return arg;
+	  }
+	  
+	  type result = typeof identity;
+	  // type result = <Type>(arg: Type) => Type
+	  ```
+- ## 对 enum 使用   `typeof`
+	- 在 TypeScript 中，enum 是一种新的数据类型，但在具体运行的时候，它会被编译成对象。
+	- ```
+	  enum UserResponse {
+	    No = 0,
+	    Yes = 1,
+	  }
+	  
+	  ```
+	- 对应编译的 JavaScript 代码为：
+	- ```
+	  var UserResponse;
+	  (function (UserResponse) {
+	      UserResponse[UserResponse["No"] = 0] = "No";
+	      UserResponse[UserResponse["Yes"] = 1] = "Yes";
+	  })(UserResponse || (UserResponse = {}));
+	  ```
+	- 而如果我们对 `UserResponse` 使用 `typeof`：
+	- ```
+	  type result = typeof UserResponse;
+	  
+	  // ok
+	  const a: result = {
+	        "No": 2,
+	        "Yes": 3
+	  }
+	  
+	  result 类型类似于：
+	  
+	  // {
+	  //	"No": number,
+	  //  "YES": number
+	  // }
+	  ```
+	- 不过对一个 enum 类型只使用 `typeof` 一般没什么用，通常还会搭配 `keyof` 操作符用于获取属性名的联合字符串：
+	- ```
+	  type result = keyof typeof UserResponse;
+	  // type result = "No" | "Yes"
+	  ```
