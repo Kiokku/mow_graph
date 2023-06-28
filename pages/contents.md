@@ -20,6 +20,7 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
+	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -42,6 +43,7 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -56,6 +58,7 @@
 		- [[ES6 系列之 defineProperty 与 proxy]]
 		-
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 		- 基础
 			- [[TypeScript基础]]
@@ -69,6 +72,7 @@
 			- [[TypeScript索引访问类型]]
 			-
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -103,6 +107,7 @@
 		- [[计数排序]]
 		- [[基数排序]]
 - 正则表达式
+  collapsed:: true
 	- [[正则表达式的定义]]
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]

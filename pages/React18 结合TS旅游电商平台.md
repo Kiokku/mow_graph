@@ -15,6 +15,7 @@
 			- ![image.png](../assets/image_1684419310605_0.png)
 			-
 - ## 系统设计与项目初始化
+  collapsed:: true
 	- [[#blue]]==界面设计==
 		- **UI设计规范**
 	- [[#blue]]==需求设计==
@@ -36,6 +37,7 @@
 			  ```
 	-
 - ## 路由系统
+  collapsed:: true
 	- ### 路由与SPA
 	  background-color:: pink
 		- `SPA`：单页网站应用
