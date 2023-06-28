@@ -104,5 +104,36 @@
 	- 对于我们常见的组件类型，如（`FunctionComponent`/`ClassComponent`/`HostComponent`），最终会进入[reconcileChildren](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L233)方法。
 - ## reconcileChildren
 	- 从该函数名就能看出这是`Reconciler`模块的核心部分。那么他究竟做了什么呢？
-		- 对
-		- 于`mount`的组件，他会创建新的`子Fiber节点`
+		- [[#green]]==对于`mount`的组件==，他会创建新的`子Fiber节点`
+		- [[#green]]==对于`update`的组件==，他会将当前组件与该组件在上次更新时对应的`Fiber节点`比较（也就是俗称的`Diff`算法），将比较的结果生成新`Fiber节点`
+	- ```
+	  export function reconcileChildren(
+	    current: Fiber | null,
+	    workInProgress: Fiber,
+	    nextChildren: any,
+	    renderLanes: Lanes
+	  ) {
+	    if (current === null) {
+	      // 对于mount的组件
+	      workInProgress.child = mountChildFibers(
+	        workInProgress,
+	        null,
+	        nextChildren,
+	        renderLanes,
+	      );
+	    } else {
+	      // 对于update的组件
+	      workInProgress.child = reconcileChildFibers(
+	        workInProgress,
+	        current.child,
+	        nextChildren,
+	        renderLanes,
+	      );
+	    }
+	  }
+	  ```
+	- 从代码可以看出，和`beginWork`一样，他也是通过`current === null ?`区分`mount`与`update`。
+	- 不论走哪个逻辑，最终他会生成新的子`Fiber节点`并赋值给`workInProgress.child`，作为本次`beginWork`[返回值](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L1158)，并作为下次`performUnitOfWork`执行时`workInProgress`的[传参](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1702)。
+- ## effectTag
+	- 我们知道，`render阶段`的工作是在内存中进行，当工作结束后会通知`Renderer`需要执行的`DOM`操作。要执行`DOM`操作的具体类型就保存在`fiber.effectTag`中。
+	-
