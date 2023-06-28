@@ -136,4 +136,20 @@
 	- 不论走哪个逻辑，最终他会生成新的子`Fiber节点`并赋值给`workInProgress.child`，作为本次`beginWork`[返回值](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L1158)，并作为下次`performUnitOfWork`执行时`workInProgress`的[传参](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L1702)。
 - ## effectTag
 	- 我们知道，`render阶段`的工作是在内存中进行，当工作结束后会通知`Renderer`需要执行的`DOM`操作。要执行`DOM`操作的具体类型就保存在`fiber.effectTag`中。
-	-
+	- > 你可以从[这里](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactSideEffectTags.js)看到`effectTag`对应的`DOM`操作
+	- 比如：
+	- ```
+	  // DOM需要插入到页面中
+	  export const Placement = /*                */ 0b00000000000010;
+	  // DOM需要更新
+	  export const Update = /*                   */ 0b00000000000100;
+	  // DOM需要插入到页面中并更新
+	  export const PlacementAndUpdate = /*       */ 0b00000000000110;
+	  // DOM需要删除
+	  export const Deletion = /*                 */ 0b00000000001000;
+	  ```
+	- 那么，如果要通知`Renderer`将`Fiber节点`对应的`DOM节点`插入页面中，需要满足两个条件：
+		- 1.`fiber.stateNode`存在，即`Fiber节点`中保存了对应的`DOM节点`
+		- 2. `(fiber.effectTag & Placement) !== 0`，即`Fiber节点`存在`Placement effectTag`
+	- 我们知道，`mount`时，`fiber.stateNode === null`，且在`reconcileChildren`中调用的`mountChildFibers`不会为`Fiber节点`赋值`effectTag`。那么**首屏渲染**如何完成呢？
+	- 为了解决这个问题，在`mount`时只有`rootFiber`会赋值`Placement effectTag`，在`commit阶段`只会执行一次插入操作。
