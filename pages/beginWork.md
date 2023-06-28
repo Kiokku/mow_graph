@@ -66,3 +66,43 @@
 		  }
 		  ```
 - ## update时
+	- 我们可以看到，满足如下情况时`didReceiveUpdate === false`（即可以直接复用前一次更新的`子Fiber`，不需要新建`子Fiber`）
+		- 1. `oldProps === newProps && workInProgress.type === current.type`，即`props`与`fiber.type`不变。
+		- 2. `!includesSomeLane(renderLanes, updateLanes)`，即当前`Fiber节点`优先级不够，会在讲解`Scheduler`时介绍。
+	- ```
+	  if (current !== null) {
+	      const oldProps = current.memoizedProps;
+	      const newProps = workInProgress.pendingProps;
+	  
+	      if (
+	        oldProps !== newProps ||
+	        hasLegacyContextChanged() ||
+	        (__DEV__ ? workInProgress.type !== current.type : false)
+	      ) {
+	        didReceiveUpdate = true;
+	      } else if (!includesSomeLane(renderLanes, updateLanes)) {
+	        didReceiveUpdate = false;
+	        switch (workInProgress.tag) {
+	          // 省略处理
+	        }
+	        return bailoutOnAlreadyFinishedWork(
+	          current,
+	          workInProgress,
+	          renderLanes,
+	        );
+	      } else {
+	        didReceiveUpdate = false;
+	      }
+	    } else {
+	      didReceiveUpdate = false;
+	    }
+	  ```
+- ## mount时
+	- 当不满足优化路径时，我们就进入第二部分，新建`子Fiber`。
+	- 我们可以看到，根据`fiber.tag`不同，进入不同类型`Fiber`的创建逻辑。
+	- > 可以从[这里](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactWorkTags.js)看到`tag`对应的组件类型
+	- 对于我们常见的组件类型，如（`FunctionComponent`/`ClassComponent`/`HostComponent`），最终会进入[reconcileChildren](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberBeginWork.new.js#L233)方法。
+- ## reconcileChildren
+	- 从该函数名就能看出这是`Reconciler`模块的核心部分。那么他究竟做了什么呢？
+		- 对
+		- 于`mount`的组件，他会创建新的`子Fiber节点`
