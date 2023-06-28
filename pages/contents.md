@@ -125,6 +125,7 @@
 		- 架构篇
 			- 第三章 render阶段
 				- [[流程概览]]
+				- [[beginWork]]
 				-
 	- [[React基础与进阶]]
 		- [[React 之 createElement 源码解读]]
