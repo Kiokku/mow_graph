@@ -90,5 +90,6 @@
 				  }
 				  ```
 - ## Redux-项目架构方案
+	- ![image.png](../assets/image_1687967254772_0.png)
 	-
 	-
