@@ -53,6 +53,7 @@
 		- [[ES6 系列之 Generator 的自动执行]]
 		- [[ES6 系列之我们来聊聊 Async]]
 		- [[ES6 系列之异步处理实战]]
+		- [[ES6 系列之 defineProperty 与 proxy]]
 		-
 - TypeScript
 	- [[TypeScript中文文档]]
