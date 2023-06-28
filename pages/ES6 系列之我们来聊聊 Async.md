@@ -177,5 +177,63 @@
 		    }
 		  }
 		  ```
-	-
--
+	- ### async 并发实现：
+	  background-color:: pink
+		- ```
+		  // 并发一
+		  async function loadData() {
+		    var res = await Promise.all([fetch(url1), fetch(url2), fetch(url3)]);
+		    return "whew all done";
+		  }
+		  ```
+		- ```
+		  // 并发二
+		  async function loadData(urls) {
+		    // 并发读取 url
+		    const textPromises = urls.map(async url => {
+		      const response = await fetch(url);
+		      return response.text();
+		    });
+		  
+		    // 按次序输出
+		    for (const textPromise of textPromises) {
+		      console.log(await textPromise);
+		    }
+		  }
+		  ```
+- ## async 错误捕获
+	- 我们可以给 await 后的 promise 对象添加 catch 函数，为此我们需要写一个 helper:
+	- ```
+	  // to.js
+	  export default function to(promise) {
+	     return promise.then(data => {
+	        return [null, data];
+	     })
+	     .catch(err => [err]);
+	  }
+	  ```
+	- 整个错误捕获的代码可以简化为：
+	- ```
+	  import to from './to.js';
+	  
+	  async function asyncTask() {
+	       let err, user, savedTask;
+	  
+	       [err, user] = await to(UserModel.findById(1));
+	       if(!user) throw new CustomerError('No user found');
+	  
+	       [err, savedTask] = await to(TaskModel({userId: user.id, name: 'Demo Task'}));
+	       if(err) throw new CustomError('Error occurred while saving task');
+	  
+	      if(user.notificationsEnabled) {
+	         const [err] = await to(NotificationService.sendNotification(user.id, 'Task Created'));
+	         if (err) console.error('Just log the error and continue flow');
+	      }
+	  }
+	  ```
+- ## 参考
+	- 1. [[译] 6 个 Async/Await 优于 Promise 的方面](https://zhuanlan.zhihu.com/p/26260061)
+	  2. [[译] 如何逃离 async/await 地狱](https://juejin.im/post/5aefbb48f265da0b9b073c40)
+	  3. [精读《async/await 是把双刃剑》](https://segmentfault.com/a/1190000014753495)
+	  4. [ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/async)
+	  5. [How to write async await without try-catch blocks in Javascript](https://blog.grossman.io/how-to-write-async-await-without-try-catch-blocks-in-javascript/)
