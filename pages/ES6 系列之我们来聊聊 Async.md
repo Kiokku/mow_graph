@@ -68,5 +68,50 @@
 		  ```
 	- ### 3. 调试
 	  background-color:: pink
-		-
+		- 因为 then 中的代码是异步执行，所以当你打断点的时候，代码不会顺序执行，尤其当你使用 step over 的时候，then 函数会直接进入下一个 then 函数。
+		- 而使用 async 的时候，则可以像调试同步代码一样调试。
+- ## async 地狱
+	- async 地狱主要是指开发者贪图语法上的简洁而让原本可以并行执行的内容变成了顺序执行，从而影响了性能。
+	- ### 例子一
+	  background-color:: pink
+		- ```
+		  (async () => {
+		    const getList = await getList();
+		    const getAnotherList = await getAnotherList();
+		  })();
+		  ```
+		- getList() 和 getAnotherList() 其实并没有依赖关系，但是现在的这种写法，虽然简洁，却导致了 getAnotherList() 只能在 getList() 返回后才会执行，从而导致了[[#red]]==多一倍的请求时间==。
+		- 为了解决这个问题，我们可以改成这样：
+		- ```
+		  (async () => {
+		    const listPromise = getList();
+		    const anotherListPromise = getAnotherList();
+		    await listPromise;
+		    await anotherListPromise;
+		  })();
+		  ```
+		- 也可以使用 Promise.all()：
+		- ```
+		  (async () => {
+		    Promise.all([getList(), getAnotherList()]).then(...);
+		  })();
+		  ```
+	- ### 例子二
+	  background-color:: pink
+		- ```
+		  (async () => {
+		    const listPromise = await getList();
+		    const anotherListPromise = await getAnotherList();
+		  
+		    // do something
+		  
+		    await submit(listData);
+		    await submit(anotherListData);
+		  
+		  })();
+		  ```
+		- 因为 await 的特性，整个例子有明显的**先后顺序**，然而 getList() 和 getAnotherList() 其实并无依赖，submit(listData) 和 submit(anotherListData) 也没有依赖关系，那么对于这种例子，我们该怎么改写呢？
+		- 基本分为三个步骤：
+			- **1. 找出依赖关系**
+			-
 -
