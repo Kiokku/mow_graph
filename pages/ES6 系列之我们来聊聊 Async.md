@@ -113,5 +113,69 @@
 		- 因为 await 的特性，整个例子有明显的**先后顺序**，然而 getList() 和 getAnotherList() 其实并无依赖，submit(listData) 和 submit(anotherListData) 也没有依赖关系，那么对于这种例子，我们该怎么改写呢？
 		- 基本分为三个步骤：
 			- **1. 找出依赖关系**
-			-
+				- 在这里，submit(listData) 需要在 getList() 之后，submit(anotherListData) 需要在 anotherListPromise() 之后。
+			- **2. 将互相依赖的语句包裹在 async 函数中**
+				- ```
+				  async function handleList() {
+				    const listPromise = await getList();
+				    // ...
+				    await submit(listData);
+				  }
+				  
+				  async function handleAnotherList() {
+				    const anotherListPromise = await getAnotherList()
+				    // ...
+				    await submit(anotherListData)
+				  }
+				  ```
+			- **3.并发执行 async 函数**
+				- ```
+				  async function handleList() {
+				    const listPromise = await getList();
+				    // ...
+				    await submit(listData);
+				  }
+				  
+				  async function handleAnotherList() {
+				    const anotherListPromise = await getAnotherList()
+				    // ...
+				    await submit(anotherListData)
+				  }
+				  
+				  // 方法一
+				  (async () => {
+				    const handleListPromise = handleList()
+				    const handleAnotherListPromise = handleAnotherList()
+				    await handleListPromise
+				    await handleAnotherListPromise
+				  })()
+				  
+				  // 方法二
+				  (async () => {
+				    Promise.all([handleList(), handleAnotherList()]).then()
+				  })()
+				  ```
+- ## 继发与并发
+	- > 📖 **问题：给定一个 URL 数组，如何实现接口的继发和并发？**
+	- ### async 继发实现：
+	  background-color:: pink
+		- ```
+		  // 继发一
+		  async function loadData() {
+		    var res1 = await fetch(url1);
+		    var res2 = await fetch(url2);
+		    var res3 = await fetch(url3);
+		    return "whew all done";
+		  }
+		  ```
+		- ```
+		  // 继发二
+		  async function loadData(urls) {
+		    for (const url of urls) {
+		      const response = await fetch(url);
+		      console.log(await response.text());
+		    }
+		  }
+		  ```
+	-
 -
