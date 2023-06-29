@@ -31,4 +31,47 @@
 		- **writable**：当且仅当该属性的 writable 为 true 时，该属性才能被[[#green]]==赋值运算符==改变。默认为 false。
 	- ### 存取描述符同时具有以下可选键值：
 	  background-color:: pink
-		-
+		- **get**：一个给属性提供 getter 的方法，如果没有 getter 则为 undefined。该方法返回值被用作属性值。默认为 undefined。
+		- **set**：一个给属性提供 setter 的方法，如果没有 setter 则为 undefined。该方法将接受唯一参数，并将该参数的新值分配给该属性。默认为 undefined。
+	- [[#green]]==**属性描述符必须是数据描述符或者存取描述符两种形式之一，不能同时是两者**。==
+	- 这就意味着你可以：
+		- ```
+		  Object.defineProperty({}, "num", {
+		      value: 1,
+		      writable: true,
+		      enumerable: true,
+		      configurable: true
+		  });
+		  ```
+	- 也可以：
+		- ```
+		  var value = 1;
+		  Object.defineProperty({}, "num", {
+		      get : function(){
+		        return value;
+		      },
+		      set : function(newValue){
+		        value = newValue;
+		      },
+		      enumerable : true,
+		      configurable : true
+		  });
+		  ```
+	- 但是不可以：
+		- ```
+		  // 报错
+		  Object.defineProperty({}, "num", {
+		      value: 1,
+		      get: function() {
+		          return 1;
+		      }
+		  });
+		  ```
+	- 此外，所有的属性描述符都是非必须的，但是 descriptor 这个字段是必须的，如果不进行任何配置，你可以这样：
+		- ```
+		  var obj = Object.defineProperty({}, "num", {});
+		  console.log(obj.num); // undefined
+		  ```
+- ## Setters 和 Getters
+	-
+	-
