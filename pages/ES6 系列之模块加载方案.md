@@ -163,4 +163,49 @@
 		- ```
 		  import {firstName, lastName, year} from './profile';
 		  ```
+	- [[#green]]==跟 require.js 一致，也就是将需要使用的模块先加载完再执行代码。==
+- ## ES6 与 CommonJS
+	- 它们有两个重大差异
+		- 1. CommonJS 模块输出的是一个值的**拷贝**，ES6 模块输出的是值的**引用**。
+		- 2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+	- 第二个差异可以从两个项目的打印结果看出，导致这种差别的原因是：
+		- CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+	- 重点解释第一个差异：
+		- CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
+		- ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个**只读引用**。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的 import 有点像 Unix 系统的“符号连接”，原始值变了，import 加载的值也会跟着变。因此，ES6 模块是**动态引用**，并且不会缓存值，模块里面的变量绑定其所在的模块。
+- ## Babel
+	- 让我们看看 Babel 是怎么编译 import 和 export 语法的。
+	- ```
+	  // ES6
+	  var firstName = 'Michael';
+	  var lastName = 'Jackson';
+	  var year = 1958;
+	  
+	  export {firstName, lastName, year};
+	  
+	  // Babel 编译后
+	  'use strict';
+	  
+	  Object.defineProperty(exports, "__esModule", {
+	    value: true
+	  });
+	  var firstName = 'Michael';
+	  var lastName = 'Jackson';
+	  var year = 1958;
+	  
+	  exports.firstName = firstName;
+	  exports.lastName = lastName;
+	  exports.year = year;
+	  ```
+	- ```
+	  // ES6
+	  import {firstName, lastName, year} from './profile';
+	  
+	  // Babel 编译后
+	  'use strict';
+	  
+	  var _profile = require('./profile');
+	  ```
+	- 你会发现 [[#red]]==Babel 只是把 ES6 模块语法转为 CommonJS 模块语法==，然而浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包。
+- ## webpack
 	-
