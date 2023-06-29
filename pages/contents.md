@@ -71,6 +71,7 @@
 			- [[TypeScript keyof 操作符]]
 			- [[TypeScript typeof 操作符]]
 			- [[TypeScript索引访问类型]]
+			- [[TypeScript条件类型]]
 			-
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
