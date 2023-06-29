@@ -50,4 +50,23 @@
 	  ```
 - ## 条件类型约束 （Conditional Type Constraints）
 	- 通常，使用条件类型会为我们提供一些新的信息。正如使用 **类型保护（type guards）** 可以 **收窄类型（narrowing）** 为我们提供一个更加具体的类型，条件类型的 `true` 分支也会进一步约束泛型，举个例子：
-	-
+	- ```
+	  type MessageOf<T> = T["message"];
+	  // Type '"message"' cannot be used to index type 'T'.
+	  ```
+	- TypeScript 报错是因为 `T` 不知道有一个名为 `message` 的属性。我们可以约束 `T`，这样 TypeScript 就不会再报错：
+	- ```
+	  type MessageOf<T extends { message: unknown }> = T["message"];
+	   
+	  interface Email {
+	    message: string;
+	  }
+	   
+	  type EmailMessageContents = MessageOf<Email>;
+	  // type EmailMessageContents = string
+	  
+	  ```
+- ## 在条件类型里推断（Inferring Within Conditional Types）
+	- 条件类型提供了 `infer` 关键词，可以从正在比较的类型中推断类型，然后在 `true` 分支里引用该推断结果。借助 `infer`，我们修改下 `Flatten` 的实现，不再借助索引访问类型“手动”的获取出来：
+	- ```
+	  ```

@@ -61,6 +61,7 @@
 		-
 - TypeScript
 	- [[TypeScript中文文档]]
+	  collapsed:: true
 		- 基础
 			- [[TypeScript基础]]
 			- [[TypeScript常见类型]]
