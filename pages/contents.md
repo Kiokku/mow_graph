@@ -55,6 +55,7 @@
 		- [[ES6 系列之我们来聊聊 Async]]
 		- [[ES6 系列之异步处理实战]]
 		- [[ES6 系列之 defineProperty 与 proxy]]
+		- [[ES6 系列之模块加载方案]]
 		-
 - TypeScript
   collapsed:: true

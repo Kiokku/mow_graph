@@ -232,4 +232,41 @@
 	  var proxy = new Proxy(target, handler);
 	  console.log('_prop' in proxy); // false
 	  ```
-	-
+	- 值得注意的是，proxy 的最大问题在于浏览器支持度不够，而且很多效果无法使用 poilyfill 来弥补。
+- ## watch API 优化
+	- 我们使用 proxy 再来写一下 watch 函数。使用效果如下：
+	- ```
+	  (function() {
+	      var root = this;
+	  
+	      function watch(target, func) {
+	  
+	          var proxy = new Proxy(target, {
+	              get: function(target, prop) {
+	                  return target[prop];
+	              },
+	              set: function(target, prop, value) {
+	                  target[prop] = value;
+	                  func(prop, value);
+	              }
+	          });
+	  
+	          return proxy;
+	      }
+	  
+	      this.watch = watch;
+	  })()
+	  
+	  var obj = {
+	      value: 1
+	  }
+	  
+	  var newObj = watch(obj, function(key, newvalue) {
+	      if (key == 'value') document.getElementById('container').innerHTML = newvalue;
+	  })
+	  
+	  document.getElementById('button').addEventListener("click", function() {
+	      newObj.value += 1
+	  });
+	  ```
+	- 我们也可以发现，使用 defineProperty 和 proxy 的区别，当使用 defineProperty，我们修改原来的 obj 对象就可以触发拦截，而使用 proxy，就必须修改代理对象，即 Proxy 的实例才可以触发拦截。
