@@ -37,7 +37,6 @@
 			  ```
 	-
 - ## 路由系统
-  collapsed:: true
 	- ### 路由与SPA
 	  background-color:: pink
 		- `SPA`：单页网站应用
