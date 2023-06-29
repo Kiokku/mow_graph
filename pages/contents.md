@@ -156,5 +156,7 @@
 	-
 - Mathematics
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
+		- [[Lecture 1: The geometry of linear equations]]
+		-
 		-
 -
