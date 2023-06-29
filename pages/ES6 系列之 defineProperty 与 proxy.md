@@ -157,4 +157,79 @@
 	      obj.value += 1;
 	  });
 	  ```
+	- 现在的写法，我们还需要单独声明一个变量存储 obj.value 的值，因为如果你在 set 中直接 `obj.value = newValue` 就会陷入无限的循环中。此外，我们可能需要监控很多属性值的改变，所以我们简单写个 watch 函数。使用效果如下：
+	- ```
+	  var obj = {
+	      value: 1
+	  }
+	  
+	  watch(obj, "value", function(newvalue){
+	      document.getElementById('container').innerHTML = newvalue;
+	  })
+	  
+	  document.getElementById('button').addEventListener("click", function(){
+	      obj.value += 1
+	  });
+	  ```
+	- 我们来写下这个 watch 函数：
+	- ```
+	  (function(){
+	      var root = this;
+	      function watch(obj, name, func){
+	          var value = obj[name];
+	  
+	          Object.defineProperty(obj, name, {
+	              get: function() {
+	                  return value;
+	              },
+	              set: function(newValue) {
+	                  value = newValue;
+	                  func(value)
+	              }
+	          });
+	  
+	          if (value) obj[name] = value
+	      }
+	  
+	      this.watch = watch;
+	  })()
+	  ```
+- ## proxy
+	- 使用 defineProperty 只能重定义属性的读取（get）和设置（set）行为，到了 ES6，提供了 Proxy，可以重定义更多的行为，比如 in、delete、函数调用等更多行为。
+	- ES6 原生提供 Proxy 构造函数，用来生成 Proxy 实例。我们来看看它的语法：
+	- ```
+	  var proxy = new Proxy(target, handler);
+	  ```
+	- `target`参数表示所要拦截的目标对象，`handler`参数也是一个对象，用来定制拦截行为。
+	- ```
+	  var proxy = new Proxy({}, {
+	      get: function(obj, prop) {
+	          console.log('设置 get 操作')
+	          return obj[prop];
+	      },
+	      set: function(obj, prop, value) {
+	          console.log('设置 set 操作')
+	          obj[prop] = value;
+	      }
+	  });
+	  
+	  proxy.time = 35; // 设置 set 操作
+	  
+	  console.log(proxy.time); // 设置 get 操作 // 35
+	  ```
+	- 除了 get 和 set 之外，proxy 可以拦截多达 13 种操作，比如 has(target, propKey)，可以拦截 propKey in proxy 的操作，返回一个布尔值。
+	- ```
+	  // 使用 has 方法隐藏某些属性，不被 in 运算符发现
+	  var handler = {
+	    has (target, key) {
+	      if (key[0] === '_') {
+	        return false;
+	      }
+	      return key in target;
+	    }
+	  };
+	  var target = { _prop: 'foo', prop: 'foo' };
+	  var proxy = new Proxy(target, handler);
+	  console.log('_prop' in proxy); // false
+	  ```
 	-
