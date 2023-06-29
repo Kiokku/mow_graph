@@ -271,6 +271,7 @@
 		  }
 		  ```
 	- ### 4.time
+	  background-color:: yellow
 		- 用于统计方法执行的时间:
 		- ```
 		  function time(prefix) {
@@ -305,6 +306,7 @@
 		  }
 		  ```
 	- ### 5.mixin
+	  background-color:: yellow
 		- 用于将对象的方法混入 Class 中：
 		- ```
 		  const SingerMixin = {
@@ -332,6 +334,7 @@
 		  // alerts "tweet tweet"
 		  ```
 	- ### 6.redux
+	  background-color:: yellow
 		- 实际开发中，React 与 Redux 库结合使用时，常常需要写成下面这样。
 		- ```
 		  class MyReactComponent extends React.Component {}
@@ -343,5 +346,3 @@
 		  @connect(mapStateToProps, mapDispatchToProps)
 		  export default class MyReactComponent extends React.Component {};
 		  ```
-	- ### 7.注意
-		-

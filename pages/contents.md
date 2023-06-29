@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -59,7 +60,6 @@
 		- [[ES6 系列之我们来聊聊装饰器]]
 		-
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
 		- 基础
 			- [[TypeScript基础]]
@@ -147,8 +147,12 @@
 	- [[React基础与进阶]]
 		- [[React 之 createElement 源码解读]]
 	-
-- The Missing Semester of Your CS Education
+- [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	-
+- Mathematics
+	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
+		-
+-
