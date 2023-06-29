@@ -89,5 +89,40 @@
 	      console.log(squareModule.square(3))
 	  });
 	  ```
+	- 。。。
+	- 跟第一个例子是同样的依赖结构，即 main 依赖 add 和 square，square 又依赖 multiply。
+	- seajs 项目 Demo 地址：[https://github.com/mqyqingfeng/Blog/tree/master/demos/ES6/module/seajs](https://github.com/mqyqingfeng/Blog/tree/master/demos/ES6/module/seajs)
+	- 而如果我们在浏览器中打开 `index.html`，打印的顺序为：
+	- ```
+	  加载了 add 模块
+	  2
+	  加载了 square 模块
+	  加载了 multiply 模块
+	  9
+	  ```
+- ## CMD
+	- 与 AMD 一样，CMD 其实就是 SeaJS 在推广过程中对模块定义的规范化产出。
+- ## AMD 与 CMD 的区别
+	- 1.CMD 推崇**依赖就近**，AMD 推崇**依赖前置**。看两个项目中的 main.js：
+		- ```
+		  // require.js 例子中的 main.js
+		  // 依赖必须一开始就写好
+		  require(['./add', './square'], function(addModule, squareModule) {
+		      console.log(addModule.add(1, 1))
+		      console.log(squareModule.square(3))
+		  });
+		  
+		  // sea.js 例子中的 main.js
+		  define(function(require, exports, module) {
+		      var addModule = require('./add');
+		      console.log(addModule.add(1, 1))
+		  
+		      // 依赖可以就近书写
+		      var squareModule = require('./square');
+		      console.log(squareModule.square(3))
+		  });
+		  ```
+	- 2.对于依赖的模块，AMD 是**提前执行**，CMD 是**延迟执行**。看两个项目中的打印顺序：
+		- AMD 是将需要使用的模块先加载完再执行代码，而 CMD 是在 require 的时候才去加载模块文件，加载完再接着执行。
+- ## CommonJS
 	-
-	- ``````
