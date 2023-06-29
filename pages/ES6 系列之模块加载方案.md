@@ -125,4 +125,42 @@
 	- 2.对于依赖的模块，AMD 是**提前执行**，CMD 是**延迟执行**。看两个项目中的打印顺序：
 		- AMD 是将需要使用的模块先加载完再执行代码，而 CMD 是在 require 的时候才去加载模块文件，加载完再接着执行。
 - ## CommonJS
+	- AMD 和 CMD 都是用于**浏览器端**的模块规范，而在**服务器端**比如 node，采用的则是 CommonJS 规范。
+	- 导出模块的方式：
+		- ```
+		  var add = function(x, y) {　
+		      return x + y;
+		  };
+		  
+		  module.exports.add = add;
+		  ```
+	- 引入模块的方式：
+		- ```
+		  var add = require('./add.js');
+		  console.log(add.add(1, 1));
+		  ```
+	- [[#green]]==跟 sea.js 一致，也是在 require 的时候才去加载模块文件，加载完再接着执行。==
+- ## CommonJS 与 AMD
+	- [《JavaScript 标准参考教程（alpha）》](http://javascript.ruanyifeng.com/nodejs/module.html):
+		- > CommonJS 规范加载模块是**同步**的，也就是说，只有加载完成，才能执行后面的操作。
+		  >
+		  > AMD规范则是非同步加载模块，允许指定回调函数。
+		  >
+		  > 由于 Node.js 主要用于服务器编程，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以 CommonJS 规范比较适用。
+		  >
+		  > 但是，如果是浏览器环境，要从服务器端加载模块，这时就必须采用非同步模式，因此[[#green]]==浏览器端一般采用 AMD 规范==。
+- ## ES6
+	- ECMAScript2015 规定了新的模块加载方案。
+	- 导出模块的方式：
+		- ```
+		  var firstName = 'Michael';
+		  var lastName = 'Jackson';
+		  var year = 1958;
+		  
+		  export {firstName, lastName, year};
+		  ```
+	- 引入模块的方式：
+		- ```
+		  import {firstName, lastName, year} from './profile';
+		  ```
 	-
