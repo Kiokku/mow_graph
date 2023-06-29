@@ -1,2 +1,8 @@
 - > https://github.com/mqyqingfeng/Blog/issues/107
 -
+- ## 前言
+	- 我们或多或少都听过“数据绑定”这个词，“数据绑定”的关键在于监听数据的变化，可是对于这样一个对象：`var obj = {value: 1}`，我们该怎么知道 obj 发生了改变呢？
+- ## defineProperty
+	- ES5 提供了 `Object.defineProperty` 方法，该方法可以在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。
+	- **语法**:`Object.defineProperty(obj, prop, descriptor)`
+	-
