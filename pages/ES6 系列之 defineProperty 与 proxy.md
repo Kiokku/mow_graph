@@ -24,3 +24,11 @@
 	- ### 两者均具有以下两种键值：
 	  background-color:: pink
 		- **configurable**：当且仅当该属性的 configurable 为 true 时，该属性描述符才能够被改变，也能够被删除。默认为 false。
+		- **enumerable**：当且仅当该属性的 enumerable 为 true 时，该属性才能够出现在对象的枚举属性中。默认为 false。
+	- ### 数据描述符同时具有以下可选键值：
+	  background-color:: pink
+		- **value**：该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认为 undefined。
+		- **writable**：当且仅当该属性的 writable 为 true 时，该属性才能被[[#green]]==赋值运算符==改变。默认为 false。
+	- ### 存取描述符同时具有以下可选键值：
+	  background-color:: pink
+		-
