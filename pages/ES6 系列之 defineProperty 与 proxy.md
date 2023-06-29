@@ -73,5 +73,88 @@
 		  console.log(obj.num); // undefined
 		  ```
 - ## Setters 和 Getters
-	-
+	- 由 getter 和 setter 定义的属性称做”存取器属性“。
+	- 举个例子：
+	- ```
+	  var obj = {}, value = null;
+	  Object.defineProperty(obj, "num", {
+	      get: function(){
+	          console.log('执行了 get 操作')
+	          return value;
+	      },
+	      set: function(newValue) {
+	          console.log('执行了 set 操作')
+	          value = newValue;
+	      }
+	  })
+	  
+	  obj.num = 1 // 执行了 set 操作
+	  
+	  console.log(obj.num); // 执行了 get 操作 // 1
+	  ```
+	- 这不就是我们要的监控数据改变的方法吗？我们再来封装一下：
+	- ```
+	  function Archiver() {
+	      var value = null;
+	      // archive n. 档案
+	      var archive = [];
+	  
+	      Object.defineProperty(this, 'num', {
+	          get: function() {
+	              console.log('执行了 get 操作')
+	              return value;
+	          },
+	          set: function(value) {
+	              console.log('执行了 set 操作')
+	              value = value;
+	              archive.push({ val: value });
+	          }
+	      });
+	  
+	      this.getArchive = function() { return archive; };
+	  }
+	  
+	  var arc = new Archiver();
+	  arc.num; // 执行了 get 操作
+	  arc.num = 11; // 执行了 set 操作
+	  arc.num = 13; // 执行了 set 操作
+	  console.log(arc.getArchive()); // [{ val: 11 }, { val: 13 }]
+	  ```
+- ## watch API
+	- 既然可以监控数据的改变，那我可以这样设想，即当数据改变的时候，自动进行渲染工作。举个例子：
+	  HTML 中有个 span 标签和 button 标签，当点击按钮的时候，span 标签里的值加 1。
+	- ```
+	  <span id="container">1</span>
+	  <button id="button">点击加 1</button>
+	  ```
+	- **传统的做法是：**
+	- ```
+	  document.getElementById('button').addEventListener("click", function(){
+	      var container = document.getElementById("container");
+	      container.innerHTML = Number(container.innerHTML) + 1;
+	  });
+	  ```
+	- **如果使用了 defineProperty：**
+	- ```
+	  var obj = {
+	      value: 1
+	  }
+	  
+	  // 储存 obj.value 的值
+	  var value = 1;
+	  
+	  Object.defineProperty(obj, "value", {
+	      get: function() {
+	          return value;
+	      },
+	      set: function(newValue) {
+	          value = newValue;
+	          document.getElementById('container').innerHTML = newValue;
+	      }
+	  });
+	  
+	  document.getElementById('button').addEventListener("click", function() {
+	      obj.value += 1;
+	  });
+	  ```
 	-
