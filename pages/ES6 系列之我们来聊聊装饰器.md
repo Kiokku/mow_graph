@@ -1,0 +1,7 @@
+- > https://github.com/mqyqingfeng/Blog/issues/109
+-
+- ## Decorator
+	- 装饰器主要用于:
+		- 1. 装饰类
+		- 2. 装饰方法或属性
+	-

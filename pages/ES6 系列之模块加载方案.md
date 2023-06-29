@@ -208,4 +208,32 @@
 	  ```
 	- 你会发现 [[#red]]==Babel 只是把 ES6 模块语法转为 CommonJS 模块语法==，然而浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包。
 - ## webpack
-	-
+	- 首先为什么浏览器中不支持 CommonJS 语法呢？
+		- 浏览器环境中并没有 `module`、 `exports`、 `require` 等环境变量。
+	- 换句话说，webpack 打包后的文件之所以在浏览器中能运行，就是靠模拟了这些变量的行为。
+	- 我们以 CommonJS 项目中的 square.js 为例，它依赖了 multiply 模块：
+	- ```
+	  console.log('加载了 square 模块')
+	  
+	  var multiply = require('./multiply.js');
+	  
+	  
+	  var square = function(num) {　
+	      return multiply.multiply(num, num);
+	  };
+	  
+	  module.exports.square = square;
+	  ```
+	- webpack 会将其包裹一层，注入这些变量：
+	- ```
+	  function(module, exports, require) {
+	      console.log('加载了 square 模块');
+	  
+	      var multiply = require("./multiply");
+	      module.exports = {
+	          square: function(num) {
+	              return multiply.multiply(num, num);
+	          }
+	      };
+	  }
+	  ```
