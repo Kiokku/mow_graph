@@ -189,3 +189,159 @@
 		  // Calling add with [2, 4]
 		  math.add(2, 4);
 		  ```
+	- ### 2.autobind
+	  background-color:: yellow
+		- ```
+		  class Person {
+		    @autobind
+		    getPerson() {
+		    	return this;
+		    }
+		  }
+		  
+		  let person = new Person();
+		  let { getPerson } = person;
+		  
+		  getPerson() === person;
+		  // true
+		  ```
+	- ### 3.debounce
+	  background-color:: yellow
+		- 有的时候，我们需要对执行的方法进行防抖处理:
+		- ```
+		  class Toggle extends React.Component {
+		  
+		    @debounce(500, true)
+		    handleClick() {
+		      console.log('toggle')
+		    }
+		  
+		    render() {
+		      return (
+		        <button onClick={this.handleClick}>
+		          button
+		        </button>
+		      );
+		    }
+		  }
+		  ```
+		- 我们来实现一下：
+		- ```
+		  function _debounce(func, wait, immediate) {
+		  
+		      var timeout;
+		  
+		      return function () {
+		          var context = this;
+		          var args = arguments;
+		  
+		          if (timeout) clearTimeout(timeout);
+		          if (immediate) {
+		              var callNow = !timeout;
+		              timeout = setTimeout(function(){
+		                  timeout = null;
+		              }, wait)
+		              if (callNow) func.apply(context, args)
+		          }
+		          else {
+		              timeout = setTimeout(function(){
+		                  func.apply(context, args)
+		              }, wait);
+		          }
+		      }
+		  }
+		  
+		  function debounce(wait, immediate) {
+		    return function handleDescriptor(target, key, descriptor) {
+		      const callback = descriptor.value;
+		  
+		      if (typeof callback !== 'function') {
+		        throw new SyntaxError('Only functions can be debounced');
+		      }
+		  
+		      var fn = _debounce(callback, wait, immediate)
+		  
+		      return {
+		        ...descriptor,
+		        value() {
+		          fn()
+		        }
+		      };
+		    }
+		  }
+		  ```
+	- ### 4.time
+		- 用于统计方法执行的时间:
+		- ```
+		  function time(prefix) {
+		    let count = 0;
+		    return function handleDescriptor(target, key, descriptor) {
+		  
+		      const fn = descriptor.value;
+		  
+		      if (prefix == null) {
+		        prefix = `${target.constructor.name}.${key}`;
+		      }
+		  
+		      if (typeof fn !== 'function') {
+		        throw new SyntaxError(`@time can only be used on functions, not: ${fn}`);
+		      }
+		  
+		      return {
+		        ...descriptor,
+		        value() {
+		          const label = `${prefix}-${count}`;
+		          count++;
+		          console.time(label);
+		  
+		          try {
+		            return fn.apply(this, arguments);
+		          } finally {
+		            console.timeEnd(label);
+		          }
+		        }
+		      }
+		    }
+		  }
+		  ```
+	- ### 5.mixin
+		- 用于将对象的方法混入 Class 中：
+		- ```
+		  const SingerMixin = {
+		    sing(sound) {
+		      alert(sound);
+		    }
+		  };
+		  
+		  const FlyMixin = {
+		    // All types of property descriptors are supported
+		    get speed() {},
+		    fly() {},
+		    land() {}
+		  };
+		  
+		  @mixin(SingerMixin, FlyMixin)
+		  class Bird {
+		    singMatingCall() {
+		      this.sing('tweet tweet');
+		    }
+		  }
+		  
+		  var bird = new Bird();
+		  bird.singMatingCall();
+		  // alerts "tweet tweet"
+		  ```
+	- ### 6.redux
+		- 实际开发中，React 与 Redux 库结合使用时，常常需要写成下面这样。
+		- ```
+		  class MyReactComponent extends React.Component {}
+		  
+		  export default connect(mapStateToProps, mapDispatchToProps)(MyReactComponent);
+		  ```
+		- 有了装饰器，就可以改写上面的代码。
+		- ```
+		  @connect(mapStateToProps, mapDispatchToProps)
+		  export default class MyReactComponent extends React.Component {};
+		  ```
+	- ### 7.注意
+		-
