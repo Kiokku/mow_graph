@@ -348,4 +348,28 @@
 		    }
 		  };
 		  ```
+	- ### 3. "async 地狱"
+	  background-color:: blue
+		- ```
+		  // 例子 8-5
+		  
+		  // bad
+		  (async () => {
+		    const getList = await getList();
+		    const getAnotherList = await getAnotherList();
+		  })();
+		  
+		  // good
+		  (async () => {
+		    const listPromise = getList();
+		    const anotherListPromise = getAnotherList();
+		    await listPromise;
+		    await anotherListPromise;
+		  })();
+		  
+		  // good
+		  (async () => {
+		    Promise.all([getList(), getAnotherList()]).then(...);
+		  })();
+		  ```
 	-
