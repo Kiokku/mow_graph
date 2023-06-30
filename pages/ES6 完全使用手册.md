@@ -234,4 +234,118 @@
 		  ```
 	- ### 3. 遍历 Map
 	  background-color:: blue
-		-
+		- ```
+		  // 例子 6-2
+		  
+		  let map = new Map(arr);
+		  
+		  // 遍历 key 值
+		  for (let key of map.keys()) {
+		    console.log(key);
+		  }
+		  
+		  // 遍历 value 值
+		  for (let value of map.values()) {
+		    console.log(value);
+		  }
+		  
+		  // 遍历 key 和 value 值(一)
+		  for (let item of map.entries()) {
+		    console.log(item[0], item[1]);
+		  }
+		  
+		  // 遍历 key 和 value 值(二)
+		  for (let [key, value] of data) {
+		    console.log(key)
+		  }
+		  ```
+- ## 7. Promise
+	- ### 1. 基本示例
+	  background-color:: blue
+		- ```
+		  // 例子 7-1
+		  
+		  // bad
+		  request(url, function(err, res, body) {
+		      if (err) handleError(err);
+		      fs.writeFile('1.txt', body, function(err) {
+		          request(url2, function(err, res, body) {
+		              if (err) handleError(err)
+		          })
+		      })
+		  });
+		  
+		  // good
+		  request(url)
+		  .then(function(result) {
+		      return writeFileAsynv('1.txt', result)
+		  })
+		  .then(function(result) {
+		      return request(url2)
+		  })
+		  .catch(function(e){
+		      handleError(e)
+		  });
+		  ```
+	- ### 2. finally
+	  background-color:: blue
+		- ```
+		  // 例子 7-2
+		  
+		  fetch('file.json')
+		  .then(data => data.json())
+		  .catch(error => console.error(error))
+		  .finally(() => console.log('finished'));
+		  ```
+- ## 8. Async
+	- ### 1. 代码更加简洁
+	  background-color:: blue
+		- ```
+		  // 例子 8-1
+		  
+		  // good
+		  function fetch() {
+		    return (
+		      fetchData()
+		      .then(() => {
+		        return "done"
+		      });
+		    )
+		  }
+		  
+		  // better
+		  async function fetch() {
+		    await fetchData()
+		    return "done"
+		  };
+		  ```
+	- ### 2. 错误处理
+	  background-color:: blue
+		- ```
+		  // 例子 8-4
+		  
+		  // good
+		  function fetch() {
+		    try {
+		      fetchData()
+		        .then(result => {
+		          const data = JSON.parse(result)
+		        })
+		        .catch((err) => {
+		          console.log(err)
+		        })
+		    } catch (err) {
+		      console.log(err)
+		    }
+		  }
+		  
+		  // better
+		  async function fetch() {
+		    try {
+		      const data = JSON.parse(await fetchData())
+		    } catch (err) {
+		      console.log(err)
+		    }
+		  };
+		  ```
+	-
