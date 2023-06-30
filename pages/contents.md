@@ -155,10 +155,8 @@
 	- [[shell工具和脚本]]
 	-
 - Mathematics
-  collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
-	  collapsed:: true
+		- [[Study Materials]]
 		- [[Lecture 1: The geometry of linear equations]]
-		-
 		-
 -
