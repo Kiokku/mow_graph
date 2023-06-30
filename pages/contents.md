@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -61,7 +62,6 @@
 		- [[ES6 完全使用手册]]
 - TypeScript
 	- [[TypeScript中文文档]]
-	  collapsed:: true
 		- 基础
 			- [[TypeScript基础]]
 			- [[TypeScript常见类型]]
@@ -155,6 +155,7 @@
 	- [[shell工具和脚本]]
 	-
 - Mathematics
+  collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
 	  collapsed:: true
 		- [[Lecture 1: The geometry of linear equations]]
