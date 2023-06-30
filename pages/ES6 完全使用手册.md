@@ -85,4 +85,153 @@
 		  });
 		  ```
 - ## 4. Symbol
-	-
+	- ### 1. 唯一值
+	  background-color:: blue
+		- ```
+		  // 例子 4-1
+		  
+		  
+		  // bad
+		  // 1. 创建的属性会被 for-in 或 Object.keys() 枚举出来
+		  // 2. 一些库可能在将来会使用同样的方式，这会与你的代码发生冲突
+		  if (element.isMoving) {
+		    smoothAnimations(element);
+		  }
+		  element.isMoving = true;
+		  
+		  // good
+		  if (element.__$jorendorff_animation_library$PLEASE_DO_NOT_USE_THIS_PROPERTY$isMoving__) {
+		    smoothAnimations(element);
+		  }
+		  element.__$jorendorff_animation_library$PLEASE_DO_NOT_USE_THIS_PROPERTY$isMoving__ = true;
+		  
+		  // better
+		  var isMoving = Symbol("isMoving");
+		  
+		  ...
+		  
+		  if (element[isMoving]) {
+		    smoothAnimations(element);
+		  }
+		  element[isMoving] = true;
+		  ```
+	- ### 2. 魔术字符串
+	  background-color:: blue
+		- 魔术字符串指的是在代码之中多次出现、与代码形成**强耦合**的某一个具体的字符串或者数值。
+		- 魔术字符串不利于修改和维护，风格良好的代码，应该尽量消除魔术字符串，改由含义清晰的变量代替。
+		- ```
+		  // 例子 4-1
+		  
+		  // bad
+		  const TYPE_AUDIO = 'AUDIO'
+		  const TYPE_VIDEO = 'VIDEO'
+		  const TYPE_IMAGE = 'IMAGE'
+		  
+		  // good
+		  const TYPE_AUDIO = Symbol()
+		  const TYPE_VIDEO = Symbol()
+		  const TYPE_IMAGE = Symbol()
+		  
+		  function handleFileResource(resource) {
+		    switch(resource.type) {
+		      case TYPE_AUDIO:
+		        playAudio(resource)
+		        break
+		      case TYPE_VIDEO:
+		        playVideo(resource)
+		        break
+		      case TYPE_IMAGE:
+		        previewImage(resource)
+		        break
+		      default:
+		        throw new Error('Unknown type of resource')
+		    }
+		  }
+		  ```
+	- ### 3. 私有变量
+	  background-color:: blue
+		- [[ES6 系列之私有变量的实现]]
+- ## 5. Set 和 Map
+	- ### 1. 数组去重
+	  background-color:: blue
+		- ```
+		  // 例子 5-1
+		  
+		  [...new Set(array)]
+		  ```
+	- ### 2. 条件语句的优化
+	  background-color:: blue
+		- ```
+		  // 例子 5-2
+		  // 根据颜色找出对应的水果
+		  
+		  // bad
+		  function test(color) {
+		    switch (color) {
+		      case 'red':
+		        return ['apple', 'strawberry'];
+		      case 'yellow':
+		        return ['banana', 'pineapple'];
+		      case 'purple':
+		        return ['grape', 'plum'];
+		      default:
+		        return [];
+		    }
+		  }
+		  
+		  test('yellow'); // ['banana', 'pineapple']
+		  ```
+		- ```
+		  // good
+		  const fruitColor = {
+		    red: ['apple', 'strawberry'],
+		    yellow: ['banana', 'pineapple'],
+		    purple: ['grape', 'plum']
+		  };
+		  
+		  function test(color) {
+		    return fruitColor[color] || [];
+		  }
+		  ```
+		- ```
+		  // better
+		  const fruitColor = new Map()
+		    .set('red', ['apple', 'strawberry'])
+		    .set('yellow', ['banana', 'pineapple'])
+		    .set('purple', ['grape', 'plum']);
+		  
+		  function test(color) {
+		    return fruitColor.get(color) || [];
+		  }
+		  ```
+- ## 6. for of
+	- ### 1. 遍历范围
+	  background-color:: blue
+		- for...of 循环可以使用的范围包括：
+			- 1. 数组
+			  2. Set
+			  3. Map
+			  4. 类数组对象，如 arguments 对象、DOM NodeList 对象
+			  5. Generator 对象
+			  6. 字符串
+	- ### 2. 优势
+	  background-color:: blue
+		- ES2015 引入了 for..of 循环，它结合了 forEach 的简洁性和中断循环的能力：
+		- ```
+		  // 例子 6-1
+		  
+		  for (const v of ['a', 'b', 'c']) {
+		    console.log(v);
+		  }
+		  // a b c
+		  
+		  for (const [i, v] of ['a', 'b', 'c'].entries()) {
+		    console.log(i, v);
+		  }
+		  // 0 "a"
+		  // 1 "b"
+		  // 2 "c"
+		  ```
+	- ### 3. 遍历 Map
+	  background-color:: blue
+		-
