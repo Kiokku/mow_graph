@@ -120,4 +120,35 @@
 	  ```
 	- 你还可以遍历任何联合类型，不仅仅是 `string | number | symbol` 这种联合类型，可以是任何类型的联合：
 	- ```
+	  type EventConfig<Events extends { kind: string }> = {
+	      [E in Events as E["kind"]]: (event: E) => void;
+	  }
+	   
+	  type SquareEvent = { kind: "square", x: number, y: number };
+	  type CircleEvent = { kind: "circle", radius: number };
+	   
+	  type Config = EventConfig<SquareEvent | CircleEvent>
+	  // type Config = {
+	  //    square: (event: SquareEvent) => void;
+	  //    circle: (event: CircleEvent) => void;
+	  // }
 	  ```
+- ## 深入探索（Further Exploration）
+	- 映射类型也可以跟其他的功能搭配使用，举个例子，这是一个使用条件类型的映射类型，会根据对象是否有 `pii` 属性返回 `true` 或者 `false` :
+	- ```
+	  type ExtractPII<Type> = {
+	    [Property in keyof Type]: Type[Property] extends { pii: true } ? true : false;
+	  };
+	   
+	  type DBFields = {
+	    id: { format: "incrementing" };
+	    name: { type: string; pii: true };
+	  };
+	   
+	  type ObjectsNeedingGDPRDeletion = ExtractPII<DBFields>;
+	  // type ObjectsNeedingGDPRDeletion = {
+	  //    id: false;
+	  //    name: true;
+	  // }
+	  ```
+	-

@@ -1,0 +1,3 @@
+- > https://ts.yayujs.com/handbook/TemplateLiteralTypes.html
+-
+- ## 模板字面量类型（Template Literal Types）
