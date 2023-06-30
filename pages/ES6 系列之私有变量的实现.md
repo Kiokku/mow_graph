@@ -116,3 +116,37 @@
 		  console.log(ex.getName()); // private
 		  console.log(ex.name); // undefined
 		  ```
+	- ### 优点
+	  background-color:: green
+		- 1. 无命名冲突
+		  2. 外部无法访问和修改
+		  3. 无性能损失
+	- ### 缺点
+	  background-color:: red
+		- 1. 写法稍微复杂
+		  2. 兼容性也还好
+- ## 4. WeakMap
+	- ### 实现
+	  background-color:: blue
+		- ```
+		  /**
+		   * 实现一
+		   */
+		  const _private = new WeakMap();
+		  
+		  class Example {
+		    constructor() {
+		      _private.set(this, 'private');
+		    }
+		    getName() {
+		    	return _private.get(this);
+		    }
+		  }
+		  
+		  var ex = new Example();
+		  
+		  console.log(ex.getName()); // private
+		  console.log(ex.name); // undefined
+		  ```
+		-
+		-
