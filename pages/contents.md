@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -58,7 +57,7 @@
 		- [[ES6 系列之 defineProperty 与 proxy]]
 		- [[ES6 系列之模块加载方案]]
 		- [[ES6 系列之我们来聊聊装饰器]]
-		-
+		- [[ES6 系列之私有变量的实现]]
 - TypeScript
 	- [[TypeScript中文文档]]
 	  collapsed:: true
