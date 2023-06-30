@@ -58,7 +58,7 @@
 		- [[ES6 系列之模块加载方案]]
 		- [[ES6 系列之我们来聊聊装饰器]]
 		- [[ES6 系列之私有变量的实现]]
-		-
+		- [[ES6 完全使用手册]]
 - TypeScript
 	- [[TypeScript中文文档]]
 	  collapsed:: true
