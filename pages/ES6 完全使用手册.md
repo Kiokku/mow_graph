@@ -653,5 +653,94 @@
 	  ```
 - ## 16. 数组的拓展方法
 	- ### 1. keys
-		- ``
-		- ``
+	  background-color:: blue
+		- ```
+		  // 例子 16-1
+		  
+		  var arr = ["a", , "c"];
+		  
+		  var sparseKeys = Object.keys(arr);
+		  console.log(sparseKeys); // ['0', '2']
+		  
+		  var denseKeys = [...arr.keys()];
+		  console.log(denseKeys);  // [0, 1, 2]
+		  ```
+	- ### 2. entries
+	  background-color:: blue
+	- ### 3. values
+	  background-color:: blue
+	- ### 4. includes
+	  background-color:: blue
+	- ### 5. find
+	  background-color:: blue
+	- ### 6. findIndex
+	  background-color:: blue
+- ## 17.   [optional-chaining](https://github.com/tc39/proposal-optional-chaining)
+	- ```
+	  // 例子 17-1
+	  
+	  const obj = {
+	    foo: {
+	      bar: {
+	        baz: 42,
+	      },
+	    },
+	  };
+	  
+	  const baz = obj?.foo?.bar?.baz; // 42
+	  ```
+- ## 18. logical-assignment-operators
+	- ```
+	  // 例子 18-1
+	  
+	  a ||= b;
+	  
+	  obj.a.b ||= c;
+	  
+	  a &&= b;
+	  
+	  obj.a.b &&= c;
+	  ```
+	- Babel 编译为：
+	- ```
+	  var _obj$a, _obj$a2;
+	  
+	  a || (a = b);
+	  
+	  (_obj$a = obj.a).b || (_obj$a.b = c);
+	  
+	  a && (a = b);
+	  
+	  (_obj$a2 = obj.a).b && (_obj$a2.b = c);
+	  ```
+	- 需要 [@babel/plugin-proposal-logical-assignment-operators](https://babeljs.io/docs/en/babel-plugin-proposal-logical-assignment-operators) 插件支持
+- ## 19. nullish-coalescing-operator
+	- ```
+	  a ?? b
+	  
+	  // 相当于
+	  
+	  (a !== null && a !== void 0) ? a : b
+	  ```
+- ## 20. pipeline-operator
+	- ```
+	  const double = (n) => n * 2;
+	  const increment = (n) => n + 1;
+	  
+	  // 没有用管道操作符
+	  double(increment(double(5))); // 22
+	  
+	  // 用上管道操作符之后
+	  5 |> double |> increment |> double; // 22
+	  ```
+- ## 参考
+	- 1. [ES6 实践规范](https://juejin.im/post/5934ff6d2f301e005861422f)
+	  2. [babel 7 简单升级指南](https://juejin.im/post/5b87cab1e51d4538ac05dc54)
+	  3. [不得不知的 ES6 小技巧](https://mp.weixin.qq.com/s/NAbvosbJ4utOgFaM-6wO4Q?)
+	  4. [深入解析 ES6：Symbol](http://bubkoo.com/2015/07/24/es6-in-depth-symbols/)
+	  5. [什么时候你不能使用箭头函数？](https://zhuanlan.zhihu.com/p/26540168)
+	  6. [一些使 JavaScript 更加简洁的小技巧](https://www.css88.com/archives/9868)
+	  7. [几分钟内提升技能的 8 个 JavaScript 方法](https://www.css88.com/archives/9916)
+	  8. [[译] 如何使用 JavaScript ES6 有条件地构造对象](https://juejin.im/post/5bb47db76fb9a05d071953ea)
+	  9. [5 个技巧让你更好的编写 JavaScript(ES6) 中条件语句](https://www.css88.com/archives/9865)
+	  10. [ES6 带来的重大特性 – JavaScript 完全手册（2018版）](https://www.css88.com/archives/9958)
