@@ -372,4 +372,103 @@
 		    Promise.all([getList(), getAnotherList()]).then(...);
 		  })();
 		  ```
-	-
+- ## 9. Class
+	- 构造函数尽可能使用 Class 的形式
+	- ```
+	  // 例子 9-1
+	  
+	  class Foo {
+	    static bar () {
+	      this.baz();
+	    }
+	    static baz () {
+	      console.log('hello');
+	    }
+	    baz () {
+	      console.log('world');
+	    }
+	  }
+	  
+	  Foo.bar(); // hello
+	  ```
+	- ```
+	  // 例子 9-2
+	  
+	  class Shape {
+	    constructor(width, height) {
+	      this._width = width;
+	      this._height = height;
+	    }
+	    get area() {
+	      return this._width * this._height;
+	    }
+	  }
+	  
+	  const square = new Shape(10, 10);
+	  console.log(square.area);    // 100
+	  console.log(square._width);  // 10
+	  ```
+- ## 10.Decorator
+	- ### 1. log
+	  background-color:: blue
+	- ### 2. autobind
+	  background-color:: blue
+	- ### 3. debounce
+	  background-color:: blue
+	- ### 4. React 与 Redux
+	  background-color:: blue
+	- 实现可以参考 [[ES6 系列之我们来聊聊装饰器]]
+- ## 11. 函数
+	- ### 1. 默认值
+	  background-color:: blue
+		- ```
+		  // 例子 11-1
+		  
+		  // bad
+		  function test(quantity) {
+		    const q = quantity || 1;
+		  }
+		  
+		  // good
+		  function test(quantity = 1) {
+		    ...
+		  }
+		  
+		  ```
+- ## 12. 拓展运算符
+	- ### 1. arguments 转数组
+	  background-color:: blue
+		- ```
+		  // 例子 12-1
+		  
+		  // bad
+		  function sortNumbers() {
+		    return Array.prototype.slice.call(arguments).sort();
+		  }
+		  
+		  // good
+		  const sortNumbers = (...numbers) => numbers.sort();
+		  ```
+	- ### 2. 调用参数
+	  background-color:: blue
+		- ```
+		  // 例子 12-2
+		  
+		  // bad
+		  Math.max.apply(null, [14, 3, 77])
+		  
+		  // good
+		  Math.max(...[14, 3, 77])
+		  // 等同于
+		  Math.max(14, 3, 77);
+		  ```
+	- ### 3. 构建对象
+	  background-color:: blue
+		- 剔除部分属性，将剩下的属性构建一个新的对象
+		- ```
+		  // 例子 12-3
+		  let [a, b, ...arr] = [1, 2, 3, 4, 5];
+		  
+		  const { a, b, ...others } = { a: 1, b: 2, c: 3, d: 4, e: 5 };
+		  ```
+		-
