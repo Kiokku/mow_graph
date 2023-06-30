@@ -69,4 +69,43 @@
 - ## 在条件类型里推断（Inferring Within Conditional Types）
 	- 条件类型提供了 `infer` 关键词，可以从正在比较的类型中推断类型，然后在 `true` 分支里引用该推断结果。借助 `infer`，我们修改下 `Flatten` 的实现，不再借助索引访问类型“手动”的获取出来：
 	- ```
+	  type Flatten<Type> = Type extends Array<infer Item> ? Item : Type;
 	  ```
+	- 我们也可以使用 `infer` 关键字写一些有用的 **类型帮助别名（helper type aliases）**。举个例子，我们可以获取一个函数返回的类型：
+	- ```
+	  type GetReturnType<Type> = Type extends (...args: never[]) => infer Return
+	    ? Return
+	    : never;
+	   
+	  type Num = GetReturnType<() => number>;
+	  // type Num = number
+	   
+	  type Str = GetReturnType<(x: string) => string>;
+	  // type Str = string
+	   
+	  type Bools = GetReturnType<(a: boolean, b: boolean) => boolean[]>;   
+	  // type Bools = boolean[]
+	  
+	  ```
+	- 当从多重调用签名（就比如重载函数）中推断类型的时候，会按照最后的签名进行推断，因为一般这个签名是用来处理所有情况的签名。
+	- ```
+	  declare function stringOrNum(x: string): number;
+	  declare function stringOrNum(x: number): string;
+	  declare function stringOrNum(x: string | number): string | number;
+	   
+	  type T1 = ReturnType<typeof stringOrNum>;                     
+	  // type T1 = string | number
+	  ```
+- ## 分发条件类型（Distributive Conditional Types）
+	- 当在泛型中使用条件类型的时候，如果传入一个联合类型，就会变成 **分发的（distributive）**，举个例子：
+	- ```
+	  type ToArray<Type> = Type extends any ? Type[] : never;
+	  ```
+	- 如果我们在 `ToArray` 传入一个联合类型，这个条件类型会被应用到联合类型的每个成员：
+	- ```
+	  type ToArray<Type> = Type extends any ? Type[] : never;
+	   
+	  type StrArrOrNumArr = ToArray<string | number>;        
+	  // type StrArrOrNumArr = string[] | number[]
+	  ```
+	-

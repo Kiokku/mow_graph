@@ -73,7 +73,7 @@
 			- [[TypeScript typeof 操作符]]
 			- [[TypeScript索引访问类型]]
 			- [[TypeScript条件类型]]
-			-
+			- [[TypeScript映射类型]]
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
 	- [[时间复杂度与空间复杂度]]
