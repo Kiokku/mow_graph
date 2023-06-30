@@ -471,4 +471,187 @@
 		  
 		  const { a, b, ...others } = { a: 1, b: 2, c: 3, d: 4, e: 5 };
 		  ```
-		-
+		- 有条件的构建对象
+		- ```
+		  // 例子 12-4
+		  
+		  // bad
+		  function pick(data) {
+		    const { id, name, age} = data
+		  
+		    const res = { guid: id }
+		  
+		    if (name) {
+		      res.name = name
+		    }
+		    else if (age) {
+		      res.age = age
+		    }
+		  
+		    return res
+		  }
+		  
+		  // good
+		  function pick({id, name, age}) {
+		    return {
+		      guid: id,
+		      ...(name && {name}),
+		      ...(age && {age})
+		    }
+		  }
+		  ```
+		- 合并对象
+		- ```
+		  // 例子 12-5
+		  
+		  let obj1 = { a: 1, b: 2,c: 3 }
+		  let obj2 = { b: 4, c: 5, d: 6}
+		  let merged = {...obj1, ...obj2};
+		  ```
+	- ### 4. React
+	  background-color:: blue
+		- ```
+		  // 例子 12-6
+		  
+		  const parmas =  {value1: 1, value2: 2, value3: 3}
+		  
+		  <Test {...parmas} />
+		  ```
+- ## 13. 双冒号运算符
+	- ```
+	  // 例子 13-1
+	  
+	  foo::bar;
+	  // 等同于
+	  bar.bind(foo);
+	  
+	  foo::bar(...arguments);
+	  // 等同于
+	  bar.apply(foo, arguments);
+	  ```
+	- 如果双冒号左边为空，右边是一个对象的方法，则等于将该方法绑定在该对象上面。
+	- ```
+	  // 例子 13-2
+	  
+	  var method = obj::obj.foo;
+	  // 等同于
+	  var method = ::obj.foo;
+	  
+	  let log = ::console.log;
+	  // 等同于
+	  var log = console.log.bind(console);
+	  ```
+- ## 14. 解构赋值
+	- ### 1. 对象的基本解构
+	  background-color:: blue
+		- ```
+		  // 例子 14-1
+		  
+		  componentWillReceiveProps(newProps) {
+		  	this.setState({
+		  		active: newProps.active
+		  	})
+		  }
+		  
+		  componentWillReceiveProps({active}) {
+		  	this.setState({active})
+		  }
+		  ```
+	- ### 2. 对象深度解构
+	  background-color:: blue
+		- ```
+		  // 例子 14-4
+		  
+		  // bad
+		  function test(fruit) {
+		    if (fruit && fruit.name)  {
+		      console.log (fruit.name);
+		    } else {
+		      console.log('unknown');
+		    }
+		  }
+		  
+		  // good
+		  function test({name} = {}) {
+		    console.log (name || 'unknown');
+		  }
+		  ```
+		- ```
+		  // 例子 14-5
+		  
+		  let obj = {
+		      a: {
+		        b: {
+		          c: 1
+		        }
+		      }
+		  };
+		  
+		  const {a: {b: {c = ''} = ''} = ''} = obj;
+		  ```
+	- ### 3. 数组解构
+	  background-color:: blue
+		- ```
+		  // 例子 14-6
+		  
+		  // bad
+		  const splitLocale = locale.split("-");
+		  const language = splitLocale[0];
+		  const country = splitLocale[1];
+		  
+		  // good
+		  const [language, country] = locale.split('-');
+		  ```
+	- ### 4. 变量重命名
+	  background-color:: blue
+		- ```
+		  // 例子 14-8
+		  
+		  let { foo: baz } = { foo: 'aaa', bar: 'bbb' };
+		  console.log(baz); // "aaa"
+		  ```
+	- ### 5. 仅获取部分属性
+	  background-color:: blue
+		- ```
+		  // 例子 14-9
+		  
+		  function test(input) {
+		    return [left, right, top, bottom];
+		  }
+		  const [left, __, top] = test(input);
+		  
+		  function test(input) {
+		    return { left, right, top, bottom };
+		  }
+		  const { left, right } = test(input);
+		  ```
+- ## 15. 增强的对象字面量
+	- ```
+	  // 例子 15-1
+	  
+	  // bad
+	  const something = 'y'
+	  const x = {
+	    something: something
+	  }
+	  
+	  // good
+	  const something = 'y'
+	  const x = {
+	    something
+	  };
+	  ```
+	- 动态属性
+	- ```
+	  // 例子 15-2
+	  
+	  const x = {
+	    ['a' + '_' + 'b']: 'z'
+	  }
+	  
+	  console.log(x.a_b); // z
+	  ```
+- ## 16. 数组的拓展方法
+	- ### 1. keys
+		- ``
+		- ``
