@@ -1,6 +1,5 @@
 - {{cards [[JavaScript]]}}
 - 8.输出是什么？#card #JavaScript
-  collapsed:: true
   ```
   class Chameleon {
   static colorChange(newColor) {
@@ -626,5 +625,109 @@
 	- 我们现在处于 funcTwo，先 **awaiting** myPromise。通过 await 关键字， 我们暂停了函数的执行直到 promise 状态变为 resolved (或 rejected)。然后，我们输出 res 的 awaited 值（因为 promise 本身返回一个 promise）。 接着输出 Promise!。
 	- 下一行就是 **异步操作** setTimeout，其回调函数被 Web API 调用。
 	- 我们执行到函数 funcTwo 的最后一行，输出 Last line!。现在，因为 funcTwo 出栈，调用栈为空。在事件队列中等待的回调函数（() => console.log("Timeout!") from funcOne, and () => console.log("Timeout!") from funcTwo）以此入栈。第一个回调输出 Timeout!，并出栈。然后，第二个回调输出 Timeout!，并出栈。得到结果 Last line! Promise! Promise! Last line! Timeout! Timeout!
-- 135. 输出什么？#
+- 135. 输出什么？#card #JavaScript
+  ```
+  const handler = {
+      set: () => console.log("Added a new property!"),
+      get: () => console.log("Accessed a property!")
+  };
+  
+  const person = new Proxy({}, handler);
+  
+  person.name = "Lydia";
+  person.name;
+  ```
+  A: Added a new property!
+  B: Accessed a property!
+  C: Added a new property! Accessed a property!
+  D: 没有任何输出
+	- **答案: C**
+	- 使用 Proxy 对象，我们可以给一个对象添加自定义行为。在这个 case，我们传递一个包含以下属性的对象 handler : set and get。每当我们 **设置** 属性值时 set 被调用，每当我们 **获取** 时 get 被调用。
+	- 第一个参数是一个空对象 {}，作为 person 的值。对于这个对象，自定义行为被定义在对象 handler。如果我们向对象 person 添加属性，set 将被调用。如果我们获取 person 的属性，get 将被调用。
+	- 首先，我们向 proxy 对象 (person.name = "Lydia") 添加一个属性 name。set 被调用并输出 "Added a new property!"。
+	- 然后，我们获取 proxy 对象的一个属性，对象 handler 的属性 get 被调用。输出 "Accessed a property!"。
+- 139. 输出什么？#card #JavaScript
+  ```
+  class Counter {
+    #number = 10
+  
+    increment() {
+      this.#number++
+    }
+  
+    getNum() {
+      return this.#number
+    }
+  }
+  
+  const counter = new Counter()
+  counter.increment()
+  
+  console.log(counter.#number)
+  ```
+  A: 10
+  B: 11
+  C: undefined
+  D: SyntaxError
+	- **答案: D**
+	- 在 ES2020 中，通过 `#` 我们可以给 class 添加私有变量。在 class 的外部我们无法获取该值。当我们尝试输出 `counter.#number`，语法错误被抛出：我们无法在 `class Counter` 外部获取它！
+- 142. 输出什么？#card #JavaScript
+  ```
+  class Bird {
+      constructor() {
+          console.log("I'm a bird. 🦢");
+      }
+  }
+  
+  class Flamingo extends Bird {
+      constructor() {
+          console.log("I'm pink. 🌸");
+          super();
+      }
+  }
+  
+  const pet = new Flamingo();
+  ```
+  A: I'm pink. 🌸
+  B: I'm pink. 🌸 I'm a bird. 🦢
+  C: I'm a bird. 🦢 I'm pink. 🌸
+  D: Nothing, we didn't call any method
+	- **答案: B**
+	- 我们创建了类 Flamingo 的实例 pet。当我们实例化这个实例，Flamingo 中的 constructor 被调用。首相，输出 "I'm pink. 🌸"，之后我们调用super()。super() 调用父类的构造函数，Bird。Bird 的构造函数被调用，并输出 "I'm a bird. 🦢"。
+- [[$red]]==144. 我们需要向对象 person 添加什么，以致执行 [...person] 时获得形如 ["Lydia Hallie", 21] 的输出？==#card #JavaScript
+  ```
+  const person = {
+    name: "Lydia Hallie",
+    age: 21
+  }
+  
+  [...person] // ["Lydia Hallie", 21]
+  ```
+  A: 不需要，对象默认就是可迭代的
+  B: *[Symbol.iterator]() { for (let x in this) yield* this[x] }
+  C: *[Symbol.iterator]() { yield* Object.values(this) }
+  D: *[Symbol.iterator]() { for (let x in this) yield this }
+	- **答案: C**
+	- 对象默认并不是可迭代的。如果迭代规则被定义，则一个对象是可迭代的（An iterable is an iterable if the iterator protocol is present）。我们可以通过添加迭代器 symbol [Symbol.iterator] 来定义迭代规则，其返回一个 generator 对象，比如说构建一个 generator 函数 *[Symbol.iterator]() {}。如果我们想要返回数组 ["Lydia Hallie", 21]: yield* Object.values(this)，这个 generator 函数一定要 yield 对象 person 的Object.values。
+- 150. 输出什么？#card #JavaScript
+  ```
+  const animals = {};
+  let dog = { emoji: '🐶' }
+  let cat = { emoji: '🐈' }
+  
+  animals[dog] = { ...dog, name: "Mara" }
+  animals[cat] = { ...cat, name: "Sara" }
+  
+  console.log(animals[dog])
+  ```
+  A: { emoji: "🐶", name: "Mara" }
+  B: { emoji: "🐈", name: "Sara" }
+  C: undefined
+  D: ReferenceError
+	- **答案: B**
+	- **对象的键会被转换为字符串。**
+	- 因为 dog 的值是一个对象， animals[dog] 实际上意味着我们创建了一个叫做 "object Object" 的属性来代表新的对象。 animals["object Object"] 现在等于 { emoji: "🐶", name: "Mara"}。
+	- cat 也是一个对象，animals[cat] 实际上意味着我们在用新的 cat 的属性覆盖 animals[``"``object Object``"``] 的值。
+	- 打印 animals[dog]，实际上是animals["object Object"]，这是因为转化dog对象为一个字符串结果 "object Object" ，所以返回 { emoji: "🐈", name: "Sara" }。
+-
 -

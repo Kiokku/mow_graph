@@ -62,8 +62,8 @@
 		- [[ES6 完全使用手册]]
 	- [[JavaScript错题集]]
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
+	  collapsed:: true
 		- 基础
 			- [[TypeScript基础]]
 			- [[TypeScript常见类型]]
