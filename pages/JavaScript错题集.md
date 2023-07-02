@@ -237,3 +237,147 @@
 	- 通过defineProperty方法，我们可以给对象添加一个新属性，或者修改已经存在的属性。而我们使用defineProperty方法给对象添加了一个属性之后，属性默认为 **不可枚举 (not enumerable)**. Object.keys方法仅返回对象中 **可枚举 (enumerable)** 的属性，因此只剩下了"name".
 	- 用defineProperty方法添加的属性默认不可变。你可以通过writable, configurable 和 enumerable属性来改变这一行为。这样，defineProperty方法可以让您更好地控制要添加到对象的属性。
 - 66. 使用哪个构造函数可以成功继承**Dog**类？#card #JavaScript
+  ```
+  class Dog {
+    constructor(name) {
+      this.name = name;
+    }
+  };
+  
+  class Labrador extends Dog {
+    // 1 
+    constructor(name, size) {
+      this.size = size;
+    }
+    // 2
+    constructor(name, size) {
+      super(name);
+      this.size = size;
+    }
+    // 3
+    constructor(size) {
+      super(name);
+      this.size = size;
+    }
+    // 4 
+    constructor(name, size) {
+      this.name = name;
+      this.size = size;
+    }
+  
+  };
+  ```
+  A: 1
+  B: 2
+  C: 3
+  D: 4
+	- **答案: B**
+	- 在子类中，在调用super之前不能访问到this关键字。 如果这样做，它将抛出一个ReferenceError：1 和 4 将引发一个引用错误。
+	- 使用super关键字，需要用给定的参数来调用父类的构造函数。 父类的构造函数接收name参数，因此我们需要将name传递给super。
+	- Labrador类接收两个参数，name参数是由于它继承了Dog，size作为Labrador类的额外属性，它们都需要传递给Labrador的构造函数，因此使用构造函数 2 正确完成。
+- 67. 输出什么？#card #JavaScript
+  ```
+  // index.js
+  console.log('running index.js');
+  import { sum } from './sum.js';
+  console.log(sum(1, 2));
+  
+  // sum.js
+  console.log('running sum.js');
+  export const sum = (a, b) => a + b;
+  ```
+  A: running index.js, running sum.js, 3
+  B: running sum.js, running index.js, 3
+  C: running sum.js, 3, running index.js
+  D: running index.js, undefined, running sum.js
+	- **答案: B**
+	- import命令是编译阶段执行的，在代码运行之前。因此这意味着被导入的模块会先运行，而导入模块的文件会后执行。
+	- 这是 CommonJS 中require（）和import之间的区别。使用require()，您可以在运行代码时根据需要加载依赖项。 如果我们使用require而不是import，running index.js，running sum.js，3会被依次打印。
+- 82. 输出什么？#card #JavaScript
+  ```
+  var status = "😎"
+  
+  setTimeout(() => {
+    const status = "😍"
+  
+    const data = {
+      status: "🥑",
+      getStatus() {
+        return this.status
+      }
+    }
+  
+    console.log(data.getStatus())
+    console.log(data.getStatus.call(this))
+  }, 0)
+  ```
+  A: "🥑" and "😍"
+  B: "🥑" and "😎"
+  C: "😍" and "😎"
+  D: "😎" and "😎"
+	- **答案: B**
+	- this关键字的指向取决于使用它的位置。 在**函数**中，比如getStatus，this指向的是调用它的对象，上述例子中data对象调用了getStatus，因此this指向的就是data对象。 当我们打印this.status时，data对象的status属性被打印，即"🥑"。
+	- 使用call方法，可以更改this指向的对象。data.getStatus.call(this)是将this的指向由data对象更改为全局对象。在全局对象上，有一个名为status的变量，其值为”😎“。 因此打印this.status时，会打印“😎”。
+- 92. 输出什么？#card #JavaScript
+  ```
+  function giveLydiaPizza() {
+    return "Here is pizza!"
+  }
+  
+  const giveLydiaChocolate = () => "Here's chocolate... now go hit the gym already."
+  
+  console.log(giveLydiaPizza.prototype)
+  console.log(giveLydiaChocolate.prototype)
+  ```
+  A: { constructor: ...} { constructor: ...}
+  B: {} { constructor: ...}
+  C: { constructor: ...} {}
+  D: { constructor: ...} undefined
+	- **答案: D**
+	- 常规函数，例如giveLydiaPizza函数，有一个prototype属性，它是一个带有constructor属性的对象（原型对象）。 然而，箭头函数，例如giveLydiaChocolate函数，没有这个prototype属性。 尝试使用giveLydiaChocolate.prototype访问prototype属性时会返回undefined。
+- 95. 输出什么？#card #JavaScript
+  ```
+  function nums(a, b) {
+    if
+    (a > b)
+    console.log('a is bigger')
+    else 
+    console.log('b is bigger')
+    return 
+    a + b
+  }
+  
+  console.log(nums(4, 2))
+  console.log(nums(1, 2))
+  ```
+  A: a is bigger, 6 and b is bigger, 3
+  B: a is bigger, undefined and b is bigger, undefined
+  C: undefined and undefined
+  D: SyntaxError
+	- **答案: B**
+	- 在 JavaScript 中，我们不必显式地编写分号 (;)，但是 JavaScript 引擎仍然在语句之后自动添加分号。这称为**自动分号插入**。例如，一个语句可以是变量，或者像throw、return、break这样的关键字。
+	- 在这里，我们在新的一行上写了一个return语句和另一个值a + b 。然而，由于它是一个新行，引擎并不知道它实际上是我们想要返回的值。相反，它会在return后面自动添加分号。你可以这样看：
+	- ```
+	  return;
+	    a + b
+	  ```
+	- 这意味着永远不会到达a + b，因为函数在return关键字之后停止运行。如果没有返回值，就像这里，函数返回undefined。注意，在if/else语句之后没有自动插入！
+- [[$red]]==97. 输出什么？==#card #JavaScript
+  ```
+  const info = {
+    [Symbol('a')]: 'b'
+  }
+  
+  console.log(info)
+  console.log(Object.keys(info))
+  ```
+  A: {Symbol('a'): 'b'} and ["{Symbol('a')"]
+  B: {} and []
+  C: { a: "b" } and ["a"]
+  D: {Symbol('a'): 'b'} and []
+	- **答案: D**
+	- Symbol类型是不可枚举的。Object.keys方法返回对象上的所有可枚举的键属性。Symbol类型是不可见的，并返回一个空数组。 记录整个对象时，所有属性都是可见的，甚至是不可枚举的属性。
+	- 这是Symbol的众多特性之一：除了表示完全唯一的值（防止对象意外名称冲突，例如当使用 2 个想要向同一对象添加属性的库时），您还可以隐藏这种方式对象的属性（尽管不完全。你仍然可以使用Object.getOwnPropertySymbols()方法访问 Symbol。
+- 98. 输出什么？
+-
+-
