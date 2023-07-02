@@ -436,5 +436,195 @@
   B: map reduce slice splice
   C: map slice splice
   D: splice
--
+	- **答案: D**
+	- 使用splice方法，我们通过删除，替换或添加元素来修改原始数组。 在这种情况下，我们从索引 1 中删除了 2 个元素（我们删除了'🥑'和'😍'），同时添加了✨emoji 表情。
+	- map，filter和slice返回一个新数组，find返回一个元素，而reduce返回一个减小的值。
+- 110. 这个函数干了什么？#card #JavaScript
+  ```
+  JSON.parse()
+  ```
+  A: Parses JSON to a JavaScript value
+  B: Parses a JavaScript object to JSON
+  C: Parses any JavaScript value to JSON
+  D: Parses JSON to a JavaScript object only
+	- **答案: A**
+	- 使用JSON.parse()方法，我们可以将 JSON 字符串解析为 JavaScript 值。
+	- ```
+	  // 将数字字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+	  const jsonNumber = JSON.stringify(4) // '4'
+	  JSON.parse(jsonNumber) // 4
+	  
+	  // 将数组值字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+	  const jsonArray = JSON.stringify([1, 2, 3]) // '[1, 2, 3]'
+	  JSON.parse(jsonArray) // [1, 2, 3]
+	  
+	  // 将对象字符串化为有效的 JSON，然后将 JSON 字符串解析为 JavaScript 值：
+	  const jsonArray = JSON.stringify({ name: "Lydia" }) // '{"name":"Lydia"}'
+	  JSON.parse(jsonArray) // { name: 'Lydia' }
+	  ```
+- [[$red]]==111. 输出什么？==#card #JavaScript
+  ```
+  let name = 'Lydia'
+  
+  function getName() {
+    console.log(name)
+    let name = 'Sarah'
+  }
+  
+  getName()
+  ```
+  A: Lydia
+  B: Sarah
+  C: undefined
+  D: ReferenceError
+	- **答案: D**
+	- 每个函数都有其自己的执行上下文。 getName函数首先在其自身的上下文（范围）内查找，以查看其是否包含我们尝试访问的变量name。 上述情况，getName函数包含其自己的name变量：我们用let关键字和Sarah的值声明变量name。
+	- 带有let关键字（和const）的变量被提升，但是与var不同，它不会被*** 初始化***。 在我们声明（初始化）它们之前，无法访问它们。 这称为 “暂时性死区”。 当我们尝试在声明变量之前访问变量时，JavaScript 会抛出ReferenceError: Cannot access 'name' before initialization。
+	- 如果我们不在getName函数中声明name变量，则 javascript 引擎会查看原型链。会找到其外部作用域有一个名为name的变量，其值为Lydia。 在这种情况下，它将打印Lydia：
+	- ```
+	  let name = 'Lydia'
+	  
+	  function getName() {
+	    console.log(name)
+	  }
+	  
+	  getName() // Lydia
+	  ```
+- [[$red]]==112. 输出什么？==#card #JavaScript
+  ```
+  function* generatorOne() {
+    yield ['a', 'b', 'c'];
+  }
+  
+  function* generatorTwo() {
+    yield* ['a', 'b', 'c'];
+  }
+  
+  const one = generatorOne()
+  const two = generatorTwo()
+  
+  console.log(one.next().value)
+  console.log(two.next().value)
+  ```
+  A: a and a
+  B: a and undefined
+  C: ['a', 'b', 'c'] and a
+  D: a and ['a', 'b', 'c']
+	- **答案: C**
+	- 通过 yield 关键字，我们在 Generator 函数里执行yield表达式。通过 yield* 关键字，我们可以在一个Generator 函数里面执行（yield表达式）另一个 Generator 函数，或可遍历的对象 (如数组).
+	- 在函数 generatorOne 中，我们通过 yield 关键字 yield 了一个完整的数组 ['a', 'b', 'c']。函数one通过next方法返回的对象的value 属性的值 (one.next().value) 等价于数组 ['a', 'b', 'c'].
+	- ```
+	  console.log(one.next().value) // ['a', 'b', 'c']
+	  console.log(one.next().value) // undefined
+	  ```
+	- 在函数 generatorTwo 中，我们使用 yield* 关键字。就相当于函数two第一个yield的值，等价于在迭代器中第一个 yield 的值。数组['a', 'b', 'c']就是这个迭代器。第一个 yield 的值就是 a，所以我们第一次调用 two.next().value时，就返回a。
+	- ```
+	  console.log(two.next().value) // 'a'
+	  console.log(two.next().value) // 'b'
+	  console.log(two.next().value) // 'c'
+	  console.log(two.next().value) // undefined
+	  ```
+- 114. 将会发生什么？#card #JavaScript
+  ```
+  let config = {
+    alert: setInterval(() => {
+      console.log('Alert!')
+    }, 1000)
+  }
+  
+  config = null
+  ```
+  A: setInterval 的回调不会被调用
+  B: setInterval 的回调被调用一次
+  C: setInterval 的回调仍然会被每秒钟调用
+  D: 我们从没调用过 config.alert(), config 为 null
+	- **答案: C**
+	- 一般情况下当我们将对象赋值为 null，那些对象会被进行 **垃圾回收（garbage collected）** 因为已经没有对这些对象的引用了。然而，setInterval的参数是一个箭头函数（所以上下文绑定到对象 config 了），回调函数仍然保留着对 config的引用。只要存在引用，对象就不会被垃圾回收。因为没有被垃圾回收，setInterval 的回调每 1000ms (1s) 会被调用一次。
+- 121. 输出什么？#card #JavaScript
+  ```
+  const config = {
+      languages: [],
+      set language(lang) {
+          return this.languages.push(lang);
+      }
+  };
+  
+  console.log(config.language);
+  ```
+  A: function language(lang) { this.languages.push(lang }
+  B: 0
+  C: []
+  D: undefined
+	- **答案: D**
+	- 方法 language 是一个 setter。Setters 并不保存一个实际值，它们的使命在于 **修改** 属性。当调用方法 setter， 返回 undefined。
+- [[$red]]==124. 输出什么？==#card #JavaScript
+  ```
+  async function* range(start, end) {
+      for (let i = start; i <= end; i++) {
+          yield Promise.resolve(i);
+      }
+  }
+  
+  (async () => {
+      const gen = range(1, 3);
+      for await (const item of gen) {
+          console.log(item);
+      }
+  })();
+  ```
+  A: Promise {1} Promise {2} Promise {3}
+  B: Promise {} Promise {} Promise {}
+  C: 1 2 3
+  D: undefined undefined undefined
+	- **答案: C**
+	- 我们给 函数 range 传递： Promise{1}, Promise{2}, Promise{3}，Generator 函数 range 返回一个全是 async object promise 数组。我们将 async object 赋值给变量 gen，之后我们使用for await ... of 进行循环遍历。我们将返回的 Promise 实例赋值给 item： 第一个返回 Promise{1}， 第二个返回 Promise{2}，之后是 Promise{3}。因为我们正 **awaiting** item 的值，resolved 状态的 promsie，promise 数组的 resolved **值** 以此为： 1，2，3.
+- 128. 输出什么？#card #JavaScript
+  ```
+  const name = "Lydia Hallie";
+  const age = 21;
+  
+  console.log(Number.isNaN(name));
+  console.log(Number.isNaN(age));
+  
+  console.log(isNaN(name));
+  console.log(isNaN(age));
+  ```
+  A: true false true false
+  B: true false false false
+  C: false false true false
+  D: false true false true
+	- **答案: C**
+	- 通过方法 Number.isNaN，你可以检测你传递的值是否为 **数字值** 并且是否等价于 NaN。name 不是一个数字值，因此 Number.isNaN(name) 返回 false。age 是一个数字值，但它不等价于 NaN，因此 Number.isNaN(age) 返回 false.
+	- 通过方法 isNaN， 你可以检测你传递的值是否是一个 number（is not a number）。name 不是一个 number，因此 isNaN(name) 返回 true. age 是一个 number 因此 isNaN(age) 返回 false.
+- [[$red]]==133. 输出什么？==#card #JavaScript
+  ```
+  const myPromise = Promise.resolve(Promise.resolve("Promise!"));
+  
+  function funcOne() {
+      myPromise.then(res => res).then(res => console.log(res));
+      setTimeout(() => console.log("Timeout!"), 0);
+      console.log("Last line!");
+  }
+  
+  async function funcTwo() {
+      const res = await myPromise;
+      console.log(await res);
+      setTimeout(() => console.log("Timeout!"), 0);
+      console.log("Last line!");
+  }
+  
+  funcOne();
+  funcTwo();
+  ```
+  A: Promise! Last line! Promise! Last line! Last line! Promise!
+  B: Last line! Timeout! Promise! Last line! Timeout! Promise!
+  C: Promise! Last line! Last line! Promise! Timeout! Timeout!
+  D: Last line! Promise! Promise! Last line! Timeout! Timeout!
+	- **答案: D**
+	- 首先，我们调用 funcOne。在函数 funcOne 的第一行，我们调用myPromise promise **异步操作**。当 JS 引擎在忙于执行 promise，它继续执行函数 funcOne。下一行 **异步操作** setTimeout，其回调函数被 Web API 调用。 (详情请参考我关于 event loop 的文章.)
+	- promise 和 timeout 都是异步操作，函数继续执行当 JS 引擎忙于执行 promise 和 处理 setTimeout 的回调。相当于 Last line! 首先被输出， 因为它不是异步操作。执行完 funcOne 的最后一行，promise 状态转变为 resolved，Promise! 被打印。然而，因为我们调用了 funcTwo()，调用栈不为空，setTimeout 的回调仍不能入栈。
+	- 我们现在处于 funcTwo，先 **awaiting** myPromise。通过 await 关键字， 我们暂停了函数的执行直到 promise 状态变为 resolved (或 rejected)。然后，我们输出 res 的 awaited 值（因为 promise 本身返回一个 promise）。 接着输出 Promise!。
+	- 下一行就是 **异步操作** setTimeout，其回调函数被 Web API 调用。
+	- 我们执行到函数 funcTwo 的最后一行，输出 Last line!。现在，因为 funcTwo 出栈，调用栈为空。在事件队列中等待的回调函数（() => console.log("Timeout!") from funcOne, and () => console.log("Timeout!") from funcTwo）以此入栈。第一个回调输出 Timeout!，并出栈。然后，第二个回调输出 Timeout!，并出栈。得到结果 Last line! Promise! Promise! Last line! Timeout! Timeout!
+- 135. 输出什么？#
 -
