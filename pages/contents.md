@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -44,6 +43,7 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -60,7 +60,9 @@
 		- [[ES6 系列之我们来聊聊装饰器]]
 		- [[ES6 系列之私有变量的实现]]
 		- [[ES6 完全使用手册]]
+	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 		- 基础
 			- [[TypeScript基础]]
