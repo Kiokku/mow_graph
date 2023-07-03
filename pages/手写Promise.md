@@ -41,3 +41,6 @@
 		    executor(resolve, reject) // 执行executor并传入相应的参数
 		  }
 		  ```
+		- 上面的代码基本实现了Promise构造函数的主体，但目前还有两个问题：
+			- 1. 我们给executor函数传了两个参数：resolve和reject，这[[#red]]==两个参数目前还没有定义。==
+			-
