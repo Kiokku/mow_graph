@@ -19,8 +19,7 @@
   D: TypeError
 	- **答案: D**
 	- colorChange 是一个静态方法。静态方法被设计为只能被创建它们的构造器使用（也就是 Chameleon），并且不能传递给实例。因为 freddie 是一个实例，静态方法不能被实例使用，因此抛出了 TypeError 错误。
-- collapsed:: true
-  17. 输出是什么？#card #JavaScript
+- [[$red]]==17. 输出是什么？==#card #JavaScript
   ```
   function getPersonInfo(one, two, three) {
     console.log(one)
