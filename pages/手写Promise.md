@@ -13,10 +13,20 @@
 		  ```
 	- ### 3. 不同Promise的实现需要可以相互调用(interoperable)，可互操作性
 	  background-color:: pink
-	- ### 4.Promise的初始状态为pending，它可以由此状态转换为fulfilled（本文为了一致把此状态叫做resolved）或者rejected，一旦状态确定，就不可以再次转换为其它状态，状态确定的过程称为settle
+	- ### 4.Promise的初始状态为`pending`，它可以由此状态转换为`fulfilled`（本文为了一致把此状态叫做`resolved`）或者`rejected`，一旦状态确定，就不可以再次转换为其它状态，状态确定的过程称为settle。
 	  background-color:: pink
 	- [更具体的标准见这里](https://promisesaplus.com/)
 - ## 一步一步实现一个Promise
 	- ### 构造函数
 	  background-color:: green
-		-
+		- 因为标准并没有指定如何构造一个Promise对象，所以我们同样以目前一般Promise实现中通用的方法来构造一个Promise对象，也是ES6原生Promise里所使用的方式，即：
+		- ```
+		  // Promise构造函数接收一个executor函数，executor函数执行完同步或异步操作后，调用它的两个参数resolve和reject
+		  var promise = new Promise(function(resolve, reject) {
+		    /*
+		      如果操作成功，调用resolve并传入value
+		      如果操作失败，调用reject并传入reason
+		    */
+		  })
+		  ```
+		- 我们先实现构造函数的框架如下：
