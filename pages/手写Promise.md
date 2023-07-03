@@ -14,4 +14,9 @@
 	- ### 3. 不同Promise的实现需要可以相互调用(interoperable)，可互操作性
 	  background-color:: pink
 	- ### 4.Promise的初始状态为pending，它可以由此状态转换为fulfilled（本文为了一致把此状态叫做resolved）或者rejected，一旦状态确定，就不可以再次转换为其它状态，状态确定的过程称为settle
-	-
+	  background-color:: pink
+	- [更具体的标准见这里](https://promisesaplus.com/)
+- ## 一步一步实现一个Promise
+	- ### 构造函数
+	  background-color:: green
+		-
