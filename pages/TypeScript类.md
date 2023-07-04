@@ -244,4 +244,85 @@
 	- ### `extends`   语句（ `extends`   Clauses）
 	  background-color:: pink
 		- 类可以 `extend` 一个基类。[[#green]]==一个派生类有基类所有的属性和方法，还可以定义额外的成员。==
-		-
+		- #### 覆写属性（Overriding Methods）
+		  background-color:: green
+			- 一个派生类可以覆写一个基类的字段或属性。你可以使用 `super` 语法访问基类的方法。
+			- [[#blue]]==TypeScript 强制要求派生类总是它的基类的子类型。==
+			- 举个例子，这是一个合法的覆写方法的方式：
+			- ```
+			  class Base {
+			    greet() {
+			      console.log("Hello, world!");
+			    }
+			  }
+			   
+			  class Derived extends Base {
+			    greet(name?: string) {
+			      if (name === undefined) {
+			        super.greet();
+			      } else {
+			        console.log(`Hello, ${name.toUpperCase()}`);
+			      }
+			    }
+			  }
+			   
+			  const d = new Derived();
+			  d.greet();
+			  d.greet("reader");
+			  ```
+			- 派生类需要遵循着它的基类的实现。而且通过一个基类引用指向一个派生类实例，这是非常常见并合法的：
+			- ```
+			  // Alias the derived instance through a base class reference
+			  const b: Base = d;
+			  // No problem
+			  b.greet();
+			  ```
+			- 但是如果 `Derived` 不遵循 `Base` 的约定实现呢？
+			- ```
+			  class Base {
+			    greet() {
+			      console.log("Hello, world!");
+			    }
+			  }
+			   
+			  class Derived extends Base {
+			    // Make this parameter required
+			    greet(name: string) {
+			  	// Property 'greet' in type 'Derived' is not assignable to the same property in base type 'Base'.
+			    // Type '(name: string) => void' is not assignable to type '() => void'.
+			      console.log(`Hello, ${name.toUpperCase()}`);
+			    }
+			  }
+			  ```
+			- 即便我们忽视错误编译代码，这个例子也会运行错误：
+			- ```
+			  const b: Base = new Derived();
+			  // Crashes because "name" will be undefined
+			  b.greet();
+			  ```
+		- #### 初始化顺序（Initialization Order）
+		  background-color:: green
+			- 有些情况下，JavaScript 类初始化的顺序会让你感到很奇怪，让我们看这个例子：
+			- ```
+			  class Base {
+			    name = "base";
+			    constructor() {
+			      console.log("My name is " + this.name);
+			    }
+			  }
+			   
+			  class Derived extends Base {
+			    name = "derived";
+			  }
+			   
+			  // Prints "base", not "derived"
+			  const d = new Derived();
+			  ```
+			- 类初始化的顺序，就像在 JavaScript 中定义的那样：
+				- 1. 基类字段初始化
+				  2. 基类构造函数运行
+				  3. 派生类字段初始化
+				  4. 派生类构造函数运行
+		- #### 继承内置类型（Inheriting Built-in Types）
+		  background-color:: green
+			-
