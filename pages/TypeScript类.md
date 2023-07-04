@@ -75,100 +75,173 @@
 			    name!: string;
 			  }
 			  ```
-		- ### `readonly`
-		  background-color:: pink
-			- 字段可以添加一个 `readonly` 前缀修饰符，这会[[#red]]==阻止在**构造函数**之外的赋值==。
+	- ### `readonly`
+	  background-color:: pink
+		- 字段可以添加一个 `readonly` 前缀修饰符，这会[[#red]]==阻止在**构造函数**之外的赋值==。
+		- ```
+		  class Greeter {
+		    readonly name: string = "world";
+		   
+		    constructor(otherName?: string) {
+		      if (otherName !== undefined) {
+		        this.name = otherName;
+		      }
+		    }
+		   
+		    err() {
+		      this.name = "not ok";
+		  		// Cannot assign to 'name' because it is a read-only property.
+		    }
+		  }
+		  
+		  const g = new Greeter();
+		  g.name = "also not ok";
+		  // Cannot assign to 'name' because it is a read-only property.
+		  ```
+	- ### 构造函数（Constructors）
+	  background-color:: pink
+		- 类的构造函数跟函数非常类似，你可以使用带类型注解的参数、默认值、重载等。
+		- ```
+		  class Point {
+		    x: number;
+		    y: number;
+		   
+		    // Normal signature with defaults
+		    constructor(x = 0, y = 0) {
+		      this.x = x;
+		      this.y = y;
+		    }
+		  }
+		  
+		  ```
+		- ```
+		  class Point {
+		    // Overloads
+		    constructor(x: number, y: string);
+		    constructor(s: string);
+		    constructor(xs: any, y?: any) {
+		      // TBD
+		    }
+		  }
+		  ```
+		- 但类构造函数签名与函数签名之间也有一些区别：
+			- 构造函数不能有类型参数（关于类型参数，回想下泛型里的内容），这些属于外层的类声明。
+			- 构造函数不能有[返回类型注解](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#return-type-annotations)，因为总是返回类实例类型。
+		- #### Super 调用（Super Calls）
+		  background-color:: green
+			- 就像在 JavaScript 中，如果你有一个基类，你需要在使用任何 `this.` 成员之前，先在构造函数里调用 `super()`。
 			- ```
-			  class Greeter {
-			    readonly name: string = "world";
+			  class Base {
+			    k = 4;
+			  }
 			   
-			    constructor(otherName?: string) {
-			      if (otherName !== undefined) {
-			        this.name = otherName;
-			      }
-			    }
-			   
-			    err() {
-			      this.name = "not ok";
-			  		// Cannot assign to 'name' because it is a read-only property.
+			  class Derived extends Base {
+			    constructor() {
+			      // Prints a wrong value in ES5; throws exception in ES6
+			      console.log(this.k);
+			  		// 'super' must be called before accessing 'this' in the constructor of a derived class.
+			      super();
 			    }
 			  }
-			  
-			  const g = new Greeter();
-			  g.name = "also not ok";
-			  // Cannot assign to 'name' because it is a read-only property.
 			  ```
-		- ### 构造函数（Constructors）
-		  background-color:: pink
-			- 类的构造函数跟函数非常类似，你可以使用带类型注解的参数、默认值、重载等。
+	- ### 方法（Methods）
+	  background-color:: pink
+		- 类中的函数属性被称为方法。方法跟函数、构造函数一样，使用相同的类型注解。
+		- ```
+		  class Point {
+		    x = 10;
+		    y = 10;
+		   
+		    scale(n: number): void {
+		      this.x *= n;
+		      this.y *= n;
+		    }
+		  }
+		  ```
+	- ### Getters / Setter
+	  background-color:: pink
+		- ```
+		  class C {
+		    _length = 0;
+		    get length() {
+		      return this._length;
+		    }
+		    set length(value) {
+		      this._length = value;
+		    }
+		  }
+		  ```
+		- TypeScript 对存取器有一些特殊的推断规则：
+			- 如果 `get` 存在而 `set` 不存在，属性会被自动设置为 `readonly`
+			- 如果 setter 参数的类型没有指定，它会被推断为 getter 的返回类型
+			- getters 和 setters 必须有相同的成员可见性
+	- ### 索引签名（Index Signatures）
+	  background-color:: pink
+		- 类可以声明索引签名，它和对象类型的索引签名是一样的：
+		- ```
+		  class MyClass {
+		    [s: string]: boolean | ((s: string) => boolean);
+		   
+		    check(s: string) {
+		      return this[s] as boolean;
+		    }
+		  }
+		  ```
+- ## 类继承（Class Heritage）
+	- ### `implements`   语句（ `implements`   Clauses）
+	  background-color:: pink
+		- 你可以使用 `implements` 语句检查一个类是否满足一个特定的 `interface`。如果一个类没有正确的实现(implement)它，TypeScript 会报错：
+		- ```
+		  interface Pingable {
+		    ping(): void;
+		  }
+		   
+		  class Sonar implements Pingable {
+		    ping() {
+		      console.log("ping!");
+		    }
+		  }
+		   
+		  class Ball implements Pingable {
+		    // Class 'Ball' incorrectly implements interface 'Pingable'.
+		    // Property 'ping' is missing in type 'Ball' but required in type 'Pingable'.
+		    pong() {
+		      console.log("pong!");
+		    }
+		  }
+		  ```
+		- 类也可以实现多个接口，比如 `class C implements A, B {`
+		- #### 注意事项（Cautions）
+		  background-color:: green
+			- `implements` 语句仅仅检查类是否按照接口类型实现，但它并不会改变类的类型或者方法的类型。一个常见的错误就是以为 `implements` 语句会改变类的类型——然而实际上它并不会：
 			- ```
-			  class Point {
+			  interface Checkable {
+			    check(name: string): boolean;
+			  }
+			   
+			  class NameChecker implements Checkable {
+			    check(s) {
+			   		// Parameter 's' implicitly has an 'any' type.
+			      // Notice no error here
+			      return s.toLowercse() === "ok";
+			      				// any
+			  }
+			  ```
+			- 类似的，[[#red]]==实现一个有可选属性的接口，并不会创建这个属性==：
+			- ```
+			  interface A {
 			    x: number;
-			    y: number;
-			   
-			    // Normal signature with defaults
-			    constructor(x = 0, y = 0) {
-			      this.x = x;
-			      this.y = y;
-			    }
+			    y?: number;
 			  }
+			  class C implements A {
+			    x = 0;
+			  }
+			  const c = new C();
+			  c.y = 10;
 			  
+			  // Property 'y' does not exist on type 'C'.
 			  ```
-			- ```
-			  class Point {
-			    // Overloads
-			    constructor(x: number, y: string);
-			    constructor(s: string);
-			    constructor(xs: any, y?: any) {
-			      // TBD
-			    }
-			  }
-			  ```
-			- 但类构造函数签名与函数签名之间也有一些区别：
-				- 构造函数不能有类型参数（关于类型参数，回想下泛型里的内容），这些属于外层的类声明。
-				- 构造函数不能有[返回类型注解](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#return-type-annotations)，因为总是返回类实例类型。
-			- #### Super 调用（Super Calls）
-			  background-color:: green
-				- 就像在 JavaScript 中，如果你有一个基类，你需要在使用任何 `this.` 成员之前，先在构造函数里调用 `super()`。
-				- ```
-				  class Base {
-				    k = 4;
-				  }
-				   
-				  class Derived extends Base {
-				    constructor() {
-				      // Prints a wrong value in ES5; throws exception in ES6
-				      console.log(this.k);
-				  		// 'super' must be called before accessing 'this' in the constructor of a derived class.
-				      super();
-				    }
-				  }
-				  ```
-		- ### 方法（Methods）
-		  background-color:: pink
-			- 类中的函数属性被称为方法。方法跟函数、构造函数一样，使用相同的类型注解。
-			- ```
-			  class Point {
-			    x = 10;
-			    y = 10;
-			   
-			    scale(n: number): void {
-			      this.x *= n;
-			      this.y *= n;
-			    }
-			  }
-			  ```
-		- ### Getters / Setter
-		  background-color:: pink
-			- ```
-			  class C {
-			    _length = 0;
-			    get length() {
-			      return this._length;
-			    }
-			    set length(value) {
-			      this._length = value;
-			    }
-			  }
-			  ```
-			-
+	- ### `extends`   语句（ `extends`   Clauses）
+	  background-color:: pink
+		- 类可以 `extend` 一个基类。[[#green]]==一个派生类有基类所有的属性和方法，还可以定义额外的成员。==
+		-
