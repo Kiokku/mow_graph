@@ -70,3 +70,66 @@
 			  2. 该字面量类型可以被对象属性构成的联合约束
 			  3. 对象属性的类型可以通过索引访问获取
 			  4. 应用此类型，确保回调函数的参数类型与对象属性的类型是同一个类型
+		- ```
+		  type PropEventSource<Type> = {
+		      on<Key extends string & keyof Type>
+		          (eventName: `${Key}Changed`, callback: (newValue: Type[Key]) => void ): void;
+		  };
+		   
+		  declare function makeWatchedObject<Type>(obj: Type): Type & PropEventSource<Type>;
+		  
+		  const person = makeWatchedObject({
+		    firstName: "Saoirse",
+		    lastName: "Ronan",
+		    age: 26
+		  });
+		   
+		  person.on("firstNameChanged", newName => {                             
+		  														  // (parameter) newName: string
+		      console.log(`new name is ${newName.toUpperCase()}`);
+		  });
+		   
+		  person.on("ageChanged", newAge => {
+		                          // (parameter) newAge: number
+		      if (newAge < 0) {
+		          console.warn("warning! negative age");
+		      }
+		  })
+		  ```
+- ## 内置字符操作类型（Intrinsic String Manipulation Types）
+	- TypeScript 的一些类型可以用于字符操作，这些类型处于性能的考虑被内置在编译器中，你不能在 `.d.ts` 文件里找到它们。
+	- ### Uppercase
+	  background-color:: blue
+		- 把每个字符转为大写形式：
+		- ```
+		  type Greeting = "Hello, world"
+		  type ShoutyGreeting = Uppercase<Greeting>        
+		  // type ShoutyGreeting = "HELLO, WORLD"
+		   
+		  type ASCIICacheKey<Str extends string> = `ID-${Uppercase<Str>}`
+		  type MainID = ASCIICacheKey<"my_app">
+		  // type MainID = "ID-MY_APP"
+		  ```
+	- ### Lowercase
+	  background-color:: pink
+		- 把每个字符转为小写形式。
+	- ### Capitalize
+	  background-color:: blue
+		- 把字符串的第一个字符转为大写形式。
+	- ### Uncapitalize
+	  background-color:: pink
+		- 把字符串的第一个字符转换为小写形式。
+	- ### 字符操作类型的技术细节
+	  background-color:: blue
+		- 从 TypeScript 4.1 起，这些内置函数会直接使用 JavaScript 字符串运行时函数，而不是本地化识别 (locale aware)。
+		- ```
+		  function applyStringMapping(symbol: Symbol, str: string) {
+		      switch (intrinsicTypeKinds.get(symbol.escapedName as string)) {
+		          case IntrinsicTypeKind.Uppercase: return str.toUpperCase();
+		          case IntrinsicTypeKind.Lowercase: return str.toLowerCase();
+		          case IntrinsicTypeKind.Capitalize: return str.charAt(0).toUpperCase() + str.slice(1);
+		          case IntrinsicTypeKind.Uncapitalize: return str.charAt(0).toLowerCase() + str.slice(1);
+		      }
+		      return str;
+		  }
+		  ```

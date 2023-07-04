@@ -77,6 +77,7 @@
 			- [[TypeScript条件类型]]
 			- [[TypeScript映射类型]]
 			- [[TypeScript模板字面量类型]]
+			- [[TypeScript类]]
 			-
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
