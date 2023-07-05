@@ -323,6 +323,4 @@
 				  2. 基类构造函数运行
 				  3. 派生类字段初始化
 				  4. 派生类构造函数运行
-		- #### 继承内置类型（Inheriting Built-in Types）
-		  background-color:: green
-			-
+	- background-color:: green
