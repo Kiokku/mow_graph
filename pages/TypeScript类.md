@@ -376,4 +376,58 @@
 			  const d = new Derived();
 			  console.log(d.m); // OK
 			  ```
-			-
+		- #### 交叉等级受保护成员访问（Cross-hierarchy protected access）
+		  background-color:: green
+			- 不同的 OOP 语言在通过一个基类引用是否可以合法的获取一个 `protected` 成员是有争议的。
+			- ```
+			  class Base {
+			    protected x: number = 1;
+			  }
+			  class Derived1 extends Base {
+			    protected x: number = 5;
+			  }
+			  class Derived2 extends Base {
+			    f1(other: Derived2) {
+			      other.x = 10;
+			    }
+			    f2(other: Base) {
+			      other.x = 10;
+			  		// Property 'x' is protected and only accessible through an instance of class 'Derived2'. This is an instance of class 'Base'.
+			    }
+			  }
+			  ```
+			- 在 Java 中，这是合法的，而 C# 和 C++ 认为这段代码是不合法的。
+			- TypeScript 站在 C# 和 C++ 这边。因为 `Derived2` 的 `x` 应该只有从 `Derived2` 的子类访问才是合法的，而 `Derived1` 并不是它们中的一个。此外，如果通过 `Derived1` 访问 `x` 是不合法的，通过一个基类引用访问也应该是不合法的。
+	- ### `private`
+	  background-color:: pink
+		- `private` 有点像 `protected` ，但是[[#red]]==不允许访问成员，即便是子类==。
+		- ```
+		  class Base {
+		    private x = 0;
+		  }
+		  const b = new Base();
+		  // Can't access from outside the class
+		  console.log(b.x);
+		  // Property 'x' is private and only accessible within class 'Base'.
+		  
+		  class Derived extends Base {
+		    showX() {
+		      // Can't access in subclasses
+		      console.log(this.x);
+		  		// Property 'x' is private and only accessible within class 'Base'.
+		    }
+		  }
+		  ```
+- ## 静态成员（Static Members）
+	- 类可以有静态成员，静态成员跟类实例没有关系，可以通过类本身访问到：
+	- ```
+	  class MyClass {
+	    static x = 0;
+	    static printX() {
+	      console.log(MyClass.x);
+	    }
+	  }
+	  console.log(MyClass.x);
+	  MyClass.printX();
+	  ```
+	-
