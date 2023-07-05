@@ -323,4 +323,57 @@
 				  2. 基类构造函数运行
 				  3. 派生类字段初始化
 				  4. 派生类构造函数运行
-	- background-color:: green
+- ## 成员可见性（Member Visibility）
+	- 你可以使用 TypeScript 控制某个方法或者属性是否对类以外的代码可见。
+	- ### `public`
+	  background-color:: pink
+		- 类成员**默认**的可见性为 `public`，一个 `public` 的成员可以在任何地方被获取：
+		- ```
+		  class Greeter {
+		    public greet() {
+		      console.log("hi!");
+		    }
+		  }
+		  const g = new Greeter();
+		  g.greet();
+		  ```
+	- ### `protected`
+	  background-color:: pink
+		- `protected` 成员仅仅对子类可见：
+		- ```
+		  class Greeter {
+		    public greet() {
+		      console.log("Hello, " + this.getName());
+		    }
+		    protected getName() {
+		      return "hi";
+		    }
+		  }
+		   
+		  class SpecialGreeter extends Greeter {
+		    public howdy() {
+		      // OK to access protected member here
+		      console.log("Howdy, " + this.getName());
+		    }
+		  }
+		  const g = new SpecialGreeter();
+		  g.greet(); // OK
+		  g.getName();
+		  
+		  // Property 'getName' is protected and only accessible within class 'Greeter' and its subclasses.
+		  ```
+		- #### 受保护成员的公开（Exposure of protected members）
+		  background-color:: green
+			- 派生类需要遵循基类的实现，但是依然可以选择公开拥有更多能力的基类子类型，这就包括[[#green]]==让一个 `protected` 成员变成 `public`==：
+			- ```
+			  class Base {
+			    protected m = 10;
+			  }
+			  class Derived extends Base {
+			    // No modifier, so default is 'public'
+			    m = 15;
+			  }
+			  const d = new Derived();
+			  console.log(d.m); // OK
+			  ```
+			-
