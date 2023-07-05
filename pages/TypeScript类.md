@@ -538,6 +538,72 @@
 		  const c = new MyClass();
 		  const g = c.getName;
 		  // Prints "MyClass" instead of crashing
+		  // 箭头函数无法传递调用者的this，向外层作用域寻找this.name，即class MyClass
 		  console.log(g());
 		  ```
-		-
+		- 这里有几点需要注意下：
+			- `this` 的值在运行时是正确的，即使 TypeScript 不检查代码
+			- 这会使用更多的内存，因为每一个类实例都会拷贝一遍这个函数。
+			- 你不能在派生类使用 `super.getName` ，因为在原型链中并没有入口可以获取基类方法。
+	- ### `this`   参数（this parameters）
+	  background-color:: pink
+		- 在 TypeScript 方法或者函数的定义中，第一个参数且名字为 `this` 有特殊的含义。该参数会在编译的时候被抹除：
+		- ```
+		  // TypeScript input with 'this' parameter
+		  function fn(this: SomeType, x: number) {
+		    /* ... */
+		  }
+		  
+		  // JavaScript output
+		  function fn(x) {
+		    /* ... */
+		  }
+		  ```
+		- TypeScript 会检查一个有 `this` 参数的函数在调用时是否有一个正确的上下文。不像上个例子使用箭头函数，[[#green]]==我们可以给方法定义添加一个 `this` 参数，静态强制方法被正确调用：==
+		- ```
+		  class MyClass {
+		    name = "MyClass";
+		    getName(this: MyClass) {
+		      return this.name;
+		    }
+		  }
+		  const c = new MyClass();
+		  // OK
+		  c.getName();
+		   
+		  // Error, would crash
+		  const g = c.getName;
+		  console.log(g());
+		  // The 'this' context of type 'void' is not assignable to method's 'this' of type 'MyClass'.
+		  ```
+		- 这个方法也有一些注意点，正好跟箭头函数相反：
+			- JavaScript 调用者依然可能在没有意识到它的时候错误使用类方法
+			  每个类一个函数，而不是每一个类实例一个函数
+			  基类方法定义依然可以通过 `super` 调用
+- ## `this`   类型（this Types）
+	- 在类中，有一个特殊的名为 `this` 的类型，会动态的引用当前类的类型，让我们看下它的用法：
+	- ```
+	  class Box {
+	    contents: string = "";
+	    set(value: string) {
+	  	// (method) Box.set(value: string): this
+	      this.contents = value;
+	      return this;
+	    }
+	  }
+	  ```
+	- 这里，TypeScript 推断 `set` 的返回类型为 `this` 而不是 `Box` 。让我们写一个 `Box` 的子类：
+	- ```
+	  class ClearableBox extends Box {
+	    clear() {
+	      this.contents = "";
+	    }
+	  }
+	   
+	  const a = new ClearableBox();
+	  const b = a.set("hello");
+	  
+	  // const b: ClearableBox
+	  ```
+	- 你也可以在参数类型注解中使用 `this` ：
+	-
