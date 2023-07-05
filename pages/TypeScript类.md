@@ -432,4 +432,95 @@
 	  ```
 	- 静态成员同样可以使用 `public` `protected` 和 `private` 这些可见性修饰符：
 	- ```
+	  class MyClass {
+	    private static x = 0;
+	  }
+	  console.log(MyClass.x);
+	  // Property 'x' is private and only accessible within class 'MyClass'.
 	  ```
+	- 静态成员也可以被继承：
+	- ```
+	  class Base {
+	    static getGreeting() {
+	      return "Hello world";
+	    }
+	  }
+	  class Derived extends Base {
+	    myGreeting = Derived.getGreeting();
+	  }
+	  ```
+	- ### 特殊静态名称（Special Static Names）
+	  background-color:: pink
+		- 类本身是函数，而覆写 `Function` 原型上的属性通常认为是不安全的，因此不能使用一些固定的静态名称，函数属性像 `name`、`length`、`call` 不能被用来定义 `static` 成员：
+		- ```
+		  class S {
+		    static name = "S!";
+		    // Static property 'name' conflicts with built-in property 'Function.name' of constructor function 'S'.
+		  }
+		  ```
+	- ### 为什么没有静态类？（Why No Static Classes?）
+	  background-color:: pink
+		- TypeScript（和 JavaScript） 并没有名为静态类（static class）的结构，但是像 C# 和 Java 有。
+		- 所谓静态类，指的是作为类的静态成员存在于某个类的内部的类。比如这种：
+		- ```
+		  // java
+		  public class OuterClass {
+		    private static String a = "1";
+		  	static class InnerClass {
+		    	private int b = 2;
+		    }
+		  }
+		  ```
+		- [[#red]]==静态类之所以存在是因为这些语言强迫所有的数据和函数都要在一个类内部，但这个限制在 TypeScript 中并不存在，==所以也没有静态类的需要。一个只有一个单独实例的类，在 JavaScript/TypeScript 中，完全可以使用普通的对象替代。
+- ## 类静态块（static Blocks in Classes）
+	- 静态块允许你写一系列有自己作用域的语句，也可以获取类里的私有字段。这意味着我们可以安心的写初始化代码：正常书写语句，无变量泄漏，还可以完全获取类中的属性和方法。
+	- ```
+	  class Foo {
+	      static #count = 0;
+	   
+	      get count() {
+	          return Foo.#count;
+	      }
+	   
+	      static {
+	          try {
+	              const lastInstances = loadLastInstances();
+	              Foo.#count += lastInstances.length;
+	          }
+	          catch {}
+	      }
+	  }
+	  ```
+- ## 泛型类（Generic Classes）
+	- 类跟接口一样，也可以写泛型。当使用 `new` 实例化一个泛型类，它的类型参数的推断跟函数调用是同样的方式：
+	- ```
+	  class Box<Type> {
+	    contents: Type;
+	    constructor(value: Type) {
+	      this.contents = value;
+	    }
+	  }
+	   
+	  const b = new Box("hello!");
+	  // const b: Box<string>
+	  ```
+- ## 类运行时的   `this` （this at Runtime in Classes）
+	- TypeScript 并不会更改 JavaScript 运行时的行为，并且 JavaScript 有时会出现一些奇怪的运行时行为。
+	- 就比如 JavaScript 处理 `this` 就很奇怪：
+	- ```
+	  class MyClass {
+	    name = "MyClass";
+	    getName() {
+	      return this.name;
+	    }
+	  }
+	  const c = new MyClass();
+	  const obj = {
+	    name: "obj",
+	    getName: c.getName,
+	  };
+	   
+	  // Prints "obj", not "MyClass"
+	  console.log(obj.getName());
+	  ```
+	-
