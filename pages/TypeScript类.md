@@ -523,4 +523,21 @@
 	  // Prints "obj", not "MyClass"
 	  console.log(obj.getName());
 	  ```
-	-
+	- 默认情况下，函数中 `this` 的值取决于函数是如何被调用的。在这个例子中，因为函数通过 `obj` 被调用，所以 `this` 的值是 `obj` 而不是类实例。
+	- TypeScript 提供了一些方式缓解或者阻止这种错误。
+	- ### 箭头函数（Arrow Functions）
+	  background-color:: pink
+		- 如果你有一个函数，经常在被调用的时候丢失 `this` 上下文，使用一个箭头函数或许更好些。
+		- ```
+		  class MyClass {
+		    name = "MyClass";
+		    getName = () => {
+		      return this.name;
+		    };
+		  }
+		  const c = new MyClass();
+		  const g = c.getName;
+		  // Prints "MyClass" instead of crashing
+		  console.log(g());
+		  ```
+		-
