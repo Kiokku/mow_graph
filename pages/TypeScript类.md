@@ -430,4 +430,6 @@
 	  console.log(MyClass.x);
 	  MyClass.printX();
 	  ```
-	-
+	- 静态成员同样可以使用 `public` `protected` 和 `private` 这些可见性修饰符：
+	- ```
+	  ```
