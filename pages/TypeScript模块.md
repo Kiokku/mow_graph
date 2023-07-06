@@ -75,5 +75,51 @@
 		   
 		  console.log("3.14");
 		  ```
+		- > 在这个例子中， `import` 什么也没干，然而，`math.ts` 的所有代码都会执行，触发一些影响其他对象的副作用（side-effects）。
+	- ### TypeScript 具体的 ES 模块语法（TypeScript Specific ES Module Syntax）
+	  background-color:: blue
+		- **类型**可以像 JavaScript 值那样，使用相同的语法被导出和导入：
+		- ```
+		  // @filename: animal.ts
+		  export type Cat = { breed: string; yearOfBirth: number };
+		   
+		  export interface Dog {
+		    breeds: string[];
+		    yearOfBirth: number;
+		  }
+		   
+		  // @filename: app.ts
+		  import { Cat, Dog } from "./animal.js";
+		  type Animals = Cat | Dog;
+		  ```
+		- TypeScript 已经在两个方面拓展了 `import` 语法，方便类型导入：
+		- #### 导入类型（import type）
+		  background-color:: green
+			- ```
+			  // @filename: animal.ts
+			  export type Cat = { breed: string; yearOfBirth: number };
+			  // 'createCatName' cannot be used as a value because it was imported using 'import type'.
+			  export type Dog = { breeds: string[]; yearOfBirth: number };
+			  export const createCatName = () => "fluffy";
+			   
+			  // @filename: valid.ts
+			  import type { Cat, Dog } from "./animal.js";
+			  export type Animals = Cat | Dog;
+			   
+			  // @filename: app.ts
+			  import type { createCatName } from "./animal.js";
+			  const name = createCatName();
+			  ```
+		- #### 内置类型导入（Inline type imports）
+		  background-color:: green
+			- TypeScript 4.5 也允许单独的导入，你需要使用 `type` 前缀 ，表明被导入的是一个类型：
+			- ```
+			  // @filename: app.ts
+			  import { createCatName, type Cat, type Dog } from "./animal.js";
+			   
+			  export type Animals = Cat | Dog;
+			  const name = createCatName();
+			  ```
+			- 这些可以让一个非 TypeScript 编译器比如 Babel、swc 或者 esbuild 知道什么样的导入可以被安全移除。
+			- 导入类型和内置类型导入的区别在于一个是导入语法，一个是仅仅导入类型。
 		-
-	-
