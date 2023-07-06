@@ -78,7 +78,7 @@
 			- [[TypeScript映射类型]]
 			- [[TypeScript模板字面量类型]]
 			- [[TypeScript类]]
-			-
+			- [[TypeScript模块]]
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
 	- [[时间复杂度与空间复杂度]]

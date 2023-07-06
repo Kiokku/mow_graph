@@ -721,4 +721,15 @@
 	  const p: Person = new Employee();
 	  ```
 	- **空类**没有任何成员。在一个结构化类型系统中，没有成员的类型通常是任何其他类型的父类型。所以如果你写一个空类（只是举例，你可不要这样做），任何东西都可以用来替换它：
-	-
+	- ```
+	  class Empty {}
+	   
+	  function fn(x: Empty) {
+	    // can't do anything with 'x', so I won't
+	  }
+	   
+	  // All OK!
+	  fn(window);
+	  fn({});
+	  fn(fn);
+	  ```

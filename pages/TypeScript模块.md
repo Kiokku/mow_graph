@@ -1,0 +1,9 @@
+- > https://ts.yayujs.com/handbook/Modules.html
+-
+- ## 模块（Module）
+	- JavaScript 有一个很长的处理模块化代码的历史，TypeScript 从 2012 年开始跟进，现在已经实现支持了很多格式。不过随着时间流逝，社区和 JavaScript 规范已经收敛为名为 ES 模块（或者 ES6 模块）的格式，这也就是我们所知的 `import/export` 语法。
+	- ES 模块在 2015 年被添加到 JavaScript 规范中，到 2020 年，大部分的 web 浏览器和 JavaScript 运行环境都已经广泛支持。
+	- 本章将覆盖讲解 ES 模块和和它之前流行的前身 CommonJS `module.exports =` 语法，你可以在 [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)章节找到其他的模块模式。
+- ## JavaScript 模块是如何被定义的（How JavaScript Modules are Defined）
+	- 在 TypeScript 中，就像在 ECMAScript 2015 中 ，任何包含了一个顶层 `import` 或者 `export` 的文件会被认为是一个模块。
+	-
