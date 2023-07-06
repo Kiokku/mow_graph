@@ -23,5 +23,57 @@
 		    console.log("Hello, world!");
 		  }
 		  ```
+		- 然后用这种方式导入：
+		- ```
+		  import hello from "./hello.js";
+		  hello();
+		  ```
+		- 除了默认导出，你可以通过省略 `default` 的 `export` 语法导出不止一个变量和函数：
+		- ```
+		  // @filename: maths.ts
+		  export var pi = 3.14;
+		  export let squareTwo = 1.41;
+		  export const phi = 1.61;
+		   
+		  export class RandomNumberGenerator {}
+		   
+		  export function absolute(num: number) {
+		    if (num < 0) return num * -1;
+		    return num;
+		  }
+		  
+		  import { pi, phi, absolute } from "./maths.js";
+		   
+		  console.log(pi);
+		  const absPhi = absolute(phi);
+		  // const absPhi: number
+		  ```
+	- ### 附加导入语法（Additional Import Syntax）
+	  background-color:: pink
+		- 一个导入也可以使用类似于 `import {old as new}` 的格式被重命名：
+		- ```
+		  import { pi as π } from "./maths.js";
+		   
+		  console.log(π);
+		  // (alias) var π: number
+		  // import π
+		  ```
+		- 你可以接受所有的导出对象，然后使用 `* as name` 把它们放入一个单独的命名空间：
+		- ```
+		  // @filename: app.ts
+		  import * as math from "./maths.js";
+		   
+		  console.log(math.pi);
+		  const positivePhi = math.absolute(math.phi);
+		  
+		  // const positivePhi: number
+		  ```
+		- 你可以通过 `import "./file"` 导入一个文件，这不会引用任何变量到你当前模块：
+		- ```
+		  // @filename: app.ts
+		  import "./maths.js";
+		   
+		  console.log("3.14");
+		  ```
 		-
 	-
