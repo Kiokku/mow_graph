@@ -148,5 +148,17 @@
 		  };
 		  ```
 		- 这些文件可以通过一个 `require` 语句导入：
-		-
+		- ```
+		  const maths = require("maths");
+		  maths.pi;
+		  // any
+		  ```
+	- ### CommonJS 和 ES 模块互操作（CommonJS and ES Modules interop）
+	  background-color:: pink
+		- 因为默认导出和模块声明空间对象导出的差异，CommonJS 和 ES 模块不是很合适一起使用。TypeScript 有一个 [esModuleInterop](https://www.typescriptlang.org/tsconfig#esModuleInterop)编译选项可以减少两种规范之间的冲突。
+- ## TypeScript 模块解析选项（TypeScript’s Module Resolution Options）
+	- **模块解析**是从 `import` 或者 `require` 语句中取出字符串，然后决定字符指向的是哪个文件的过程。
+	- TypeScript 包含两个解析策略：**Classic** 和 **Node**。Classic，当编译选项 [module](https://www.typescriptlang.org/tsconfig#module)不是 `commonjs` 时的默认选择，包含了向后兼容。Node 策略则复制了 CommonJS 模式下 Nodejs 的运行方式，会对 `.ts` 和 `.d.ts` 有额外的检查。
+	- 这里有很多 TSConfig 标志可以影响 TypeScript 的模块策略：[moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution), [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl), [paths](https://www.typescriptlang.org/tsconfig#paths), [rootDirs (opens new window)](https://www.typescriptlang.org/tsconfig#rootDirs)。
 	-
+-
