@@ -63,6 +63,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 		- 基础
 			- [[TypeScript基础]]
@@ -80,7 +81,6 @@
 			- [[TypeScript类]]
 			- [[TypeScript模块]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -122,6 +122,7 @@
 		- [[排序小结]]
 	- 回溯
 		- [[回溯算法]]
+		- [[全排列问题]]
 		-
 - 正则表达式
   collapsed:: true
