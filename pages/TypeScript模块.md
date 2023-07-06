@@ -5,5 +5,16 @@
 	- ES 模块在 2015 年被添加到 JavaScript 规范中，到 2020 年，大部分的 web 浏览器和 JavaScript 运行环境都已经广泛支持。
 	- 本章将覆盖讲解 ES 模块和和它之前流行的前身 CommonJS `module.exports =` 语法，你可以在 [Modules](https://www.typescriptlang.org/docs/handbook/modules.html)章节找到其他的模块模式。
 - ## JavaScript 模块是如何被定义的（How JavaScript Modules are Defined）
-	- 在 TypeScript 中，就像在 ECMAScript 2015 中 ，任何包含了一个顶层 `import` 或者 `export` 的文件会被认为是一个模块。
+	- 在 TypeScript 中，就像在 ECMAScript 2015 中 ，任何包含了一个顶层 `import` 或者 `export` 的文件会被认为是一个**模块**。
+	- 相对应的，一个没有顶层导入和导出声明的文件会被认为是一个**脚本**，它的内容会在全局范围内可用。
+	- [[#green]]==模块会在它自己的作用域，而不是在全局作用域里执行==。这意味着，在一个模块中声明的变量、函数、类等，对于模块之外的代码都是不可见的，除非你显示的导出这些值。
+	- 相对应的，要消费一个从另一个的模块导出的值、函数、类、接口等，也需要使用导入的格式先被导入。
+- ## TypeScript 中的模块（Modules in TypeScript）
+	- 在 TypeScript 中，当写一个基于模块的代码时，有三个主要的事情需要考虑：
+		- **语法**：我想导出或者导入该用什么语法？
+		- **模块解析**：模块名字（或路径）和硬盘文件之间的关系是什么样的？
+		- **模块导出目标**：导出的 JavaScript 模块长什么样？
+	- ### ES 模块语法（ES Module Syntax）
+	  background-color:: pink
+		-
 	-
