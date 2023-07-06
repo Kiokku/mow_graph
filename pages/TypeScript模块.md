@@ -159,6 +159,11 @@
 - ## TypeScript 模块解析选项（TypeScript’s Module Resolution Options）
 	- **模块解析**是从 `import` 或者 `require` 语句中取出字符串，然后决定字符指向的是哪个文件的过程。
 	- TypeScript 包含两个解析策略：**Classic** 和 **Node**。Classic，当编译选项 [module](https://www.typescriptlang.org/tsconfig#module)不是 `commonjs` 时的默认选择，包含了向后兼容。Node 策略则复制了 CommonJS 模式下 Nodejs 的运行方式，会对 `.ts` 和 `.d.ts` 有额外的检查。
-	- 这里有很多 TSConfig 标志可以影响 TypeScript 的模块策略：[moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution), [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl), [paths](https://www.typescriptlang.org/tsconfig#paths), [rootDirs (opens new window)](https://www.typescriptlang.org/tsconfig#rootDirs)。
-	-
+	- 这里有很多 TSConfig 标志可以影响 TypeScript 的模块策略：[moduleResolution](https://www.typescriptlang.org/tsconfig#moduleResolution), [baseUrl](https://www.typescriptlang.org/tsconfig#baseUrl), [paths](https://www.typescriptlang.org/tsconfig#paths), [rootDirs](https://www.typescriptlang.org/tsconfig#rootDirs)。
+- ## TypeScript 模块输出选项（TypeScript’s Module Output Options）
+	- 有两个选项可以影响 JavaScript 输出的文件：
+		- [target](https://www.typescriptlang.org/tsconfig#target)决定了哪些 JS 特性会被降级（被转换成可以在更老的 JavaScript 运行环境使用），哪些则完整保留。
+		- [module)](https://www.typescriptlang.org/tsconfig#module)决定了转换后代码采用的模块规范
+- ## TypeScript 命名空间（TypeScript namespaces）
+	- TypeScript 有它自己的模块格式，名为 `namespaces` 。它在 ES 模块标准之前出现。这个语法有一系列的特性，可以用来创建复杂的定义文件，现在依然可以在 [DefinitelyTyped](https://www.typescriptlang.org/dt)看到。虽然命名空间没有被废弃，但是由于 ES 模块已经拥有了命名空间的大部分特性，因此更推荐使用 ES 模块，这样才能与 JavaScript 的（发展）方向保持一致。你可以在[命名空间页面](https://www.typescriptlang.org/docs/handbook/namespaces.html)了解更多。
 -
