@@ -676,4 +676,49 @@
 	- [[#red]]==注意，如果我们忘记实现基类的抽象成员，我们会得到一个报错。==
 	- ### 抽象构造签名（Abstract Construct Signatures）
 	  background-color:: pink
-		-
+		- ```
+		  function greet(ctor: new () => Base) {
+		    const instance = new ctor();
+		    instance.printName();
+		  }
+		  greet(Derived);
+		  greet(Base);
+		  
+		  // Argument of type 'typeof Base' is not assignable to parameter of type 'new () => Base'.
+		  // Cannot assign an abstract constructor type to a non-abstract constructor type.
+		  ```
+- ## 类之间的关系（Relationships Between Classes）
+	- 大部分时候，TypeScript 的类跟其他类型一样，会被结构性比较。
+	- 举个例子，这两个类可以用于替代彼此，因为它们结构是相等的：
+	- ```
+	  class Point1 {
+	    x = 0;
+	    y = 0;
+	  }
+	   
+	  class Point2 {
+	    x = 0;
+	    y = 0;
+	  }
+	   
+	  // OK
+	  const p: Point1 = new Point2();
+	  ```
+	- 类似的还有，类的子类型之间可以建立关系，即使没有明显的继承：
+	- ```
+	  class Person {
+	    name: string;
+	    age: number;
+	  }
+	   
+	  class Employee {
+	    name: string;
+	    age: number;
+	    salary: number;
+	  }
+	   
+	  // OK
+	  const p: Person = new Employee();
+	  ```
+	- **空类**没有任何成员。在一个结构化类型系统中，没有成员的类型通常是任何其他类型的父类型。所以如果你写一个空类（只是举例，你可不要这样做），任何东西都可以用来替换它：
+	-
