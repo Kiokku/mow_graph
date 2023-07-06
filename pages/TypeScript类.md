@@ -606,4 +606,45 @@
 	  // const b: ClearableBox
 	  ```
 	- 你也可以在参数类型注解中使用 `this` ：
+	- ```
+	  class Box {
+	    content: string = "";
+	    sameAs(other: this) {
+	      return other.content === this.content;
+	    }
+	  }
+	  ```
+- ## 参数属性（Parameter Properties）
+	- TypeScript 提供了特殊的语法，可以把一个构造函数参数转成一个同名同值的类属性。这些就被称为参数属性（parameter properties）。你可以通过在构造函数参数前添加一个可见性修饰符 `public` `private` `protected` 或者 `readonly` 来创建参数属性，最后这些类属性字段也会得到这些修饰符：
+	- ```
+	  class Params {
+	    constructor(
+	      public readonly x: number,
+	      protected y: number,
+	      private z: number
+	    ) {
+	      // No body necessary
+	    }
+	  }
+	  const a = new Params(1, 2, 3);
+	  console.log(a.x);
+	  // (property) Params.x: number
+	  
+	  console.log(a.z);
+	  // Property 'z' is private and only accessible within class 'Params'.
+	  ```
+- ## 类表达式（Class Expressions）
+	- 类表达式跟类声明非常类似，唯一不同的是类表达式不需要一个名字，尽管我们可以通过绑定的标识符进行引用：
+	- ```
+	  const someClass = class<Type> {
+	    content: Type;
+	    constructor(value: Type) {
+	      this.content = value;
+	    }
+	  };
+	   
+	  const m = new someClass("Hello, world");  
+	  // const m: someClass<string>
+	  ```
+- ## 抽象类和成员（abstract Classes and Members）
 	-
