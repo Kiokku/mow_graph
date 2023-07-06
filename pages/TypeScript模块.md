@@ -121,5 +121,32 @@
 			  const name = createCatName();
 			  ```
 			- 这些可以让一个非 TypeScript 编译器比如 Babel、swc 或者 esbuild 知道什么样的导入可以被安全移除。
-			- 导入类型和内置类型导入的区别在于一个是导入语法，一个是仅仅导入类型。
+			- **导入类型**和**内置类型导入**的区别在于一个是导入语法，一个是仅仅导入类型。
+		- #### 有 CommonJS 行为的 ES 模块语法（ES Module Syntax with CommonJS Behavior）
+		  background-color:: green
+			- TypeScript 之所以有 ES 模块语法跟 CommonJS 和 AMD 的 `required` 有很大的关系。使用 ES 模块语法的导入跟 `require` 一样都可以处理绝大部分的情况，但是这个语法能确保你在有 CommonJS 输出的 TypeScript 文件里，有一个 1 对 1 的匹配：
+			- ```
+			  import fs = require("fs");
+			  const code = fs.readFileSync("hello.ts", "utf8");
+			  ```
+- ## CommonJS 语法（CommonJS Syntax）
+	- CommonJS 是 npm 大部分模块的格式。即使你正在写 ES 模块语法，了解一下 CommonJS 语法的工作原理也会帮助你调试更容易。
+	- ### 导出（Exporting）
+	  background-color:: pink
+		- 通过设置全局 `module` 的 `exports` 属性，导出标识符。
+		- ```
+		  function absolute(num: number) {
+		    if (num < 0) return num * -1;
+		    return num;
+		  }
+		   
+		  module.exports = {
+		    pi: 3.14,
+		    squareTwo: 1.41,
+		    phi: 1.61,
+		    absolute,
+		  };
+		  ```
+		- 这些文件可以通过一个 `require` 语句导入：
 		-
+	-
