@@ -16,5 +16,12 @@
 		- **模块导出目标**：导出的 JavaScript 模块长什么样？
 	- ### ES 模块语法（ES Module Syntax）
 	  background-color:: pink
+		- 一个文件可以通过 `export default` 声明一个主要的导出：
+		- ```
+		  // @filename: hello.ts
+		  export default function helloWorld() {
+		    console.log("Hello, world!");
+		  }
+		  ```
 		-
 	-
