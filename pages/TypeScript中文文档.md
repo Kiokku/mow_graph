@@ -1,5 +1,12 @@
 - > [TypeScript中文文档](https://ts.yayujs.com/)
 	- ### 基础
 		- [[TypeScript基础]]
-	-
+		- [[TypeScript常见类型]]
+		- [[TypeScript类型收窄]]
+		- [[TypeScript函数]]
+		- [[TypeScript对象类型]]
+		- [[TypeScript泛型]]
+		- [[TypeScript keyof 操作符]]
+		- [[TypeScript typeof 操作符]]
+		-
 -
