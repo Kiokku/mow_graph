@@ -8,5 +8,10 @@
 		- [[TypeScript泛型]]
 		- [[TypeScript keyof 操作符]]
 		- [[TypeScript typeof 操作符]]
+		- [[TypeScript索引访问类型]]
+		- [[TypeScript条件类型]]
+		- [[TypeScript映射类型]]
+		- [[TypeScript模板字面量类型]]
+		- [[TypeScript类]]
 		-
 -
