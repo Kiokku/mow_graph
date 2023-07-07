@@ -155,7 +155,8 @@
 			- 第三章 render阶段
 				- [[流程概览]]
 				- [[beginWork]]
-				-
+				- [[completeWork]]
+			- 第四章 commit阶段
 	- [[React基础与进阶]]
 		- [[React 之 createElement 源码解读]]
 	- [[webpack深入浅出]]
