@@ -105,4 +105,39 @@
 		- 基本上就是在判断状态为pending之后把状态改为相应的值，并把对应的value和reason存在self的data属性上面，之后执行相应的回调函数.
 	- ### `then` 方法
 	  background-color:: green
+		- Promise对象有一个then方法，用来注册在这个Promise状态确定后的回调，很明显，then方法需要写在**原型链**上。
+		- then方法会返回一个Promise，关于这一点，Promise/A+标准并没有要求返回的这个Promise是一个新的对象，但在Promise/A标准中，明确规定了then要返回一个新的对象。
+		- 目前的Promise实现中then几乎都是返回一个新的Promise([详情](https://promisesaplus.com/differences-from-promises-a#point-5))对象，所以在我们的实现中，也让then返回一个新的Promise对象。
+		- 另外每个Promise对象都可以在其上多次调用then方法，而每次调用then返回的Promise的状态取决于那一次调用then时传入参数的返回值，所以[[#red]]==then不能返回this，因为then每次返回的Promise的结果都有可能不同。==
+		- 下面我们来实现then方法：
+		- ```
+		  // then方法接收两个参数，onResolved，onRejected，分别为Promise成功或失败后的回调
+		  Promise.prototype.then = function(onResolved, onRejected) {
+		    var self = this
+		    var promise2
+		  
+		    // 根据标准，如果then的参数不是function，则我们需要忽略它，此处以如下方式处理
+		    onResolved = typeof onResolved === 'function' ? onResolved : function(v) {}
+		    onRejected = typeof onRejected === 'function' ? onRejected : function(r) {}
+		  
+		    if (self.status === 'resolved') {
+		      return promise2 = new Promise(function(resolve, reject) {
+		  
+		      })
+		    }
+		  
+		    if (self.status === 'rejected') {
+		      return promise2 = new Promise(function(resolve, reject) {
+		  
+		      })
+		    }
+		  
+		    if (self.status === 'pending') {
+		      return promise2 = new Promise(function(resolve, reject) {
+		  
+		      })
+		    }
+		  }
+		  ```
+		-
 		-
