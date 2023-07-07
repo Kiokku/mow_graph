@@ -39,4 +39,22 @@
 	  ```
 	- 我们重点关注页面渲染所必须的`HostComponent`（即原生`DOM组件`对应的`Fiber节点`），其他类型`Fiber`的处理留在具体功能实现时讲解。
 - ## 处理HostComponent
-	-
+	- 和`beginWork`一样，我们根据`current === null ?`判断是`mount`还是`update`。
+	- 同时针对`HostComponent`，判断`update`时我们还需要考虑`workInProgress.stateNode != null ?`（即该`Fiber节点`是否存在对应的`DOM节点`）
+	- ```
+	  case HostComponent: {
+	    popHostContext(workInProgress);
+	    const rootContainerInstance = getRootHostContainer();
+	    const type = workInProgress.type;
+	  
+	    if (current !== null && workInProgress.stateNode != null) {
+	      // update的情况
+	      // ...省略
+	    } else {
+	      // mount的情况
+	      // ...省略
+	    }
+	    return null;
+	  }
+	  ```
+-
