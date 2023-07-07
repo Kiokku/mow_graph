@@ -73,4 +73,34 @@
 		    }
 		  }
 		  ```
--
+		- [[#red]]==**我们这里的实现并没有考虑隐藏this上的变量，这使得这个Promise的状态可以在executor函数外部被改变，在一个靠谱的实现里，构造出的Promise对象的状态和最终结果应当是无法从外部更改的。**==
+		- 接下来，我们实现`resolve`和`reject`这两个函数：
+		- ```
+		  function Promise(executor) {
+		    // ...
+		  
+		    function resolve(value) {
+		      if (self.status === 'pending') {
+		        self.status = 'resolved'
+		        self.data = value
+		        for(var i = 0; i < self.onResolvedCallback.length; i++) {
+		          self.onResolvedCallback[i](value)
+		        }
+		      }
+		    }
+		  
+		    function reject(reason) {
+		      if (self.status === 'pending') {
+		        self.status = 'rejected'
+		        self.data = reason
+		        for(var i = 0; i < self.onRejectedCallback.length; i++) {
+		          self.onRejectedCallback[i](reason)
+		        }
+		      }
+		    }
+		  
+		    // ...
+		  }
+		  ```
+		- 基本上就是在判断状态为pending之后把状态改为相应的值，并把对应的value和reason存在self的data属性上面，之后执行相应的回调函数.
+	-
