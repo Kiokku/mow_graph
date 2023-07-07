@@ -57,4 +57,33 @@
 	    return null;
 	  }
 	  ```
--
+- ## update时
+	- 当`update`时，`Fiber节点`已经存在对应`DOM节点`，所以不需要生成`DOM节点`。需要做的主要是处理`props`，比如：
+		- `onClick`、`onChange`等回调函数的注册
+		- 处理`style prop`
+		  处理`DANGEROUSLY_SET_INNER_HTML prop`
+		  处理`children prop`
+	- 我们去掉一些当前不需要关注的功能（比如`ref`）。可以看到最主要的逻辑是调用`updateHostComponent`方法。
+	- ```
+	  if (current !== null && workInProgress.stateNode != null) {
+	    // update的情况
+	    updateHostComponent(
+	      current,
+	      workInProgress,
+	      type,
+	      newProps,
+	      rootContainerInstance,
+	    );
+	  }
+	  ```
+	- 你可以从[这里](https://github.com/facebook/react/blob/1fb18e22ae66fdb1dc127347e169e73948778e5a/packages/react-reconciler/src/ReactFiberCompleteWork.new.js#L225)看到`updateHostComponent`方法定义。
+	- 在`updateHostComponent`内部，被处理完的`props`会被赋值给`workInProgress.updateQueue`，并最终会在`commit阶段`被渲染在页面上。
+	- ```
+	  workInProgress.updateQueue = (updatePayload: any);
+	  ```
+	- 其中`updatePayload`为数组形式，他的偶数索引的值为变化的`prop key`，奇数索引的值为变化的`prop value`。
+- ## mount时
+	- 同样，我们省略了不相关的逻辑。可以看到，`mount`时的主要逻辑包括三个：
+		- - 为`Fiber节点`生成对应的`DOM节点`
+		  - 将子孙`DOM节点`插入刚生成的`DOM节点`中
+		  - 与`update`逻辑中的`updateHostComponent`类似的处理`props`的过程
