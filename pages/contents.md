@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -83,6 +82,7 @@
 			- [[TypeScript模块]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
