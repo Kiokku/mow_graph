@@ -84,7 +84,6 @@
 			- [[TypeScript模块]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -138,6 +137,7 @@
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - React
+  collapsed:: true
 	- React技术揭秘
 		- 理念篇
 			- 第一章 React理念
