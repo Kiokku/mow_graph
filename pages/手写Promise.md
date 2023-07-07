@@ -103,4 +103,6 @@
 		  }
 		  ```
 		- 基本上就是在判断状态为pending之后把状态改为相应的值，并把对应的value和reason存在self的data属性上面，之后执行相应的回调函数.
-	-
+	- ### `then` 方法
+	  background-color:: green
+		-
