@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -63,6 +64,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -128,6 +130,7 @@
 		- [[子集和问题]]
 		-
 - 正则表达式
+  collapsed:: true
 	- [[正则表达式的定义]]
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
@@ -135,9 +138,7 @@
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - React
-  collapsed:: true
 	- React技术揭秘
-	  collapsed:: true
 		- 理念篇
 			- 第一章 React理念
 				- [[React理念]]
