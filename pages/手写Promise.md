@@ -216,5 +216,35 @@
 		    return this.then(null, onRejected)
 		  }
 		  ```
-		-
-		-
+		- 至此，我们基本实现了Promise标准中所涉及到的内容，但还有几个问题：
+			- 1. 不同的Promise实现之间需要无缝的可交互，即Q的Promise，ES6的Promise，和我们实现的Promise之间以及其它的Promise实现，应该并且是有必要无缝相互调用的，比如：
+			- ```
+			  // 此处用MyPromise来代表我们实现的Promise
+			  new MyPromise(function(resolve, reject) { // 我们实现的Promise
+			    setTimeout(function() {
+			      resolve(42)
+			    }, 2000)
+			  }).then(function() {
+			    return new Promise.reject(2) // ES6的Promise
+			  }).then(function() {
+			    return Q.all([ // Q的Promise
+			      new MyPromise(resolve=>resolve(8)), // 我们实现的Promise
+			      new Promise.resolve(9), // ES6的Promise
+			      Q.resolve(9) // Q的Promise
+			    ])
+			  })
+			  ```
+			- 我们前面实现的代码并没有处理这样的逻辑，我们[[#red]]==只判断了onResolved/onRejected的返回值是否为我们实现的Promise的实例，并没有做任何其它的判断，所以上面这样的代码目前是没有办法在我们的Promise里正确运行的。==
+			- 2. 下面这样的代码目前也是没办法处理的：
+			- ```
+			  new Promise(resolve=>resolve(8))
+			    .then()
+			    .then()
+			    .then(function foo(value) {
+			      alert(value)
+			    })
+			  ```
+			- 正确的行为应该是alert出8，而如果拿我们的Promise，运行上述代码，将会alert出undefined。这种行为称为**穿透**，即8这个值会穿透两个then(说Promise更为准确)到达最后一个then里的foo函数里，成为它的实参，最终将会alert出8。
+		- #### Promise值的穿透
+		  background-color:: purple
+			-
