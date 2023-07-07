@@ -1,5 +1,5 @@
 - > https://github.com/type-challenges/type-challenges
--
-- {{cards [[type-challenges]]}}
--
+	- ### 简单
+	  background-color:: pink
+		- [[实现Pick]]
 -

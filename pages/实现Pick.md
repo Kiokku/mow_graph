@@ -1,0 +1,5 @@
+- > https://github.com/type-challenges/type-challenges/blob/main/questions/00004-easy-pick/README.zh-CN.md
+-
+- ## 实现 Pick
+	- 不使用 `Pick<T, K>` ，实现 TS 内置的 `Pick<T, K>` 的功能。
+	-
