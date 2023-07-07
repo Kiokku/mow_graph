@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
