@@ -1,0 +1,3 @@
+- > https://react.iamkasong.com/renderer/prepare.html
+-
+- `commitRoot`方法是`commit阶段`工作的起点。`fiberRootNode`会作为传参。
