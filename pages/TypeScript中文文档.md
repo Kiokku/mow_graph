@@ -13,5 +13,5 @@
 		- [[TypeScript映射类型]]
 		- [[TypeScript模板字面量类型]]
 		- [[TypeScript类]]
-		-
+		- [[TypeScript模块]]
 -

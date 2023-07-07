@@ -63,7 +63,6 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
 		- 基础
 			- [[TypeScript基础]]
