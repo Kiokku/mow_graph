@@ -84,6 +84,7 @@
 			- [[TypeScript模块]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -127,7 +128,7 @@
 		- [[回溯算法]]
 		- [[全排列问题]]
 		- [[子集和问题]]
-		-
+		- [[N皇后问题]]
 - 正则表达式
   collapsed:: true
 	- [[正则表达式的定义]]
@@ -136,6 +137,8 @@
 - 实战项目
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
+- 前端面试
+	- [[前端技术一面]]
 - React
   collapsed:: true
 	- React技术揭秘
@@ -168,6 +171,7 @@
 	- [[shell工具和脚本]]
 	-
 - Mathematics
+  collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
 		- [[Study Materials]]
 		- [[Lecture 1: The geometry of linear equations]]
