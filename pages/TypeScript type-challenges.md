@@ -2,4 +2,6 @@
 	- ### 简单
 	  background-color:: pink
 		- [[实现Pick]]
+		- [[对象属性只读]]
+		-
 -
