@@ -70,7 +70,7 @@
 	  ```
 	- [[#red]]==类型注解并不是 JavaScript 的一部分。==所以并没有任何浏览器或者运行环境可以直接运行 TypeScript 代码。这就是为什么 TypeScript 需要一个编译器，它需要将 TypeScript 代码转换为 JavaScript 代码，然后你才可以运行它。所以大部分 TypeScript 独有的代码会被抹除，在这个例子中，像我们的类型注解就全部被抹除了。
 - ## 降级（Downleveling）
-	- TypeScript 默认转换为 `ES3`，一个 ECMAScript 非常老的版本。我们也可以使用 [target (opens new window)](https://www.typescriptlang.org/tsconfig#target)选项转换为比较新的一些版本，比如执行 `--target es2015` 会转换为 ECMAScript 2015, 这意味着转换后的代码可以在任何支持 ECMAScript 2015 的地方运行。
+	- TypeScript 默认转换为 `ES3`，一个 ECMAScript 非常老的版本。我们也可以使用 [target](https://www.typescriptlang.org/tsconfig#target)选项转换为比较新的一些版本，比如执行 `--target es2015` 会转换为 ECMAScript 2015, 这意味着转换后的代码可以在任何支持 ECMAScript 2015 的地方运行。
 	- 执行 `tsc --target es2015 hello.ts`
 	- >尽管默认的目标是 ES3 版本，但是大多数的浏览器都已经支持 ES2015 了，因此大部分开发者可以安全的指定为 ES2015 或者更新的版本，除非你非要兼容某个问题浏览器。
 - ## 严格模式（Strictness）
