@@ -64,6 +64,7 @@
 	- [[JavaScript错题集]]
 - TypeScript
 	- [[TypeScript中文文档]]
+	  collapsed:: true
 		- 基础
 			- [[TypeScript基础]]
 			- [[TypeScript常见类型]]
@@ -79,6 +80,7 @@
 			- [[TypeScript模板字面量类型]]
 			- [[TypeScript类]]
 			- [[TypeScript模块]]
+	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
   collapsed:: true
