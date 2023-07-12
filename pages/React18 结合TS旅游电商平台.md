@@ -92,8 +92,10 @@
 - ## Redux-项目架构方案
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
-	- ### state
+	- ### state和store
 	  background-color:: pink
 		- 创建state的数据订阅仓库：`createStore(Reducer)`
+		- 获取store数据：`store.getState()`
+		-
 		-
 	-
