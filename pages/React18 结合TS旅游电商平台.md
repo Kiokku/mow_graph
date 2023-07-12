@@ -97,5 +97,7 @@
 		- 创建state的数据订阅仓库：`createStore(Reducer)`
 		- 获取store数据：`store.getState()`
 		- 更新state，action与reducer的处理：
+			- `action`: `{ type: string, payload: object }`
+			-
 		-
 	-
