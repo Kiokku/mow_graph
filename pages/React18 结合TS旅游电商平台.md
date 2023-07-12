@@ -37,6 +37,7 @@
 			  ```
 	-
 - ## 路由系统
+  collapsed:: true
 	- ### 路由与SPA
 	  background-color:: pink
 		- `SPA`：单页网站应用
@@ -91,5 +92,8 @@
 - ## Redux-项目架构方案
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
-	-
+	- ### state
+	  background-color:: pink
+		- 创建state的数据订阅仓库：`createStore(Reducer)`
+		-
 	-
