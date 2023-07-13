@@ -102,5 +102,11 @@
 			- `action`: `{ type: string, payload: object }`
 			- state的immutable（不可变性）：在`reducer`中处理state要用newState代替state，[[#red]]==不能直接在state上进行修改==。`const newState = {...state}`
 		- 订阅state，store的连接与订阅：`store.subscribe(callback)`
+	- ### I18n
+	  background-color:: pink
+		- 原理：语言包作为静态资源单独保存（xml、json），每种语言对应一个文件，切换语言设置时，语言文件也会随之切换。
+		- I18n工具：`i18next`
+			- `react- i8next`
+		-
 		-
 	-
