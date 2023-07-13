@@ -106,4 +106,8 @@
 			- `react- i8next`——对应的React插件， [官方文档](https://react.i18next.com)
 	- ### redux重构
 	  background-color:: pink
-		-
+		- redux文件夹结构：
+		- ```
+		  -redux
+		  	-
+		  ```
