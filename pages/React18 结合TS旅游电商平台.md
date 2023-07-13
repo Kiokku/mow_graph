@@ -104,4 +104,6 @@
 		- 原理：语言包作为静态资源单独保存（xml、json），每种语言对应一个文件，切换语言设置时，语言文件也会随之切换。
 		- I18n工具：`i18next`
 			- `react- i8next`——对应的React插件， [官方文档](https://react.i18next.com)
+	- ### redux重构
+	  background-color:: pink
 		-
