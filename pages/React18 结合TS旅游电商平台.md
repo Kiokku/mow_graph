@@ -128,3 +128,6 @@
 		  	...
 		  }
 		  ```
+	- ### React-redux的使用：
+	  background-color:: pink
+		-
