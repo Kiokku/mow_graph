@@ -132,4 +132,10 @@
 	  background-color:: pink
 		- `npm i react-redux`
 		- `npm i @types/react-redux`
-		-
+		- #### Provider()
+		  background-color:: green
+			- makes the Redux store available to the rest of your app(store全局可用)
+			- `<Provider store={store}><APP /></ Provider>`
+		- #### Connect()
+		  background-color:: green
+			-
