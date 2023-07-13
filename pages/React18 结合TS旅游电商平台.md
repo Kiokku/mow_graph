@@ -113,3 +113,18 @@
 		      	-featureReducer.ts
 		          -featureActions.ts  //action creator
 		  ```
+		- 定义常量、传入reducer中action的类型进行强类型限制：
+		- ```
+		  // featureReducer.ts
+		  const featureReducer = (state = defaultState, action: ActionTypes) => {
+		  	switch(action.type) {
+		      	case TYPE1:...
+		      }
+		  }
+		  
+		  // featureActions.ts
+		  export const TYPE1 = "..."
+		  export type ActionTypes = {
+		  	...
+		  }
+		  ```
