@@ -146,4 +146,21 @@
 	  background-color:: pink
 		- #### useSelector()
 		  background-color:: green
-			-
+			- 连接组件与store
+			- 结合`TypedUseSelectorHook`剥离state类型耦合：
+			- ```
+			  // hooks.ts
+			  export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+			  
+			  // Component.ts
+			  const stateXxx = useSelectot(state => state.xxx)
+			  ```
+		- #### useDispatch()
+		  background-color:: green
+			- 分发action
+			- 结合`action creator`：
+			- ```
+			  const dispatch = useDispatch();
+			  ...
+			  dispatch(xxxActionCreator(...))
+			  ```
