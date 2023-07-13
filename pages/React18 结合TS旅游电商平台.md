@@ -130,4 +130,6 @@
 		  ```
 	- ### React-redux的使用：
 	  background-color:: pink
+		- `npm i react-redux`
+		- `npm i @types/react-redux`
 		-
