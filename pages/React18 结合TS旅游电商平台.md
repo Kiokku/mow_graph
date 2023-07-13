@@ -15,7 +15,6 @@
 			- ![image.png](../assets/image_1684419310605_0.png)
 			-
 - ## 系统设计与项目初始化
-  collapsed:: true
 	- [[#blue]]==界面设计==
 		- **UI设计规范**
 	- [[#blue]]==需求设计==
@@ -28,7 +27,6 @@
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
 - ## 主页开发
-  collapsed:: true
 	- [[#blue]]==文件夹结构==
 		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
 		- `index.ts`：导出组件，避免过长的组件引用地址
@@ -37,7 +35,6 @@
 			  ```
 	-
 - ## 路由系统
-  collapsed:: true
 	- ### 路由与SPA
 	  background-color:: pink
 		- `SPA`：单页网站应用
@@ -106,7 +103,9 @@
 	  background-color:: pink
 		- 原理：语言包作为静态资源单独保存（xml、json），每种语言对应一个文件，切换语言设置时，语言文件也会随之切换。
 		- I18n工具：`i18next`
-			- `react- i8next`
+			- `react- i8next`——对应的React插件， [官方文档](https://react.i18next.com)
+			-
+		-
 		-
 		-
 	-
