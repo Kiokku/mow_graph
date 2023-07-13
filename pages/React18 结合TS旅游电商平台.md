@@ -97,9 +97,10 @@
 		- 创建state的数据订阅仓库：`createStore(Reducer)`
 		- 获取store数据：`store.getState()`
 		- 更新state，action与reducer的处理：
+			- `dispatch`：`store.dispatch(action)`
 			- `reducer`：`(state, action) => {}`
 			- `action`: `{ type: string, payload: object }`
 			- state的immutable（不可变性）：在`reducer`中处理state要用newState代替state，[[#red]]==不能直接在state上进行修改==。`const newState = {...state}`
-		- 订阅state，store的连接与订阅：
+		- 订阅state，store的连接与订阅：`store.subscribe(callback)`
 		-
 	-
