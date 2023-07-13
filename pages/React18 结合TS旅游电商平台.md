@@ -142,4 +142,8 @@
 			- `connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)(Component)`
 			- `mapStateToProps?: (state, ownProps?) => Object`
 			- `mapDispatchToProps?: Object | (dispatch, ownProps?) => Object`
+	- ### 在函数组件中使用React-redux：
+	  background-color:: pink
+		- #### useSelector()
+		  background-color:: green
 			-
