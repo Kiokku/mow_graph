@@ -141,3 +141,5 @@
 			- 类组件中使用的HOC，将组件与store相连接
 			- `connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)(Component)`
 			- `mapStateToProps?: (state, ownProps?) => Object`
+			- `mapDispatchToProps?: Object | (dispatch, ownProps?) => Object`
+			-
