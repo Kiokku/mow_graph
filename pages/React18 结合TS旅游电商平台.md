@@ -109,5 +109,7 @@
 		- redux文件夹结构：
 		- ```
 		  -redux
-		  	-
+		  	-feature
+		      	-featureReducer.ts
+		          -featureActions.ts  //action creator
 		  ```
