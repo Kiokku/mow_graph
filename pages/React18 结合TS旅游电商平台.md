@@ -15,6 +15,7 @@
 			- ![image.png](../assets/image_1684419310605_0.png)
 			-
 - ## 系统设计与项目初始化
+  collapsed:: true
 	- [[#blue]]==界面设计==
 		- **UI设计规范**
 	- [[#blue]]==需求设计==
@@ -27,6 +28,7 @@
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
 - ## 主页开发
+  collapsed:: true
 	- [[#blue]]==文件夹结构==
 		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
 		- `index.ts`：导出组件，避免过长的组件引用地址
@@ -164,3 +166,5 @@
 			  ...
 			  dispatch(xxxActionCreator(...))
 			  ```
+- ## Redux进阶-异步AJAX与redux中间件
+	-
