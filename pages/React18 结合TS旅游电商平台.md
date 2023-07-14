@@ -178,4 +178,6 @@
 			  logseq.order-list-type:: number
 				- ![image.png](../assets/image_1689307641250_0.png)
 				  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+			- HATEOAS，超媒体即应用状态引擎
+			  logseq.order-list-type:: number
+		-
