@@ -183,4 +183,6 @@
 				  logseq.order-list-type:: number
 			- HATEOAS，超媒体即应用状态引擎
 			  logseq.order-list-type:: number
+	- ### AJAX异步获取数据
+	  background-color:: pink
 		-
