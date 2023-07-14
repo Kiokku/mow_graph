@@ -60,7 +60,7 @@
 	- ```
 	  var shallowCopy = function(obj) {
 	      // 只拷贝对象
-	      if (typeof obj !== 'object') return;
+	      if (typeof obj !== 'object' || obj === null) return;
 	      // 根据obj的类型判断是新建一个数组还是对象
 	      var newObj = obj instanceof Array ? [] : {};
 	      // 遍历obj，并且判断是obj的属性才拷贝
@@ -76,7 +76,7 @@
 	- 在拷贝的时候判断一下属性值的类型，如果是对象，我们递归调用深拷贝函数：
 	- ```
 	  var deepCopy = function(obj) {
-	      if (typeof obj !== 'object') return;
+	      if (typeof obj !== 'object' || obj === null) return;
 	      var newObj = obj instanceof Array ? [] : {};
 	      for (var key in obj) {
 	          if (obj.hasOwnProperty(key)) {
