@@ -191,4 +191,11 @@
 		- 处理“悬空”数据的方式：
 			- `loading`
 			  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+	- ### Redux vs MVC
+	  background-color:: pink
+		- 什么是MVC？
+			- 模型（Model）、视图（View）、控制器（Controller）
+			- **视图View**：用户交互界面，仅展示数据，不处理数据；
+			- **模型Model**：MVC架构核心，表示业务模型或数据模型，业务逻辑如算法实现、数据管理、对象封装等；
+			- **控制器Controller**：接受用户输入，调用模型和视图完成用户的输入请求，不处理数据
+		- React—>MVVM
