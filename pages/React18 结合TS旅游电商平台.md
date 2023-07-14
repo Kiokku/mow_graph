@@ -167,4 +167,15 @@
 			  dispatch(xxxActionCreator(...))
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
-	-
+	- ### RESTful Api
+	  background-color:: pink
+		- 基本特点：
+			- 无状态，一次调用返回结构，不存在打开连接-访问数据库-关闭连接的有状态连接（如websokect）；
+			  logseq.order-list-type:: number
+			- 面向“资源”，接口地址不使用动词，只使用名词；
+			  logseq.order-list-type:: number
+			- 使用HTTP动词表示操作：
+			  logseq.order-list-type:: number
+				- ![image.png](../assets/image_1689307641250_0.png)
+				  logseq.order-list-type:: number
+			- logseq.order-list-type:: number
