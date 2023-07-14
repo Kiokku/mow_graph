@@ -183,6 +183,9 @@
 				  logseq.order-list-type:: number
 			- HATEOAS，超媒体即应用状态引擎
 			  logseq.order-list-type:: number
-	- ### AJAX异步获取数据
+	- ### AJAX异步获取数据—Axios
 	  background-color:: pink
+		- **简单易用**，API接近于jQuery，比原生`fetch`简单；
+		- **兼容性好**，向下兼容到`IE7`，使用fetch需要自己处理兼容；
+		- **通用性好**，能在node和浏览器中使用，API一致；
 		-
