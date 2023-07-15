@@ -83,7 +83,6 @@
 	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -131,6 +130,7 @@
 	- 动态规划
 		- [[初探动态规划]]
 		- [[DP问题特性]]
+		- [[DP解题思路]]
 		-
 - 正则表达式
   collapsed:: true
