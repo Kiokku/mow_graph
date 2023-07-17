@@ -101,19 +101,45 @@
 	      const dp = Array(n).fill(Array.fill(m));
 	      dp[0][0] = grid[0][0];
 	      // 状态转移：首行
-	      for (int j = 1; j < m; j++) {
+	      for (let j = 1; j < m; j++) {
 	          dp[0][j] = dp[0][j - 1] + grid[0][j];
 	      }
 	      // 状态转移：首列
-	      for (int i = 1; i < n; i++) {
+	      for (let i = 1; i < n; i++) {
 	          dp[i][0] = dp[i - 1][0] + grid[i][0];
 	      }
 	      // 状态转移：其余行列
-	      for (int i = 1; i < n; i++) {
-	          for (int j = 1; j < m; j++) {
+	      for (let i = 1; i < n; i++) {
+	          for (let j = 1; j < m; j++) {
 	              dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
 	          }
 	      }
 	      return dp[n - 1][m - 1];
 	  }
+	  ```
+	- 如果希望进一步节省空间使用，可以考虑进行**状态压缩**。每个格子只与左边和上边的格子有关，因此我们可以只用一个单行数组来实现 $dp$ 表。
+	- 由于数组 `dp` 只能表示一行的状态，因此我们无法提前初始化首列状态，而是在遍历每行中更新它。
+	- ```
+	  /* 最小路径和：状态压缩后的动态规划 */
+	  function minPathSumDPComp(grid) {
+	      const n = grid.length, m = grid[0].length;
+	      // 初始化 dp 表
+	  	const dp = new Array(m);
+	      // 状态转移：首行
+	      dp[0] = grid[0][0];
+	      for (let j = 1; j < m; j++) {
+	          dp[j] = dp[j - 1] + grid[0][j];
+	      }
+	      // 状态转移：其余行
+	      for (let i = 1; i < n; i++) {
+	          // 状态转移：首列
+	          dp[0] = dp[0] + grid[i][0];
+	          // 状态转移：其余列
+	          for (let j = 1; j < m; j++) {
+	              dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
+	          }
+	      }
+	      return dp[m - 1];
+	  }
+	  
 	  ```
