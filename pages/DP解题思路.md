@@ -56,10 +56,64 @@
 	          return Infinite;
 	      }
 	      // 计算从左上角到 (i-1, j) 和 (i, j-1) 的最小路径代价
-	      int left = minPathSumDFS(grid, i - 1, j);
-	      int up = minPathSumDFS(grid, i, j - 1);
+	      const left = minPathSumDFS(grid, i - 1, j);
+	      const up = minPathSumDFS(grid, i, j - 1);
 	      // 返回从左上角到 (i, j) 的最小路径代价
 	      return Math.min(left, up) + grid[i][j];
 	  }
 	  
+	  ```
+	- 直观上看，**存在多条路径可以从左上角到达同一单元格**，这便是该问题存在重叠子问题的内在原因。
+	- 每个状态都有向下和向右两种选择，从左上角走到右下角总共需要 $n+m−2$ 步，所以最差时间复杂度为 $O(2^{n+m})$。
+- ## 方法二：记忆化搜索
+	- 为了避免重复计算重叠子问题，我们引入一个和网格 `grid` 相同尺寸的记忆列表 `mem` ，用于记录各个子问题的解，提升搜索效率。
+	- ```
+	  /* 最小路径和：记忆化搜索 */
+	  function minPathSumDFSMem(grid, mem, i, j) {
+	      // 若为左上角单元格，则终止搜索
+	      if (i == 0 && j == 0) {
+	          return grid[0][0];
+	      }
+	      // 若行列索引越界，则返回 +∞ 代价
+	      if (i < 0 || j < 0) {
+	          return Infinity;
+	      }
+	      // 若已有记录，则直接返回
+	      if (mem[i][j] != -1) {
+	          return mem[i][j];
+	      }
+	      // 左边和上边单元格的最小路径代价
+	      const left = minPathSumDFSMem(grid, mem, i - 1, j);
+	      const up = minPathSumDFSMem(grid, mem, i, j - 1);
+	      // 记录并返回左上角到 (i, j) 的最小路径代价
+	      mem[i][j] = Math.min(left, up) + grid[i][j];
+	      return mem[i][j];
+	  }
+	  ```
+	- 时间复杂度取决于状态总数，即网格尺寸 $O(nm)$ 。
+- ## 方法三：动态规划
+	- 动态规划代码是从底至顶的，仅需循环即可实现。
+	- ```
+	  /* 最小路径和：动态规划 */
+	  function minPathSumDP(grid) {
+	      const n = grid.length, m = grid[0].length;
+	      // 初始化 dp 表
+	      const dp = Array(n).fill(Array.fill(m));
+	      dp[0][0] = grid[0][0];
+	      // 状态转移：首行
+	      for (int j = 1; j < m; j++) {
+	          dp[0][j] = dp[0][j - 1] + grid[0][j];
+	      }
+	      // 状态转移：首列
+	      for (int i = 1; i < n; i++) {
+	          dp[i][0] = dp[i - 1][0] + grid[i][0];
+	      }
+	      // 状态转移：其余行列
+	      for (int i = 1; i < n; i++) {
+	          for (int j = 1; j < m; j++) {
+	              dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
+	          }
+	      }
+	      return dp[n - 1][m - 1];
+	  }
 	  ```
