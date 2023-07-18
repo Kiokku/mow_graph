@@ -1,7 +1,6 @@
 - > https://github.com/mqyqingfeng/Blog/issues/4
 -
 - ## 顺序执行？
-- ---
 	- 如果要问到 JavaScript 代码执行顺序的话，想必写过 JavaScript 的开发者都会有个直观的印象，那就是顺序执行，毕竟：
 	- ```
 	  - var foo = function () {
@@ -29,13 +28,10 @@
 	- 但是本文真正想让大家思考的是：这个“一段一段”中的“段”究竟是怎么划分的呢？
 	- 到底JavaScript引擎遇到一段怎样的代码时才会做“准备工作”呢？
 - ## 可执行代码
-- ---
 	- 这就要说到 JavaScript 的[[#blue]]==可执行代码(executable code)==的类型有哪些了？
 	- 其实很简单，就三种，全局代码、函数代码、eval代码。
 	- 举个例子，当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，让我们用个更专业一点的说法，就叫做"[[#blue]]==执行上下文(execution context)=="。
--
 - ## 执行上下文栈
-- ---
 	- JavaScript 引擎创建了[[#blue]]==执行上下文栈（Execution context stack，ECS==）来管理执行上下文
 	- 为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：
 	- ```
@@ -77,9 +73,7 @@
 	    ECStack.pop();  
 	  - // javascript接着执行下面的代码，但是ECStack底层永远有个globalContext
 	  ```
--
 - ## 解答思考题
-- ---
 	- ```
 	  var scope = "global scope";
 	  function checkscope(){
