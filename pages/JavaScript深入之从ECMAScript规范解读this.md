@@ -296,5 +296,3 @@
 	- Reference Type 是一个特殊的“中间人”内部类型，目的是从 `.` 传递信息给 `()` 调用。
 	- 任何例如赋值 `method = obj.method` 等其他的操作，都会将 Reference Type 作为一个整体丢弃掉，而会取 `obj.method`（一个函数）的值并继续传递。所以任何后续操作都“丢失”了 `this`。
 	- 因此，`this` 的值仅在函数直接被通过点符号 `obj.method()` 或方括号 `obj['method']()` 语法（此处它们作用相同）调用时才被正确传递。还有很多种解决这个问题的方式，例如 [func.bind()](https://zh.javascript.info/bind#solution-2-bind)。
--
--
