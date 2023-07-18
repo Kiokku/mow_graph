@@ -201,4 +201,7 @@
 			- ![image.png](../assets/image_1689314270730_0.png)
 			- [[#red]]==缺点：数据双向流动，React项目不推荐MVC架构==
 			- [[#green]]==React—>MVVM==
-	- ###
+	- ### reducer管理——combineReducers
+	  background-color:: pink
+		- ![image.png](../assets/image_1689692268302_0.png)
+		-
