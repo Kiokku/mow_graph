@@ -188,7 +188,7 @@
 		- 1. **简单易用**，API接近于jQuery，比原生`fetch`简单；
 		- 2. **兼容性好**，向下兼容到`IE7`，使用fetch需要自己处理兼容；
 		- 3. **通用性好**，能在node和浏览器中使用，API一致；
-		- 处理“悬空”数据的方式：
+		- [[#green]]==处理“悬空”数据的方式：==
 			- `loading`
 			  logseq.order-list-type:: number
 	- ### Redux vs MVC
@@ -201,4 +201,4 @@
 			- ![image.png](../assets/image_1689314270730_0.png)
 			- [[#red]]==缺点：数据双向流动，React项目不推荐MVC架构==
 			- [[#green]]==React—>MVVM==
-			-
+	- ###
