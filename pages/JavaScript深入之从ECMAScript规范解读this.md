@@ -1,7 +1,6 @@
 - > [https://github.com/mqyqingfeng/Blog/issues/7](https://github.com/mqyqingfeng/Blog/issues/7)
 -
 - ## 前言
-- ---
 	- 在《JavaScript深入之执行上下文栈》中讲到，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。
 	- 对于每个执行上下文，都有三个重要属性
 		- 变量对象(Variable object，VO)
@@ -15,15 +14,12 @@
 	- 中文版：[http://yanhaijing.com/es5/#115](http://yanhaijing.com/es5/#115)
 	- 让我们开始了解规范吧！
 - ## Types
-- ---
 	- ECMAScript 的类型分为[[#blue]]==语言类型==和[[#blue]]==规范类型==。
 	- ECMAScript 语言类型是开发者直接使用 ECMAScript 可以操作的。其实就是我们常说的[[#blue]]==Undefined==, [[#blue]]==Null==, [[#blue]]==Boolean==, [[#blue]]==String==, [[#blue]]==Number==, 和 [[#blue]]==Object==。
 	- 而规范类型相当于 meta-values，是用来用算法描述 ECMAScript 语言结构和 ECMAScript 语言类型的。规范类型包括：[[#blue]]==Reference==, [[#blue]]==List==, [[#blue]]==Completion==, [[#blue]]==Property Descriptor==, [[#blue]]==Property Identifier==, [[#blue]]==Lexical Environment==, 和 [[#blue]]==Environment Record==。
 	- 没懂？没关系，我们只要知道在 ECMAScript 规范中还有一种只存在于规范中的类型，它们的作用是用来描述语言底层行为逻辑。
 	- 今天我们要讲的重点是便是其中的 [[#blue]]==Reference== 类型。它与 this 的指向有着密切的关联。
--
 - ## Reference
-- ---
 	- 那什么又是 Reference ？
 	- > The Reference type is used to explain the behaviour of such operators as delete, typeof, and the assignment operators.
 	- 所以 Reference 类型就是用来解释诸如 delete、typeof 以及赋值等操作行为的。
@@ -79,9 +75,7 @@
 		- 2. IsPropertyReference
 			- > IsPropertyReference(V). Returns true if either the base value is an object or HasPrimitiveBase(V) is true; otherwise returns false.
 			- 简单的理解：如果 base value 是一个对象，就返回true。
--
 - ## GetValue
-- ---
 	- 除此之外，紧接着在 8.7.1 章规范中就讲了一个用于从 Reference 类型获取对应值的方法： [[#blue]]==GetValue==。
 	- 简单模拟 GetValue 的使用：
 	- ```
@@ -98,9 +92,7 @@
 	- GetValue 返回对象属性真正的值，但是要注意：
 		- **==调用 GetValue，返回的将是具体的值，而不再是一个 Reference==**
 	- 这个很重要，这个很重要，这个很重要。
--
 - ## 如何确定this的值
-- ---
 	- 关于 Reference 讲了那么多，为什么要讲 Reference 呢？到底 Reference 跟本文的主题 this 有哪些关联呢？如果你能耐心看完之前的内容，以下开始进入高能阶段：
 	- 看规范 11.2.3 Function Calls：
 	- 这里讲了当函数调用的时候，如何确定 this 的取值。
@@ -131,9 +123,7 @@
 		  2.2 如果 ref 是 Reference，并且 base value 值是 Environment Record, 那么this的值为 ImplicitThisValue(ref)
 		  2.3 如果 ref 不是 Reference，那么 this 的值为 undefined
 		  ```
--
 - ## 具体分析
-- ---
 	- collapsed:: true
 	  1. 计算 MemberExpression 的结果赋值给 ref
 		- 什么是 [[#blue]]==MemberExpression==？看规范 11.2 Left-Hand-Side Expressions：
@@ -286,7 +276,6 @@
 		- 查看规范 10.2.1.1.6，[[#blue]]==ImplicitThisValue 方法==的介绍：该函数始终返回 undefined。
 		- 所以最后 this 的值就是 undefined。
 - ## 多说一句
-- ---
 	- 尽管我们可以简单的理解 this 为调用函数的对象，如果是这样的话，如何解释下面这个例子呢？
 	- ```
 	  var value = 1;
@@ -301,10 +290,11 @@
 	  
 	  ```
 	- 此外，又如何确定调用函数的对象是谁呢？在写文章之初，我就面临着这些问题，最后还是放弃从多个情形下给大家讲解 this 指向的思路，而是追根溯源的从 ECMASciript 规范讲解 this 的指向，尽管从这个角度写起来和读起来都比较吃力，但是一旦多读几遍，明白原理，绝对会给你一个全新的视角看待 this 。[[#blue]]==而你也就能明白，尽管 foo() 和 (foo.bar = foo.bar)() 最后结果都指向了 undefined，但是两者从规范的角度上却有着本质的区别==。
-- [参考《现代JavaScript》Reference Type](https://zh.javascript.info/reference-type)
+- ## [参考《现代JavaScript》Reference Type](https://zh.javascript.info/reference-type)
 	- 为确保 `obj.method()` 调用正常运行，JavaScript 玩了个小把戏 —— 点 `'.'` 返回的不是一个函数，而是一个特殊的 [Reference Type](https://tc39.github.io/ecma262/#sec-reference-specification-type) 的值。
 	- 对属性 `obj.method` 访问的结果不是一个函数，而是一个 Reference Type 的值。
 	- Reference Type 是一个特殊的“中间人”内部类型，目的是从 `.` 传递信息给 `()` 调用。
 	- 任何例如赋值 `method = obj.method` 等其他的操作，都会将 Reference Type 作为一个整体丢弃掉，而会取 `obj.method`（一个函数）的值并继续传递。所以任何后续操作都“丢失”了 `this`。
 	- 因此，`this` 的值仅在函数直接被通过点符号 `obj.method()` 或方括号 `obj['method']()` 语法（此处它们作用相同）调用时才被正确传递。还有很多种解决这个问题的方式，例如 [func.bind()](https://zh.javascript.info/bind#solution-2-bind)。
+-
 -
