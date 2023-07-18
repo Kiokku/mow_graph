@@ -1,5 +1,6 @@
 - JavaScript
 	- [[JavaScript深入系列]]
+	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -19,6 +20,7 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
+	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -61,6 +63,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -81,6 +84,7 @@
 	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
+  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -140,13 +144,13 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 实战项目
-  collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
+  collapsed:: true
 	- [[前端技术一面]]
 - React
-  collapsed:: true
 	- React技术揭秘
+	  collapsed:: true
 		- 理念篇
 			- 第一章 React理念
 				- [[React理念]]
@@ -168,16 +172,17 @@
 				- [[commit流程概览]]
 				-
 	- [[React基础与进阶]]
+	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 	- [[webpack深入浅出]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
-  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	-
 - Mathematics
   collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
+	  collapsed:: true
 		- [[Study Materials]]
 		- [[Lecture 1: The geometry of linear equations]]
 		-
