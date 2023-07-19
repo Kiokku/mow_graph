@@ -204,4 +204,6 @@
 	- ### reducer管理——combineReducers
 	  background-color:: pink
 		- ![image.png](../assets/image_1689692268302_0.png)
+	- ### 中间件——redux-thunk实现异步action
+	  background-color:: pink
 		-
