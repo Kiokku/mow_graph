@@ -247,4 +247,33 @@
 			- 正确的行为应该是alert出8，而如果拿我们的Promise，运行上述代码，将会alert出undefined。这种行为称为**穿透**，即8这个值会穿透两个then(说Promise更为准确)到达最后一个then里的foo函数里，成为它的实参，最终将会alert出8。
 		- #### Promise值的穿透
 		  background-color:: purple
+			- 通过观察，会发现我们希望下面这段代码：
+			- ```
+			  new Promise(resolve=>resolve(8))
+			    .then()
+			    .catch()
+			    .then(function(value) {
+			      alert(value)
+			    })
+			  ```
+			- 跟下面这段代码的行为是一样的：
+			- ```
+			  new Promise(resolve=>resolve(8))
+			    .then(function(value){
+			      return value
+			    })
+			    .catch(function(reason){
+			      throw reason
+			    })
+			    .then(function(value) {
+			      alert(value)
+			    })
+			  ```
+			- 所以如果想要把then的实参留空且让值可以穿透到后面，意味着then的两个参数的[[#blue]]==默认值==分别为`function(value) {return value}`，`function(reason) {throw reason}`。
+			  所以我们只需要把then里判断`onResolved`和`onRejected`的部分改成如下即可：
+			- ```
+			  onResolved = typeof onResolved === 'function' ? onResolved : function(value) {return value}
+			  onRejected = typeof onRejected === 'function' ? onRejected : function(reason) {throw reason}
+			  ```
+		- #### 不同Promise的交互
 			-
