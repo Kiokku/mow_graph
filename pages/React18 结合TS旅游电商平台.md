@@ -229,5 +229,12 @@
 		- 可以处理异步的逻辑
 	- ### 中间件原理
 	  background-color:: pink
-		-
+		- ![image.png](../assets/image_1689746612751_0.png)
+		- redux的异步处理：
+			- `redux-thunk`
+			- `redux-promise`
+			- `redux-saga`
+		- [[#blue]]==redux中间件公式：==
+			- `const middleware = (store) => (next) => (action)=> { }`
+			-
 	-
