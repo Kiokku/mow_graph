@@ -145,7 +145,6 @@
 - 实战项目
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
-  collapsed:: true
 	- [[前端技术一面]]
 - React
 	- React技术揭秘
