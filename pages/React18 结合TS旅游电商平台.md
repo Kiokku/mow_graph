@@ -170,6 +170,7 @@
 			  dispatch(xxxActionCreator(...))
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
+  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -236,5 +237,6 @@
 			- `redux-saga`
 		- [[#blue]]==redux中间件公式：==
 			- `const middleware = (store) => (next) => (action)=> { }`
-			-
+			- `middleware(store)(next)(action)`
+-
 	-
