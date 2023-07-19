@@ -206,6 +206,7 @@
 		- ![image.png](../assets/image_1689692268302_0.png)
 	- ### 中间件——redux-thunk实现异步action
 	  background-color:: pink
-		- redux-thunk使dispatch可以处理函数逻辑
 		- 使用：`const store = createStore(rootReducer, applyMiddleware(thunk));`
+		- `thunk action`可以返回一个函数，而不一定是一个对象
+		-
 	-
