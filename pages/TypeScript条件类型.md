@@ -97,6 +97,7 @@
 	  // type T1 = string | number
 	  ```
 - ## 分发条件类型（Distributive Conditional Types）
+  id:: 64a1826f-fe3a-4be9-ba0e-76235916dc53
 	- 当在泛型中使用条件类型的时候，如果传入一个联合类型，就会变成 **分发的（distributive）**，举个例子：
 	- ```
 	  type ToArray<Type> = Type extends any ? Type[] : never;
