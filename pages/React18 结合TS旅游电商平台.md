@@ -207,6 +207,27 @@
 	- ### 中间件——redux-thunk实现异步action
 	  background-color:: pink
 		- 使用：`const store = createStore(rootReducer, applyMiddleware(thunk));`
-		- `thunk action`可以返回一个函数，而不一定是一个对象
+		- 通过`ThunkAction type`：
+		- ```
+		  export const getDataActionCreator = (): ThunkAction<
+		      void,
+		      RootState,
+		      null,
+		      RecommendProductsAction
+		  > => async(dispatch) => {
+		      dispatch(fetchRecommendProductsStartActionCreator());
+		      try {
+		          const { data } = await axios.get("http://123.56.149.216:8080/api/productCollections")
+		          dispatch(fetchRecommendProductsSuccessActionCreator(data));
+		      } catch (error) {
+		          dispatch(fetchRecommendProductsFailActionCreator(error));
+		      }
+		  }
+		  ```
+		- `thunk action`可以返回一个函数，而不一定是一个对象；
+		- 在一个`thunk action`中可以完成一系列的action操作；
+		- 可以处理异步的逻辑
+	- ### 中间件原理
+	  background-color:: pink
 		-
 	-
