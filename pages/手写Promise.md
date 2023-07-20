@@ -585,5 +585,13 @@
 		    })
 		  ```
 		- 细看最后一行，`alert`被打成了`alter`，那为什么控制台没有报错呢，[[#red]]==因为`alter`所在的函数是被包在`try/catch`块里的，`alter`这个变量找不到就直接抛错了，这个错就正好成了then返回的Promise的rejection reason。==
+		- [[#red]]==在Promise链的最后一个then里出现的错误，非常难以发现，==有文章指出，可以在所有的Promise链的最后都加上一个catch，这样出错后就能被捕获到，这种方法确实是可行的，但是首先在每个地方都加上几乎相同的代码，违背了DRY原则，其次也相当的繁琐。另外，最后一个catch依然返回一个Promise，除非你能保证这个catch里的函数不再出错，否则问题依然存在。在Q中有一个方法叫done，把这个方法链到Promise链的最后，它就能够捕获前面未处理的错误，这其实跟在每个链后面加上catch没有太大的区别，只是由框架来做了这件事，相当于它提供了一个不会出错的catch链，我们可以这么实现done方法：
+		- ```
+		  Promise.prototype.done = function(){
+		    return this.catch(function(e) { // 此处一定要确保这个函数不能再出错
+		      console.error(e)
+		    })
+		  }
+		  ```
 		-
 -
