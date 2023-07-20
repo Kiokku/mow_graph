@@ -593,5 +593,48 @@
 		    })
 		  }
 		  ```
-		-
--
+		- 可是，能不能在不加catch或者done的情况下，也能够让开发者发现Promise链最后的错误呢？答案依然是肯定的。
+		- 我们可以在一个Promise被reject的时候检查这个Promise的onRejectedCallback数组，如果它为空，则说明它的错误将没有函数处理，这个时候，我们需要把错误输出到控制台，让开发者可以发现。以下为具体实现：
+		- ```
+		  function reject(reason) {
+		    setTimeout(function() {
+		      if (self.status === 'pending') {
+		        self.status = 'rejected'
+		        self.data = reason
+		        if (self.onRejectedCallback.length === 0) {
+		          console.error(reason)
+		        }
+		        for (var i = 0; i < self.rejectedFn.length; i++) {
+		          self.rejectedFn[i](reason)
+		        }
+		      }
+		    })
+		  }
+		  ```
+	- ### 最佳实践
+	  background-color:: pink
+		- 不要把Promise写成嵌套结构：
+		  logseq.order-list-type:: number
+			- ```
+			  // 错误的写法
+			  promise1.then(function(value) {
+			    promise1.then(function(value) {
+			      promise1.then(function(value) {
+			  
+			      })
+			    })
+			  })
+			  ```
+		- 链式Promise要返回一个Promise，而不只是构造一个Promise
+		  logseq.order-list-type:: number
+			- ```
+			  // 错误的写法
+			  Promise.resolve(1).then(function(){
+			    Promise.resolve(2)
+			  }).then(function(){
+			    Promise.resolve(3)
+			  })
+			  ```
+	- ### Promise相关的convenience method的实现
+	  background-color:: pink
+		- 请到[这里](https://github.com/xieranmaya/Promise3)查看`Promise.race`, `Promise.all`, `Promise.resolve`, `Promise.reject`等方法的具体实现，这里就不具体解释了，总的来说，只要then的实现是没有问题的，其它所有的方法都可以非常方便的依赖then来实现。
