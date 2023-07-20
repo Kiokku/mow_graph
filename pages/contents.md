@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -21,7 +20,6 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
-	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -85,7 +83,6 @@
 	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -127,7 +124,6 @@
 		- [[排序小结]]
 	- 分治
 	- 回溯
-	  collapsed:: true
 		- [[回溯算法]]
 		- [[全排列问题]]
 		- [[子集和问题]]
@@ -154,6 +150,7 @@
   collapsed:: true
 	- [[前端技术一面]]
 - React
+  collapsed:: true
 	- React技术揭秘
 	  collapsed:: true
 		- 理念篇
