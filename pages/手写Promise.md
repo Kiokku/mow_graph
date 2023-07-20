@@ -550,5 +550,40 @@
 		    .catch()
 		    .then()
 		  ```
+		- 假设这个`Big ERROR!!!`的出现让我们完全没有必要运行后面所有的代码了，但链式调用的后面即有catch，也有then，无论我们是`return`还是`throw`，都不可避免的会进入某一个`catch`或`then`里面，那有没有办法让这个链式调用在`Big ERROR!!!`的后面就停掉，完全不去执行链式调用后面所有回调函数呢？
+		- 从一个实现者的角度看问题时，就是[[#green]]==在发生`Big ERROR`后return一个Promise，但这个Promise的executor函数什么也不做==，这就意味着这个Promise将永远处于`pending`状态，由于then返回的Promise会直接取这个永远处于`pending`状态的Promise的状态，于是返回的这个Promise也将一直处于`pending`状态，后面的代码也就一直不会执行了，具体代码如下：
+		- ```
+		  new Promise(function(resolve, reject) {
+		    resolve(42)
+		  })
+		    .then(function(value) {
+		      // "Big ERROR!!!"
+		      return new Promise(function(){})
+		    })
+		    .catch()
+		    .then()
+		    .then()
+		    .catch()
+		    .then()
+		  ```
+		- 这种方式看起来有些山寨，它也确实解决了问题。但它[[#red]]==引入的一个新问题就是链式调用后面的所有回调函数都无法被垃圾回收器回收==（在一个靠谱的实现里，Promise应该在执行完所有回调后删除对所有回调函数的引用以让它们能被回收，在前文的实现里，为了减少复杂度，并没有做这种处理），但[[#green]]==如果我们不使用匿名函数==，而是使用函数定义或者函数变量的话，在需要多次执行的Promise链中，这些函数也都只有一份在内存中，不被回收也是可以接受的。
+		- 我们可以将返回一个什么也不做的Promise封装成一个有语义的函数，以增加代码的可读性：
+		- ```
+		  Promise.cancel = Promise.stop = function() {
+		    return new Promise(function(){})
+		  }
+		  ```
+	- ### Promise链上返回的最后一个Promise出错了怎么办？
+	  background-color:: pink
+		- 考虑如下代码：
+		- ```
+		  new Promise(function(resolve) {
+		    resolve(42)
+		  })
+		    .then(function(value) {
+		      alter(value)
+		    })
+		  ```
+		- 细看最后一行，`alert`被打成了`alter`，那为什么控制台没有报错呢，[[#red]]==因为`alter`所在的函数是被包在`try/catch`块里的，`alter`这个变量找不到就直接抛错了，这个错就正好成了then返回的Promise的rejection reason。==
 		-
 -
