@@ -500,6 +500,55 @@
 	    return this.then(null, onRejected)
 	  }
 	  
+	  Promise.deferred = Promise.defer = function() {
+	    var dfd = {}
+	    dfd.promise = new Promise(function(resolve, reject) {
+	      dfd.resolve = resolve
+	      dfd.reject = reject
+	    })
+	    return dfd
+	  }
+	  
 	  ```
-	-
+- ## 测试
+	- Promise有一个配套的[测试脚本](https://github.com/promises-aplus/promises-tests)，只需要我们在一个CommonJS的模块中暴露一个deferred方法（即exports.deferred方法），就可以了，代码见上述代码的最后。然后执行如下代码即可执行测试：
+	- ```
+	  npm i -g promises-aplus-tests
+	  promises-aplus-tests Promise.js
+	  ```
+- ## 关于Promise的其它问题
+	- ### Promise的性能问题
+	  background-color:: pink
+		- 理论上说，不能叫做“性能问题”，而只是有可能出现的延迟问题。什么意思呢，记得刚刚我们说需要把4块代码包在setTimeout里吧，先考虑如下代码：
+		- ```
+		  var start = +new Date()
+		  function foo() {
+		    setTimeout(function() {
+		      console.log('setTimeout')
+		      if((+new Date) - start < 1000) {
+		        foo()
+		      }
+		    })
+		  }
+		  foo()
+		  ```
+		- 运行上面的代码，会打印出多少次'setTimeout'呢，各位可以自己试一下，不出意外的话，应该是250次左右，我刚刚运行了一次，是241次。[[#green]]==这说明，上述代码中两次setTimeout运行的时间间隔约是4ms（另外，setInterval也是一样的），实事上，这正是浏览器两次Event Loop之间的时间间隔，相关标准各位可以自行查阅。==另外，在Node中，这个时间间隔跟浏览器不一样，经过我的测试，是1ms。
+		- 极端情况下，我们有20个Promise链式调用，加上代码运行的时间，那么这个链式调用的第一行代码跟最后一行代码的运行很可能会超过100ms，如果这之间没有对UI有任何更新的话，虽然本质上没有什么性能问题，但可能会造成一定的卡顿或者闪烁，虽然在web应用中这种情形并不常见，但是在Node应用中，确实是有可能出现这样的case的，所以一个能够应用于生产环境的实现有必要把这个延迟消除掉。在Node中，我们可以调用process.nextTick或者setImmediate（[Q就是这么做的](https://link.zhihu.com/?target=https%3A//github.com/kriskowal/q/blob/v1/q.js%23L101)），在浏览器中具体如何做，已经超出了本文的讨论范围，总的来说，就是我们需要实现一个函数，行为跟setTimeout一样，但它需要异步且尽早的调用所有已经加入队列的函数，[这里](http://www.bluejava.com/4NS/Speed-up-your-Websites-with-a-Faster-setTimeout-using-soon)有一个实现。
+	- ### 如何停止一个Promise链？
+	  background-color:: pink
+		- 在一些场景下，我们可能会遇到一个较长的Promise链式调用，在某一步中出现的错误让我们完全没有必要去运行链式调用后面所有的代码，类似下面这样（此处略去了then/catch里的函数）：
+		- ```
+		  new Promise(function(resolve, reject) {
+		    resolve(42)
+		  })
+		    .then(function(value) {
+		      // "Big ERROR!!!"
+		    })
+		    .catch()
+		    .then()
+		    .then()
+		    .catch()
+		    .then()
+		  ```
+		-
 -
