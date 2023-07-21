@@ -240,6 +240,20 @@
 - ## Redux-Toolkit——产品搜索页面
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
+		- `createReducer`: 简化reducer函数，使用`immer`大大简化state immutable的更新逻辑
+			- ```
+			  const counterReducer = createReducer(initialState, {
+			    increment: (state, action) => state + action.payload,
+			    decrement: (state, action) => state - action.payload,
+			  })
+			  
+			  console.log(counterReducer.getInitialState()) // 0
+			  ```
+		- `createAction`:  创建Action函数
+			- ```
+			  import { createAction } from '@reduxjs/toolkit'
+			  
+			  const increment = createAction<number | undefined>('counter/increment')
+			  ```
 		-
-	-
 	-
