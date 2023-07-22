@@ -273,6 +273,9 @@
 			      | ((builder: ActionReducerMapBuilder<State>) => void)
 			  })
 			  ```
+			- slice的使用：
+				- `reducer`：xxxSlice.reducer
+				- action: xxxSlice.actions.xxx
 		- `configureStore`: 代替`createStore`函数
 	- ### RTK与redux代码混合使用
 	  background-color:: pink
