@@ -302,7 +302,7 @@
 	  background-color:: pink
 		- #### createAsyncThunk
 		  background-color:: green
-			- `configureStore`：取代createStore使用
+			- `configureStore`：取代`createStore`使用,
 			- `createAction`: `pending`, `fulfilled`, and `rejected`
 			- 在slice中要定义在`extraReducers`中：
 				- ```
@@ -315,4 +315,4 @@
 				    },
 				  })
 				  ```
-	-
+			-
