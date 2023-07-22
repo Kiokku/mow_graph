@@ -302,7 +302,13 @@
 	  background-color:: pink
 		- #### createAsyncThunk
 		  background-color:: green
-			- `configureStore`：取代`createStore`使用,
+			- `configureStore`：取代`createStore`使用，`getDefaultMiddleware`避免覆盖默认中间件：
+				- ```
+				  const store = configureStore({
+				      reducer: rootReducer,
+				      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(actionLog), 
+				  })
+				  ```
 			- `createAction`: `pending`, `fulfilled`, and `rejected`
 			- 在slice中要定义在`extraReducers`中：
 				- ```
