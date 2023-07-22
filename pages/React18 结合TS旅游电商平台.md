@@ -274,5 +274,7 @@
 			  })
 			  ```
 		- `configureStore`: 代替`createStore`函数
-	-
+	- ### RTK与redux代码混合使用
+	  background-color:: pink
+		- `combine`
 	-
