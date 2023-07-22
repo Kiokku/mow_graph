@@ -275,7 +275,7 @@
 			  ```
 			- slice的使用：
 				- `reducer`：xxxSlice.reducer
-				- action: xxxSlice.actions.xxx
+				- `action`: xxxSlice.actions.xxx()
 		- `configureStore`: 代替`createStore`函数
 	- ### RTK与redux代码混合使用
 	  background-color:: pink
@@ -288,5 +288,7 @@
 			      productDetail: productDetailSlice.reducer, // RTK
 			  })
 			  ```
+	- ### 在RTK中使用redux-thunk处理异步逻辑
+	  background-color:: pink
 		-
 	-
