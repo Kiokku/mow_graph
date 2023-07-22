@@ -240,7 +240,9 @@
 - ## Redux-Toolkit——产品搜索页面
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
-		- `createReducer`: 简化reducer函数，使用`immer`大大简化state immutable的更新逻辑
+		- #### createReducer
+		  background-color:: green
+			- 简化reducer函数，使用`immer`大大简化state immutable的更新逻辑
 			- ```
 			  const counterReducer = createReducer(initialState, {
 			    increment: (state, action) => state + action.payload,
@@ -249,13 +251,17 @@
 			  
 			  console.log(counterReducer.getInitialState()) // 0
 			  ```
-		- `createAction`:  创建Action函数
+		- #### createAction
+		  background-color:: green
+			- 创建Action函数
 			- ```
 			  import { createAction } from '@reduxjs/toolkit'
 			  
 			  const increment = createAction<number | undefined>('counter/increment')
 			  ```
-		- **`createSlice`**:  A function that accepts an[[#green]]==`initial state` , an object of `reducer` functions, and a "`slice name`",== and automatically [[#blue]]==generates `action creators` and `action types` that correspond to the `reducers` and `state`==.
+		- #### createSlice
+		  background-color:: red
+			- A function that accepts an[[#green]]==`initial state` , an object of `reducer` functions, and a "`slice name`",== and automatically [[#blue]]==generates `action creators` and `action types` that correspond to the `reducers` and `state`==.
 			- 编写redux的标准方式；
 			- ```
 			  function createSlice({
@@ -276,10 +282,14 @@
 			- slice的使用：
 				- `reducer`：xxxSlice.reducer
 				- `action`: xxxSlice.actions.xxx()
-		- `configureStore`: 代替`createStore`函数
+		- #### configureStore
+		  background-color:: green
+			- 代替`createStore`函数
 	- ### RTK与redux代码混合使用
 	  background-color:: pink
-		- `combineReducers`: `combineReducers`支持RTK与redux代码的混用，需要从[[#blue]]==`@reduxjs/toolkit`包==引入`combineReducers`，而不再从`redux`引入。
+		- #### combineReducers
+		  background-color:: green
+			- `combineReducers`支持RTK与redux代码的混用，需要从[[#green]]==`@reduxjs/toolkit`包==引入`combineReducers`，而不再从`redux`引入。
 			- ```
 			  import { combineReducers } from "@reduxjs/toolkit";
 			  const rootReducer = combineReducers({
@@ -290,5 +300,7 @@
 			  ```
 	- ### 在RTK中使用redux-thunk处理异步逻辑
 	  background-color:: pink
-		-
+		- #### createAsyncThunk
+		  background-color:: green
+			-
 	-
