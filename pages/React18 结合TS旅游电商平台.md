@@ -309,7 +309,17 @@
 				      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(actionLog), 
 				  })
 				  ```
-			- `createAction`: `pending`, `fulfilled`, and `rejected`
+			- `createAction`: 自动返回`pending`, `fulfilled`, and `rejected`reducer函数；
+			- `createAsyncThunk`的`payloadCreator`回调函数[[#blue]]==要返回一个promise==，交给extraReducer处理；
+				- ```
+				  const fetchUserById = createAsyncThunk(
+				    'users/fetchByIdStatus',
+				    async (userId: number, thunkAPI) => {
+				      const response = await userAPI.fetchById(userId)
+				      return response.data
+				    }
+				  )
+				  ```
 			- 在slice中要定义在`extraReducers`中：
 				- ```
 				  const reducer3 = createSlice({
@@ -317,7 +327,9 @@
 				    initialState,
 				    reducers: {},
 				    extraReducers: {
+				    	[fetchUserById.pending]: (state) => state.loading = true,
 				      [fetchUserById.fulfilled]: (state, action) => {},
+				      [fetchUserById.reject]: (state, action) => {}
 				    },
 				  })
 				  ```
