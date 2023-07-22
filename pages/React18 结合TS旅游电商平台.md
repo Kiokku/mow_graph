@@ -302,5 +302,17 @@
 	  background-color:: pink
 		- #### createAsyncThunk
 		  background-color:: green
-			-
+			- `configureStore`：取代createStore使用
+			- `createAction`: `pending`, `fulfilled`, and `rejected`
+			- 在slice中要定义在`extraReducers`中：
+				- ```
+				  const reducer3 = createSlice({
+				    name: 'users',
+				    initialState,
+				    reducers: {},
+				    extraReducers: {
+				      [fetchUserById.fulfilled]: (state, action) => {},
+				    },
+				  })
+				  ```
 	-
