@@ -91,7 +91,6 @@
 				  }
 				  ```
 - ## Redux-项目架构方案
-  collapsed:: true
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
 	- ### state和store
@@ -170,6 +169,7 @@
 			  dispatch(xxxActionCreator(...))
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
+  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -276,5 +276,14 @@
 		- `configureStore`: 代替`createStore`函数
 	- ### RTK与redux代码混合使用
 	  background-color:: pink
-		- `combine`
+		- `combineReducers`: `combineReducers`支持RTK与redux代码的混用，需要从[[#blue]]==`@reduxjs/toolkit`包==引入`combineReducers`，而不再从`redux`引入。
+			- ```
+			  import { combineReducers } from "@reduxjs/toolkit";
+			  const rootReducer = combineReducers({
+			      language: languageReducer,
+			      recommendProducts: recommendProductsReducer,
+			      productDetail: productDetailSlice.reducer, // RTK
+			  })
+			  ```
+		-
 	-
