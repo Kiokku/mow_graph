@@ -274,6 +274,5 @@
 			  })
 			  ```
 		- `configureStore`: 代替`createStore`函数
-			- ```
-			  ```
+	-
 	-
