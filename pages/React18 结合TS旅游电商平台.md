@@ -239,6 +239,7 @@
 			- `const middleware = (store) => (next) => (action)=> { }`
 			- `middleware(store)(next)(action)`
 - ## Redux-Toolkit——产品搜索页面
+  collapsed:: true
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
 		- #### createReducer
@@ -335,4 +336,6 @@
 				  })
 				  ```
 			-
--
+- ## 页面布局Layouts
+	- DRY原则-
+	-
