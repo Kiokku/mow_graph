@@ -337,5 +337,6 @@
 				  ```
 			-
 - ## 页面布局Layouts
-	- DRY原则-
+	- [[#green]]==DRY原则-Don't Repeat Yourself!==
+	- 通用页面layouts
 	-
