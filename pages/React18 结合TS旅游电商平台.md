@@ -359,14 +359,14 @@
 		- #### JWT原理
 		  background-color:: green
 			- ![image.png](../assets/image_1690298840677_0.png)
-			- header：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+			- HEADER：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 				- ```
 				  {
 				    "alg": "HS256", // 加密算法
 				    "typ": "JWT"
 				  }
 				  ```
-			- payload：eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+			- PAYLOAD：eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
 				- ```
 				  // 用户信息
 				  {
@@ -375,3 +375,9 @@
 				    "iat": 1516239022
 				  }
 				  ```
+			- VERIFY SIGNATURE：SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+				- 数字签名，用于服务器验证
+			- [[#green]]==**JWT优点**==：
+				- 无状态登陆，简单、方便，完美支持分布式部署；
+				- 非对称加密（RSA），Token安全性高；
+			- **JWT缺点**：
