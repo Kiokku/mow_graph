@@ -340,7 +340,17 @@
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
 - ## 用户登陆
-	- ### JWT原理
+	- ### JWT(JSON Web Token)原理
 	  background-color:: pink
+		- [[#blue]]==用户授权（Authorization）==，注意区分与[[#red]]==用户认证（Authentication）==的区别：
+			- **用户认证**：是指使用用户名、密码来验证当前用户的身份，错误状态码（401 Unauthorized 未授权）；
+			- **用户授权**：是指用户登陆后有足够的权限访问特定的资源，错误状态码（403 forbidden 禁止访问）。
+		- [[#red]]==传统的Session登陆==：
+			- 用户登陆后，服务器保持登陆的Session信息，即；
+			- Session ID通过cookie传递给客户端；
+			- http请求附带cookie。
+		-
+		-
+		-
 		-
 	-
