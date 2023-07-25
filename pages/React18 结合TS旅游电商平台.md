@@ -346,11 +346,32 @@
 			- **用户认证**：是指使用用户名、密码来验证当前用户的身份，错误状态码（401 Unauthorized 未授权）；
 			- **用户授权**：是指用户登陆后有足够的权限访问特定的资源，错误状态码（403 forbidden 禁止访问）。
 		- [[#red]]==传统的Session登陆==：
-			- 用户登陆后，服务器保持登陆的Session信息，即；
+			- 用户登陆后，服务器保持登陆的Session信息，即[[#blue]]==有状态登陆==；
 			- Session ID通过cookie传递给客户端；
 			- http请求附带cookie。
-		-
-		-
-		-
-		-
-	-
+		- [[#green]]==JWT登陆==：
+			- 替换cookie；
+			- JWT信息只保存在客户端，即[[#blue]]==无状态登陆==；
+			- 优势：**分布式部署**
+		- [[#blue]]==有状态登陆 vs 无状态登陆==：
+			- ![image.png](../assets/image_1690298562698_0.png)
+			- ![image.png](../assets/image_1690298635023_0.png)
+		- #### JWT原理
+		  background-color:: green
+			- ![image.png](../assets/image_1690298840677_0.png)
+			- header：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+				- ```
+				  {
+				    "alg": "HS256", // 加密算法
+				    "typ": "JWT"
+				  }
+				  ```
+			- payload：eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ
+				- ```
+				  // 用户信息
+				  {
+				    "sub": "1234567890",
+				    "name": "John Doe",
+				    "iat": 1516239022
+				  }
+				  ```
