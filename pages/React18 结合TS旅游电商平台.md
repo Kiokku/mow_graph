@@ -392,4 +392,9 @@
 			- cookie不超过**4k**；web storage上限**5MB**以上；session无上限；
 			- cookie、web storage安全性差；sesison性能差；
 			- cookie在http请求中会自动携带；web storage不会自动发送；
-		- JWT
+		- **JWT**
+			- 只能选择cookie、web storage保存；
+		- #### **Web Storage** 类型
+		  background-color:: green
+			- `SessionStorage`：仅在当前浏览器窗口关闭之前有效；
+			- `LocalStorage`：始终有效
