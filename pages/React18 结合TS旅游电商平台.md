@@ -340,6 +340,7 @@
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
 - ## 用户登陆
+  collapsed:: true
 	- ### JWT(JSON Web Token)原理
 	  background-color:: pink
 	  collapsed:: true
@@ -398,3 +399,19 @@
 		  background-color:: green
 			- `SessionStorage`：仅在当前浏览器窗口关闭之前有效；
 			- `LocalStorage`：始终有效
+			- `redux-persist`：在redux中使用web storage插件
+				- ```
+				  // persistor配置
+				  const persistConfig = {
+				      key: "root",
+				      storage, // 默认local storage
+				      whitelist: ["user"] // 白名单
+				  }
+				  
+				  // reducer
+				  const persistedReducer = persistReducer(persistConfig, rootReducer);
+				  
+				  export const persistor = persistStore(store); 
+				  ```
+- ## 订单系统
+	-
