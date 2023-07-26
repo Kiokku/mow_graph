@@ -342,6 +342,7 @@
 - ## 用户登陆
 	- ### JWT(JSON Web Token)原理
 	  background-color:: pink
+	  collapsed:: true
 		- [[#blue]]==用户授权（Authorization）==，注意区分与[[#red]]==用户认证（Authentication）==的区别：
 			- **用户认证**：是指使用用户名、密码来验证当前用户的身份，错误状态码（401 Unauthorized 未授权）；
 			- **用户授权**：是指用户登陆后有足够的权限访问特定的资源，错误状态码（403 forbidden 禁止访问）。
@@ -384,3 +385,11 @@
 				- 无状态，token一经发布则无法取消；
 				- header、payload明文传输，安全性低，可以[[#green]]==使用https解决==；
 		-
+	- ### 登陆持久化 redux-persist
+	  background-color:: pink
+		- **cookie**、**session**和**web storage**
+			- cookie、web storage保存在浏览器中；session保存在服务器上；
+			- cookie不超过**4k**；web storage上限**5MB**以上；session无上限；
+			- cookie、web storage安全性差；sesison性能差；
+			- cookie在http请求中会自动携带；web storage不会自动发送；
+		- JWT
