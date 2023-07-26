@@ -416,4 +416,12 @@
 - ## 订单系统
 	- ### 私有路由
 	  background-color:: pink
-		-
+		- `PrivateRoute`：通过`jwt`登陆信息判断页面跳转
+			- ```
+			  const PrivateRoute = ({ children }) => {
+			    const jwt = useSelector((state) => state.user.token);
+			    return jwt ? children : <Navigate to="/sign-in" />
+			  }
+			  
+			  
+			  ```
