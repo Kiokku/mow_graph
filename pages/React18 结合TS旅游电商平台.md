@@ -422,6 +422,8 @@
 			    const jwt = useSelector((state) => state.user.token);
 			    return jwt ? children : <Navigate to="/sign-in" />
 			  }
-			  
-			  
+			  ...
+			  	<Route path="shoppingCart" element={<PrivateRoute><ShoppingCartPage /></PrivateRoute>} />
+			  ...
 			  ```
+	-
