@@ -508,5 +508,10 @@
 				  EXPOSE 80
 				  CMD [ "nginx", "-g", "daemon off;" ]
 				  ```
+			- 构建镜像
+			  background-color:: purple
+				- `docker build -t react-web .`
+			- 运行镜像
+			  background-color:: purple
+				- `docker run -d -p 12231:80 react-web`
 			-
-			- logseq.order-list-type:: number
