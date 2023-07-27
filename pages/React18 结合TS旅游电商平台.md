@@ -465,4 +465,7 @@
 				- 下载 [Docker](https://www.docker.com/)
 				  logseq.order-list-type:: number
 			- Mac系统配置：
+			  background-color:: purple
+				- 下载[Docker](https://www.docker.com/)即可
+				  logseq.order-list-type:: number
 			-
