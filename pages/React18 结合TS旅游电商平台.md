@@ -484,4 +484,10 @@
 					  logseq.order-list-type:: number
 						- [troubleshooting](https://coding.imooc.com/learn/questiondetail/2JZ906eerxe6arpL.html)
 						  logseq.order-list-type:: number
-				- logseq.order-list-type:: number
+					- 运行 `nginx`，查看`localhost:9566`
+					  logseq.order-list-type:: number
+					- ![image.png](../assets/image_1690442865477_0.png)
+					  logseq.order-list-type:: number
+		- #### 容器部署自动化
+			- Dockerfile
+			- logseq.order-list-type:: number
