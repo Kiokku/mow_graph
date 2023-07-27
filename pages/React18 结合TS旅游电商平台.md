@@ -435,4 +435,12 @@
 			- 安装serve：`npm install -g serve`
 			- 打包：`npm run build`
 			- 部署：`serve -s build`或`serve -s build -l 8080`指定端口
+	- ### 容器化部署—Docker
+	  background-color:: pink
+		- **Docker核心概念**：
+			- Registry镜像仓库：如 [Docker Hub](https://hub.docker.com/)
+			- Image镜像：docker 命令拉取镜像 `docker pull node`
+			- Container容器：启动命令 `docker run -it <image> /bin/bash`
+		- ![image.png](../assets/image_1690439646404_0.png)
+		- [[#green]]==**Docker 常用命令**：==
 			-
