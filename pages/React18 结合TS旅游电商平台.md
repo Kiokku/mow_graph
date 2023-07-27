@@ -468,4 +468,9 @@
 			  background-color:: purple
 				- 下载[Docker](https://www.docker.com/)即可
 				  logseq.order-list-type:: number
-			-
+			- 搭建容器化web服务器：
+			  background-color:: purple
+				- 在Docker中拉取linux镜像：
+				  logseq.order-list-type:: number
+					- `docker pull centos:latest`
+				- logseq.order-list-type:: number
