@@ -480,6 +480,8 @@
 				  logseq.order-list-type:: number
 					- 添加安装源`rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm`
 					  logseq.order-list-type:: number
-					- 安装nginx
+					- 安装nginx `yum install -y nginx`
 					  logseq.order-list-type:: number
+						- [troubleshooting](https://coding.imooc.com/learn/questiondetail/2JZ906eerxe6arpL.html)
+						  logseq.order-list-type:: number
 				- logseq.order-list-type:: number
