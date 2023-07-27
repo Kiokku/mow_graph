@@ -63,7 +63,6 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -126,6 +125,7 @@
 		- [[排序小结]]
 	- 分治
 	- 回溯
+	  collapsed:: true
 		- [[回溯算法]]
 		- [[全排列问题]]
 		- [[子集和问题]]
@@ -143,6 +143,7 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 - 实战项目
 	- [[React18 结合TS旅游电商平台]]
