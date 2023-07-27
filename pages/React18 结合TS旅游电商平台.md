@@ -473,4 +473,13 @@
 				- 在Docker中拉取linux镜像：
 				  logseq.order-list-type:: number
 					- `docker pull centos:latest`
+					  logseq.order-list-type:: number
+					- `docker run -p 9566:80 --name web -i -t centos /bin/bash`
+					  logseq.order-list-type:: number
+				- 在linux中安装nginx：
+				  logseq.order-list-type:: number
+					- 添加安装源`rpm -ivh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm`
+					  logseq.order-list-type:: number
+					- 安装nginx
+					  logseq.order-list-type:: number
 				- logseq.order-list-type:: number
