@@ -514,4 +514,6 @@
 			- 运行镜像
 			  background-color:: purple
 				- `docker run -d -p 12231:80 react-web`
-			-
+	- ### 容器化部署阿里云ECS
+	  background-color:: pink
+		-
