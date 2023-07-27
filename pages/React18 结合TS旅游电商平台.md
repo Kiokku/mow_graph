@@ -434,4 +434,5 @@
 		- `node serve`部署网站：
 			- 安装serve：`npm install -g serve`
 			- 打包：`npm run build`
-			- 部署：``
+			- 部署：`serve -s build`或`serve -s build -l 8080`指定端口
+			-
