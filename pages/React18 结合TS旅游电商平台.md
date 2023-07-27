@@ -337,6 +337,7 @@
 				  ```
 			-
 - ## 页面布局Layouts
+  collapsed:: true
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
 - ## 用户登陆
@@ -414,6 +415,7 @@
 				  export const persistor = persistStore(store); 
 				  ```
 - ## 订单系统
+  collapsed:: true
 	- ### 私有路由
 	  background-color:: pink
 		- `PrivateRoute`：通过`jwt`登陆信息判断页面跳转
@@ -429,4 +431,7 @@
 - ## 网站部署
 	- ### 静态部署—本地服务器托管
 	  background-color:: pink
-		-
+		- `node serve`部署网站：
+			- 安装serve：`npm install -g serve`
+			- 打包：`npm run build`
+			- 部署：``
