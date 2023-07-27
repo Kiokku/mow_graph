@@ -443,4 +443,26 @@
 			- Container容器：启动命令 `docker run -it <image> /bin/bash`
 		- ![image.png](../assets/image_1690439646404_0.png)
 		- [[#green]]==**Docker 常用命令**：==
+			- |命令|作用|
+			  |--|--|
+			  |docker build -t demotest|构建 demotest 镜像|
+			  |docker images|查看当前所有的镜像|
+			  |docker inspect demotest|查看运行容器的详情|
+			  |docker ps|查看当前运行的容器|
+			  |docker ps -a|查看当前所有的容器|
+			  |docker stop demotest|停止运行 demotest 容器|
+			  |docker start demotest|开启运行demotest 容器|
+			  |docker rm demotest|删除 demotest 容器|
+			  |docker rmi demotest|删除 demotest 镜像|
+		- #### 容器化方案与Docker配置
+		  background-color:: green
+			- Windows系统配置：
+			  background-color:: purple
+				- Windows 10 专业版以上version
+				  logseq.order-list-type:: number
+				- 开启windows Hyper-V功能
+				  logseq.order-list-type:: number
+				- 下载 [Docker](https://www.docker.com/)
+				  logseq.order-list-type:: number
+			- Mac系统配置：
 			-
