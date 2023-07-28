@@ -13,5 +13,9 @@
   background-color:: blue
 	- 首先 TS 永远不会执行代码，所以脑子里不要有 “await 得等一下才知道结果” 的念头。该题关键就是从 `Promise<T>` 中抽取类型 `T`，很适合用 `infer` 做：
 	- ```
-	  type MyAwaited = 
+	  type MyAwaited<T> = T extends Promise<infer U> ? U : never
+	  ```
+	- 然而这个答案还不够标准，标准答案考虑了[[#blue]]==嵌套 `Promise` 的场景==：
+	- ```
+	  type 
 	  ```
