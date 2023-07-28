@@ -17,5 +17,8 @@
 	  ```
 	- 然而这个答案还不够标准，标准答案考虑了[[#blue]]==嵌套 `Promise` 的场景==：
 	- ```
-	  type MyAwaited<T extends Promise<unknow>> = T extends
+	  type MyAwaited<T extends Promise<unknow>> = T extends Promise<infer P> ?
+	  	P extends Promise<unknow> ? MyAwaited<P> : P
+	      : never
 	  ```
+	- 如果 `Promise<P>` 取到的 `P` 还形如 `Promise<unknown>`，就递归调用自己 `MyAwaited<P>`。
