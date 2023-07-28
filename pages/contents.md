@@ -83,7 +83,6 @@
 	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
@@ -143,6 +142,7 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 - 实战项目
 	- [[React18 结合TS旅游电商平台]]
