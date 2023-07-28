@@ -9,3 +9,9 @@
 	  
 	  type Result = MyAwaited<ExampleType> // string
 	  ```
+- ## 解答
+  background-color:: blue
+	- 首先 TS 永远不会执行代码，所以脑子里不要有 “await 得等一下才知道结果” 的念头。该题关键就是从 `Promise<T>` 中抽取类型 `T`，很适合用 `infer` 做：
+	- ```
+	  type MyAwaited = 
+	  ```
