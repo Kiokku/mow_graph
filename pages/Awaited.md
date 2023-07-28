@@ -17,5 +17,5 @@
 	  ```
 	- 然而这个答案还不够标准，标准答案考虑了[[#blue]]==嵌套 `Promise` 的场景==：
 	- ```
-	  type 
+	  type MyAwaited<T extends Promise<unknow>> = T extends
 	  ```
