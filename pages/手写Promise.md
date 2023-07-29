@@ -249,7 +249,6 @@
 			- 正确的行为应该是alert出8，而如果拿我们的Promise，运行上述代码，将会alert出undefined。这种行为称为**穿透**，即8这个值会穿透两个then(说Promise更为准确)到达最后一个then里的foo函数里，成为它的实参，最终将会alert出8。
 		- #### Promise值的穿透
 		  background-color:: purple
-		  collapsed:: true
 			- 通过观察，会发现我们希望下面这段代码：
 			- ```
 			  new Promise(resolve=>resolve(8))
