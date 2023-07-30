@@ -176,7 +176,7 @@
 		          if (x instanceof Promise) {
 		            x.then(resolve, reject)
 		          }
-		          reject(e)
+		          reject(x)
 		        } catch (e) {
 		          reject(e)
 		        }
@@ -195,6 +195,7 @@
 		            if (x instanceof Promise) {
 		              x.then(resolve, reject)
 		            }
+		            resolve(x)
 		          } catch (e) {
 		            reject(e)
 		          }
@@ -206,6 +207,7 @@
 		            if (x instanceof Promise) {
 		              x.then(resolve, reject)
 		            }
+		            reject(x)
 		          } catch (e) {
 		            reject(e)
 		          }
