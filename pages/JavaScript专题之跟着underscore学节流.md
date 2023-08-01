@@ -31,7 +31,6 @@
 	  // 第二版
 	  function throttle(func, wait) {
 	      var timeout;
-	      var previous = 0;
 	  
 	      return function() {
 	          context = this;
