@@ -10,4 +10,6 @@
 - ## 解答
   background-color:: blue
 	- ```
+	  type Concat<P extends any[], Q extends any[]> = [...P, ...Q]
 	  ```
+	- TS 支持数组解构语法`...`
