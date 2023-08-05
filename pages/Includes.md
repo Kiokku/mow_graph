@@ -39,5 +39,10 @@
 		- 有了 `Equal` 后就简单了，我们用解构 + `infer` + 递归的方式做就可以了：
 		- ```
 		  type Includes<T includes any[], K> =
-		  	
+		  	isEqual<T[0], K> extends true
+		  		? true
+		          : Value extends [Value[0], ...infer rest]
+		          	? Includes<rest, K>
+		              : false;
 		  ```
+-
