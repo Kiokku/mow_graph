@@ -28,7 +28,6 @@
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
 - ## 主页开发
-  collapsed:: true
 	- [[#blue]]==文件夹结构==
 		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
 		- `index.ts`：导出组件，避免过长的组件引用地址
@@ -89,7 +88,6 @@
 				  }
 				  ```
 - ## Redux-项目架构方案
-  collapsed:: true
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
 	- ### state和store
@@ -413,7 +411,6 @@
 				  export const persistor = persistStore(store); 
 				  ```
 - ## 订单系统
-  collapsed:: true
 	- ### 私有路由
 	  background-color:: pink
 		- `PrivateRoute`：通过`jwt`登陆信息判断页面跳转
