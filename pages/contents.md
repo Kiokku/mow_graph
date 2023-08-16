@@ -43,6 +43,7 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -62,6 +63,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -149,6 +151,7 @@
 - 前端面试
 	- [[前端技术一面]]
 - React
+  collapsed:: true
 	- React技术揭秘
 	  collapsed:: true
 		- 理念篇
