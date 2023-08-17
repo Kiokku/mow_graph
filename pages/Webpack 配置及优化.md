@@ -20,4 +20,7 @@
 		- `contentBase`：指定[[#green]]==根目录==或者用`static`指定[[#green]]==静态资源==
 	- ### 处理 ES6
 	  background-color:: pink
-		-
+		- `babel-loader`
+		- `.babelrc`
+	- ### 处理 CSS
+		- `css-loader`
