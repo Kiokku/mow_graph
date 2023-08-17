@@ -32,4 +32,26 @@
 - ## Webpack 高级配置
 	- ### webpack 如何配置多入口
 	  background-color:: pink
+		- `entry: './app/entry'`：只有1个入口，入口只有1个文件
+		- `entry: ['./app/entry1', './app/entry2']`： 只有1个入口，入口有2个文件
+		- `entry: { a: './app/entry-a', b: ['./app/entry-b1', './app/entry-b2']}`：有2个入口
+		- 对应输出output：
+			- ```
+			  output: {
+			    // 输出文件的名称
+			    filename: 'bundle.js', // 完整的名称
+			    filename: '[name].js', // 当配置了多个 entry 时，通过名称模版为不同的 entry 生成不同的文件名称
+			    filename: '[chunkhash].js', // 根据文件内容 hash 值生成文件名称，用于浏览器长时间缓存文件
+			  ```
+		- 多入口生成html：
+			- ```
+			  const { WebPlugin } = require('web-webpack-plugin');
+			  
+			  new WebPlugin({
+			  	filename: 'index.html',
+			  	// html template file path（full path relative to webpack.config.js）
+			  	template: './template.html',
+			  	requires: ['A', 'B'],
+			  }),
+			  ```
 		-
