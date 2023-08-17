@@ -8,9 +8,13 @@
 		- **merge**：
 			- ```
 			  const { smart } = require('webpack-merge')；
-			  const webpackCommonConf = requi
+			  const webpackCommonConf = require('./webpack.common.js');
 			  
-			  module.exports = smart()
+			  module.exports = smart(webpackCommonConf, {
+			      ....
+			  })
 			  ```
+	- ### 启动本地服务 dev-server
+	  background-color:: pink
 		-
 		-
