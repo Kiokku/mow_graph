@@ -23,4 +23,6 @@
 		- `babel-loader`
 		- `.babelrc`
 	- ### 处理 CSS
+		- `style-loader`
 		- `css-loader`
+		- `postcss-loader`:
