@@ -11,4 +11,5 @@
 	  ```
 - ## 解答
   background-color:: blue
-	-
+	- `type Parameters<T> = T extends (...args: infer P) => any ? P : []`
+	- `infer` 可以很方便从任何具体的位置取值
