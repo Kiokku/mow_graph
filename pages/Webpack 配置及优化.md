@@ -1,4 +1,5 @@
 - ## Webpack基础
+  collapsed:: true
 	- ### 拆分配置和 merge
 	  background-color:: pink
 		- 不同环境对应不同的webpack配置文件**拆分**：
@@ -23,6 +24,12 @@
 		- `babel-loader`
 		- `.babelrc`
 	- ### 处理 CSS
+	  background-color:: pink
 		- `style-loader`
 		- `css-loader`
-		- `postcss-loader`:
+		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
+	-
+- ## Webpack 高级配置
+	- ### webpack 如何配置多入口
+	  background-color:: pink
+		-
