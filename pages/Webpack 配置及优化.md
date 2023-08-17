@@ -16,5 +16,8 @@
 			  ```
 	- ### 启动本地服务 dev-server
 	  background-color:: pink
-		-
+		- `webpack serve --open`：cli 启动dev-server
+		- `contentBase`：指定[[#green]]==根目录==或者用`static`指定[[#green]]==静态资源==
+	- ### 处理 ES6
+	  background-color:: pink
 		-
