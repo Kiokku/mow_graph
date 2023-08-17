@@ -14,5 +14,6 @@
 		  background-color:: red
 		- [[Push]]
 		- [[Unshift]]
+		- [[Parameters]]
 		-
 -
