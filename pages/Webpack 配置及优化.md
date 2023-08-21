@@ -1,5 +1,4 @@
 - ## Webpack基础
-  collapsed:: true
 	- ### 拆分配置和 merge
 	  background-color:: pink
 		- 不同环境对应不同的webpack配置文件**拆分**：
