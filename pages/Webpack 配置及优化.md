@@ -66,5 +66,16 @@
 				  	new MiniCssExtractPlugin({
 				      	filename: 'css/main.[contentHash:8].css'
 				      })
+				  ];
+				  
+				  optimization: [
+				  	minimizer: [
+				      	new CssMinimizerPlugin(),
+				          // or 
+				          // new TerserPlugin(), new OptimizeCssAssetsPlugin()
+				      ]
 				  ]
 				  ```
+	- ### webpack 抽离公共代码
+	  background-color:: pink
+		-
