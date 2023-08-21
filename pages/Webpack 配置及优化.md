@@ -55,4 +55,8 @@
 			  ```
 	- ### webpack 抽离CSS 文件
 	  background-color:: pink
-		-
+		- dev环境：配置不变，`style-loader`、`css-loader`、`postcss-loader`
+		- 生产环境：
+			- `MiniCssExtractPlugin.loader`：不再使用style- loader；
+			- `css-loader`
+			- postcss-
