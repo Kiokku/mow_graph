@@ -57,6 +57,14 @@
 	  background-color:: pink
 		- dev环境：配置不变，`style-loader`、`css-loader`、`postcss-loader`
 		- 生产环境：
-			- `MiniCssExtractPlugin.loader`：不再使用style- loader；
+			- `MiniCssExtractPlugin.loader`：不再使用style- loader，抽离css到单独文件；
 			- `css-loader`
-			- postcss-
+			- `postcss-loader`
+			- [[#green]]==抽离文件的目录==：
+				- ```
+				  plugins: [
+				  	new MiniCssExtractPlugin({
+				      	filename: 'css/main.[contentHash:8].css'
+				      })
+				  ]
+				  ```
