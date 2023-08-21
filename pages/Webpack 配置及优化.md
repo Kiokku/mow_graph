@@ -53,4 +53,6 @@
 			  	requires: ['A', 'B'],
 			  }),
 			  ```
+	- ### webpack 抽离CSS 文件
+	  background-color:: pink
 		-
