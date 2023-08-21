@@ -60,7 +60,7 @@
 			- `MiniCssExtractPlugin.loader`：不再使用style- loader，抽离css到单独文件；
 			- `css-loader`
 			- `postcss-loader`
-			- [[#green]]==抽离文件的目录==：
+			- [[#green]]==抽离文件并压缩==：
 				- ```
 				  plugins: [
 				  	new MiniCssExtractPlugin({
