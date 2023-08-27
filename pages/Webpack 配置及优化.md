@@ -83,5 +83,12 @@
 		- optimization
 			- splitChunks
 				- chunks: `all`、`initial`、`async`
-				-
+				- cacheGroup 缓存分组
+					- vendor 第三方模块
+						- name: 'vendor',  // chunk 名称
+						- priority: 1, // 权限更高，优先抽离，重要！！
+						- test: \/node_modules\/,
+						- miniSize: 0, // 大小限制
+						- minChunks: 1, // 最少复用次数
+					- common 公共模块
 		-
