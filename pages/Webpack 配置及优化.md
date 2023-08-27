@@ -96,7 +96,7 @@
 						- priority: 0,
 						- miniSize: 0,
 						- minChunks: 2,
-	- ### webpack 异步加载JS——懒加载
+	- ### webpack 处理JSX
 	  background-color:: pink
 		-
 		-
