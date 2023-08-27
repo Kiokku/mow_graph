@@ -95,4 +95,6 @@
 						- priority: 0,
 						- miniSize: 0,
 						- minChunks: 2,
-	- ###
+	- ### webpack 异步加载JS
+	  background-color:: pink
+		-
