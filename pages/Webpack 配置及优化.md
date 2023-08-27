@@ -111,4 +111,15 @@
 		- `chunk`：多模块合并的代码块，如 entry、import()、splitChunk；
 		- `bundle`：最终输出打包文件
 - ## Webpack 性能优化
-	-
+	- ### 构建速度优化
+	  background-color:: pink
+		- [[#green]]==优化 babel-loader==
+			- ```
+			  {
+			  	test: /.js$/,
+			      use: ['babel-loader?cacheDirectory'], // 开启缓存
+			      include: path.resolve(_dirname, 'src'), // 明确作用范围
+			      // or exclude
+			  }
+			  ```
+		- IgnorePlugin
