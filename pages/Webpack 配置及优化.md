@@ -133,4 +133,23 @@
 			  }
 			  ```
 		- [[#blue]]==* happyPack 多进程打包==
+			- JS 单线程，开启**多进程**打包，提高构建速度
+			- ```
+			  const HappyPack = require('happypack');
+			  
+			  module.export = {
+			  	...,
+			      module: {
+			      	rules: [
+			          	// js
+			              {
+			              	test: /\.js$/,
+			                  use: [happypack/loader?id=babel],
+			                  include: ...,
+			              }
+			          ],
+			      },
+			      
+			  }
+			  ```
 			-
