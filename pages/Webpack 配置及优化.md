@@ -123,4 +123,14 @@
 			  }
 			  ```
 		- [[#green]]==IgnorePlugin 避免引入无用模块==
+			- `new webpack.IgnorePlugin(/\.\/locale/,  /moment/)`
+		- [[#green]]==noParse 避免重复打包==
+			- 类似 xxxx.min.js 已经压缩打包的，避免重复打包
+			- ```
+			  module: {
+			  	// 忽略对'react.min.js'文件的递归解析处理
+			      noParse: [/react\.min\.js$/],
+			  }
+			  ```
+		- [[#blue]]==* happyPack 多进程打包==
 			-
