@@ -30,6 +30,7 @@
 		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
 	-
 - ## Webpack 高级配置
+  collapsed:: true
 	- ### webpack 如何配置多入口
 	  background-color:: pink
 		- `entry: './app/entry'`：只有1个入口，入口只有1个文件
@@ -98,5 +99,16 @@
 						- minChunks: 2,
 	- ### webpack 处理JSX
 	  background-color:: pink
-		-
-		-
+		- `.babelrc`
+		- ```
+		  {
+		  	"presets": ["@babel/preset-react"]
+		  }
+		  ```
+	- ### module chunk bundle 的区别
+	  background-color:: pink
+		- `module`：各个源码文件，webpack 中一切皆模块；
+		- `chunk`：多模块合并的代码块，如 entry、import()、splitChunk；
+		- `bundle`：最终输出打包文件
+- ## Webpack 性能优化
+	-
