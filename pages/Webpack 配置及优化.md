@@ -91,4 +91,8 @@
 						- miniSize: 0, // 大小限制
 						- minChunks: 1, // 最少复用次数
 					- common 公共模块
+						- name: 'common',
+						- priority: 0,
+						- miniSize: 0,
+						- minChunks: 2,
 		-
