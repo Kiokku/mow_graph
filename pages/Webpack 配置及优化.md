@@ -79,5 +79,5 @@
 	- ### webpack 抽离公共代码
 	  background-color:: pink
 		- 公共代码包括：**公共的引用**和**第三方依赖包**。
-		-
+		- webpack 4.0
 		-
