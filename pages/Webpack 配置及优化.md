@@ -1,4 +1,5 @@
 - ## Webpack基础
+  collapsed:: true
 	- ### 拆分配置和 merge
 	  background-color:: pink
 		- 不同环境对应不同的webpack配置文件**拆分**：
@@ -95,6 +96,7 @@
 						- priority: 0,
 						- miniSize: 0,
 						- minChunks: 2,
-	- ### webpack 异步加载JS
+	- ### webpack 异步加载JS——懒加载
 	  background-color:: pink
+		-
 		-
