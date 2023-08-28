@@ -218,5 +218,8 @@
 			      ...
 			  ```
 		- [[#green]]==DllPlugin 动态链接库插件==
-			- webpack 已内置
+			- webpack 已内置 DllPlugin 支持；
+			- DllPlugin - 打包出 dll 文件；
+			- DllReferencePlugin - 使用 dll 文件；
+			-
 			-
