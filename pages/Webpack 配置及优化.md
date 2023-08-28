@@ -325,6 +325,7 @@
 			  ```
 - ## Babel
 	- ### 环境搭建
+	  background-color:: pink
 		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
 		- `.babelrc`:
 			- ```
@@ -338,4 +339,6 @@
 			      ]
 			  }
 			  ```
-		-
+		- ### babel-polyfill
+		  background-color:: pink
+			-
