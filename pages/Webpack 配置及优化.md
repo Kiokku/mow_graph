@@ -324,4 +324,18 @@
 			  ]
 			  ```
 - ## Babel
-	-
+	- ### 环境搭建
+		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
+		- `.babelrc`:
+			- ```
+			  {
+			  	"presets": [
+			      	[
+			          	"@babel/preset-env"
+			          ]
+			      ],
+			      "plugins": [
+			      ]
+			  }
+			  ```
+		-
