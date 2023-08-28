@@ -112,9 +112,9 @@
 		- `chunk`：多模块合并的代码块，如 entry、import()、splitChunk；
 		- `bundle`：最终输出打包文件
 - ## Webpack 性能优化
+  collapsed:: true
 	- ### 构建速度优化
 	  background-color:: pink
-	  collapsed:: true
 		- [[#green]]==优化 babel-loader==
 			- ```
 			  {
@@ -314,5 +314,14 @@
 					- ES6 Module 是静态引入，在编译时引入；
 					- [[#red]]==CommonJs 是动态引入，执行时才引入，无法在打包时分析；==
 		- [[#green]]==Scope Hosting==
-			-
--
+			- 代码体积更小；
+			- 创建函数作用域更少；
+			- 代码可读性更好；
+			- ```
+			  plugins: [
+			  	// 开启 Scope Hosting
+			  	new ModuleConcatenationPlugin(),
+			  ]
+			  ```
+- ## Babel
+	-
