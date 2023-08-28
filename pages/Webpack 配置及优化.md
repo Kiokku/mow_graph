@@ -303,5 +303,8 @@
 		- [[#blue]]==提取公共代码==
 			- {{embed ((64ec22c5-2fe4-420e-a7d5-6efd81c010d3))}}
 		- [[#green]]==IgnorePlugin==
-		- 使用CDN
+		- [[#green]]==使用 CDN 加速==
+			- `publicPath: 'cdn.abc.com'`
+		- [[#green]]==使用 production==
+		- [[#green]]==Scope Hosting==
 -
