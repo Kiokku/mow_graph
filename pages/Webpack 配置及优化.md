@@ -30,6 +30,7 @@
 		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
 	-
 - ## Webpack 高级配置
+  collapsed:: true
 	- ### webpack 如何配置多入口
 	  background-color:: pink
 		- `entry: './app/entry'`：只有1个入口，入口只有1个文件
@@ -324,6 +325,7 @@
 			  ]
 			  ```
 - ## Babel
+  collapsed:: true
 	- ### 环境搭建
 	  background-color:: pink
 		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
@@ -360,6 +362,7 @@
 			- [[#red]]==问题：== 污染全局环境
 		- ### babel-runtime
 		  background-color:: pink
+			- _变量 命名，不污染全局环境
 			- `.babelrc`:
 				- ```
 				  "plugins": [
@@ -375,4 +378,4 @@
 				          ]
 				      ]
 				  ```
-				-
+		-
