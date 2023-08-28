@@ -79,6 +79,8 @@
 				  ```
 	- ### webpack 抽离公共代码
 	  background-color:: pink
+	  id:: 64ec22c5-2fe4-420e-a7d5-6efd81c010d3
+	  collapsed:: true
 		- 公共代码包括：**公共的引用**和**第三方依赖包**。
 		- webpack 4.0 之前的方案：[[#green]]==CommonsChunkPlugin==；4.0 之后的方案：[[#green]]==optimization.splitChunks==
 		- optimization
@@ -274,4 +276,32 @@
 				  ```
 	- ### 产出代码优化
 	  background-color:: pink
-		-
+		- [[#blue]]==小图片 base64 编码==
+			- ```
+			  // 图片 - 考虑 base64 编码的情况
+			              {
+			                  test: /\.(png|jpg|jpeg|gif)$/,
+			                  use: {
+			                      loader: 'url-loader',
+			                      options: {
+			                          // 小于 5kb 的图片用 base64 格式产出
+			                          // 否则，依然延用 file-loader 的形式，产出 url 格式
+			                          limit: 5 * 1024,
+			  
+			                          // 打包到 img 目录下
+			                          outputPath: '/img/',
+			  
+			                          // 设置图片的 cdn 地址（也可以统一在外面的 output 中设置，那将作用于所有静态资源）
+			                          // publicPath: 'http://cdn.abc.com'
+			                      }
+			                  }
+			              },
+			  ```
+		- [[#blue]]==bundle 加 hash==
+			- `filename: '[name].[contentHash:8].js'`
+		- [[#blue]]==懒加载==
+		- [[#blue]]==提取公共代码==
+			- {{embed ((64ec22c5-2fe4-420e-a7d5-6efd81c010d3))}}
+		- [[#green]]==IgnorePlugin==
+		- 使用CDN
+-
