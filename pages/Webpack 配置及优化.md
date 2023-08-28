@@ -305,6 +305,8 @@
 		- [[#green]]==IgnorePlugin==
 		- [[#green]]==使用 CDN 加速==
 			- `publicPath: 'cdn.abc.com'`
-		- [[#green]]==使用 production==
+		- [[#green]]==使用 production mode==
+			- 自动开启代码压缩；
+			- Vue
 		- [[#green]]==Scope Hosting==
 -
