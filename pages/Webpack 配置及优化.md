@@ -327,6 +327,8 @@
 	- ### 环境搭建
 	  background-color:: pink
 		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
+		- ![image.png](../assets/image_1693233308415_0.png)
+		-
 		- `.babelrc`:
 			- ```
 			  {
@@ -355,4 +357,22 @@
 				          ]
 				      ],
 				  ```
--
+			- [[#red]]==问题：== 污染全局环境
+		- ### babel-runtime
+		  background-color:: pink
+			- `.babelrc`:
+				- ```
+				  "plugins": [
+				          [
+				              "@babel/plugin-transform-runtime",
+				              {
+				                  "absoluteRuntime": false,
+				                  "corejs": 3,
+				                  "helpers": true,
+				                  "regenerator": true,
+				                  "useESModules": false
+				              }
+				          ]
+				      ]
+				  ```
+				-
