@@ -308,10 +308,11 @@
 		- [[#green]]==使用 production mode==
 			- 自动开启代码压缩；
 			- Vue、React会自动删掉调试代码（如开发环境的warning）；
-			- 启动 **Tree-Shaking**
+			- 启动 [[#blue]]==**Tree-Shaking**==
 				- `Tree Shaking` 指基于 ES6 Module 进行静态分析，通过 AST 将用不到的函数进行移除，从而减小打包体积。
 				- 必须在 ES6 Module 下才能启用 Tree- Shaking，不能在 CommonJs 下使用：
 					- ES6 Module 是静态引入，在编译时引入；
-					- CommonJs 是动态引入，
+					- [[#red]]==CommonJs 是动态引入，执行时才引入，无法在打包时分析；==
 		- [[#green]]==Scope Hosting==
+			-
 -
