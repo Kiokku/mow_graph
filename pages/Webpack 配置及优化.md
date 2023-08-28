@@ -188,5 +188,35 @@
 		- [[#green]]==热更新==
 			- [[#red]]==自动更新==：整个网页刷新，速度较慢， 状态会丢失；
 			- [[#green]]==**热更新**==：新代码生效，网页不刷新，状态不丢失；
+			- ```
+			  const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
+			  
+			  ...
+			  	entry: {
+			          // index: path.join(srcPath, 'index.js'),
+			          index: [
+			              'webpack-dev-server/client?http://localhost:8080/',
+			              'webpack/hot/dev-server',
+			              path.join(srcPath, 'index.js')
+			          ],
+			          ...
+			      },
+			      ...
+			      plugins: [
+			      	...,
+			          new HotModuleReplacementPlugin()
+			      ],
+			      devServer: {
+			          port: 8080,
+			          progress: true,  // 显示打包的进度条
+			          contentBase: distPath,  // 根目录
+			          open: true,  // 自动打开浏览器
+			          compress: true,  // 启动 gzip 压缩
+			  
+			          hot: true,
+			      },
+			      ...
+			  ```
+		- [[#green]]==DllPlugin 动态链接库插件==
 			-
 			-
