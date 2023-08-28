@@ -341,4 +341,18 @@
 			  ```
 		- ### babel-polyfill
 		  background-color:: pink
-			-
+			- `@babel/polyfill`：`core-js`和`regenerator`的集合
+			- **按需引入**：
+				- `.babelrc`
+				- ```
+				   "presets": [
+				          [
+				              "@babel/preset-env",
+				              {
+				                  "useBuiltIns": "usage",  // 按需引入
+				                  "corejs": 3  // corejs版本
+				              }
+				          ]
+				      ],
+				  ```
+-
