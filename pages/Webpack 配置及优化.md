@@ -134,6 +134,7 @@
 			  ```
 		- [[#blue]]==* happyPack 多进程打包==
 			- JS 单线程，开启**多进程**打包，提高构建速度
+			- 适合大项目，较多文件时开启；
 			- ```
 			  const HappyPack = require('happypack');
 			  
