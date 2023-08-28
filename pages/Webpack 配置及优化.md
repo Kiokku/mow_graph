@@ -30,7 +30,6 @@
 		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
 	-
 - ## Webpack 高级配置
-  collapsed:: true
 	- ### webpack 如何配置多入口
 	  background-color:: pink
 		- `entry: './app/entry'`：只有1个入口，入口只有1个文件
@@ -186,7 +185,7 @@
 			              }
 			          })
 			  ```
-		- [[#green]]==热更新==
+		- [[#green]]==热更新（开发环境）==
 			- [[#red]]==自动更新==：整个网页刷新，速度较慢， 状态会丢失；
 			- [[#green]]==**热更新**==：新代码生效，网页不刷新，状态不丢失；
 			- ```
@@ -218,7 +217,7 @@
 			      },
 			      ...
 			  ```
-		- [[#green]]==DllPlugin 动态链接库插件==
+		- [[#green]]==DllPlugin 动态链接库插件（开发环境）==
 			- webpack 已内置 DllPlugin 支持；
 			- DllPlugin - 打包出 dll 文件：
 				- ```
@@ -273,6 +272,6 @@
 				          }),
 				      ],
 				  ```
+	- ### 产出代码优化
+	  background-color:: pink
 		-
-			-
-	-
