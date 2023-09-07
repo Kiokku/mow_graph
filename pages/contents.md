@@ -144,13 +144,13 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
-  collapsed:: true
 	- [[前端技术一面]]
 - React
   collapsed:: true
