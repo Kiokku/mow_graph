@@ -1,7 +1,6 @@
 - > https://juejin.cn/post/7160981608885927972
 -
 - ## createElement
-  collapsed:: true
 	- ### 源码
 	  background-color:: pink
 	  collapsed:: true
