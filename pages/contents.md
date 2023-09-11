@@ -84,13 +84,11 @@
 	- [[深入理解TypeScript]]
 	- [[TypeScript type-challenges]]
 - 算法笔记（以JavaScript为实现语言）
-  collapsed:: true
 	- [[时间复杂度与空间复杂度]]
 	- [[数字与链表]]
 	- [[栈与队列]]
 	- [[散列表]]
 	- 树
-	  collapsed:: true
 		- [[二叉树]]
 		- [[二叉树的遍历]]
 		- [[二叉树树组表示]]
@@ -132,6 +130,7 @@
 		- [[子集和问题]]
 		- [[N皇后问题]]
 	- 动态规划
+	  collapsed:: true
 		- [[初探动态规划]]
 		- [[DP问题特性]]
 		- [[DP解题思路]]
