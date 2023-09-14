@@ -734,13 +734,23 @@
 	  for (var i = 0; i < 5; i++) {
 	    setTimeout(() => console.log(i), 1000);
 	  }
+	  // 5 5 5 5 5
 	  
 	  for (let i = 0; i < 5; i++) {
 	    setTimeout(() => console.log(i), 1000 * i);
 	  }
-	   
+	  // 0 1 2 3 4
+	  
 	  for (var i = 0; i < 5; i++) {
 	    setTimeout(console.log, 1000 * i, i);
 	  }
+	  // 0 1 2 3 4
 	  ```
+	- 为什么 setTimeout 格式不同,输出的结果也不同？例如：当 for 循环采用 var 声明变量，但 `setTimeout(console.log,1000*i,i)`与 `setTimeout(()=>console.log(i),0)`输出的结果不一样。
+	- var 声明的变量是在函数作用域或者全局作用域的，在第一种方式中，由于 setTimeout 是异步执行，且它是从闭包中获取 i 变量，由于 i 是在函数/全局作用域中声明的，所以 5 次循环中 i 不断被赋值，最后 i 的值为 5，执行的结果为连续的 5 个 5。
+	  logseq.order-list-type:: number
+	- 在第二种方式中，通过给 setTimeout 的回调函数传参的方式，保存了每次循环中 i 的值，因此执行结果符合预期
+	  logseq.order-list-type:: number
+	- let 声明的变量是在块级作用域(花括号)中的，因此可以认为每次执行循环语句块中的 i 变量是互相独立的，所以执行结果也符合预期
+	  logseq.order-list-type:: number
 -
