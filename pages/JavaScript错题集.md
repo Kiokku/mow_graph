@@ -20,6 +20,7 @@
 	- **答案: D**
 	- colorChange 是一个静态方法。静态方法被设计为只能被创建它们的构造器使用（也就是 Chameleon），并且不能传递给实例。因为 freddie 是一个实例，静态方法不能被实例使用，因此抛出了 TypeError 错误。
 - [[$red]]==17. 输出是什么？==#card #JavaScript
+  collapsed:: true
   ```
   function getPersonInfo(one, two, three) {
     console.log(one)
@@ -728,5 +729,18 @@
 	- 因为 dog 的值是一个对象， animals[dog] 实际上意味着我们创建了一个叫做 "object Object" 的属性来代表新的对象。 animals["object Object"] 现在等于 { emoji: "🐶", name: "Mara"}。
 	- cat 也是一个对象，animals[cat] 实际上意味着我们在用新的 cat 的属性覆盖 animals[``"``object Object``"``] 的值。
 	- 打印 animals[dog]，实际上是animals["object Object"]，这是因为转化dog对象为一个字符串结果 "object Object" ，所以返回 { emoji: "🐈", name: "Sara" }。
--
+- 关于块级作用域，以下代码输出多少？ #card #JavaScript
+	- ```
+	  for (var i = 0; i < 5; i++) {
+	    setTimeout(() => console.log(i), 1000);
+	  }
+	  
+	  for (let i = 0; i < 5; i++) {
+	    setTimeout(() => console.log(i), 1000 * i);
+	  }
+	   
+	  for (var i = 0; i < 5; i++) {
+	    setTimeout(console.log, 1000 * i, i);
+	  }
+	  ```
 -
