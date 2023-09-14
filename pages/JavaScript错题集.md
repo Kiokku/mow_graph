@@ -753,4 +753,56 @@
 	  logseq.order-list-type:: number
 	- let 声明的变量是在块级作用域(花括号)中的，因此可以认为每次执行循环语句块中的 i 变量是互相独立的，所以执行结果也符合预期
 	  logseq.order-list-type:: number
--
+- 关于 Promise，判断以下代码的输出 #card #JavaScript
+	- ```
+	  Promise.resolve()
+	    .then(() => {
+	      console.log(0);
+	      return Promise.resolve(4);
+	    })
+	    .then((res) => {
+	      console.log(res);
+	    });
+	   
+	  Promise.resolve()
+	    .then(() => {
+	      console.log(1);
+	    })
+	    .then(() => {
+	      console.log(2);
+	    })
+	    .then(() => {
+	      console.log(3);
+	    })
+	    .then(() => {
+	      console.log(5);
+	    })
+	    .then(() => {
+	      console.log(6);
+	    });
+	  ```
+	- [[#green]]==答案：0 1 2 3 4 5 6==
+	- [[#blue]]==解答：==
+		- 顺序执行 0 和 1 没什么问题；
+		- 问题变成了为什么 return Promise 为什么产生了 2 次微任务？
+			- 按照 PromiseA+的规范，此处应该是 2.3.2 标准：`If x is a promise` ,根据 A+准则的源码是以这么处理的：
+			  logseq.order-list-type:: number
+				- 遇到.then 就创建一 pending 状态的 Promise 保存起来。
+				  logseq.order-list-type:: number
+				- 如果是一个普通的 number 类型，则直接用 Promise.resolve(number)即可。 如果是 promise 类型的话，需要做一个状态同步操作，代码如下： 其中 x 是接收的已经 resolved 的 Promise，即(Promise.resolve(4))，而 this 指向我们刚创建的 pending 状态的 Promise
+				  logseq.order-list-type:: number
+				- ```
+				  resolveWithPromise(x) {
+				      x.then(
+				        result => {
+				          this.resolve(result); // promise将结果给resolve
+				        },
+				        reason => {
+				          this.reject(reason);
+				        }
+				      );
+				  ```
+				- 也就是说，这 1 个 `micro task` 的作用就是**同步状态**。
+			- v8 和 PromiseA+规范的差异：
+			  logseq.order-list-type:: number
+				- 与 promise/A+规范的不同之处在于，v8 并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步 micro task：作用就是将 resolveWithPromise => resolveWithThenableObject
