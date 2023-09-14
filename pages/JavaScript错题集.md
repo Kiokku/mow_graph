@@ -709,7 +709,8 @@
   D: *[Symbol.iterator]() { for (let x in this) yield this }
 	- **答案: C**
 	- 对象默认并不是可迭代的。如果迭代规则被定义，则一个对象是可迭代的（An iterable is an iterable if the iterator protocol is present）。我们可以通过添加迭代器 symbol [Symbol.iterator] 来定义迭代规则，其返回一个 generator 对象，比如说构建一个 generator 函数 *[Symbol.iterator]() {}。如果我们想要返回数组 ["Lydia Hallie", 21]: yield* Object.values(this)，这个 generator 函数一定要 yield 对象 person 的Object.values。
-- 150. 输出什么？#card #JavaScript
+- collapsed:: true
+  150. 输出什么？#card #JavaScript
   ```
   const animals = {};
   let dog = { emoji: '🐶' }
@@ -729,62 +730,64 @@
 	- 因为 dog 的值是一个对象， animals[dog] 实际上意味着我们创建了一个叫做 "object Object" 的属性来代表新的对象。 animals["object Object"] 现在等于 { emoji: "🐶", name: "Mara"}。
 	- cat 也是一个对象，animals[cat] 实际上意味着我们在用新的 cat 的属性覆盖 animals[``"``object Object``"``] 的值。
 	- 打印 animals[dog]，实际上是animals["object Object"]，这是因为转化dog对象为一个字符串结果 "object Object" ，所以返回 { emoji: "🐈", name: "Sara" }。
-- 关于块级作用域，以下代码输出多少？ #card #JavaScript
-	- ```
-	  for (var i = 0; i < 5; i++) {
-	    setTimeout(() => console.log(i), 1000);
-	  }
-	  // 5 5 5 5 5
-	  
-	  for (let i = 0; i < 5; i++) {
-	    setTimeout(() => console.log(i), 1000 * i);
-	  }
-	  // 0 1 2 3 4
-	  
-	  for (var i = 0; i < 5; i++) {
-	    setTimeout(console.log, 1000 * i, i);
-	  }
-	  // 0 1 2 3 4
-	  ```
-	- 为什么 setTimeout 格式不同,输出的结果也不同？例如：当 for 循环采用 var 声明变量，但 `setTimeout(console.log,1000*i,i)`与 `setTimeout(()=>console.log(i),0)`输出的结果不一样。
+- [[$red]]==关于块级作用域，以下代码输出多少？== #card #JavaScript
+  collapsed:: true
+  ```
+  for (var i = 0; i < 5; i++) {
+    setTimeout(() => console.log(i), 1000);
+  }
+  // 5 5 5 5 5
+  
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => console.log(i), 1000 * i);
+  }
+  // 0 1 2 3 4
+  
+  for (var i = 0; i < 5; i++) {
+    setTimeout(console.log, 1000 * i, i);
+  }
+  // 0 1 2 3 4
+  ```
+  为什么 setTimeout 格式不同,输出的结果也不同？例如：当 for 循环采用 var 声明变量，但 `setTimeout(console.log,1000*i,i)`与 `setTimeout(()=>console.log(i),0)`输出的结果不一样。
 	- var 声明的变量是在函数作用域或者全局作用域的，在第一种方式中，由于 setTimeout 是异步执行，且它是从闭包中获取 i 变量，由于 i 是在函数/全局作用域中声明的，所以 5 次循环中 i 不断被赋值，最后 i 的值为 5，执行的结果为连续的 5 个 5。
 	  logseq.order-list-type:: number
 	- 在第二种方式中，通过给 setTimeout 的回调函数传参的方式，保存了每次循环中 i 的值，因此执行结果符合预期
 	  logseq.order-list-type:: number
 	- let 声明的变量是在块级作用域(花括号)中的，因此可以认为每次执行循环语句块中的 i 变量是互相独立的，所以执行结果也符合预期
 	  logseq.order-list-type:: number
-- 关于 Promise，判断以下代码的输出 #card #JavaScript
-	- ```
-	  Promise.resolve()
-	    .then(() => {
-	      console.log(0);
-	      return Promise.resolve(4);
-	    })
-	    .then((res) => {
-	      console.log(res);
-	    });
-	   
-	  Promise.resolve()
-	    .then(() => {
-	      console.log(1);
-	    })
-	    .then(() => {
-	      console.log(2);
-	    })
-	    .then(() => {
-	      console.log(3);
-	    })
-	    .then(() => {
-	      console.log(5);
-	    })
-	    .then(() => {
-	      console.log(6);
-	    });
-	  ```
+- [[$red]]==关于 Promise，判断以下代码的输出== #card #JavaScript
+  collapsed:: true
+  ```
+  Promise.resolve()
+    .then(() => {
+      console.log(0);
+      return Promise.resolve(4);
+    })
+    .then((res) => {
+      console.log(res);
+    });
+   
+  Promise.resolve()
+    .then(() => {
+      console.log(1);
+    })
+    .then(() => {
+      console.log(2);
+    })
+    .then(() => {
+      console.log(3);
+    })
+    .then(() => {
+      console.log(5);
+    })
+    .then(() => {
+      console.log(6);
+    });
+  ```
 	- [[#green]]==答案：0 1 2 3 4 5 6==
 	- [[#blue]]==解答：==
 		- 顺序执行 0 和 1 没什么问题；
-		- 问题变成了为什么 return Promise 为什么产生了 2 次微任务？
+		- 问题变成了为什么 return Promise 为什么[[#green]]==产生了 2 次微任务==，导致4在2和3后打印？
 			- 按照 PromiseA+的规范，此处应该是 2.3.2 标准：`If x is a promise` ,根据 A+准则的源码是以这么处理的：
 			  logseq.order-list-type:: number
 				- 遇到.then 就创建一 pending 状态的 Promise 保存起来。
@@ -805,4 +808,6 @@
 				- 也就是说，这 1 个 `micro task` 的作用就是**同步状态**。
 			- v8 和 PromiseA+规范的差异：
 			  logseq.order-list-type:: number
-				- 与 promise/A+规范的不同之处在于，v8 并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步 micro task：作用就是将 resolveWithPromise => resolveWithThenableObject
+				- 与 promise/A+规范的不同之处在于，v8 并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步 micro task：作用就是将 `resolveWithPromise => resolveWithThenableObject`
+	- [[#blue]]==**总结：**如果 resolve()的括号内的结果是一个 promise 的话，会多执行两个`micro task`==
+	- [在浏览器模拟事件循环](http://www.jsv9000.app/?code=UHJvbWlzZS5yZXNvbHZlKCkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygwKTsKICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoNCk7CiAgfSkKICAudGhlbigocmVzKSA9PiB7CiAgICBjb25zb2xlLmxvZyhyZXMpOwogIH0pOwogClByb21pc2UucmVzb2x2ZSgpCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coMSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygyKTsKICB9KQogIC50aGVuKCgpID0%2BIHsKICAgIGNvbnNvbGUubG9nKDMpOwogIH0pCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coNSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZyg2KTsKICB9KTs%3D)
