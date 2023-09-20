@@ -168,7 +168,6 @@
 			  dispatch(xxxActionCreator(...))
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
-  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
