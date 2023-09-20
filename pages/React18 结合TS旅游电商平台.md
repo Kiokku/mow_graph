@@ -90,6 +90,7 @@
 				  }
 				  ```
 - ## Redux-项目架构方案
+  id:: 6499b665-777d-4d8a-8dab-9ef1b34c0a36
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
 	- ### state和store
@@ -168,6 +169,8 @@
 			  dispatch(xxxActionCreator(...))
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
+  id:: 64b4dcbf-f5f5-4575-a537-c6bc27b18dfc
+  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -236,6 +239,7 @@
 			- `const middleware = (store) => (next) => (action)=> { }`
 			- `middleware(store)(next)(action)`
 - ## Redux-Toolkit——产品搜索页面
+  id:: 64c87633-9bcc-48f2-813b-d6ede014c425
   collapsed:: true
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
