@@ -139,10 +139,12 @@
 		- `npm i @types/react-redux`
 		- #### Provider()
 		  background-color:: green
+		  collapsed:: true
 			- makes the Redux store available to the rest of your app(store全局可用)
 			- `<Provider store={store}><APP /></ Provider>`
 		- #### Connect()
 		  background-color:: green
+		  collapsed:: true
 			- 类组件中使用的HOC，将组件与store相连接
 			- `connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)(Component)`
 			- `mapStateToProps?: (state, ownProps?) => Object`
@@ -151,6 +153,7 @@
 	  background-color:: pink
 		- #### useSelector()
 		  background-color:: green
+		  collapsed:: true
 			- 连接组件与store
 			- 结合`TypedUseSelectorHook`剥离state类型耦合：
 			- ```
@@ -162,6 +165,7 @@
 			  ```
 		- #### useDispatch()
 		  background-color:: green
+		  collapsed:: true
 			- 分发action
 			- 结合`action creator`：
 			- ```
@@ -171,7 +175,6 @@
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
   id:: 64b4dcbf-f5f5-4575-a537-c6bc27b18dfc
-  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -241,7 +244,6 @@
 			- `middleware(store)(next)(action)`
 - ## Redux-Toolkit——产品搜索页面
   id:: 64c87633-9bcc-48f2-813b-d6ede014c425
-  collapsed:: true
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
 		- #### createReducer
