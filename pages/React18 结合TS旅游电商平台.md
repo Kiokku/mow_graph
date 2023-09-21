@@ -29,7 +29,6 @@
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
 - ## 主页开发
-  collapsed:: true
 	- [[#blue]]==文件夹结构==
 		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
 		- `index.ts`：导出组件，避免过长的组件引用地址
@@ -38,7 +37,6 @@
 			  ```
 	-
 - ## 路由系统
-  collapsed:: true
 	- ### 路由与SPA
 	  background-color:: pink
 		- `SPA`：单页网站应用
@@ -92,6 +90,7 @@
 				  ```
 - ## Redux-项目架构方案
   id:: 6499b665-777d-4d8a-8dab-9ef1b34c0a36
+  collapsed:: true
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
 	- ### state和store
@@ -175,6 +174,7 @@
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
   id:: 64b4dcbf-f5f5-4575-a537-c6bc27b18dfc
+  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -244,6 +244,7 @@
 			- `middleware(store)(next)(action)`
 - ## Redux-Toolkit——产品搜索页面
   id:: 64c87633-9bcc-48f2-813b-d6ede014c425
+  collapsed:: true
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
 		- #### createReducer
@@ -344,7 +345,6 @@
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
 - ## 用户登陆
-  collapsed:: true
 	- ### JWT(JSON Web Token)原理
 	  background-color:: pink
 	  collapsed:: true
@@ -418,7 +418,6 @@
 				  export const persistor = persistStore(store); 
 				  ```
 - ## 订单系统
-  collapsed:: true
 	- ### 私有路由
 	  background-color:: pink
 		- `PrivateRoute`：通过`jwt`登陆信息判断页面跳转
@@ -432,7 +431,6 @@
 			  ...
 			  ```
 - ## 网站部署
-  collapsed:: true
 	- ### 静态部署—本地服务器托管
 	  background-color:: pink
 		- `node serve`部署网站：
