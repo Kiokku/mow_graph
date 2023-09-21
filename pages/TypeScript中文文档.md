@@ -1,4 +1,5 @@
 - > [TypeScript中文文档](https://ts.yayujs.com/)
+- >
 	- ### 基础
 		- [[TypeScript基础]]
 		- [[TypeScript常见类型]]
