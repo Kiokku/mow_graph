@@ -29,6 +29,7 @@
 			- ` .vscode` typescript sdk
 			- `custom.d.ts` css module
 - ## 主页开发
+  collapsed:: true
 	- [[#blue]]==文件夹结构==
 		- ![image.png](../assets/image_1686211132512_0.png){:height 395, :width 257}
 		- `index.ts`：导出组件，避免过长的组件引用地址
@@ -345,6 +346,7 @@
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
 - ## 用户登陆
+  collapsed:: true
 	- ### JWT(JSON Web Token)原理
 	  background-color:: pink
 	  collapsed:: true
@@ -418,6 +420,7 @@
 				  export const persistor = persistStore(store); 
 				  ```
 - ## 订单系统
+  collapsed:: true
 	- ### 私有路由
 	  background-color:: pink
 		- `PrivateRoute`：通过`jwt`登陆信息判断页面跳转
