@@ -1,6 +1,6 @@
 - > https://github.com/type-challenges/type-challenges
 	- ### 简单
-	  background-color:: pink
+	  background-color:: green
 		- [[实现Pick]]
 		- [[对象属性只读]]
 		- [[元组转换为对象]]
@@ -15,5 +15,7 @@
 		- [[Push]]
 		- [[Unshift]]
 		- [[Parameters]]
+	- ### 中等
+	  background-color:: yellow
+		- [[获取函数返回类型]]
 		-
--
