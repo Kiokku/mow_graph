@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -63,6 +64,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -148,14 +150,17 @@
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
+  collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
+  collapsed:: true
 	- [[前端技术一面]]
 	- [[面试企业背调]]
 	  collapsed:: true
 	- [[项目面试相关]]
 	-
 - React
+  collapsed:: true
 	- React技术揭秘
 	  collapsed:: true
 		- 理念篇
@@ -182,7 +187,6 @@
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
-  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	-
