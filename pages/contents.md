@@ -64,7 +64,6 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -187,6 +186,7 @@
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
+  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	-
