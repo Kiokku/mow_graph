@@ -20,4 +20,12 @@
 	  ```
 - ## 解答
   background-color:: blue
+	- 实现 `Omit<T, K>`，作用恰好与 `Pick<T, K>` 相反
+	- 比较容易尝试的方案是：
+		- ```
+		  type MyOmit<T, K extends keyof T> = {
+		    [P in keyof T]: P extends K ? never : T[P]
+		  }
+		  ```
+	- 其实仍然包含了 `description`、`title` 这两个 Key，只是这两个 Key 类型为 `never`，不符合要求。
 	-
