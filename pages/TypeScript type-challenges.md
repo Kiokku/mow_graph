@@ -18,4 +18,5 @@
 	- ### 中等
 	  background-color:: yellow
 		- [[获取函数返回类型]]
+		- [[实现 Omit]]
 		-
