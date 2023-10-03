@@ -10,6 +10,8 @@
 - ## 解答
   background-color:: blue
 	- ```
-	  type Concat<P extends any[], Q extends any[]> = [...P, ...Q]
+	  type Concat<T extends readonly unknown[], U extends readonly unknown[]> = [...T, ...U]
 	  ```
 	- TS 支持数组解构语法`...`
+	- `readonly unknow[]` 是 `unknow[]` 的父集
+-
