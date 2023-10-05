@@ -204,4 +204,23 @@
 	      return result;
 	  }
 	  ```
--
+- ## ES6 实现 call 和 apply
+	- ```
+	  Function.prototype.myCall = function (ctx = globalThis) {
+	    const args = Array.from(arguments).slice(1);
+	    const key = Symbol("key");
+	    ctx[key] = this;
+	    const res = ctx[key](...args);
+	    delete ctx[key]
+	    return res
+	  };
+	  
+	  Function.prototype.myApply = function (ctx = globalThis) {
+	    const args = arguments[1];
+	    const key = Symbol("key");
+	    ctx[key] = this;
+	    const res = ctx[key](...args);
+	    delete ctx[key]
+	    return res
+	  };
+	  ```
