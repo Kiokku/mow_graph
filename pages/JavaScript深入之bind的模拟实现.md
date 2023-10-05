@@ -153,6 +153,7 @@
 	  
 	      fNOP.prototype = this.prototype;
 	      fBound.prototype = new fNOP();
+	      // 相当于 fBound.prototype = Object.create(this.prototype)
 	      return fBound;
 	  }
 	  ```
