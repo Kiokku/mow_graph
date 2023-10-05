@@ -182,15 +182,29 @@
 	      var self = this;
 	      var args = Array.prototype.slice.call(arguments, 1);
 	  
-	      var fNOP = function () {};
-	  
 	      var fBound = function () {
 	          var bindArgs = Array.prototype.slice.call(arguments);
-	          return self.apply(this instanceof fNOP ? this : context, args.concat(bindArgs));
+	          return self.apply(this instanceof fBound ? this : context, args.concat(bindArgs));
 	      }
 	  
-	      fNOP.prototype = this.prototype;
-	      fBound.prototype = new fNOP();
+	      fBound.prototype = Object.create(this.prototype);
 	      return fBound;
+	  }
+	  ```
+- ## SoftBind
+  id:: 651ef3d1-3dc9-4511-89a8-16f99d72d479
+	- `softBind` 是相对原生 `bind` 而言一个更灵活的绑定 `this` 的功能。原生 `bind` 有一个弊端：被绑定后的新函数无法再更改 `this`。
+	- `softBind` 改进了 `bind`，使得对新函数的 `call`、`apply` 调用表现正常。
+	- ```
+	  Function.prototype.softBind = function(obj, ...rest) {
+	      const self = this;
+	      
+	      const bound = function(...args) {
+	        const o = !this || this === (window || global) ? obj : this
+	        return self.apply(o, [...rest, ...args])
+	      }
+	  
+	      bound.prototype = Object.create(fn.prototype)
+	      return bound;
 	  }
 	  ```
