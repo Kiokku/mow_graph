@@ -641,3 +641,32 @@
 	- ### Promise相关的convenience method的实现
 	  background-color:: pink
 		- 请到[这里](https://github.com/xieranmaya/Promise3)查看`Promise.race`, `Promise.all`, `Promise.resolve`, `Promise.reject`等方法的具体实现，这里就不具体解释了，总的来说，只要then的实现是没有问题的，其它所有的方法都可以非常方便的依赖then来实现。
+		- #### Promise.all
+		  background-color:: green
+			- ```
+			  function pAll(_promises) {
+			    return new Promise((resolve, reject) => {
+			      // Iterable => Array
+			      const promises = Array.from(_promises);
+			      // 结果用一个数组维护
+			      const r = [];
+			      const len = promises.length;
+			      let count = 0;
+			      for (let i = 0; i < len; i++) {
+			        // Promise.resolve 确保把所有数据都转化为 Promise
+			        Promise.resolve(promises[i])
+			          .then((o) => {
+			            // 因为 promise 是异步的，保持数组一一对应
+			            r[i] = o;
+			   
+			            // 如果数组中所有 promise 都完成，则返回结果数组
+			            if (++count === len) {
+			              resolve(r);
+			            }
+			            // 当发生异常时，直接 reject
+			          })
+			          .catch((error) => reject(error));
+			      }
+			    });
+			  }
+			  ```
