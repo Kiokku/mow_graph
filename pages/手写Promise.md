@@ -643,6 +643,7 @@
 		- 请到[这里](https://github.com/xieranmaya/Promise3)查看`Promise.race`, `Promise.all`, `Promise.resolve`, `Promise.reject`等方法的具体实现，这里就不具体解释了，总的来说，只要then的实现是没有问题的，其它所有的方法都可以非常方便的依赖then来实现。
 		- #### Promise.all
 		  background-color:: green
+		  id:: 651fe061-51cb-4f53-b644-b18d3c233ba0
 			- ```
 			  function pAll(_promises) {
 			    return new Promise((resolve, reject) => {
