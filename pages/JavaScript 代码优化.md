@@ -51,6 +51,18 @@
 	  background-color:: pink
 	- ### 避免读取超过数组长度
 	  background-color:: pink
-	-
-	- ###
+	- ### 避免类型转换
 	  background-color:: pink
+- ## HTML 优化
+	- ### 减少 iframes 的使用
+	  background-color:: pink
+	- ### 压缩空白符、删除注释
+	  background-color:: pink
+	- ### 避免节点深层次嵌套
+	  background-color:: pink
+	- ### 避免 table 布局
+	  background-color:: pink
+- ## CSS 优化
+	- ### CSS 对性能的影响
+	  background-color:: pink
+		-
