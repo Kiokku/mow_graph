@@ -24,4 +24,11 @@
 		- #### 字节码缓存
 		- #### 懒解析
 - ## 函数优化
+	- ### 函数的解析方式
+	  background-color:: pink
+		- #### lazy parsing 懒解析
+		- #### eager parsing 饥饿解析
+			- 立即执行的函数用括号包裹：`const fn = (function() {})`
+		- #### 利用 Optimize.js 优化初次加载时间
+- ## 对象优化
 	-
