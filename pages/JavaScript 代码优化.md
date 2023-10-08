@@ -17,5 +17,11 @@
 - ## 配合 V8 引擎，有效优化代码
 	- ### V8 编译原理
 	  background-color:: pink
-		-
+		- ![image.png](../assets/image_1696741889593_0.png)
+	- ### V8 优化机制
+	  background-color:: pink
+		- #### 脚本流
+		- #### 字节码缓存
+		- #### 懒解析
+- ## 函数优化
 	-
