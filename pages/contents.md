@@ -63,6 +63,7 @@
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -155,6 +156,7 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
+  collapsed:: true
 	- React技术揭秘
 		- 理念篇
 			- 第一章 React理念
