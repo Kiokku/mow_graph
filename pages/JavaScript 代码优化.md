@@ -65,4 +65,10 @@
 - ## CSS 优化
 	- ### CSS 对性能的影响
 	  background-color:: pink
-		-
+		- ![image.png](../assets/image_1696746016211_0.png)
+	- ### 优化
+	  background-color:: pink
+		- #### 降低 CSS 对渲染的阻塞
+			- 尽早加载
+			- 压缩大小
+		- #### 利用
