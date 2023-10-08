@@ -71,4 +71,10 @@
 		- #### 降低 CSS 对渲染的阻塞
 			- 尽早加载
 			- 压缩大小
-		- #### 利用
+		- #### 利用 GPU 进行动画渲染
+			- will-change
+			- transform
+		- 使用 contain 属性
+			- > **`contain`** 标示了元素及其内容尽可能独立于文档树的其余部分。`contain` 使 DOM 的一部分得以被隔离，且通过将布局、样式、绘制、尺寸或其任意组合的计算限制于 DOM 子树而非整个页面使性能受益。
+			- `contain: layout`
+		- #### 使用 font-display 属性
