@@ -31,14 +31,26 @@
 			- 立即执行的函数用括号包裹：`const fn = (function() {})`
 		- #### 利用 Optimize.js 优化初次加载时间
 - ## 对象优化
-	- ### 以相同顺序初始化对象成员，避免隐藏类的调整
+	- ### 以相同顺序初始化对象成员，避免隐藏类型的调整
 	  background-color:: pink
-		-
+		- 隐藏类型 Hidden Class
+		- ```
+		  const carl = {color: 'red'}; // HCO
+		  carl.seats = 4; // HC1
+		  
+		  const car2 = {seats: 2}; // HC2
+		  car2. color = 'blue'; // HC3
+		  ```
 	- ### 实例化后避免添加新属性
 	  background-color:: pink
+		- ```
+		  const carl = {color: 'red'}; // In-object 属性
+		  carl.seats = 4: // Normal/Fast 属性，需要间接查找
+		  ```
 	- ### 尽量使用 Array 代替 array-like 对象
 	  background-color:: pink
-	- ###
+	- ### 避免读取超过数组长度
 	  background-color:: pink
+	-
 	- ###
 	  background-color:: pink
