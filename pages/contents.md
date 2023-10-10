@@ -156,7 +156,6 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
-  collapsed:: true
 	- React技术揭秘
 	  collapsed:: true
 		- 理念篇
@@ -182,6 +181,8 @@
 	- [[React基础与进阶]]
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
+	- [[useEffect 完整指南]]
+	-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
