@@ -125,6 +125,7 @@
 		- [[#green]]==IgnorePlugin 避免引入无用模块==
 			- `new webpack.IgnorePlugin(/\.\/locale/,  /moment/)`
 		- [[#green]]==noParse 避免重复打包==
+		  id:: 6524c21a-c261-4aae-86bc-134735734da1
 			- 类似 xxxx.min.js 已经压缩打包的，避免重复打包
 			- ```
 			  module: {
@@ -218,6 +219,7 @@
 			      ...
 			  ```
 		- [[#green]]==DllPlugin 动态链接库插件（开发环境）==
+		  id:: 6524c21a-8667-4bcb-b15e-27f8061ea778
 			- webpack 已内置 DllPlugin 支持；
 			- DllPlugin - 打包出 dll 文件：
 				- ```
