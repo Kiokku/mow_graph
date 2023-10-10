@@ -79,6 +79,7 @@
 	- ### webpack 抽离公共代码
 	  background-color:: pink
 	  id:: 64ec22c5-2fe4-420e-a7d5-6efd81c010d3
+	  collapsed:: true
 		- 公共代码包括：**公共的引用**和**第三方依赖包**。
 		- webpack 4.0 之前的方案：[[#green]]==CommonsChunkPlugin==；4.0 之后的方案：[[#green]]==optimization.splitChunks==
 		- optimization
@@ -311,14 +312,28 @@
 				- 必须在 ES6 Module 下才能启用 Tree- Shaking，不能在 CommonJs 下使用：
 					- ES6 Module 是静态引入，在编译时引入；
 					- [[#red]]==CommonJs 是动态引入，执行时才引入，无法在打包时分析；==
-				- [[#red]]==注意：==`Tree Shaking`会删除一些具有副作用 (Side Effect) 的函数，例如修改全局作用域的函数，需要在 `package.json` 中配置 `sideEffects`：
+				- [[#red]]==注意：==`Tree Shaking`会删除一些具有副作用 (Side Effect) 的函数，例如修改全局作用域的函数，需要在 `package.json` 中配置 `sideEffects`
 					- ```
 					  "sideEffects": [
 					  	"*.css",
 					      ...
 					  ]
 					  ```
+				- 注意 Babel 默认配置的影响，不要转译 ES6 语法：
+					- ```
+					  // babel.config.js
+					  "preset": [
+					  	[
+					      	'@babel/preset-env',
+					          {
+					          	module: false;
+					              ...
+					          }
+					      ]
+					  ]
+					  ```
 		- [[#green]]==Scope Hosting==
+		  id:: 6524c21a-258c-40f4-bccb-1090ecaaffa0
 			- 代码体积更小；
 			- 创建函数作用域更少；
 			- 代码可读性更好；
