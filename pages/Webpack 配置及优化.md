@@ -82,8 +82,9 @@
 		- webpack 4.0 之前的方案：[[#green]]==CommonsChunkPlugin==；4.0 之后的方案：[[#green]]==optimization.splitChunks==
 		- optimization
 			- splitChunks
+			  id:: 6524c21a-2163-4b1c-bbd7-45f2c0aaf0f6
 				- chunks: `all`、`initial`、`async`
-				- cacheGroup 缓存分组
+				- cacheGroups 缓存分组
 					- vendor 第三方模块
 						- name: 'vendor',  // chunk 名称
 						- priority: 1, // 权限更高，优先抽离，重要！！
