@@ -27,7 +27,6 @@
 		- `style-loader`
 		- `css-loader`
 		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
-	-
 - ## Webpack 高级配置
 	- ### webpack 如何配置多入口
 	  background-color:: pink
@@ -79,7 +78,6 @@
 	- ### webpack 抽离公共代码
 	  background-color:: pink
 	  id:: 64ec22c5-2fe4-420e-a7d5-6efd81c010d3
-	  collapsed:: true
 		- 公共代码包括：**公共的引用**和**第三方依赖包**。
 		- webpack 4.0 之前的方案：[[#green]]==CommonsChunkPlugin==；4.0 之后的方案：[[#green]]==optimization.splitChunks==
 		- optimization
