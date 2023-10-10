@@ -311,6 +311,13 @@
 				- 必须在 ES6 Module 下才能启用 Tree- Shaking，不能在 CommonJs 下使用：
 					- ES6 Module 是静态引入，在编译时引入；
 					- [[#red]]==CommonJs 是动态引入，执行时才引入，无法在打包时分析；==
+				- [[#red]]==注意：==`Tree Shaking`会删除一些具有副作用 (Side Effect) 的函数，例如修改全局作用域的函数，需要在 `package.json` 中配置 `sideEffects`：
+					- ```
+					  "sideEffects": [
+					  	"*.css",
+					      ...
+					  ]
+					  ```
 		- [[#green]]==Scope Hosting==
 			- 代码体积更小；
 			- 创建函数作用域更少；
