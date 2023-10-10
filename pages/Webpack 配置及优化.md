@@ -1,5 +1,4 @@
 - ## Webpack基础
-  collapsed:: true
 	- ### 拆分配置和 merge
 	  background-color:: pink
 		- 不同环境对应不同的webpack配置文件**拆分**：
@@ -30,7 +29,6 @@
 		- `postcss-loader`：给 CSS 自动加前缀、使用下一代 CSS 语法
 	-
 - ## Webpack 高级配置
-  collapsed:: true
 	- ### webpack 如何配置多入口
 	  background-color:: pink
 		- `entry: './app/entry'`：只有1个入口，入口只有1个文件
@@ -81,7 +79,6 @@
 	- ### webpack 抽离公共代码
 	  background-color:: pink
 	  id:: 64ec22c5-2fe4-420e-a7d5-6efd81c010d3
-	  collapsed:: true
 		- 公共代码包括：**公共的引用**和**第三方依赖包**。
 		- webpack 4.0 之前的方案：[[#green]]==CommonsChunkPlugin==；4.0 之后的方案：[[#green]]==optimization.splitChunks==
 		- optimization
@@ -113,7 +110,6 @@
 		- `chunk`：多模块合并的代码块，如 entry、import()、splitChunk；
 		- `bundle`：最终输出打包文件
 - ## Webpack 性能优化
-  collapsed:: true
 	- ### 构建速度优化
 	  background-color:: pink
 		- [[#green]]==优化 babel-loader==
@@ -307,6 +303,7 @@
 		- [[#green]]==使用 CDN 加速==
 			- `publicPath: 'cdn.abc.com'`
 		- [[#green]]==使用 production mode==
+		  id:: 6524c21a-59f6-47d0-a06a-87f0539aaa5f
 			- 自动开启代码压缩；
 			- Vue、React会自动删掉调试代码（如开发环境的warning）；
 			- 启动 [[#blue]]==**Tree-Shaking**==
@@ -325,7 +322,6 @@
 			  ]
 			  ```
 - ## Babel
-  collapsed:: true
 	- ### 环境搭建
 	  background-color:: pink
 		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
@@ -378,4 +374,3 @@
 				          ]
 				      ]
 				  ```
-		-
