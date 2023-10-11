@@ -1,3 +1,4 @@
 - > https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/
 - ## 每一次渲染都有它自己的 Props and State
+	- **当我们更新状态的时候，React会重新渲染组件。每一次渲染都能拿到独立的`count` 状态，这个状态值是函数中的一个常量。**
 	-
