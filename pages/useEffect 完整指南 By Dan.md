@@ -209,6 +209,120 @@
 		  }, []);
 		  ```
 	- 因为我们在effect中写了`setCount(count + 1)`所以`count`是一个必需的依赖。但是，我们真正想要的是把`count`转换为`count+1`，然后返回给React。可是React其实已经知道当前的`count`。**我们需要告知React的仅仅是去递增状态 - 不管它现在具体是什么值。**
-- ## 函数式更新 和 Google Docs
+- ## 解耦来自Actions的更新
   background-color:: pink
+	- 我们来修改上面的例子让它包含两个状态：`count` 和 `step`。我们的定时器会每次在count上增加一个`step`值：
+	- ```
+	  function Counter() {
+	    const [count, setCount] = useState(0);
+	    const [step, setStep] = useState(1);
+	  
+	    useEffect(() => {
+	      const id = setInterval(() => {
+	        setCount(c => c + step);
+	      }, 1000);
+	      return () => clearInterval(id);
+	    }, [step]);
+	  
+	    return (
+	      <>
+	        <h1>{count}</h1>
+	        <input value={step} onChange={e => setStep(Number(e.target.value))} />
+	      </>
+	    );
+	  }
+	  ```
+	- 这个例子目前的行为是修改`step`会重启定时器 - 因为它是依赖项之一。在大多数场景下，这正是你所需要的。清除上一次的effect然后重新运行新的effect并没有任何错。除非我们有很好的理由，我们不应该改变这个默认行为。
+	- 不过，假如我们不想在`step`改变后重启定时器，我们该如何从effect中移除对`step`的依赖呢？
+	- **当你想更新一个状态，并且这个状态更新依赖于另一个状态的值时，你可能需要用`useReducer`去替换它们。**
+	- 当你写类似`setSomething(something => ...)`这种代码的时候，也许就是考虑使用reducer的契机。reducer可以让你**把组件内发生了什么(actions)和状态如何响应并更新分开表述。**
+	- ```
+	  const [state, dispatch] = useReducer(reducer, initialState);
+	  const { count, step } = state;
+	  
+	  useEffect(() => {
+	    const id = setInterval(() => {
+	      dispatch({ type: 'tick' }); // Instead of setCount(c => c + step);
+	    }, 1000);
+	    return () => clearInterval(id);
+	  }, [dispatch]);
+	  ```
+	- > 你可以从依赖中去除`dispatch`, `setState`, 和`useRef`包裹的值因为React会确保它们是静态的。不过你设置了它们作为依赖也没什么问题。
+	- 相比于直接在effect里面读取状态，它dispatch了一个*action*来描述发生了什么。这使得我们的effect和`step`状态解耦。我们的effect不再关心怎么更新状态，它只负责告诉我们发生了什么。更新的逻辑全都交由reducer去统一处理:
+	- ```
+	  const initialState = {
+	    count: 0,
+	    step: 1,
+	  };
+	  
+	  function reducer(state, action) {
+	    const { count, step } = state;
+	    if (action.type === 'tick') {
+	      return { count: count + step, step };
+	    } else if (action.type === 'step') {
+	      return { count, step: action.step };
+	    } else {
+	      throw new Error();
+	    }
+	  }
+	  ```
+- ## 把函数移到Effects里
+  background-color:: pink
+	- 感谢`eslint-plugin-react-hooks` 插件的`exhaustive-deps`lint规则，它会在你[编码的时候就分析effects](https://github.com/facebook/react/issues/14920)并且提供可能遗漏依赖的建议。换句话说，机器会告诉你组件中哪些数据流变更没有被正确地处理。
+- ## 但我不能把这个函数放到Effect里
+  background-color:: pink
+	- 你可以把它包装成 [`useCallback` Hook](https://reactjs.org/docs/hooks-reference.html#usecallback):
+	- ```
+	  function SearchResults() {
+	    // ✅ Preserves identity when its own deps are the same
+	    const getFetchUrl = useCallback((query) => {
+	      return 'https://hn.algolia.com/api/v1/search?query=' + query;
+	    }, []);  // ✅ Callback deps are OK
+	  
+	    useEffect(() => {
+	      const url = getFetchUrl('react');
+	      // ... Fetch data and do something ...
+	    }, [getFetchUrl]); // ✅ Effect deps are OK
+	  
+	    useEffect(() => {
+	      const url = getFetchUrl('redux');
+	      // ... Fetch data and do something ...
+	    }, [getFetchUrl]); // ✅ Effect deps are OK
+	  
+	    // ...
+	  }
+	  ```
+	- `useCallback`本质上是添加了一层依赖检查。它以另一种方式解决了问题 - **我们使函数本身只在需要的时候才改变，而不是去掉对函数的依赖。**
+	- 这正是拥抱数据流和同步思维的结果。**对于通过属性从父组件传入的函数这个方法也适用。**
+- ## 说说竞态
+  background-color:: purple
+	- 有问题的原因是请求结果返回的顺序不能保证一致。比如我先请求 `{id: 10}`，然后更新到`{id: 20}`，但`{id: 20}`的请求更先返回。请求更早但返回更晚的情况会错误地覆盖状态值。
+	- 这被叫做竞态，这在混合了`async` / `await`（假设在等待结果返回）和自顶向下数据流的代码中非常典型（props和state可能会在async函数调用过程中发生改变）。
+	- Effects并没有神奇地解决这个问题，尽管它会警告你如果你直接传了一个`async` 函数给effect。（我们会改善这个警告来更好地解释你可能会遇到的这些问题。）
+	- 如果你使用的异步方式支持取消，那太棒了。你可以直接在清除函数中取消异步请求。
+	- 或者，最简单的权宜之计是用一个布尔值来跟踪它：
+	- ```
+	  function Article({ id }) {
+	    const [article, setArticle] = useState(null);
+	  
+	    useEffect(() => {
+	      let didCancel = false;
+	  
+	      async function fetchData() {
+	        const article = await API.fetchArticle(id);
+	        if (!didCancel) {
+	          setArticle(article);
+	        }
+	      }
+	  
+	      fetchData();
+	  
+	      return () => {
+	        didCancel = true;
+	      };
+	    }, [id]);
+	  
+	    // ...
+	  }
+	  ```
 	-
