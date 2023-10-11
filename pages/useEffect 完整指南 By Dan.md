@@ -125,4 +125,41 @@
 	      };
 	  });
 	  ```
-	- 假设第一次渲染的时候`props`是`{id: 10}`，第二次渲染的时候是`{id: 20}`。
+	- 假设第一次渲染的时候`props`是`{id: 10}`，第二次渲染的时候是`{id: 20}`：
+		- 1. **React 渲染`{id: 20}`的UI。**
+		  2. 浏览器绘制。我们在屏幕上看到`{id: 20}`的UI。
+		  3. **React 清除`{id: 10}`的effect。**
+		  4. React 运行`{id: 20}`的effect。
+	- React只会在[浏览器绘制](https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f)后运行effects。这使得你的应用更流畅因为大多数effects并不会阻塞屏幕的更新。[[#green]]==Effect的清除同样被延迟了。**上一次的effect会在重新渲染后被清除。**==
+- ## 同步， 而非生命周期
+  background-color:: pink
+	- **React会根据我们当前的props和state同步到DOM。**“mount”和“update”之于渲染并没有什么区别。
+	- 你应该以相同的方式去思考effects。**`useEffect`使你能够根据props和state*同步*React tree之外的东西。**
+	- 不过话说回来，在*每一次*渲染后都去运行所有的effects可能并不高效。（并且在某些场景下，它可能会导致无限循环。）
+	- 所以我们该怎么解决这个问题？
+- ## 告诉React去比对你的Effects
+  background-color:: pink
+	- 如果想要避免effects不必要的重复调用，你可以提供给`useEffect`一个依赖数组参数(deps)：
+		- ```
+		  useEffect(() => {
+		      document.title = 'Hello, ' + name;
+		  }, [name]); // Our deps
+		  ```
+		- 如果当前渲染中的这些依赖项和上一次运行这个effect的时候值一样，因为没有什么需要同步React会自动跳过这次effect。
+- ## 关于依赖项不要对React撒谎
+  background-color:: purple
+	- ```
+	  function SearchResults() {
+	    async function fetchData() {
+	      // ...
+	    }
+	  
+	    useEffect(() => {
+	      fetchData();
+	    }, []); // Is this okay? Not always -- and there's a better way to write it.
+	  
+	    // ...
+	  }
+	  ```
+	- **只需要记住：**如果你设置了依赖项，**effect中用到的所有组件内的值都要包含在依赖中。**这包括props，state，函数 — 组件内的任何东西。
+	-
