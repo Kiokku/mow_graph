@@ -144,7 +144,6 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
-  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
@@ -182,7 +181,6 @@
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 	- [[useEffect 完整指南 By Dan]]
-		-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
