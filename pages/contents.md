@@ -1,6 +1,5 @@
 - JavaScript
 	- [[JavaScript深入系列]]
-	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -145,6 +144,7 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
