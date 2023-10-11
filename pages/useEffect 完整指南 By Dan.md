@@ -162,4 +162,53 @@
 	  }
 	  ```
 	- **只需要记住：**如果你设置了依赖项，**effect中用到的所有组件内的值都要包含在依赖中。**这包括props，state，函数 — 组件内的任何东西。
+	- 有时候你是这样做了，但可能会引起一个问题。比如，你可能会遇到无限请求的问题，或者socket被频繁创建的问题。**解决问题的方法不是移除依赖项。**我们会很快了解具体的解决方案。
+- ## 如果设置了错误的依赖会怎么样呢？
+  background-color:: pink
+	- 举个例子，我们来写一个每秒递增的计数器。在Class组件中，我们的直觉是：“开启一次定时器，清除也是一次”。这里有一个[例子](https://codesandbox.io/s/n5mjzjy9kl)说明怎么实现它。当我们理所当然地把它用`useEffect`的方式翻译，直觉上我们会设置依赖为`[]`。“我只想运行一次effect”，对吗？
+	- ```
+	  function Counter() {
+	    const [count, setCount] = useState(0);
+	  
+	    useEffect(() => {
+	      const id = setInterval(() => {
+	        setCount(count + 1);
+	      }, 1000);
+	      return () => clearInterval(id);
+	    }, []);
+	  
+	    return <h1>{count}</h1>;
+	  }
+	  ```
+	- 然而，这个例子[只会递增一次](https://codesandbox.io/s/91n5z8jo7r)。
+	- 定时器依然在运行，但取得的`count`的值一直是`1`：
+		- 在第一次渲染中，`count`是`0`。因此，`setCount(count + 1)`在第一次渲染中等价于`setCount(0 + 1)`。**既然我们设置了`[]`依赖，effect不会再重新运行，它后面每一秒都会调用`setCount(0 + 1)`。
+	- 类似于这样的问题是很难被想到的。因此，我鼓励你将诚实地告知effect依赖作为一条硬性规则，并且要列出所以依赖。（我们提供了一个[lint规则](https://github.com/facebook/react/issues/14920)如果你想在你的团队内做硬性规定。）
+- ## 两种诚实告知依赖的方法
+  background-color:: pink
+	- **第一种策略是在依赖中包含所有effect中用到的组件内的值。**
+		- ```
+		  useEffect(() => {
+		    const id = setInterval(() => {
+		      setCount(count + 1);
+		    }, 1000);
+		    return () => clearInterval(id);
+		  }, [count]);
+		  ```
+		- 这能[解决问题](https://codesandbox.io/s/0x0mnlyq8l)但是我们的定时器会在每一次`count`改变后清除和重新设定。这应该不是我们想要的结果。
+	- **第二种策略是修改effect内部的代码以确保它包含的值只会在需要的时候发生变更。**我们不想告知错误的依赖 - 我们只是修改effect使得依赖更少。
+- ## 让Effects自给自足
+  background-color:: pink
+	- 当我们想要根据前一个状态更新状态的时候，我们可以使用`setState`的[函数形式](https://reactjs.org/docs/hooks-reference.html#functional-updates)：
+		- ```
+		  useEffect(() => {
+		      const id = setInterval(() => {
+		        setCount(c => c + 1);
+		      }, 1000);
+		      return () => clearInterval(id);
+		  }, []);
+		  ```
+	- 因为我们在effect中写了`setCount(count + 1)`所以`count`是一个必需的依赖。但是，我们真正想要的是把`count`转换为`count+1`，然后返回给React。可是React其实已经知道当前的`count`。**我们需要告知React的仅仅是去递增状态 - 不管它现在具体是什么值。**
+- ## 函数式更新 和 Google Docs
+  background-color:: pink
 	-
