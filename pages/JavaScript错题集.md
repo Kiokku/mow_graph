@@ -756,6 +756,7 @@
 	- let 声明的变量是在块级作用域(花括号)中的，因此可以认为每次执行循环语句块中的 i 变量是互相独立的，所以执行结果也符合预期
 	  logseq.order-list-type:: number
 - [[$red]]==关于 Promise，判断以下代码的输出== #card #JavaScript
+  collapsed:: true
   ```
   Promise.resolve()
     .then(() => {
