@@ -110,7 +110,6 @@
 		- `chunk`：多模块合并的代码块，如 entry、import()、splitChunk；
 		- `bundle`：最终输出打包文件
 - ## Webpack 性能优化
-  collapsed:: true
 	- ### 构建速度优化
 	  background-color:: pink
 		- [[#green]]==优化 babel-loader==
@@ -346,12 +345,10 @@
 			  ]
 			  ```
 - ## Babel
-  collapsed:: true
 	- ### 环境搭建
 	  background-color:: pink
 		- `@babel/cli`、`@babel/core`、`@babel/preset-env`
 		- ![image.png](../assets/image_1693233308415_0.png)
-		-
 		- `.babelrc`:
 			- ```
 			  {
