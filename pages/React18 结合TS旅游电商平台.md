@@ -91,7 +91,6 @@
 				  ```
 - ## Redux-项目架构方案
   id:: 6499b665-777d-4d8a-8dab-9ef1b34c0a36
-  collapsed:: true
 	- ![image.png](../assets/image_1687967254772_0.png)
 	- ![image.png](../assets/image_1687967510570_0.png)
 	- ### state和store
@@ -139,12 +138,10 @@
 		- `npm i @types/react-redux`
 		- #### Provider()
 		  background-color:: green
-		  collapsed:: true
 			- makes the Redux store available to the rest of your app(store全局可用)
 			- `<Provider store={store}><APP /></ Provider>`
 		- #### Connect()
 		  background-color:: green
-		  collapsed:: true
 			- 类组件中使用的HOC，将组件与store相连接
 			- `connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)(Component)`
 			- `mapStateToProps?: (state, ownProps?) => Object`
@@ -153,7 +150,6 @@
 	  background-color:: pink
 		- #### useSelector()
 		  background-color:: green
-		  collapsed:: true
 			- 连接组件与store
 			- 结合`TypedUseSelectorHook`剥离state类型耦合：
 			- ```
