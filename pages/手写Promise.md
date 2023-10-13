@@ -20,7 +20,6 @@
 - ## 一步一步实现一个Promise
 	- ### 构造函数
 	  background-color:: green
-	  collapsed:: true
 		- 因为标准并没有指定如何构造一个Promise对象，所以我们同样以目前一般Promise实现中通用的方法来构造一个Promise对象，也是ES6原生Promise里所使用的方式，即：
 		- ```
 		  // Promise构造函数接收一个executor函数，executor函数执行完同步或异步操作后，调用它的两个参数resolve和reject
