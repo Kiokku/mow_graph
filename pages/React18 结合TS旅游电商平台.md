@@ -161,7 +161,6 @@
 			  ```
 		- #### useDispatch()
 		  background-color:: green
-		  collapsed:: true
 			- 分发action
 			- 结合`action creator`：
 			- ```
@@ -171,7 +170,6 @@
 			  ```
 - ## Redux进阶-异步AJAX与redux中间件
   id:: 64b4dcbf-f5f5-4575-a537-c6bc27b18dfc
-  collapsed:: true
 	- ### RESTful Api
 	  background-color:: pink
 		- 基本特点：
@@ -241,7 +239,6 @@
 			- `middleware(store)(next)(action)`
 - ## Redux-Toolkit——产品搜索页面
   id:: 64c87633-9bcc-48f2-813b-d6ede014c425
-  collapsed:: true
 	- ### [redux-toolkit](https://redux-toolkit.js.org/) APIs:
 	  background-color:: pink
 		- #### createReducer
@@ -337,7 +334,6 @@
 				    },
 				  })
 				  ```
-			-
 - ## 页面布局Layouts
 	- [[#green]]==DRY原则-Don't Repeat Yourself!==
 	- 通用页面layouts
