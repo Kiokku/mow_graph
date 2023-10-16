@@ -138,17 +138,26 @@
 		- [[0-1背包问题]]
 		- [[完全背包问题]]
 		- [[编辑距离问题]]
+- 设计模式
+	- 创建型模式
+	- 结构型模式
+	- 行为模式
+		- [[观察者模式]]
+		-
 - 正则表达式
   collapsed:: true
 	- [[正则表达式的定义]]
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
+  collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
+  collapsed:: true
 	- [[前端技术一面]]
 	- [[面试企业背调]]
 	  collapsed:: true
@@ -186,6 +195,7 @@
 	- [[shell工具和脚本]]
 	-
 - Mathematics
+  collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
 	  collapsed:: true
 		- [[Study Materials]]
