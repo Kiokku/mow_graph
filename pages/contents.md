@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
