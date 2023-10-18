@@ -20,6 +20,7 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
+	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -139,9 +140,11 @@
 		- [[完全背包问题]]
 		- [[编辑距离问题]]
 - 设计模式
+  collapsed:: true
 	- 创建型模式
 	- 结构型模式
 	- 行为模式
+	  collapsed:: true
 		- [[观察者模式]]
 		- [[工厂方法模式]]
 - 正则表达式
@@ -187,7 +190,9 @@
 	- [[React基础与进阶]]
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
-	- [[useEffect 完整指南 By Dan]]
+	- [[useEffect 完整指南]] #DanAbramov
+	- [[在你写 memo() 之前 By Dan]]
+	-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
