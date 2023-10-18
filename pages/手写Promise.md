@@ -159,8 +159,9 @@
 		          var x = onResolved(self.data)
 		          if (x instanceof Promise) { // 如果onResolved的返回值是一个Promise对象，直接取它的结果做为promise2的结果
 		            x.then(resolve, reject)
+		          } else {
+		            resolve(x) // 否则，以它的返回值做为promise2的结果
 		          }
-		          resolve(x) // 否则，以它的返回值做为promise2的结果
 		        } catch (e) {
 		          reject(e) // 如果出错，以捕获到的错误做为promise2的结果
 		        }
@@ -174,8 +175,9 @@
 		          var x = onRejected(self.data)
 		          if (x instanceof Promise) {
 		            x.then(resolve, reject)
+		          } else {
+		  		  reject(x)
 		          }
-		          reject(x)
 		        } catch (e) {
 		          reject(e)
 		        }
