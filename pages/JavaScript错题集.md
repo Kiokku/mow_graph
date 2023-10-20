@@ -20,6 +20,12 @@
 	- **答案: D**
 	- colorChange 是一个静态方法。静态方法被设计为只能被创建它们的构造器使用（也就是 Chameleon），并且不能传递给实例。因为 freddie 是一个实例，静态方法不能被实例使用，因此抛出了 TypeError 错误。
 - [[$red]]==17. 输出是什么？==#card #JavaScript
+  card-last-interval:: -1
+  card-repeats:: 1
+  card-ease-factor:: 2.5
+  card-next-schedule:: 2023-10-20T16:00:00.000Z
+  card-last-reviewed:: 2023-10-20T06:50:43.105Z
+  card-last-score:: 1
   collapsed:: true
   ```
   function getPersonInfo(one, two, three) {
@@ -757,6 +763,12 @@
 	  logseq.order-list-type:: number
 - [[$red]]==关于 Promise，判断以下代码的输出== #card #JavaScript
   collapsed:: true
+  card-last-interval:: 4
+  card-repeats:: 1
+  card-ease-factor:: 2.36
+  card-next-schedule:: 2023-10-24T06:50:01.468Z
+  card-last-reviewed:: 2023-10-20T06:50:01.469Z
+  card-last-score:: 3
   ```
   Promise.resolve()
     .then(() => {
