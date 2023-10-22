@@ -35,8 +35,7 @@
 	- ### event 对象
 	  background-color:: blue
 		- JavaScript 在事件处理函数中会提供事件对象 event，在我们实现的 debounce 函数中，却只会打印 undefined!
-		- ```
-		  // 第三版
+		- // 第三版
 		  function debounce(func, wait) {
 		      var timeout;
 		  
@@ -50,7 +49,6 @@
 		          }, wait);
 		      }
 		  }
-		  ```
 		- 到此为止，我们修复了两个小问题：
 			- 1. this 指向
 			  2. event 对象
