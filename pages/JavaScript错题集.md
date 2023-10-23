@@ -568,7 +568,8 @@
   D: 我们从没调用过 config.alert(), config 为 null
 	- **答案: C**
 	- 一般情况下当我们将对象赋值为 null，那些对象会被进行 **垃圾回收（garbage collected）** 因为已经没有对这些对象的引用了。然而，setInterval的参数是一个箭头函数（所以上下文绑定到对象 config 了），回调函数仍然保留着对 config的引用。只要存在引用，对象就不会被垃圾回收。因为没有被垃圾回收，setInterval 的回调每 1000ms (1s) 会被调用一次。
-- 121. 输出什么？#card #JavaScript
+- collapsed:: true
+  121. 输出什么？#card #JavaScript
   ```
   const config = {
       languages: [],
@@ -586,6 +587,7 @@
 	- **答案: D**
 	- 方法 language 是一个 setter。Setters 并不保存一个实际值，它们的使命在于 **修改** 属性。当调用方法 setter， 返回 undefined。
 - [[$red]]==124. 输出什么？==#card #JavaScript
+  collapsed:: true
   ```
   async function* range(start, end) {
       for (let i = start; i <= end; i++) {
@@ -724,6 +726,7 @@
 	- **答案: B**
 	- 我们创建了类 Flamingo 的实例 pet。当我们实例化这个实例，Flamingo 中的 constructor 被调用。首相，输出 "I'm pink. 🌸"，之后我们调用super()。super() 调用父类的构造函数，Bird。Bird 的构造函数被调用，并输出 "I'm a bird. 🦢"。
 - [[$red]]==144. 我们需要向对象 person 添加什么，以致执行 [...person] 时获得形如 ["Lydia Hallie", 21] 的输出？==#card #JavaScript
+  collapsed:: true
   ```
   const person = {
     name: "Lydia Hallie",
