@@ -1,5 +1,6 @@
 - {{cards [[JavaScript]]}}
 - 8.输出是什么？#card #JavaScript
+  collapsed:: true
   ```
   class Chameleon {
   static colorChange(newColor) {
@@ -44,7 +45,8 @@
   C: "Lydia" ["", " is ", " years old"] 21
 	- **答案: B**
 	- 如果使用标记模板字面量，第一个参数的值总是包含字符串的数组。其余的参数获取的是传递的表达式的值！
-- 25. 输出是什么？#card #JavaScript
+- collapsed:: true
+  25. 输出是什么？#card #JavaScript
   ```
   const obj = { a: 'one', b: 'two', a: 'three' }
   console.log(obj)
@@ -55,7 +57,8 @@
   D: SyntaxError
 	- **答案: C**
 	- 如果你有两个名称相同的键，则键会被替换掉。它仍然位于第一个键出现的位置，但是值是最后出现那个键的值。
-- 28. 输出是什么？#card #JavaScript
+- collapsed:: true
+  28. 输出是什么？#card #JavaScript
   ```
   String.prototype.giveLydiaPizza = () => {
     return 'Just give Lydia pizza already!'
@@ -71,7 +74,8 @@
   D: undefined
 	- **答案: A**
 	- String 是内置的构造函数，我们可以向它添加属性。我只是在它的原型中添加了一个方法。基本类型字符串被自动转换为字符串对象，由字符串原型函数生成。因此，所有 string(string 对象) 都可以访问该方法
-- 29. 输出是什么？#card #JavaScript
+- collapsed:: true
+  29. 输出是什么？#card #JavaScript
   ```
   const a = {}
   const b = { key: 'b' }
@@ -91,6 +95,7 @@
 	- 然而，当字符串化一个对象时，它会变成 "[object Object]"。因此这里说的是，a["[object Object]"] = 123。然后，我们再一次做了同样的事情，c 是另外一个对象，这里也有隐式字符串化，于是，a["[object Object]"] = 456。
 	- 然后，我们打印 a[b]，也就是 a["[object Object]"]。之前刚设置为 456，因此返回的是 456。
 - [[$red]]==31. 当点击按钮时，event.target 是什么？== #card #JavaScript
+  collapsed:: true
   ```
   <div onclick="console.log('first div')">
     <div onclick="console.log('second div')">
