@@ -854,4 +854,12 @@
 	- [[#blue]]==**总结：**如果 resolve()的括号内的结果是一个 promise 的话，会多执行两个`micro task`==
 	- [在浏览器模拟事件循环](http://www.jsv9000.app/?code=UHJvbWlzZS5yZXNvbHZlKCkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygwKTsKICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoNCk7CiAgfSkKICAudGhlbigocmVzKSA9PiB7CiAgICBjb25zb2xlLmxvZyhyZXMpOwogIH0pOwogClByb21pc2UucmVzb2x2ZSgpCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coMSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygyKTsKICB9KQogIC50aGVuKCgpID0%2BIHsKICAgIGNvbnNvbGUubG9nKDMpOwogIH0pCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coNSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZyg2KTsKICB9KTs%3D)
 - 箭头函数和普通函数的区别？#card #JavaScript
-	- **箭头函数表达式**的语法比**函数表达式**更简洁，并且没有自己的
+  collapsed:: true
+	- **箭头函数表达式**的语法比**函数表达式**更简洁，并且没有自己的的`this`、`arguments`、`super`、`new.target`。
+	- 箭头函数表达式更适用于那些本来需要匿名函数的地方，并且它不能用作构造函数。
+		- `this`:箭头函数不会创建自己的`this，它只会从自己的作用域链的上一层继承 this`。
+		- `arguments`:箭头函数不绑定 Arguments 对象。在大多数情况下，使用剩余参数`...rest`是相较使用`arguments`对象的更好选择。
+		- `new`:箭头函数不能用作构造器，和 `new`一起用会抛出错误。
+		- `prototype`:箭头函数没有`prototype`属性。
+		- `yield`: `yield`关键字通常不能在箭头函数中使用（除非是嵌套在允许使用的函数内）。因此，箭头函数不能用作函数生成器。
+-
