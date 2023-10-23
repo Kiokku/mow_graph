@@ -3,7 +3,6 @@
 - ## createElement
 	- ### 源码
 	  background-color:: pink
-	  collapsed:: true
 		- `PATH：src/react/packages/react/src/ReactElement.js`
 		- ```
 		  // 简化后
