@@ -608,7 +608,8 @@
   D: undefined undefined undefined
 	- **答案: C**
 	- 我们给 函数 range 传递： Promise{1}, Promise{2}, Promise{3}，Generator 函数 range 返回一个全是 async object promise 数组。我们将 async object 赋值给变量 gen，之后我们使用for await ... of 进行循环遍历。我们将返回的 Promise 实例赋值给 item： 第一个返回 Promise{1}， 第二个返回 Promise{2}，之后是 Promise{3}。因为我们正 **awaiting** item 的值，resolved 状态的 promsie，promise 数组的 resolved **值** 以此为： 1，2，3.
-- 128. 输出什么？#card #JavaScript
+- collapsed:: true
+  128. 输出什么？#card #JavaScript
   ```
   const name = "Lydia Hallie";
   const age = 21;
@@ -627,6 +628,7 @@
 	- 通过方法 Number.isNaN，你可以检测你传递的值是否为 **数字值** 并且是否等价于 NaN。name 不是一个数字值，因此 Number.isNaN(name) 返回 false。age 是一个数字值，但它不等价于 NaN，因此 Number.isNaN(age) 返回 false.
 	- 通过方法 isNaN， 你可以检测你传递的值是否是一个 number（is not a number）。name 不是一个 number，因此 isNaN(name) 返回 true. age 是一个 number 因此 isNaN(age) 返回 false.
 - [[$red]]==133. 输出什么？==#card #JavaScript
+  collapsed:: true
   ```
   const myPromise = Promise.resolve(Promise.resolve("Promise!"));
   
@@ -656,7 +658,8 @@
 	- 我们现在处于 funcTwo，先 **awaiting** myPromise。通过 await 关键字， 我们暂停了函数的执行直到 promise 状态变为 resolved (或 rejected)。然后，我们输出 res 的 awaited 值（因为 promise 本身返回一个 promise）。 接着输出 Promise!。
 	- 下一行就是 **异步操作** setTimeout，其回调函数被 Web API 调用。
 	- 我们执行到函数 funcTwo 的最后一行，输出 Last line!。现在，因为 funcTwo 出栈，调用栈为空。在事件队列中等待的回调函数（() => console.log("Timeout!") from funcOne, and () => console.log("Timeout!") from funcTwo）以此入栈。第一个回调输出 Timeout!，并出栈。然后，第二个回调输出 Timeout!，并出栈。得到结果 Last line! Promise! Promise! Last line! Timeout! Timeout!
-- 135. 输出什么？#card #JavaScript
+- collapsed:: true
+  135. 输出什么？#card #JavaScript
   ```
   const handler = {
       set: () => console.log("Added a new property!"),
@@ -677,7 +680,8 @@
 	- 第一个参数是一个空对象 {}，作为 person 的值。对于这个对象，自定义行为被定义在对象 handler。如果我们向对象 person 添加属性，set 将被调用。如果我们获取 person 的属性，get 将被调用。
 	- 首先，我们向 proxy 对象 (person.name = "Lydia") 添加一个属性 name。set 被调用并输出 "Added a new property!"。
 	- 然后，我们获取 proxy 对象的一个属性，对象 handler 的属性 get 被调用。输出 "Accessed a property!"。
-- 139. 输出什么？#card #JavaScript
+- collapsed:: true
+  139. 输出什么？#card #JavaScript
   ```
   class Counter {
     #number = 10
@@ -702,7 +706,8 @@
   D: SyntaxError
 	- **答案: D**
 	- 在 ES2020 中，通过 `#` 我们可以给 class 添加私有变量。在 class 的外部我们无法获取该值。当我们尝试输出 `counter.#number`，语法错误被抛出：我们无法在 `class Counter` 外部获取它！
-- 142. 输出什么？#card #JavaScript
+- collapsed:: true
+  142. 输出什么？#card #JavaScript
   ```
   class Bird {
       constructor() {
@@ -726,7 +731,6 @@
 	- **答案: B**
 	- 我们创建了类 Flamingo 的实例 pet。当我们实例化这个实例，Flamingo 中的 constructor 被调用。首相，输出 "I'm pink. 🌸"，之后我们调用super()。super() 调用父类的构造函数，Bird。Bird 的构造函数被调用，并输出 "I'm a bird. 🦢"。
 - [[$red]]==144. 我们需要向对象 person 添加什么，以致执行 [...person] 时获得形如 ["Lydia Hallie", 21] 的输出？==#card #JavaScript
-  collapsed:: true
   ```
   const person = {
     name: "Lydia Hallie",
@@ -849,3 +853,4 @@
 				- 与 promise/A+规范的不同之处在于，v8 并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步 micro task：作用就是将 `resolveWithPromise => resolveWithThenableObject`
 	- [[#blue]]==**总结：**如果 resolve()的括号内的结果是一个 promise 的话，会多执行两个`micro task`==
 	- [在浏览器模拟事件循环](http://www.jsv9000.app/?code=UHJvbWlzZS5yZXNvbHZlKCkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygwKTsKICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoNCk7CiAgfSkKICAudGhlbigocmVzKSA9PiB7CiAgICBjb25zb2xlLmxvZyhyZXMpOwogIH0pOwogClByb21pc2UucmVzb2x2ZSgpCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coMSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygyKTsKICB9KQogIC50aGVuKCgpID0%2BIHsKICAgIGNvbnNvbGUubG9nKDMpOwogIH0pCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coNSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZyg2KTsKICB9KTs%3D)
+-
