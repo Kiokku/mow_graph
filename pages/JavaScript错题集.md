@@ -853,4 +853,5 @@
 				- 与 promise/A+规范的不同之处在于，v8 并没有对`x is a promise` 的情况做处理，而是只有对`x is an object`的处理。所以多了一步 micro task：作用就是将 `resolveWithPromise => resolveWithThenableObject`
 	- [[#blue]]==**总结：**如果 resolve()的括号内的结果是一个 promise 的话，会多执行两个`micro task`==
 	- [在浏览器模拟事件循环](http://www.jsv9000.app/?code=UHJvbWlzZS5yZXNvbHZlKCkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygwKTsKICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoNCk7CiAgfSkKICAudGhlbigocmVzKSA9PiB7CiAgICBjb25zb2xlLmxvZyhyZXMpOwogIH0pOwogClByb21pc2UucmVzb2x2ZSgpCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coMSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZygyKTsKICB9KQogIC50aGVuKCgpID0%2BIHsKICAgIGNvbnNvbGUubG9nKDMpOwogIH0pCiAgLnRoZW4oKCkgPT4gewogICAgY29uc29sZS5sb2coNSk7CiAgfSkKICAudGhlbigoKSA9PiB7CiAgICBjb25zb2xlLmxvZyg2KTsKICB9KTs%3D)
--
+- 箭头函数和普通函数的区别？#card #JavaScript
+	- **箭头函数表达式**的语法比**函数表达式**更简洁，并且没有自己的
