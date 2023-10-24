@@ -1,0 +1,5 @@
+- > https://juejin.cn/post/7161719602652086308
+- ## 三种使用方式
+	- React 提供了 Refs，帮助我们访问 DOM 节点或在 render 方法中创建的 React 元素。
+	- React 提供了三种使用 Ref 的方式：
+	-
