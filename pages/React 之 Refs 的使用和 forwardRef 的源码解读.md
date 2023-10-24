@@ -155,4 +155,33 @@
 	      }
 	  }
 	  ```
-	-
+- ## createRef 源码
+	- [源码的位置](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact%2Fblob%2Fmain%2Fpackages%2Freact%2Fsrc%2FReactCreateRef.js)在 `/packages/react/src/ReactCreateRef.js`，代码其实很简单，就只是返回了一个具有 current 属性的对象：
+		- ```
+		  // 简化后
+		  export function createRef() {
+		    const refObject = {
+		      current: null,
+		    };
+		    return refObject;
+		  }
+		  
+		  ```
+		- 在渲染的过程中，`refObject.current` 会被赋予具体的值。
+- ## forwardRef 源码
+	- [源码的位置](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Ffacebook%2Freact%2Fblob%2Fmain%2Fpackages%2Freact%2Fsrc%2FReactForwardRef.js)在 `/packages/react/src/ReactForwardRef.js`，代码也很简单：
+		- ```
+		  // 简化后
+		  const REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+		  
+		  export function forwardRef(render) {
+		    const elementType = {
+		      $$typeof: REACT_FORWARD_REF_TYPE,
+		      render,
+		    };
+		  
+		    return elementType;
+		  }
+		  
+		  ```
+		- 但是要注意这里的 `$$typeof`，尽管这里是 `REACT_FORWARD_REF_TYPE`，但最终创建的 React 元素的 `$$typeof` 依然为 `REACT_ELEMENT_TYPE`。
