@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[JavaScript深入系列]]
 	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
@@ -160,6 +161,7 @@
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
+  collapsed:: true
 	- [[前端技术一面]]
 	- [[面试企业背调]]
 	  collapsed:: true
