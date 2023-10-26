@@ -202,7 +202,6 @@
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
 	- [[shell]]
 	- [[shell工具和脚本]]
-	-
 - Mathematics
   collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
