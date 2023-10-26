@@ -165,7 +165,6 @@
 	- [[面试企业背调]]
 	  collapsed:: true
 	- [[项目面试相关]]
-	- [[笔试]]
 - React
   collapsed:: true
 	- React技术揭秘
