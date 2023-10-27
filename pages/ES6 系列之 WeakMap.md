@@ -82,3 +82,6 @@
 		  
 		  export default Person;
 		  ```
+	- ### 4. 防止内存泄漏
+	  background-color:: pink
+		- 由于 WeakMap 只弱引用键名，当对应的键名不再被引用时，WeakMap 会自动进行垃圾回收，并清除对应的键值对。
