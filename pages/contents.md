@@ -166,7 +166,6 @@
 	- [[项目面试相关]]
 - React
 	- React技术揭秘
-	  collapsed:: true
 		- 理念篇
 			- 第一章 React理念
 				- [[React理念]]
@@ -180,13 +179,13 @@
 				- [[调试源码]]
 				- [[深入理解JSX]]
 		- 架构篇
+		  collapsed:: true
 			- 第三章 render阶段
 				- [[render流程概览]]
 				- [[beginWork]]
 				- [[completeWork]]
 			- 第四章 commit阶段
 				- [[commit流程概览]]
-				-
 	- [[React基础与进阶]]
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
