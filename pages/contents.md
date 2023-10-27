@@ -43,6 +43,7 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -164,7 +165,6 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
-  collapsed:: true
 	- React技术揭秘
 	  collapsed:: true
 		- 理念篇
@@ -188,9 +188,11 @@
 				- [[commit流程概览]]
 				-
 	- [[React基础与进阶]]
+	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 		- [[React 之元素与组件的区别]]
 		- [[React 之 Refs 的使用和 forwardRef 的源码解读]]
+	- [[图解 React]]
 	- [[useEffect 完整指南]] #DanAbramov
 	- [[在你写 memo() 之前]]#DanAbramov
 	-
