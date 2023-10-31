@@ -280,4 +280,6 @@
 				  logseq.order-list-type:: number
 		- `updateQueue`是`fiber`对象的一个属性, 所以不能脱离`fiber`存在. 它们之间数据结构和引用关系如下:
 			- ![image.png](../assets/image_1698742467946_0.png)
+	- ### Hook 对象
+	  background-color:: pink
 		-
