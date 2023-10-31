@@ -247,3 +247,17 @@
 		    effects: Array<Update<State>> | null,
 		  |};
 		  ```
+		- [[#green]]==属性解释:==
+			- UpdateQueue
+			  logseq.order-list-type:: number
+				- `baseState`: 表示此队列的基础 state
+				  logseq.order-list-type:: number
+				- `firstBaseUpdate`: 指向基础队列的队首
+				  logseq.order-list-type:: number
+				- `lastBaseUpdate`: 指向基础队列的队尾
+				  logseq.order-list-type:: number
+				- `shared`: 共享队列
+				  logseq.order-list-type:: number
+				- `effects`: 用于保存有`callback`回调函数的 update 对象, 在`commit`之后, 会依次调用这里的回调函数.
+				  logseq.order-list-type:: number
+			- logseq.order-list-type:: number
