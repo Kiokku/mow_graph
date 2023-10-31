@@ -316,4 +316,16 @@
 				  logseq.order-list-type:: number
 				- `baseState`: 基础状态, 当`Hook.queue`更新过后, `baseState`也会更新.
 				  logseq.order-list-type:: number
-				- logseq.order-list-type:: number
+				- `baseQueue`: 基础状态队列, 在`reconciler`阶段会辅助状态合并.
+				  logseq.order-list-type:: number
+				- `queue`: 指向一个`Update`队列
+				  logseq.order-list-type:: number
+				- `next`: 指向该`function`组件的下一个`Hook`对象, 使得[[#green]]==多个`Hook`之间也构成了一个链表.==
+				  logseq.order-list-type:: number
+			- `Hook.queue`和 `Hook.baseQueue`(即`UpdateQueue`和`Update`）是为了保证`Hook`对象能够顺利更新, 与上文`fiber.updateQueue`中的`UpdateQueue和Update`是不一样的(且它们在不同的文件), 其逻辑会在状态组件(class 与 function)章节中详细解读.
+			  logseq.order-list-type:: number
+		- [[#blue]]==`Hook`与`fiber`的关系:==
+			- 在`fiber`对象中有一个属性[[#green]]==`fiber.memoizedState`==指向`fiber`节点的内存状态. 在`function`类型的组件中, `fiber.memoizedState`就指向`Hook`队列(`Hook`队列保存了`function`类型的组件状态).
+			- 所以`Hook`也不能脱离`fiber`而存在, 它们之间的引用关系如下:
+			- ![image.png](../assets/image_1698744641024_0.png)
+			-
