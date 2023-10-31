@@ -282,4 +282,38 @@
 			- ![image.png](../assets/image_1698742467946_0.png)
 	- ### Hook 对象
 	  background-color:: pink
-		-
+		- > `Hook`用于`function`组件中, 能够保持`function`组件的状态(与`class`组件中的`state`在性质上是相同的, 都是为了保持组件的状态).在`react@16.8`以后, 官方开始推荐使用`Hook`语法, 常用的 api 有`useState`,`useEffect`,`useCallback`等, 官方一共定义了[14 种`Hook`类型](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberHooks.old.js#L111-L125).
+		- 这些 api 背后都会创建一个`Hook`对象, 先观察[`Hook`对象的数据结构](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberHooks.old.js#L134-L140):
+		- ```
+		  export type Hook = {|
+		    memoizedState: any,
+		    baseState: any,
+		    baseQueue: Update<any, any> | null,
+		    queue: UpdateQueue<any, any> | null,
+		    next: Hook | null,
+		  |};
+		  
+		  type Update<S, A> = {|
+		    lane: Lane,
+		    action: A,
+		    eagerReducer: ((S, A) => S) | null,
+		    eagerState: S | null,
+		    next: Update<S, A>,
+		    priority?: ReactPriorityLevel,
+		  |};
+		  
+		  type UpdateQueue<S, A> = {|
+		    pending: Update<S, A> | null,
+		    dispatch: ((A) => mixed) | null,
+		    lastRenderedReducer: ((S, A) => S) | null,
+		    lastRenderedState: S | null,
+		  |};
+		  ```
+		- [[#green]]==属性解释:==
+			- `Hook`
+			  logseq.order-list-type:: number
+				- `memoizedState`: 内存状态, 用于输出成最终的`fiber`树.
+				  logseq.order-list-type:: number
+				- `baseState`: 基础状态, 当`Hook.queue`更新过后, `baseState`也会更新.
+				  logseq.order-list-type:: number
+				- logseq.order-list-type:: number
