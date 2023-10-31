@@ -44,4 +44,66 @@
 				  logseq.order-list-type:: number
 	- ### [ReactComponent](https://github.com/facebook/react/blob/v17.0.2/packages/react/src/ReactBaseClasses.js#L20-L30) 对象
 	  background-color:: pink
-		-
+		- 对于`ReactElement`来讲, `ReactComponent`仅仅是诸多`type`类型中的一种.
+		- 这里用一个简单的示例, 通过查看编译后的代码来说明：
+		- ```
+		  class App extends React.Component {
+		    render() {
+		      return (
+		        <div className="app">
+		          <header>header</header>
+		          <Content />
+		          <footer>footer</footer>
+		        </div>
+		      );
+		    }
+		  }
+		  
+		  class Content extends React.Component {
+		    render() {
+		      return (
+		        <React.Fragment>
+		          <p>1</p>
+		          <p>2</p>
+		          <p>3</p>
+		        </React.Fragment>
+		      );
+		    }
+		  }
+		  
+		  export default App;
+		  ```
+		- 编译之后的代码(此处只编译了 jsx 语法, 并没有将 class 语法编译成 es5 中的 function), 可以更直观的看出调用逻辑.
+		- `createElement`函数的第一个参数将作为创建`ReactElement`的`type`. 可以看到`Content`这个变量被编译器命名为`App_Content`, 并作为第一个参数(引用传递), 传入了`createElement`.
+		- ```
+		  class App_App extends react_default.a.Component {
+		    render() {
+		      return /*#__PURE__*/ react_default.a.createElement(
+		        'div',
+		        {
+		          className: 'app',
+		        } /*#__PURE__*/,
+		        react_default.a.createElement('header', null, 'header') /*#__PURE__*/,
+		  
+		        // 此处直接将Content传入, 是一个指针传递
+		        react_default.a.createElement(App_Content, null) /*#__PURE__*/,
+		        react_default.a.createElement('footer', null, 'footer'),
+		      );
+		    }
+		  }
+		  class App_Content extends react_default.a.Component {
+		    render() {
+		      return /*#__PURE__*/ react_default.a.createElement(
+		        react_default.a.Fragment,
+		        null /*#__PURE__*/,
+		        react_default.a.createElement('p', null, '1'),
+		        /*#__PURE__*/
+		  
+		        react_default.a.createElement('p', null, '2'),
+		        /*#__PURE__*/
+		  
+		        react_default.a.createElement('p', null, '3'),
+		      );
+		    }
+		  }
+		  ```
