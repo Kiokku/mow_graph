@@ -188,7 +188,8 @@
 		    treeBaseDuration?: number, // 生成子树所消耗的时间的总和
 		  |};
 		  ```
-		- 属性解释：
+		- [[#green]]==属性解释：==
+		  collapsed:: true
 			- - **`fiber.tag`**: 表示 fiber 类型, 根据`ReactElement`组件的 type 进行生成, 在 react 内部共定义了[25 种 tag](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactWorkTags.js#L10-L35).
 			- - **`fiber.key`**: 和`ReactElement`组件的 key 一致.
 			- - `fiber.elementType`: 一般来讲和`ReactElement`组件的 type 一致.
@@ -213,4 +214,10 @@
 			- - `fiber.lastEffect`: 指向副作用链表中的最后一个 fiber 节点.
 			- - `fiber.lanes`: 本 fiber 节点所属的优先级, 创建 fiber 的时候设置.
 			- - `fiber.childLanes`: 子节点所属的优先级.
+			- - `fiber.alternate`: 指向内存中的另一个 fiber, 每个被更新过 fiber 节点在内存中都是成对出现(current 和 workInProgress)
 			-
+		- 最后绘制一颗 fiber 树与上文中的`ReactElement`树对照起来:
+		- ![image.png](../assets/image_1698739333755_0.png)
+	- ### Update 与 UpdateQueue 对象
+	  background-color:: pink
+		-
