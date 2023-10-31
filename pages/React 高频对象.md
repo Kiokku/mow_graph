@@ -122,6 +122,20 @@
 		- 如果使用了`Hook`, 逻辑就相对复杂, 涉及到`Hook`创建和状态保存(有关 Hook 的原理部分, 在 Hook 原理章节中详细解读). 此处只需要了解`function`类型的组件和`class`类型的组件一样, 是诸多`ReactElement`形式中的一种.
 	- ### `ReactElement` 内存结构
 	  background-color:: green
+	  collapsed:: true
 		- 通过前文对`ReactElement`的介绍, 可以比较容易的画出`<App/>`这个`ReactElement`对象在内存中的结构(`reconciler`阶段完成之后才会形成完整的结构).
 		- ![image.png](../assets/image_1698736999213_0.png)
-		-
+		- 注意:
+			- `class`和`function`类型的组件,其子节点是在 render 之后(`reconciler`阶段)才生成的. 此处只是单独表示`ReactElement`的数据结构.
+			  logseq.order-list-type:: number
+			- 父级对象和子级对象之间是通过`props.children`属性进行关联的(与 fiber 树不同).
+			  logseq.order-list-type:: number
+			- `ReactElement`虽然不能算是一个严格的树, 也不能算是一个严格的链表. 它的生成过程是自顶向下的, 是所有组件节点的总和.
+			  logseq.order-list-type:: number
+			- `ReactElement`树(暂且用树来表述)和`fiber`树是以`props.children`为单位`先后交替`生成的(在 fiber 树构建章节详细解读), 当`ReactElement`树构造完毕, fiber 树也随后构造完毕.
+			  logseq.order-list-type:: number
+			- `reconciler`阶段会根据`ReactElement`的类型生成对应的`fiber`节点(不是一一对应, 比如`Fragment`类型的组件在生成`fiber`节点的时候会略过).
+			  logseq.order-list-type:: number
+- ## `react-reconciler`   包
+	- `react-reconciler`包是`react`应用的中枢, 连接渲染器(`react-dom`)和调度中心(`scheduler`), 同时自身也负责 fiber 树的构造.
+	-
