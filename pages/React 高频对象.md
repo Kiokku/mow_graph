@@ -328,4 +328,19 @@
 			- 在`fiber`对象中有一个属性[[#green]]==`fiber.memoizedState`==指向`fiber`节点的内存状态. 在`function`类型的组件中, `fiber.memoizedState`就指向`Hook`队列(`Hook`队列保存了`function`类型的组件状态).
 			- 所以`Hook`也不能脱离`fiber`而存在, 它们之间的引用关系如下:
 			- ![image.png](../assets/image_1698744641024_0.png)
-			-
+- ## scheduler 包
+	- > `scheduler`包负责调度, 在内部维护一个任务队列([taskQueue](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js#L63)). 这个队列是一个最小堆数组(详见[React 算法之堆排序](https://7km.top/algorithm/heapsort)), 其中存储了 task 对象.
+	- ### Task 对象
+	  background-color:: pink
+		- `scheduler`包中, 没有为 task 对象定义 type, 其[定义是直接在 js 代码](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js#L316-L326)中:
+		- ```
+		  var newTask = {
+		    id: taskIdCounter++,
+		    callback,
+		    priorityLevel,
+		    startTime,
+		    expirationTime,
+		    sortIndex: -1,
+		  };
+		  ```
+	-
