@@ -122,4 +122,6 @@
 		- 如果使用了`Hook`, 逻辑就相对复杂, 涉及到`Hook`创建和状态保存(有关 Hook 的原理部分, 在 Hook 原理章节中详细解读). 此处只需要了解`function`类型的组件和`class`类型的组件一样, 是诸多`ReactElement`形式中的一种.
 	- ### `ReactElement` 内存结构
 	  background-color:: green
+		- 通过前文对`ReactElement`的介绍, 可以比较容易的画出`<App/>`这个`ReactElement`对象在内存中的结构(`reconciler`阶段完成之后才会形成完整的结构).
+		- ![image.png](../assets/image_1698736999213_0.png)
 		-
