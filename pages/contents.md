@@ -166,6 +166,7 @@
 	- [[项目面试相关]]
 - React
 	- React技术揭秘
+	  collapsed:: true
 		- 理念篇
 			- 第一章 React理念
 				- [[React理念]]
@@ -187,7 +188,6 @@
 			- 第四章 commit阶段
 				- [[commit流程概览]]
 	- [[React基础与进阶]]
-	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 		- [[React 之元素与组件的区别]]
 		- [[React 之 Refs 的使用和 forwardRef 的源码解读]]
