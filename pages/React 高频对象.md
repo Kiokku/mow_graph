@@ -248,7 +248,7 @@
 		  |};
 		  ```
 		- [[#green]]==属性解释:==
-			- UpdateQueue
+			- `UpdateQueue`
 			  logseq.order-list-type:: number
 				- `baseState`: 表示此队列的基础 state
 				  logseq.order-list-type:: number
@@ -260,4 +260,24 @@
 				  logseq.order-list-type:: number
 				- `effects`: 用于保存有`callback`回调函数的 update 对象, 在`commit`之后, 会依次调用这里的回调函数.
 				  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+			- `SharedQueue`
+			  logseq.order-list-type:: number
+				- `pending`: 指向即将输入的`update`队列. [[#green]]==在`class`组件中调用`setState()`之后, 会将新的 update 对象添加到这个队列中来.==
+				  logseq.order-list-type:: number
+			- `Update`
+			  logseq.order-list-type:: number
+				- `eventTime`: 发起`update`事件的时间(17.0.2 中作为临时字段, 即将移出)
+				  logseq.order-list-type:: number
+				- `lane`: `update`所属的优先级
+				  logseq.order-list-type:: number
+				- `tag`: 表示`update`种类, 共 4 种. [`UpdateState,ReplaceState,ForceUpdate,CaptureUpdate`](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactUpdateQueue.old.js#L131-L134)
+				  logseq.order-list-type:: number
+				- `payload`: 载荷, `update`对象真正需要更新的数据, 可以设置成一个回调函数或者对象.
+				  logseq.order-list-type:: number
+				- `callback`: 回调函数. `commit`完成之后会调用.
+				  logseq.order-list-type:: number
+				- `next`: 指向链表中的下一个, 由于`UpdateQueue`是一个环形链表, 最后一个`update.next`指向第一个`update`对象.
+				  logseq.order-list-type:: number
+		- `updateQueue`是`fiber`对象的一个属性, 所以不能脱离`fiber`存在. 它们之间数据结构和引用关系如下:
+			- ![image.png](../assets/image_1698742467946_0.png)
+		-
