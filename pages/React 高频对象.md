@@ -343,4 +343,10 @@
 		    sortIndex: -1,
 		  };
 		  ```
-	-
+		- [[#green]]==属性解释:==
+			- `id`: 唯一标识.
+			- `callback`: task 最核心的字段, 指向`react-reconciler`包所提供的回调函数.
+			- `priorityLevel`: 优先级.
+			- `startTime`: 一个时间戳,代表 task 的开始时间(创建时间 + 延时时间).
+			- `expirationTime`: 过期时间.
+			-
