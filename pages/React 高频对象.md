@@ -349,4 +349,6 @@
 			- `priorityLevel`: 优先级.
 			- `startTime`: 一个时间戳,代表 task 的开始时间(创建时间 + 延时时间).
 			- `expirationTime`: 过期时间.
-			-
+			- `sortIndex`: 控制 task 在队列中的次序, 值越小的越靠前.
+		- 注意`task`中没有`next`属性, 它不是一个链表, 其顺序是通过堆排序来实现的([[#blue]]==小顶堆数组, 始终保证数组中的第一个`task`对象优先级最高).==
+		- ![image.png](../assets/image_1698763984534_0.png)
