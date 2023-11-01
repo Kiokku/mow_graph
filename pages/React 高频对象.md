@@ -1,20 +1,18 @@
 - > 在 React 应用中, 有很多特定的对象或数据结构. 了解这些内部的设计, 可以更容易理解 react 运行原理. 本章主要列举从 react 启动到渲染过程出现频率较高, 影响范围较大的对象, 它们贯穿整个 react 运行时.
 - ## react 包
-  collapsed:: true
 	- 此包定义 react 组件(`ReactElement`)的必要函数, 提供一些操作`ReactElement`对象的 api.
 	- 所以这个包的核心需要理解`ReactElement`对象, 假设有如下入口函数:
-		- ```
+		- ```javascript
 		  // 入口函数
 		  ReactDOM.render(<App />, document.getElementById('root'));
 		  ```
 	- 可以简单的认为, 包括`<App/>`及其所有子节点都是`ReactElement`对象(在 render 之后才会生成子节点, 后文详细解读), [[#green]]==每个`ReactElement`对象的区别在于 type 不同.==
 	- ### [ReactElement 对象](https://github.com/facebook/react/blob/v17.0.2/packages/react/src/ReactElement.js#L126-L146)
 	  background-color:: pink
-	  collapsed:: true
 		- > *其 type 定义在*[`shared`包中](https://github.com/facebook/react/blob/v17.0.2/packages/shared/ReactElementType.js#L15)*.*
 		- 所有采用`jsx`语法书写的节点, 都会被编译器转换, 最终会以`React.createElement(...)`的方式, 创建出来一个与之对应的`ReactElement`对象.
 		- `ReactElement`对象的数据结构如下:
-		- ```
+		- ```javascript
 		  export type ReactElement = {|
 		    // 用于辨别ReactElement对象
 		    $typeof: any,
@@ -46,10 +44,9 @@
 				  logseq.order-list-type:: number
 	- ### [ReactComponent](https://github.com/facebook/react/blob/v17.0.2/packages/react/src/ReactBaseClasses.js#L20-L30) 对象
 	  background-color:: pink
-	  collapsed:: true
 		- 对于`ReactElement`来讲, `ReactComponent`仅仅是诸多`type`类型中的一种.
 		- 这里用一个简单的示例, 通过查看编译后的代码来说明：
-		- ```
+		- ```javascript
 		  class App extends React.Component {
 		    render() {
 		      return (
@@ -78,7 +75,7 @@
 		  ```
 		- 编译之后的代码(此处只编译了 jsx 语法, 并没有将 class 语法编译成 es5 中的 function), 可以更直观的看出调用逻辑.
 		- `createElement`函数的第一个参数将作为创建`ReactElement`的`type`. 可以看到`Content`这个变量被编译器命名为`App_Content`, 并作为第一个参数(引用传递), 传入了`createElement`.
-		- ```
+		- ```javascript
 		  class App_App extends react_default.a.Component {
 		    render() {
 		      return /*#__PURE__*/ react_default.a.createElement(
@@ -142,7 +139,7 @@
 	- ### Fiber 对象
 	  background-color:: pink
 		- 先看数据结构, 其 type 类型的定义在[`ReactInternalTypes.js`](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactInternalTypes.js#L47-L174)中:
-		- ```
+		- ```javascript
 		  // 一个Fiber对象代表一个即将渲染或者已经渲染的组件(ReactElement), 一个组件可能对应两个fiber(current和WorkInProgress)
 		  // 单个属性的解释在后文(在注释中无法添加超链接)
 		  export type Fiber = {|
@@ -222,7 +219,7 @@
 	  background-color:: pink
 		- 在`fiber`对象中有一个属性`fiber.updateQueue`, 是一个链式队列(即使用链表实现的队列存储结构), 后文会根据场景表述成链表或队列.
 		- 首先观察`Update`对象的数据结构([对照源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactUpdateQueue.old.js#L106-L129)):
-		- ```
+		- ```javascript
 		  export type Update<State> = {|
 		    eventTime: number, // 发起update事件的时间(17.0.2中作为临时字段, 即将移出)
 		    lane: Lane, // update所属的优先级
@@ -284,7 +281,7 @@
 	  background-color:: pink
 		- > `Hook`用于`function`组件中, 能够保持`function`组件的状态(与`class`组件中的`state`在性质上是相同的, 都是为了保持组件的状态).在`react@16.8`以后, 官方开始推荐使用`Hook`语法, 常用的 api 有`useState`,`useEffect`,`useCallback`等, 官方一共定义了[14 种`Hook`类型](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberHooks.old.js#L111-L125).
 		- 这些 api 背后都会创建一个`Hook`对象, 先观察[`Hook`对象的数据结构](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberHooks.old.js#L134-L140):
-		- ```
+		- ```javascript
 		  export type Hook = {|
 		    memoizedState: any,
 		    baseState: any,
@@ -333,7 +330,7 @@
 	- ### Task 对象
 	  background-color:: pink
 		- `scheduler`包中, 没有为 task 对象定义 type, 其[定义是直接在 js 代码](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js#L316-L326)中:
-		- ```
+		- ```javascript
 		  var newTask = {
 		    id: taskIdCounter++,
 		    callback,
