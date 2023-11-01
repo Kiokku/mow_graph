@@ -62,6 +62,7 @@
 		- [[ES6 完全使用手册]]
 	- [[手写Promise]]
 	- [[JavaScript错题集]]
+	- [[函数式编程指南]]
 - TypeScript
   collapsed:: true
 	- [[TypeScript中文文档]]
@@ -195,8 +196,8 @@
 	- [[useEffect 完整指南]] #DanAbramov
 	- [[在你写 memo() 之前]]#DanAbramov
 	-
-- React Native
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
+  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 - Mathematics
@@ -207,4 +208,3 @@
 		- [[Lecture 1: The geometry of linear equations]]
 		-
 - Python
-	-
