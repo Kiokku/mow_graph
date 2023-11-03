@@ -5,3 +5,16 @@
 	- ### SSR 的好处
 		- 缩短初始加载时间：通过 SSR，用户可以立即看到内容，从而提高应用程序的感知性能。
 		  logseq.order-list-type:: number
+		- 更好的 SEO：搜索引擎爬虫可以更轻松地索引服务器呈现的页面，从而提高网站的搜索引擎优化 (SEO)。
+		  logseq.order-list-type:: number
+		- 性能更可靠：由于服务器处理渲染，因此设备速度较慢或网络条件较差的用户仍然会收到完全渲染的页面。
+		  logseq.order-list-type:: number
+- ## 先决条件
+	- 对 React.js 和 Node.js 有基本了解。
+	  logseq.order-list-type:: number
+	- Node.js 安装在本地计算机上。
+	  logseq.order-list-type:: number
+	- 代码编辑器（例如 Visual Studio Code）。
+	  logseq.order-list-type:: number
+- ## 设置项目
+	-
