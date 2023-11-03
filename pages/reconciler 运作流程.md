@@ -106,4 +106,29 @@
 	  background-color:: pink
 		- [performSyncWorkOnRoot](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L965-L1045):
 			- ```js
+			  // ... 省略部分无关代码
+			  function performSyncWorkOnRoot(root) {
+			    let lanes;
+			    let exitStatus;
+			  
+			    lanes = getNextLanes(root, NoLanes);
+			    // 1. fiber树构造
+			    exitStatus = renderRootSync(root, lanes);
+			  
+			    // 2. 异常处理: 有可能fiber构造过程中出现异常
+			    if (root.tag !== LegacyRoot && exitStatus === RootErrored) {
+			      // ...
+			    }
+			  
+			    // 3. 输出: 渲染fiber树
+			    const finishedWork: Fiber = (root.current.alternate: any);
+			    root.finishedWork = finishedWork;
+			    root.finishedLanes = lanes;
+			    commitRoot(root);
+			  
+			    // 退出前再次检测, 是否还有其他更新, 是否需要发起新调度
+			    ensureRootIsScheduled(root, now());
+			    return null;
+			  }
 			  ```
+			-
