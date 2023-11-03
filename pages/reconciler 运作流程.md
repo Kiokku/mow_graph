@@ -131,4 +131,66 @@
 			    return null;
 			  }
 			  ```
+			- `performSyncWorkOnRoot`的逻辑很清晰, 分为 3 部分:
+				- fiber 树构造.
+				  logseq.order-list-type:: number
+				- 异常处理: 有可能 fiber 构造过程中出现异常.
+				  logseq.order-list-type:: number
+				- 调用输出.
+				  logseq.order-list-type:: number
+		- [performConcurrentWorkOnRoot](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L740-L839):
+			- ```js
+			  // ... 省略部分无关代码
+			  function performConcurrentWorkOnRoot(root) {
+			  
+			    const originalCallbackNode = root.callbackNode;
+			  
+			    // 1. 刷新pending状态的effects, 有可能某些effect会取消本次任务
+			    const didFlushPassiveEffects = flushPassiveEffects();
+			    if (didFlushPassiveEffects) {
+			      if (root.callbackNode !== originalCallbackNode) {
+			        // 任务被取消, 退出调用
+			        return null;
+			      } else {
+			        // Current task was not canceled. Continue.
+			      }
+			    }
+			    // 2. 获取本次渲染的优先级
+			    let lanes = getNextLanes(
+			      root,
+			      root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes,
+			    );
+			    // 3. 构造fiber树
+			    let exitStatus = renderRootConcurrent(root, lanes);
+			  
+			    if (
+			      includesSomeLane(
+			        workInProgressRootIncludedLanes,
+			        workInProgressRootUpdatedLanes,
+			      )
+			    ) {
+			      // 如果在render过程中产生了新的update, 且新update的优先级与最初render的优先级有交集
+			      // 那么最初render无效, 丢弃最初render的结果, 等待下一次调度
+			      prepareFreshStack(root, NoLanes);
+			    } else if (exitStatus !== RootIncomplete) {
+			      // 4. 异常处理: 有可能fiber构造过程中出现异常
+			      if (exitStatus === RootErrored) {
+			        // ...
+			      }.
+			      const finishedWork: Fiber = (root.current.alternate: any);
+			      root.finishedWork = finishedWork;
+			      root.finishedLanes = lanes;
+			      // 5. 输出: 渲染fiber树
+			      finishConcurrentRender(root, exitStatus, lanes);
+			    }
+			  
+			    // 退出前再次检测, 是否还有其他更新, 是否需要发起新调度
+			    ensureRootIsScheduled(root, now());
+			    if (root.callbackNode === originalCallbackNode) {
+			      // 渲染被阻断, 返回一个新的performConcurrentWorkOnRoot函数, 等待下一次调用
+			      return performConcurrentWorkOnRoot.bind(null, root);
+			    }
+			    return null;
+			  }
+			  ```
 			-
