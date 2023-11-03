@@ -14,4 +14,34 @@
 - ## 分解
 	- ### 输入
 	  background-color:: pink
-		-
+		- 在`ReactFiberWorkLoop.js`中, 承接输入的函数只有`scheduleUpdateOnFiber`[源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L517-L619). 在`react-reconciler`对外暴露的 api 函数中, [[#green]]==只要涉及到需要改变 fiber 的操作(无论是`首次渲染`或`后续更新`操作), 最后都会间接调用`scheduleUpdateOnFiber`==, 所以`scheduleUpdateOnFiber`函数是输入链路中的`必经之路`.
+			- ```js
+			  // 唯一接收输入信号的函数
+			  export function scheduleUpdateOnFiber(
+			    fiber: Fiber,
+			    lane: Lane,
+			    eventTime: number,
+			  ) {
+			    // ... 省略部分无关代码
+			    const root = markUpdateLaneFromFiberToRoot(fiber, lane);
+			    if (lane === SyncLane) {
+			      if (
+			        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+			        (executionContext & (RenderContext | CommitContext)) === NoContext
+			      ) {
+			        // 直接进行`fiber构造`
+			        performSyncWorkOnRoot(root);
+			      } else {
+			        // 注册调度任务, 经过`Scheduler`包的调度, 间接进行`fiber构造`
+			        ensureRootIsScheduled(root, eventTime);
+			      }
+			    } else {
+			      // 注册调度任务, 经过`Scheduler`包的调度, 间接进行`fiber构造`
+			      ensureRootIsScheduled(root, eventTime);
+			    }
+			  }
+			  ```
+		- 逻辑进入到`scheduleUpdateOnFiber`之后, 后面有 2 种可能：
+			- 不经过调度, 直接进行`fiber构造`.
+			  logseq.order-list-type:: number
+			- logseq.order-list-type:: number
