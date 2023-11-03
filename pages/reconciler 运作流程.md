@@ -100,5 +100,10 @@
 			  logseq.order-list-type:: number
 				- `performSyncWorkOnRoot`或`performConcurrentWorkOnRoot`被封装到了任务回调(`scheduleCallback`)中;
 				  logseq.order-list-type:: number
-				- 等待调度中心执行任务, 任务运行其实就是执行`performSyncWorkOnRoot`或`performConcurrentWorkOnRoot`
+				- 等待调度中心执行任务, [[#green]]==任务运行其实就是执行`performSyncWorkOnRoot`或`performConcurrentWorkOnRoot`==
 				  logseq.order-list-type:: number
+	- ### 执行任务回调
+	  background-color:: pink
+		- [performSyncWorkOnRoot](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L965-L1045):
+			- ```js
+			  ```
