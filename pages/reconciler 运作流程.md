@@ -193,4 +193,54 @@
 			    return null;
 			  }
 			  ```
+			- `performConcurrentWorkOnRoot`的逻辑与`performSyncWorkOnRoot`的不同之处在于, [[#blue]]==对于`可中断渲染`的支持==：
+				- 调用`performConcurrentWorkOnRoot`函数时, 首先检查是否处于`render`过程中, 是否需要恢复上一次渲染.
+				  logseq.order-list-type:: number
+				- 如果本次渲染被中断, 最后返回一个新的 performConcurrentWorkOnRoot 函数, 等待下一次调用.
+				  logseq.order-list-type:: number
+	- ### 输出
+	  background-color:: pink
+		- [`commitRoot`](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1879-L2254):
+			- ```js
+			  // ... 省略部分无关代码
+			  function commitRootImpl(root, renderPriorityLevel) {
+			    // 设置局部变量
+			    const finishedWork = root.finishedWork;
+			    const lanes = root.finishedLanes;
+			  
+			    // 清空FiberRoot对象上的属性
+			    root.finishedWork = null;
+			    root.finishedLanes = NoLanes;
+			    root.callbackNode = null;
+			  
+			    // 提交阶段
+			    let firstEffect = finishedWork.firstEffect;
+			    if (firstEffect !== null) {
+			      const prevExecutionContext = executionContext;
+			      executionContext |= CommitContext;
+			      // 阶段1: dom突变之前
+			      nextEffect = firstEffect;
+			      do {
+			        commitBeforeMutationEffects();
+			      } while (nextEffect !== null);
+			  
+			      // 阶段2: dom突变, 界面发生改变
+			      nextEffect = firstEffect;
+			      do {
+			        commitMutationEffects(root, renderPriorityLevel);
+			      } while (nextEffect !== null);
+			      root.current = finishedWork;
+			  
+			      // 阶段3: layout阶段, 调用生命周期componentDidUpdate和回调函数等
+			      nextEffect = firstEffect;
+			      do {
+			        commitLayoutEffects(root, lanes);
+			      } while (nextEffect !== null);
+			      nextEffect = null;
+			      executionContext = prevExecutionContext;
+			    }
+			    ensureRootIsScheduled(root, now());
+			    return null;
+			  }
+			  ```
 			-
