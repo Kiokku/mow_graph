@@ -243,4 +243,14 @@
 			    return null;
 			  }
 			  ```
-			-
+		- 在输出阶段,`commitRoot`的实现逻辑是在`commitRootImpl`函数中, 其主要逻辑是处理副作用队列, 将最新的 fiber 树结构反映到 DOM 上.
+		- 核心逻辑分为 3 个步骤:
+			- [[#green]]==`commitBeforeMutationEffects`==
+			  logseq.order-list-type:: number
+				- **dom 变更之前**, 主要处理副作用队列中带有`Snapshot`,`Passive`标记的`fiber`节点.
+			- [[#green]]==`commitMutationEffects`==
+			  logseq.order-list-type:: number
+				- **dom 变更**, 界面得到更新. 主要处理副作用队列中带有`Placement`, `Update`, `Deletion`, `Hydrating`标记的`fiber`节点.
+			- [[#green]]==`commitLayoutEffects`==
+			  logseq.order-list-type:: number
+				- **dom 变更后**, 主要处理副作用队列中带有`Update | Callback`标记的`fiber`节点.

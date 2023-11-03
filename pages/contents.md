@@ -1,5 +1,6 @@
 - JavaScript
 	- [[JavaScript深入系列]]
+	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -194,7 +195,7 @@
 	- [[图解 React]]
 	- [[useEffect 完整指南]] #DanAbramov
 	- [[在你写 memo() 之前]]#DanAbramov
-	-
+	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
