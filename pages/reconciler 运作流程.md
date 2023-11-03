@@ -44,4 +44,61 @@
 		- 逻辑进入到`scheduleUpdateOnFiber`之后, 后面有 2 种可能：
 			- 不经过调度, 直接进行`fiber构造`.
 			  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+			- 注册调度任务, 经过`Scheduler`包的调度, 间接进行`fiber构造`.
+			  logseq.order-list-type:: number
+	- ### 注册调度任务
+	  background-color:: pink
+		- 与`输入`环节紧密相连, `scheduleUpdateOnFiber`函数之后, 立即进入`ensureRootIsScheduled`函数([源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L674-L736)):
+			- ```js
+			  // ... 省略部分无关代码
+			  function ensureRootIsScheduled(root: FiberRoot, currentTime: number) {
+			    // 前半部分: 判断是否需要注册新的调度
+			    const existingCallbackNode = root.callbackNode;
+			    const nextLanes = getNextLanes(
+			      root,
+			      root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes,
+			    );
+			    const newCallbackPriority = returnNextLanesPriority();
+			    if (nextLanes === NoLanes) {
+			      return;
+			    }
+			    if (existingCallbackNode !== null) {
+			      const existingCallbackPriority = root.callbackPriority;
+			      if (existingCallbackPriority === newCallbackPriority) {
+			        return;
+			      }
+			      cancelCallback(existingCallbackNode);
+			    }
+			  
+			    // 后半部分: 注册调度任务
+			    let newCallbackNode;
+			    if (newCallbackPriority === SyncLanePriority) {
+			      newCallbackNode = scheduleSyncCallback(
+			        performSyncWorkOnRoot.bind(null, root),
+			      );
+			    } else if (newCallbackPriority === SyncBatchedLanePriority) {
+			      newCallbackNode = scheduleCallback(
+			        ImmediateSchedulerPriority,
+			        performSyncWorkOnRoot.bind(null, root),
+			      );
+			    } else {
+			      const schedulerPriorityLevel =
+			        lanePriorityToSchedulerPriority(newCallbackPriority);
+			      newCallbackNode = scheduleCallback(
+			        schedulerPriorityLevel,
+			        performConcurrentWorkOnRoot.bind(null, root),
+			      );
+			    }
+			    root.callbackPriority = newCallbackPriority;
+			    root.callbackNode = newCallbackNode;
+			  }
+			  ```
+		- `ensureRootIsScheduled`的逻辑很清晰, 分为 2 部分:
+			- 前半部分: 判断是否需要注册新的调度(如果无需新的调度, 会退出函数).
+			  logseq.order-list-type:: number
+			- 后半部分: 注册调度任务
+			  logseq.order-list-type:: number
+				- `performSyncWorkOnRoot`或`performConcurrentWorkOnRoot`被封装到了任务回调(`scheduleCallback`)中;
+				  logseq.order-list-type:: number
+				- 等待调度中心执行任务, 任务运行其实就是执行`performSyncWorkOnRoot`或`performConcurrentWorkOnRoot`
+				  logseq.order-list-type:: number
