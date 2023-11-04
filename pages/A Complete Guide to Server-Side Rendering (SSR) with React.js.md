@@ -102,4 +102,115 @@
 		    "build:server": "webpack --config webpack.server.js"
 		  }
 		  ```
-	-
+- ## 在服务器上渲染 React 组件
+	- Webpack 配置就位后，就可以在服务器上渲染 React 组件了。首先，通过运行以下命令构建服务器端包：
+		- ```
+		  npm run build:server
+		  ```
+	- 此命令在 `build` 文件夹中生成一个 `server.js` 文件。
+	- 接下来，更新 `server/index.js` 文件以呈现 `AppServer` 组件：
+		- ```js
+		  / server/index.js
+		  const express = require('express');
+		  const React = require('react');
+		  const ReactDOMServer = require('react-dom/server');
+		  const AppServer = require('../src/AppServer').default;
+		  
+		  const app = express();
+		  const PORT = process.env.PORT || 3001;
+		  
+		  app.get('/', (req, res) => {
+		    const content = ReactDOMServer.renderToString(<AppServer />);
+		    const html = `
+		      <!DOCTYPE html>
+		      <html lang="en">
+		        <head>
+		          <meta charset="UTF-8" />
+		          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		          <title>React SSR</title>
+		        </head>
+		        <body>
+		          <div id="root">${content}</div>
+		        </body>
+		      </html>
+		    `;
+		  
+		    res.send(html);
+		  });
+		  
+		  app.listen(PORT, () => {
+		    console.log(`Server is listening on port ${PORT}`);
+		  });
+		  ```
+	- 在这个文件中，我们导入 `AppServer` 组件，使用 `ReactDOMServer.renderToString()` 将其转换为HTML字符串，并将生成的HTML发送到客户端。
+- ## 运行应用程序
+	- 现在我们的服务器已经设置完毕，我们可以运行该应用程序了。将新脚本添加到您的 `package.json` 文件中以启动服务器：
+		- ```js
+		  "scripts": {
+		    ...
+		    "start:server": "node build/server.js"
+		  }
+		  ```
+	- 要启动服务器，请运行以下命令：
+		- ```js
+		  npm run start:server
+		  ```
+	- 打开浏览器并导航至 `http://localhost:3001` 。您应该看到“Hello from Server-Side Rendered React App!”信息。
+- ## Hydrating
+	- 为了改善用户体验，我们可以使用客户端 React “水合”服务器渲染的 HTML。这允许客户端接管并启用交互性。
+	- 首先，更新 `src/AppServer.js` 文件以包含交互式元素，例如按钮：
+		- ```js
+		  // src/AppServer.js
+		  import React, { useState } from 'react';
+		  
+		  const AppServer = () => {
+		    const [count, setCount] = useState(0);
+		  
+		    return (
+		      <div>
+		        <h1>Hello from Server-Side Rendered React App!</h1>
+		        <p>Counter: {count}</p>
+		        <button onClick={() => setCount(count + 1)}>Increment</button>
+		      </div>
+		    );
+		  };
+		  
+		  export default AppServer;
+		  ```
+	- 接下来，更新 `src/index.js` 文件以使用 `ReactDOM.hydrate()` 方法：
+		- ```js
+		  // src/index.js
+		  import React from 'react';
+		  import ReactDOM from 'react-dom';
+		  import AppServer from './AppServer';
+		  
+		  ReactDOM.hydrate(<AppServer />, document.getElementById('root'));
+		  ```
+	- 最后，更新 `server/index.js` 文件以服务客户端包：
+		- ```js
+		  // server/index.js
+		  const path = require('path');
+		  // ...
+		  
+		  app.use(express.static(path.resolve(__dirname, '../build')));
+		  
+		  // ...
+		  ```
+	- 将新脚本添加到您的 `package.json` 文件中以构建客户端包：
+		- ```js
+		  "scripts": {
+		    ...
+		    "build:client": "npm run build"
+		  }
+		  ```
+	- 现在，构建客户端和服务器端包：
+		- ```js
+		  npm run build:client
+		  npm run build:server
+		  ```
+	- 启动服务器：
+		- ```
+		  npm run start:server
+		  
+		  ```
+	- 在浏览器中导航至 `http://localhost:3001` 。您应该看到服务器渲染的 React 应用程序带有一个功能计数器按钮。
