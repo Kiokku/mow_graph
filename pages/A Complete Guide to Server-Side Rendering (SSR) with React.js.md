@@ -214,3 +214,5 @@
 		  
 		  ```
 	- 在浏览器中导航至 `http://localhost:3001` 。您应该看到服务器渲染的 React 应用程序带有一个功能计数器按钮。
+- <blockquote class="twitter-tweet"><p lang="zh" dir="ltr">有没有pdd的兄弟，我刚才买东西的时候觉得这详情页渲染速度也太快了，有没有你们内部的性能优化文章分享，滚动到最下面新的商品也是详情页的图片和数据做了与渲染<br>0. 数据预加载<br>1. 图片和数据都做了预渲染<br>2. SSR+流式渲染<br>优化的真不错啊 <a href="https://t.co/W5QUQjE2Vo">pic.twitter.com/W5QUQjE2Vo</a></p>&mdash; 花果山大圣 (@shengxj1) <a href="https://twitter.com/shengxj1/status/1721094395024609529?ref_src=twsrc%5Etfw">November 5, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+-
