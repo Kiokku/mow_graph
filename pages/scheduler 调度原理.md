@@ -1,0 +1,3 @@
+- > 在 React 运行时中, 调度中心(位于`scheduler`包), 是整个 React 运行时的中枢(其实是心脏), 所以理解`scheduler`调度, 就基本把握了 React 的命门.
+-
+-
