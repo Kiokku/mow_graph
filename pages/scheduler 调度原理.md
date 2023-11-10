@@ -150,4 +150,19 @@
 				    needsPaint = false; // 重置开关
 				  };
 				  ```
+		- #### 调度中心的内核实现图
+			- ![image.png](../assets/image_1699596093004_0.png)
+	- ### 任务队列管理
+	  background-color:: pink
+		- 在[Scheduler.js](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js)中, 维护了一个[taskQueue](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js#L62), 任务队列管理就是围绕这个`taskQueue`展开.
+			- ```js
+			  // Tasks are stored on a min heap
+			  var taskQueue = [];
+			  var timerQueue = [];
+			  ```
+		- 注意:
+			- `taskQueue`是一个小顶堆数组, 关于堆排序的详细解释, 可以查看[React 算法之堆排序](https://7km.top/algorithm/heapsort).
+			- 源码中除了`taskQueue`队列之外还有一个`timerQueue`队列. 这个队列是预留给延时任务使用的, 在 react@17.0.2 版本里面, 从源码中的引用来看, 算一个保留功能, 没有用到.
+		- #### 创建任务
+		  background-color:: green
 			-
