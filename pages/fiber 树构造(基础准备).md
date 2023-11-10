@@ -1,0 +1,2 @@
+- > 在 React 运行时中, `fiber树构造`位于`react-reconciler`包.
+-
