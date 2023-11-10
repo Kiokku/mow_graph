@@ -239,4 +239,67 @@
 		  background-color:: green
 			- 创建任务之后, 最后请求调度`requestHostCallback(flushWork)`(`创建任务`源码中的第 5 步), `flushWork`函数作为参数被传入调度中心内核等待回调. `requestHostCallback`函数在上文调度内核中已经介绍过了, 在调度中心中, 只需下一个事件循环就会执行回调, 最终执行`flushWork`.
 				- ```js
+				  // 省略无关代码
+				  function flushWork(hasTimeRemaining, initialTime) {
+				    // 1. 做好全局标记, 表示现在已经进入调度阶段
+				    isHostCallbackScheduled = false;
+				    isPerformingWork = true;
+				    const previousPriorityLevel = currentPriorityLevel;
+				    try {
+				      // 2. 循环消费队列
+				      return workLoop(hasTimeRemaining, initialTime);
+				    } finally {
+				      // 3. 还原全局标记
+				      currentTask = null;
+				      currentPriorityLevel = previousPriorityLevel;
+				      isPerformingWork = false;
+				    }
+				  }
 				  ```
+			- `flushWork`中调用了`workLoop`. 队列消费的主要逻辑是在`workLoop`函数中, 这就是[React 工作循环](https://7km.top/main/workloop)一文中提到的`任务调度循环`.
+				- ```js
+				  // 省略部分无关代码
+				  function workLoop(hasTimeRemaining, initialTime) {
+				    let currentTime = initialTime; // 保存当前时间, 用于判断任务是否过期
+				    currentTask = peek(taskQueue); // 获取队列中的第一个任务
+				    while (currentTask !== null) {
+				      if (
+				        currentTask.expirationTime > currentTime &&
+				        (!hasTimeRemaining || shouldYieldToHost())
+				      ) {
+				        // 虽然currentTask没有过期, 但是执行时间超过了限制(毕竟只有5ms, shouldYieldToHost()返回true). 停止继续执行, 让出主线程
+				        break;
+				      }
+				      const callback = currentTask.callback;
+				      if (typeof callback === 'function') {
+				        currentTask.callback = null;
+				        currentPriorityLevel = currentTask.priorityLevel;
+				        const didUserCallbackTimeout = currentTask.expirationTime <= currentTime;
+				        // 执行回调
+				        const continuationCallback = callback(didUserCallbackTimeout);
+				        currentTime = getCurrentTime();
+				        // 回调完成, 判断是否还有连续(派生)回调
+				        if (typeof continuationCallback === 'function') {
+				          // 产生了连续回调(如fiber树太大, 出现了中断渲染), 保留currentTask
+				          currentTask.callback = continuationCallback;
+				        } else {
+				          // 把currentTask移出队列
+				          if (currentTask === peek(taskQueue)) {
+				            pop(taskQueue);
+				          }
+				        }
+				      } else {
+				        // 如果任务被取消(这时currentTask.callback = null), 将其移出队列
+				        pop(taskQueue);
+				      }
+				      // 更新currentTask
+				      currentTask = peek(taskQueue);
+				    }
+				    if (currentTask !== null) {
+				      return true; // 如果task队列没有清空, 返回true. 等待调度中心下一次回调
+				    } else {
+				      return false; // task队列已经清空, 返回false.
+				    }
+				  }
+				  ```
+				-
