@@ -165,4 +165,78 @@
 			- 源码中除了`taskQueue`队列之外还有一个`timerQueue`队列. 这个队列是预留给延时任务使用的, 在 react@17.0.2 版本里面, 从源码中的引用来看, 算一个保留功能, 没有用到.
 		- #### 创建任务
 		  background-color:: green
-			-
+			- 在`unstable_scheduleCallback`函数中([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/Scheduler.js#L279-L359)):
+				- ```js
+				  // 省略部分无关代码
+				  function unstable_scheduleCallback(priorityLevel, callback, options) {
+				    // 1. 获取当前时间
+				    var currentTime = getCurrentTime();
+				    var startTime;
+				    if (typeof options === 'object' && options !== null) {
+				      // 从函数调用关系来看, 在v17.0.2中,所有调用 unstable_scheduleCallback 都未传入options
+				      // 所以省略延时任务相关的代码
+				    } else {
+				      startTime = currentTime;
+				    }
+				    // 2. 根据传入的优先级, 设置任务的过期时间 expirationTime
+				    var timeout;
+				    switch (priorityLevel) {
+				      case ImmediatePriority:
+				        timeout = IMMEDIATE_PRIORITY_TIMEOUT;
+				        break;
+				      case UserBlockingPriority:
+				        timeout = USER_BLOCKING_PRIORITY_TIMEOUT;
+				        break;
+				      case IdlePriority:
+				        timeout = IDLE_PRIORITY_TIMEOUT;
+				        break;
+				      case LowPriority:
+				        timeout = LOW_PRIORITY_TIMEOUT;
+				        break;
+				      case NormalPriority:
+				      default:
+				        timeout = NORMAL_PRIORITY_TIMEOUT;
+				        break;
+				    }
+				    var expirationTime = startTime + timeout;
+				    // 3. 创建新任务
+				    var newTask = {
+				      id: taskIdCounter++,
+				      callback,
+				      priorityLevel,
+				      startTime,
+				      expirationTime,
+				      sortIndex: -1,
+				    };
+				    if (startTime > currentTime) {
+				      // 省略无关代码 v17.0.2中不会使用
+				    } else {
+				      newTask.sortIndex = expirationTime;
+				      // 4. 加入任务队列
+				      push(taskQueue, newTask);
+				      // 5. 请求调度
+				      if (!isHostCallbackScheduled && !isPerformingWork) {
+				        isHostCallbackScheduled = true;
+				        requestHostCallback(flushWork);
+				      }
+				    }
+				    return newTask;
+				  }
+				  ```
+			- 重点分析`task`对象的各个属性:
+				- ```js
+				  var newTask = {
+				    id: taskIdCounter++, // id: 一个自增编号
+				    callback, // callback: 传入的回调函数
+				    priorityLevel, // priorityLevel: 优先级等级
+				    startTime, // startTime: 创建task时的当前时间
+				    expirationTime, // expirationTime: task的过期时间, 优先级越高 expirationTime = startTime + timeout 越小
+				    sortIndex: -1,
+				  };
+				  newTask.sortIndex = expirationTime; // sortIndex: 排序索引, 全等于过期时间. 保证过期时间越小, 越紧急的任务排在最前面
+				  ```
+		- #### 消费任务
+		  background-color:: green
+			- 创建任务之后, 最后请求调度`requestHostCallback(flushWork)`(`创建任务`源码中的第 5 步), `flushWork`函数作为参数被传入调度中心内核等待回调. `requestHostCallback`函数在上文调度内核中已经介绍过了, 在调度中心中, 只需下一个事件循环就会执行回调, 最终执行`flushWork`.
+				- ```js
+				  ```
