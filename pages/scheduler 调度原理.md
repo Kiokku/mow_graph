@@ -17,6 +17,7 @@
 		- 我们知道 react 可以在 nodejs 环境中使用, 所以在不同的 js 执行环境中, 这些函数的实现会有区别. 下面[[#green]]==基于普通浏览器环境, 对这 8 个函数逐一分析 :==
 			- **调度相关:** 请求或取消调度
 			  logseq.order-list-type:: number
+			  collapsed:: true
 				- [requestHostCallback](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L224-L230)
 				- [cancelHostCallback](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L232-L234)
 				- [requestHostTimeout](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L236-L240)
@@ -60,6 +61,7 @@
 				- [[#blue]]==此处需要注意: `MessageChannel`在浏览器事件循环中属于`宏任务`, 所以调度中心永远是`异步执行`回调函数==
 			- **时间切片(`time slicing`)相关**: 执行时间分割, 让出主线程(把控制权归还浏览器, 浏览器可以处理用户输入, UI 绘制等紧急任务).
 			  logseq.order-list-type:: number
+			  collapsed:: true
 				- [getCurrentTime](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L22-L24): 获取当前时间
 				- [shouldYieldToHost](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L129-L152): 是否让出主线程
 				- [requestPaint](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L154-L156): 请求绘制
@@ -121,3 +123,31 @@
 						- `yieldInterval`默认是`5ms`, 只能通过`forceFrameRate`函数来修改.
 						- 如果一个`task`运行时间超过`5ms`, 下一个`task`执行之前, 会把控制权归还浏览器.
 					- [[#green]]==`navigator.scheduling.isInputPending()`==: 这是 facebook 官方贡献给 Chromium 的 api, 现在已经列入 W3C 标准([具体解释](https://engineering.fb.com/2019/04/22/developer-tools/isinputpending-api/)), 用于判断是否有输入事件(包括: input 框输入事件, 点击事件等).
+			- 完整回调的实现[performWorkUntilDeadline](https://github.com/facebook/react/blob/v17.0.2/packages/scheduler/src/forks/SchedulerHostConfig.default.js#L185-L218)(逻辑很清晰, 在注释中解释):
+				- ```js
+				  const performWorkUntilDeadline = () => {
+				    if (scheduledHostCallback !== null) {
+				      const currentTime = getCurrentTime(); // 1. 获取当前时间
+				      deadline = currentTime + yieldInterval; // 2. 设置deadline
+				      const hasTimeRemaining = true;
+				      try {
+				        // 3. 执行回调, 返回是否有还有剩余任务
+				        const hasMoreWork = scheduledHostCallback(hasTimeRemaining, currentTime);
+				        if (!hasMoreWork) {
+				          // 没有剩余任务, 退出
+				          isMessageLoopRunning = false;
+				          scheduledHostCallback = null;
+				        } else {
+				          port.postMessage(null); // 有剩余任务, 发起新的调度
+				        }
+				      } catch (error) {
+				        port.postMessage(null); // 如有异常, 重新发起调度
+				        throw error;
+				      }
+				    } else {
+				      isMessageLoopRunning = false;
+				    }
+				    needsPaint = false; // 重置开关
+				  };
+				  ```
+			-
