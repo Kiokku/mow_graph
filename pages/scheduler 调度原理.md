@@ -353,4 +353,5 @@
 			- 再次进入`ensureRootIsScheduled`时([[#red]]==比如连续 2 次`setState`, 第 2 次`setState`同样会触发`reconciler运作流程`中的调度阶段==), 如果发现处于调度中, 则需要一些节流和防抖措施, 进而保证调度性能.
 			  logseq.order-list-type:: number
 				- **节流:**(判断条件: `existingCallbackPriority === newCallbackPriority`, 新旧更新的优先级相同, 如连续多次执行`setState`), 则无需注册新`task`(继续沿用上一个优先级相同的`task`), 直接[[#green]]==退出调用==.
-				- **防抖:**(判断条件: `existingCallbackPriority !== newCallbackPriority`, 新旧更新的优先级不同), 则取消旧`task`, 重新注册新`task`.
+				- **防抖:**(判断条件: `existingCallbackPriority !== newCallbackPriority`, 新旧更新的优先级不同), 则[[#green]]==取消旧`task`, 重新注册新`task`.==
+			- logseq.order-list-type:: number
