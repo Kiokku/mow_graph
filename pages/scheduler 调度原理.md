@@ -347,4 +347,10 @@
 		    root.callbackNode = newCallbackNode;
 		  }
 		  ```
-		-
+		- 正常情况下, `ensureRootIsScheduled`函数会与`scheduler`包通信, 最后注册一个`task`并等待回调.
+			- 在`task`注册完成之后, 会设置`fiberRoot`对象上的属性(`fiberRoot`是 react 运行时中的重要全局对象, 可参考[React 应用的启动过程](https://7km.top/main/bootstrap#%E5%88%9B%E5%BB%BA%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1)), 代表现在已经处于调度进行中
+			  logseq.order-list-type:: number
+			- 再次进入`ensureRootIsScheduled`时([[#red]]==比如连续 2 次`setState`, 第 2 次`setState`同样会触发`reconciler运作流程`中的调度阶段==), 如果发现处于调度中, 则需要一些节流和防抖措施, 进而保证调度性能.
+			  logseq.order-list-type:: number
+				- **节流:**(判断条件: `existingCallbackPriority === newCallbackPriority`, 新旧更新的优先级相同, 如连续多次执行`setState`), 则无需注册新`task`(继续沿用上一个优先级相同的`task`), 直接[[#green]]==退出调用==.
+				- **防抖:**(判断条件: `existingCallbackPriority !== newCallbackPriority`, 新旧更新的优先级不同), 则取消旧`task`, 重新注册新`task`.
