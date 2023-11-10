@@ -302,4 +302,49 @@
 				    }
 				  }
 				  ```
-				-
+				- `workLoop`就是一个大循环, 虽然代码也不多, 但是非常精髓, 在此处实现了`时间切片(time slicing)`和`fiber树的可中断渲染`. 这 2 大特性的实现, 都集中于这个`while`循环.
+				- 每一次`while`循环的退出就是一个时间切片, 深入分析`while`循环的退出条件:
+					- 队列被完全清空: 这种情况就是很正常的情况, 一气呵成, 没有遇到任何阻碍.
+					  logseq.order-list-type:: number
+					- 执行超时: 在消费`taskQueue`时, 在执行`task.callback`之前, 都会检测是否超时, 所以超时检测是以`task`为单位.
+					  logseq.order-list-type:: number
+						- 如果某个`task.callback`执行时间太长(如: `fiber树`很大, 或逻辑很重)也会造成超时
+						- 所以在执行`task.callback`过程中, 也需要一种机制检测是否超时, 如果超时了就立刻暂停`task.callback`的执行.
+		- #### 时间切片原理
+		  background-color:: green
+			- 消费任务队列的过程中, 可以消费`1~n`个 task, 甚至清空整个 queue. 但是在每一次具体执行`task.callback`之前都要进行超时检测, 如果超时可以立即退出循环并等待下一次调用.
+		- #### 可中断渲染原理
+		  background-color:: green
+			- 在时间切片的基础之上, 如果单个`task.callback`执行时间就很长(假设 200ms). 就需要`task.callback`自己能够检测是否超时, 所以在 fiber 树构造过程中, 每构造完成一个单元, 都会检测一次超时([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1637-L1639)), 如遇超时就退出`fiber树构造循环`, 并返回一个新的回调函数(就是此处的`continuationCallback`)并等待下一次回调继续未完成的`fiber树构造`.
+- ## 节流防抖 {\#throttle-debounce}
+	- 在[reconciler 运作流程](https://7km.top/main/reconciler-workflow)中总结的 4 个阶段中, `注册调度任务`属于第 2 个阶段, 核心逻辑位于`ensureRootIsScheduled`函数中.
+	  现在我们已经理解了`调度原理`, 再次分析`ensureRootIsScheduled`([源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L674-L736)):
+		- ```js
+		  // ... 省略部分无关代码
+		  function ensureRootIsScheduled(root: FiberRoot, currentTime: number) {
+		    // 前半部分: 判断是否需要注册新的调度
+		    const existingCallbackNode = root.callbackNode;
+		    const nextLanes = getNextLanes(
+		      root,
+		      root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes,
+		    );
+		    const newCallbackPriority = returnNextLanesPriority();
+		    if (nextLanes === NoLanes) {
+		      return;
+		    }
+		    // 节流防抖
+		    if (existingCallbackNode !== null) {
+		      const existingCallbackPriority = root.callbackPriority;
+		      if (existingCallbackPriority === newCallbackPriority) {
+		        return;
+		      }
+		      cancelCallback(existingCallbackNode);
+		    }
+		    // 后半部分: 注册调度任务 省略代码...
+		  
+		    // 更新标记
+		    root.callbackPriority = newCallbackPriority;
+		    root.callbackNode = newCallbackNode;
+		  }
+		  ```
+		-
