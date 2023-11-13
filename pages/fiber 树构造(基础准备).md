@@ -74,5 +74,40 @@
 			  const RenderContext = /*                */ 0b0010000;
 			  const CommitContext = /*                */ 0b0100000;
 			  ```
+		- `reconciler 运作流程`的 4 个阶段, 这 4 个阶段只是一个整体划分. 如果具体到每一次更新, 是有差异的. 比如说: [[#red]]==`Legacy`模式下的首次更新, 不会经过`调度中心`(第 2 阶段),而是直接进入`fiber树构造`(第 3 阶段).==
+		- 事实上正是`executionContext`在操控`reconciler 运作流程`(源码体现在[scheduleUpdateOnFiber 函数](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L517-L619)).
+			- ```js
+			  export function scheduleUpdateOnFiber(
+			    fiber: Fiber,
+			    lane: Lane,
+			    eventTime: number,
+			  ) {
+			    if (lane === SyncLane) {
+			      // legacy或blocking模式
+			      if (
+			        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+			        (executionContext & (RenderContext | CommitContext)) === NoContext
+			      ) {
+			        performSyncWorkOnRoot(root);
+			      } else {
+			        // 后续的更新
+			        // 进入第2阶段, 注册调度任务
+			        ensureRootIsScheduled(root, eventTime);
+			        if (executionContext === NoContext) {
+			          // 如果执行上下文为空, 会取消调度任务, 手动执行回调
+			          // 进入第3阶段, 进行fiber树构造
+			          flushSyncCallbackQueue();
+			        }
+			      }
+			    } else {
+			      // concurrent模式
+			      // 无论是否初次更新, 都正常进入第2阶段, 注册调度任务
+			      ensureRootIsScheduled(root, eventTime);
+			    }
+			  }
+			  ```
+		- >> 在 render 过程中, 每一个阶段都会改变`executionContext`(render 之前, 会设置`executionContext |= RenderContext`; commit 之前, 会设置`executionContext |= CommitContext`), 假设在`render`过程中再次发起更新(如在`UNSAFE_componentWillReceiveProps`生命周期中调用`setState`)则可通过`executionContext`来判断当前的`render`状态.
+	- ### 双缓冲技术(double buffering)
+	  background-color:: pink
 		-
 -
