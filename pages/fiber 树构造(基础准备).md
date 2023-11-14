@@ -3,6 +3,7 @@
   > 1. 从`scheduler`调度中心的角度来看, 它是任务队列`taskQueue`中的一个具体的任务回调(`task.callback`).
   > 2. 从[React 工作循环](https://7km.top/main/workloop)的角度来看, 它属于`fiber树构造循环`.
 - ## ReactElement, Fiber, DOM 三者的关系
+  collapsed:: true
 	- ### 1. [ReactElement 对象](https://github.com/facebook/react/blob/v17.0.2/packages/react/src/ReactElement.js#L126-L146)(type 定义在[shared 包中](https://github.com/facebook/react/blob/v17.0.2/packages/shared/ReactElementType.js#L15))
 	  background-color:: pink
 		- 所有采用`jsx`语法书写的节点, 都会被编译器转换, 最终会以`React.createElement(...)`的方式, 创建出来一个与之对应的`ReactElement`对象.
@@ -20,6 +21,7 @@
 		- `fiber树`是`DOM树`的数据模型, `fiber树`驱动`DOM树`
 - ## 全局变量
 	- 在`React`运行时, `ReactFiberWorkLoop.js`闭包中的`全局变量`会随着`fiber树构造循环`的进行而变化, 现在查看其中重要的全局变量([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L247-L367)):
+	  collapsed:: true
 		- ```js
 		  // 当前React的执行栈(执行上下文)
 		  let executionContext: ExecutionContext = NoContext;
@@ -63,6 +65,7 @@
 		  ```
 	- ### 执行上下文
 	  background-color:: pink
+	  collapsed:: true
 		- 在全局变量中有`executionContext`, 代表`渲染期间`的`执行栈`(或叫做`执行上下文`), 它也是一个二进制表示的变量, 通过位运算进行操作(参考[React 算法之位运算](https://7km.top/algorithm/bitfield)). 在源码中一共定义了 8 种执行栈:
 			- ```js
 			  type ExecutionContext = number;
@@ -109,6 +112,7 @@
 		- >> 在 render 过程中, 每一个阶段都会改变`executionContext`(render 之前, 会设置`executionContext |= RenderContext`; commit 之前, 会设置`executionContext |= CommitContext`), 假设在`render`过程中再次发起更新(如在`UNSAFE_componentWillReceiveProps`生命周期中调用`setState`)则可通过`executionContext`来判断当前的`render`状态.
 	- ### 双缓冲技术(double buffering)
 	  background-color:: pink
+	  collapsed:: true
 		- `ReactElement, Fiber, DOM三者的关系`, `fiber树`的构造过程, 就是把`ReactElement`转换成`fiber树`的过程. 在这个过程中, 内存里会同时存在 2 棵`fiber树`:
 			- 代表**当前**界面的`fiber`树(已经被展示出来, 挂载到`fiberRoot.current`上). 如果是初次构造(`初始化渲染`), 页面还没有渲染, 此时界面对应的 fiber 树为空(`fiberRoot.current = null`).
 			  logseq.order-list-type:: number
@@ -124,10 +128,12 @@
 				- ![image.png](../assets/image_1699955072953_0.png)
 	- ### 优先级 {\#lanes}
 	  background-color:: pink
+	  collapsed:: true
 		- >> 现在`fiber树构造`过程中, 将要深入分析车道模型`Lane`的具体应用.
 		- 在整个`react-reconciler`包中, `Lane`的应用可以分为 3 个方面:
 		- #### `update` 优先级(update.lane) {\#update-lane}
 		  background-color:: green
+		  collapsed:: true
 			- `update`对象是一个环形链表. 对于单个`update`对象来讲, `update.lane`代表它的优先级, 称之为`update`优先级.
 			- 观察其构造函数([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactUpdateQueue.old.js#L152-L163)),其优先级是**由外界传入**.
 			  collapsed:: true
@@ -274,6 +280,7 @@
 					- 正常情况下, 不会取消`schedule调度`. 由于`schedule调度`是通过`MessageChannel`触发(宏任务), 故体现为异步.
 		- #### `渲染` 优先级(renderLanes)
 		  background-color:: green
+		  collapsed:: true
 			- 这是一个全局概念, 每一次`render`之前, 首先要确定本次`render`的优先级. 具体对应到源码如下:
 				- ```js
 				  // ...省略无关代码
@@ -330,4 +337,66 @@
 				    return nextLanes;
 				  }
 				  ```
-				-
+				- `getNextLanes`会根据`fiberRoot`对象上的属性(`expiredLanes`, `suspendedLanes`, `pingedLanes`等), 确定出当前最紧急的`lanes`.
+				- 此处返回的`lanes`会作为全局渲染的优先级, 用于`fiber树构造过程`中. 针对`fiber对象`或`update对象`, 只要它们的优先级(如: `fiber.lanes`和`update.lane`)比`渲染优先级`低, 都将会被忽略.
+		- #### `fiber` 优先级(fiber.lanes)
+		  background-color:: green
+			- `fiber`对象的数据结构. 其中有 2 个属性与优先级相关:
+				- `fiber.lanes`: 代表本节点的优先级.
+				  logseq.order-list-type:: number
+				- `fiber.childLanes`: 代表子节点的优先级.
+				  logseq.order-list-type:: number
+			- 从`FiberNode`的构造函数中可以看出, `fiber.lanes`和`fiber.childLanes`的初始值都为`NoLanes`, 在`fiber树构造`过程中, [[#blue]]==使用全局的渲染优先级(`renderLanes`)和`fiber.lanes`判断`fiber`节点是否更新==([源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L3121-L3296)).
+			  id:: 6553846a-52ec-4d2b-a853-cd4836976c6c
+				- 如果全局的渲染优先级`renderLanes`不包括`fiber.lanes`, 证明该`fiber`节点没有更新, 可以复用.
+				- 如果不能复用, 进入创建阶段.
+				- ```js
+				  function beginWork(
+				    current: Fiber | null,
+				    workInProgress: Fiber,
+				    renderLanes: Lanes,
+				  ): Fiber | null {
+				    const updateLanes = workInProgress.lanes;
+				    if (current !== null) {
+				      const oldProps = current.memoizedProps;
+				      const newProps = workInProgress.pendingProps;
+				      if (
+				        oldProps !== newProps ||
+				        hasLegacyContextChanged() ||
+				        // Force a re-render if the implementation changed due to hot reload:
+				        (__DEV__ ? workInProgress.type !== current.type : false)
+				      ) {
+				        didReceiveUpdate = true;
+				      } else if (!includesSomeLane(renderLanes, updateLanes)) {
+				        didReceiveUpdate = false;
+				        // 本`fiber`节点的没有更新, 可以复用, 进入bailout逻辑
+				        return bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes);
+				      }
+				    }
+				    // 不能复用, 创建新的fiber节点
+				    workInProgress.lanes = NoLanes; // 重置优先级为 NoLanes
+				    switch (workInProgress.tag) {
+				      case ClassComponent: {
+				        const Component = workInProgress.type;
+				        const unresolvedProps = workInProgress.pendingProps;
+				        const resolvedProps =
+				          workInProgress.elementType === Component
+				            ? unresolvedProps
+				            : resolveDefaultProps(Component, unresolvedProps);
+				  
+				        return updateClassComponent(
+				          current,
+				          workInProgress,
+				          Component,
+				          resolvedProps,
+				          // 正常情况下渲染优先级会被用于fiber树的构造过程
+				          renderLanes,
+				        );
+				      }
+				    }
+				  }
+				  ```
+	- ### 栈帧管理
+	  background-color:: pink
+		- 在`React`源码中, 每一次执行`fiber树`构造(也就是调用`performSyncWorkOnRoot`或者`performConcurrentWorkOnRoot`函数)的过程, 都需要一些全局变量来保存状态. 在上文中已经介绍最核心的全局变量.
+		- 如果将这些全局变量组合起来, 它们代表了当前`fiber树`构造的**活动记录**. 通过这一组全局变量, 可以**还原**`fiber树`构造过程(比如时间切片的实现过程(参考[React 调度原理](https://7km.top/main/scheduler#%E5%86%85%E6%A0%B8)), `fiber树`构造过程被打断之后需要还原进度, 全靠这一组全局变量). 所以每次`fiber树`构造是一个独立的过程, 需要`独立的`一组全局变量, 在`React`内部把这一个独立的过程封装为一个栈帧`stack`(简单来说就是每次构造都需要独立的空间. 对于`栈帧`的深入理解, 请读者自行参考其他资料).
