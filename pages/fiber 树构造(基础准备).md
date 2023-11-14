@@ -112,7 +112,11 @@
 		- `ReactElement, Fiber, DOM三者的关系`, `fiber树`的构造过程, 就是把`ReactElement`转换成`fiber树`的过程. 在这个过程中, 内存里会同时存在 2 棵`fiber树`:
 			- 代表**当前**界面的`fiber`树(已经被展示出来, 挂载到`fiberRoot.current`上). 如果是初次构造(`初始化渲染`), 页面还没有渲染, 此时界面对应的 fiber 树为空(`fiberRoot.current = null`).
 			  logseq.order-list-type:: number
-			- 正在构造的`fiber`树(即将展示出来, 挂载到`HostRootFiber.alternate`上, 正在构造的节点称为`workInProgress`). 当构造完成之后, 重新渲染页面, 最后切换`fiberRoot.current = workInProgress`, 使得`fiberRoot.current`重新指向代表当前界面的`fiber`树.
+			- 正在构造的`fiber`树(即将展示出来, 挂载到`HostRootFiber.alternate`上, 正在[[#green]]==构造的节点称为`workInProgress`==). 当构造完成之后, 重新渲染页面, 最后切换`fiberRoot.current = workInProgress`, 使得`fiberRoot.current`重新指向代表当前界面的`fiber`树.
 			  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+		- 此处涉及到 2 个全局对象`fiberRoot`和`HostRootFiber`, 在[React 应用的启动过程](https://7km.top/main/bootstrap)中有详细的说明.
+		- 用图来表述`double buffering`的概念如下:
+			- 构造过程中, `fiberRoot.current`指向当前界面对应的`fiber`树.
+			  logseq.order-list-type:: number
+				-
 -
