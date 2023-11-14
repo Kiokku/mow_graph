@@ -399,4 +399,53 @@
 	- ### 栈帧管理
 	  background-color:: pink
 		- 在`React`源码中, 每一次执行`fiber树`构造(也就是调用`performSyncWorkOnRoot`或者`performConcurrentWorkOnRoot`函数)的过程, 都需要一些全局变量来保存状态. 在上文中已经介绍最核心的全局变量.
-		- 如果将这些全局变量组合起来, 它们代表了当前`fiber树`构造的**活动记录**. 通过这一组全局变量, 可以**还原**`fiber树`构造过程(比如时间切片的实现过程(参考[React 调度原理](https://7km.top/main/scheduler#%E5%86%85%E6%A0%B8)), `fiber树`构造过程被打断之后需要还原进度, 全靠这一组全局变量). 所以每次`fiber树`构造是一个独立的过程, 需要`独立的`一组全局变量, 在`React`内部把这一个独立的过程封装为一个栈帧`stack`(简单来说就是每次构造都需要独立的空间. 对于`栈帧`的深入理解, 请读者自行参考其他资料).
+		- 如果将这些全局变量组合起来, 它们代表了当前`fiber树`构造的**活动记录**. 通过这一组全局变量, 可以**还原**`fiber树`构造过程(比如时间切片的实现过程(参考[React 调度原理](https://7km.top/main/scheduler#%E5%86%85%E6%A0%B8)), `fiber树`构造过程被打断之后需要还原进度, 全靠这一组全局变量). 所以[[#green]]==每次`fiber树`构造是一个独立的过程, 需要`独立的`一组全局变量, 在`React`内部把这一个独立的过程封装为一个栈帧`stack`==(简单来说就是每次构造都需要独立的空间. 对于`栈帧`的深入理解, 请读者自行参考其他资料).
+		- 所以在进行`fiber树`构造之前, 如果不需要恢复上一次构造进度, 都会刷新栈帧(源码在[prepareFreshStack 函数](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1301-L1337))
+			- ```js
+			  function renderRootConcurrent(root: FiberRoot, lanes: Lanes) {
+			    const prevExecutionContext = executionContext;
+			    executionContext |= RenderContext;
+			    const prevDispatcher = pushDispatcher();
+			    // 如果fiberRoot变动, 或者update.lane变动, 都会刷新栈帧, 丢弃上一次渲染进度
+			    if (workInProgressRoot !== root || workInProgressRootRenderLanes !== lanes) {
+			      resetRenderTimer();
+			      // 刷新栈帧
+			      prepareFreshStack(root, lanes);
+			      startWorkOnPendingInteractions(root, lanes);
+			    }
+			  }
+			  
+			  /**
+			  刷新栈帧: 重置 FiberRoot上的全局属性 和 `fiber树构造`循环过程中的全局变量
+			  */
+			  function prepareFreshStack(root: FiberRoot, lanes: Lanes) {
+			    // 重置FiberRoot对象上的属性
+			    root.finishedWork = null;
+			    root.finishedLanes = NoLanes;
+			    const timeoutHandle = root.timeoutHandle;
+			    if (timeoutHandle !== noTimeout) {
+			      root.timeoutHandle = noTimeout;
+			      cancelTimeout(timeoutHandle);
+			    }
+			    if (workInProgress !== null) {
+			      let interruptedWork = workInProgress.return;
+			      while (interruptedWork !== null) {
+			        unwindInterruptedWork(interruptedWork);
+			        interruptedWork = interruptedWork.return;
+			      }
+			    }
+			    // 重置全局变量
+			    workInProgressRoot = root;
+			    workInProgress = createWorkInProgress(root.current, null); // 给HostRootFiber对象创建一个alternate, 并将其设置成全局 workInProgress
+			    workInProgressRootRenderLanes =
+			      subtreeRenderLanes =
+			      workInProgressRootIncludedLanes =
+			        lanes;
+			    workInProgressRootExitStatus = RootIncomplete;
+			    workInProgressRootFatalError = null;
+			    workInProgressRootSkippedLanes = NoLanes;
+			    workInProgressRootUpdatedLanes = NoLanes;
+			    workInProgressRootPingedLanes = NoLanes;
+			  }
+			  ```
+			- 注意其中的`createWorkInProgress(root.current, null)`, 其参数`root.current`即`HostRootFiber`, 作用是给`HostRootFiber`创建一个`alternate`副本.`workInProgress`指针指向这个副本(即`workInProgress = HostRootFiber.alternate`), 在上文`double buffering`中分析过, `HostRootFiber.alternate`是`正在构造的fiber树`的根节点.
