@@ -179,5 +179,53 @@
 					    },
 					  };
 					  ```
-					-
+					- 可以看到, 无论是`应用初始化`或者`发起组件更新`, 创建`update.lane`的逻辑都是一样的, 都是[[#blue]]==根据当前时间, 创建一个 update 优先级.==
+				- [requestUpdateLane](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L392-L493):
+					- ```js
+					  export function requestUpdateLane(fiber: Fiber): Lane {
+					    // Special cases
+					    const mode = fiber.mode;
+					    if ((mode & BlockingMode) === NoMode) {
+					      // legacy 模式
+					      return (SyncLane: Lane);
+					    } else if ((mode & ConcurrentMode) === NoMode) {
+					      // blocking模式
+					      return getCurrentPriorityLevel() === ImmediateSchedulerPriority
+					        ? (SyncLane: Lane)
+					        : (SyncBatchedLane: Lane);
+					    }
+					    // concurrent模式
+					    if (currentEventWipLanes === NoLanes) {
+					      currentEventWipLanes = workInProgressRootIncludedLanes;
+					    }
+					    const isTransition = requestCurrentTransition() !== NoTransition;
+					    if (isTransition) {
+					      // 特殊情况, 处于suspense过程中
+					      if (currentEventPendingLanes !== NoLanes) {
+					        currentEventPendingLanes =
+					          mostRecentlyUpdatedRoot !== null
+					            ? mostRecentlyUpdatedRoot.pendingLanes
+					            : NoLanes;
+					      }
+					      return findTransitionLane(currentEventWipLanes, currentEventPendingLanes);
+					    }
+					    // 正常情况, 获取调度优先级
+					    const schedulerPriority = getCurrentPriorityLevel();
+					    let lane;
+					    if (
+					      (executionContext & DiscreteEventContext) !== NoContext &&
+					      schedulerPriority === UserBlockingSchedulerPriority
+					    ) {
+					      // executionContext 存在输入事件. 且调度优先级是用户阻塞性质
+					      lane = findUpdateLane(InputDiscreteLanePriority, currentEventWipLanes);
+					    } else {
+					      // 调度优先级转换为车道模型
+					      const schedulerLanePriority =
+					        schedulerPriorityToLanePriority(schedulerPriority);
+					      lane = findUpdateLane(schedulerLanePriority, currentEventWipLanes);
+					    }
+					    return lane;
+					  }
+					  ```
+				-
 			-
