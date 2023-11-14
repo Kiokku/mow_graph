@@ -236,5 +236,35 @@
 						  logseq.order-list-type:: number
 							- 正常情况下, 根据当前的`调度优先级`来生成一个`lane`.
 							  logseq.order-list-type:: number
-							- logseq.order-list-type:: number
+							- 特殊情况下([[#blue]]==处于 suspense 过程中==), 会优先选择`TransitionLanes`通道中的空闲通道(如果所有`TransitionLanes`通道都被占用, 就取最高优先级. [源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L548-L563)).
+							  logseq.order-list-type:: number
+					- 最后通过`scheduleUpdateOnFiber(current, lane, eventTime);`函数, 把`update.lane`正式带入到了`输入`阶段.
+				- [[#green]]==`scheduleUpdateOnFiber`==是`输入`阶段的必经函数, 在本系列的文章中已经多次提到, 此处以`update.lane`的视角分析:
+					- ```js
+					  export function scheduleUpdateOnFiber(
+					    fiber: Fiber,
+					    lane: Lane,
+					    eventTime: number,
+					  ) {
+					    if (lane === SyncLane) {
+					      // legacy或blocking模式
+					      if (
+					        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+					        (executionContext & (RenderContext | CommitContext)) === NoContext
+					      ) {
+					        performSyncWorkOnRoot(root);
+					      } else {
+					        ensureRootIsScheduled(root, eventTime); // 注册回调任务
+					        if (executionContext === NoContext) {
+					          flushSyncCallbackQueue(); // 取消schedule调度 ,主动刷新回调队列,
+					        }
+					      }
+					    } else {
+					      // concurrent模式
+					      ensureRootIsScheduled(root, eventTime);
+					    }
+					  }
+					  ```
+				- 当`lane === SyncLane`也就是 legacy 或 blocking 模式中, 注册完回调任务之后(`ensureRootIsScheduled(root, eventTime)`), 如果执行上下文为空, 会取消 schedule 调度, 主动刷新回调队列`flushSyncCallbackQueue()`.
+				-
 			-
