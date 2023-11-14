@@ -144,5 +144,40 @@
 				  }
 				  ```
 			- 在`React`体系中, 有 2 种情况会创建`update`对象:
-				- logseq.order-list-type:: number
+				- 应用初始化: 在`react-reconciler`包中的`updateContainer`函数中([源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberReconciler.old.js#L250-L321))
+				  logseq.order-list-type:: number
+					- ```js
+					  export function updateContainer(
+					    element: ReactNodeList,
+					    container: OpaqueRoot,
+					    parentComponent: ?React$Component<any, any>,
+					    callback: ?Function,
+					  ): Lane {
+					    const current = container.current;
+					    const eventTime = requestEventTime();
+					    const lane = requestUpdateLane(current); // 根据当前时间, 创建一个update优先级
+					    const update = createUpdate(eventTime, lane); // lane被用于创建update对象
+					    update.payload = { element };
+					    enqueueUpdate(current, update);
+					    scheduleUpdateOnFiber(current, lane, eventTime);
+					    return lane;
+					  }
+					  ```
+				- 发起组件更新: 例如在 class 组件中调用`setState`([源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberClassComponent.old.js#L193-L288))
+				  logseq.order-list-type:: number
+					- ```js
+					  const classComponentUpdater = {
+					    isMounted,
+					    enqueueSetState(inst, payload, callback) {
+					      const fiber = getInstance(inst);
+					      const eventTime = requestEventTime(); // 根据当前时间, 创建一个update优先级
+					      const lane = requestUpdateLane(fiber); // lane被用于创建update对象
+					      const update = createUpdate(eventTime, lane);
+					      update.payload = payload;
+					      enqueueUpdate(fiber, update);
+					      scheduleUpdateOnFiber(fiber, lane, eventTime);
+					    },
+					  };
+					  ```
+					-
 			-
