@@ -130,6 +130,7 @@
 		  background-color:: green
 			- `update`对象是一个环形链表. 对于单个`update`对象来讲, `update.lane`代表它的优先级, 称之为`update`优先级.
 			- 观察其构造函数([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactUpdateQueue.old.js#L152-L163)),其优先级是**由外界传入**.
+			  collapsed:: true
 				- ```js
 				  export function createUpdate(eventTime: number, lane: Lane): Update<*> {
 				    const update: Update<*> = {
@@ -144,6 +145,7 @@
 				  }
 				  ```
 			- 在`React`体系中, 有 2 种情况会创建`update`对象:
+			  collapsed:: true
 				- 应用初始化: 在`react-reconciler`包中的`updateContainer`函数中([源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberReconciler.old.js#L250-L321))
 				  logseq.order-list-type:: number
 					- ```js
@@ -180,91 +182,152 @@
 					  };
 					  ```
 					- 可以看到, 无论是`应用初始化`或者`发起组件更新`, 创建`update.lane`的逻辑都是一样的, 都是[[#blue]]==根据当前时间, 创建一个 update 优先级.==
-				- [requestUpdateLane](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L392-L493):
-					- ```js
-					  export function requestUpdateLane(fiber: Fiber): Lane {
-					    // Special cases
-					    const mode = fiber.mode;
-					    if ((mode & BlockingMode) === NoMode) {
-					      // legacy 模式
-					      return (SyncLane: Lane);
-					    } else if ((mode & ConcurrentMode) === NoMode) {
-					      // blocking模式
-					      return getCurrentPriorityLevel() === ImmediateSchedulerPriority
-					        ? (SyncLane: Lane)
-					        : (SyncBatchedLane: Lane);
-					    }
-					    // concurrent模式
-					    if (currentEventWipLanes === NoLanes) {
-					      currentEventWipLanes = workInProgressRootIncludedLanes;
-					    }
-					    const isTransition = requestCurrentTransition() !== NoTransition;
-					    if (isTransition) {
-					      // 特殊情况, 处于suspense过程中
-					      if (currentEventPendingLanes !== NoLanes) {
-					        currentEventPendingLanes =
-					          mostRecentlyUpdatedRoot !== null
-					            ? mostRecentlyUpdatedRoot.pendingLanes
-					            : NoLanes;
-					      }
-					      return findTransitionLane(currentEventWipLanes, currentEventPendingLanes);
-					    }
-					    // 正常情况, 获取调度优先级
-					    const schedulerPriority = getCurrentPriorityLevel();
-					    let lane;
-					    if (
-					      (executionContext & DiscreteEventContext) !== NoContext &&
-					      schedulerPriority === UserBlockingSchedulerPriority
-					    ) {
-					      // executionContext 存在输入事件. 且调度优先级是用户阻塞性质
-					      lane = findUpdateLane(InputDiscreteLanePriority, currentEventWipLanes);
-					    } else {
-					      // 调度优先级转换为车道模型
-					      const schedulerLanePriority =
-					        schedulerPriorityToLanePriority(schedulerPriority);
-					      lane = findUpdateLane(schedulerLanePriority, currentEventWipLanes);
-					    }
-					    return lane;
-					  }
-					  ```
-					- 可以看到`requestUpdateLane`的作用是返回一个合适的 update 优先级.
-						- [[#green]]==legacy 模式==: 返回`SyncLane`
+			- [requestUpdateLane](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L392-L493):
+			  collapsed:: true
+				- ```js
+				  export function requestUpdateLane(fiber: Fiber): Lane {
+				    // Special cases
+				    const mode = fiber.mode;
+				    if ((mode & BlockingMode) === NoMode) {
+				      // legacy 模式
+				      return (SyncLane: Lane);
+				    } else if ((mode & ConcurrentMode) === NoMode) {
+				      // blocking模式
+				      return getCurrentPriorityLevel() === ImmediateSchedulerPriority
+				        ? (SyncLane: Lane)
+				        : (SyncBatchedLane: Lane);
+				    }
+				    // concurrent模式
+				    if (currentEventWipLanes === NoLanes) {
+				      currentEventWipLanes = workInProgressRootIncludedLanes;
+				    }
+				    const isTransition = requestCurrentTransition() !== NoTransition;
+				    if (isTransition) {
+				      // 特殊情况, 处于suspense过程中
+				      if (currentEventPendingLanes !== NoLanes) {
+				        currentEventPendingLanes =
+				          mostRecentlyUpdatedRoot !== null
+				            ? mostRecentlyUpdatedRoot.pendingLanes
+				            : NoLanes;
+				      }
+				      return findTransitionLane(currentEventWipLanes, currentEventPendingLanes);
+				    }
+				    // 正常情况, 获取调度优先级
+				    const schedulerPriority = getCurrentPriorityLevel();
+				    let lane;
+				    if (
+				      (executionContext & DiscreteEventContext) !== NoContext &&
+				      schedulerPriority === UserBlockingSchedulerPriority
+				    ) {
+				      // executionContext 存在输入事件. 且调度优先级是用户阻塞性质
+				      lane = findUpdateLane(InputDiscreteLanePriority, currentEventWipLanes);
+				    } else {
+				      // 调度优先级转换为车道模型
+				      const schedulerLanePriority =
+				        schedulerPriorityToLanePriority(schedulerPriority);
+				      lane = findUpdateLane(schedulerLanePriority, currentEventWipLanes);
+				    }
+				    return lane;
+				  }
+				  ```
+				- 可以看到`requestUpdateLane`的作用是返回一个合适的 update 优先级.
+					- [[#green]]==legacy 模式==: 返回`SyncLane`
+					  logseq.order-list-type:: number
+					- blocking 模式: 返回`SyncLane`
+					  logseq.order-list-type:: number
+					- [[#blue]]==concurrent 模式:==
+					  logseq.order-list-type:: number
+						- 正常情况下, 根据当前的`调度优先级`来生成一个`lane`.
 						  logseq.order-list-type:: number
-						- blocking 模式: 返回`SyncLane`
+						- 特殊情况下([[#blue]]==处于 suspense 过程中==), 会优先选择`TransitionLanes`通道中的空闲通道(如果所有`TransitionLanes`通道都被占用, 就取最高优先级. [源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L548-L563)).
 						  logseq.order-list-type:: number
-						- [[#blue]]==concurrent 模式:==
-						  logseq.order-list-type:: number
-							- 正常情况下, 根据当前的`调度优先级`来生成一个`lane`.
-							  logseq.order-list-type:: number
-							- 特殊情况下([[#blue]]==处于 suspense 过程中==), 会优先选择`TransitionLanes`通道中的空闲通道(如果所有`TransitionLanes`通道都被占用, 就取最高优先级. [源码](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L548-L563)).
-							  logseq.order-list-type:: number
-					- 最后通过`scheduleUpdateOnFiber(current, lane, eventTime);`函数, 把`update.lane`正式带入到了`输入`阶段.
-				- [[#green]]==`scheduleUpdateOnFiber`==是`输入`阶段的必经函数, 在本系列的文章中已经多次提到, 此处以`update.lane`的视角分析:
-					- ```js
-					  export function scheduleUpdateOnFiber(
-					    fiber: Fiber,
-					    lane: Lane,
-					    eventTime: number,
-					  ) {
-					    if (lane === SyncLane) {
-					      // legacy或blocking模式
-					      if (
-					        (executionContext & LegacyUnbatchedContext) !== NoContext &&
-					        (executionContext & (RenderContext | CommitContext)) === NoContext
-					      ) {
-					        performSyncWorkOnRoot(root);
-					      } else {
-					        ensureRootIsScheduled(root, eventTime); // 注册回调任务
-					        if (executionContext === NoContext) {
-					          flushSyncCallbackQueue(); // 取消schedule调度 ,主动刷新回调队列,
-					        }
-					      }
-					    } else {
-					      // concurrent模式
-					      ensureRootIsScheduled(root, eventTime);
-					    }
-					  }
-					  ```
+				- 最后通过`scheduleUpdateOnFiber(current, lane, eventTime);`函数, 把`update.lane`正式带入到了`输入`阶段.
+			- [[#green]]==`scheduleUpdateOnFiber`==是`输入`阶段的必经函数, 在本系列的文章中已经多次提到, 此处以`update.lane`的视角分析:
+				- ```js
+				  export function scheduleUpdateOnFiber(
+				    fiber: Fiber,
+				    lane: Lane,
+				    eventTime: number,
+				  ) {
+				    if (lane === SyncLane) {
+				      // legacy或blocking模式
+				      if (
+				        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+				        (executionContext & (RenderContext | CommitContext)) === NoContext
+				      ) {
+				        performSyncWorkOnRoot(root);
+				      } else {
+				        ensureRootIsScheduled(root, eventTime); // 注册回调任务
+				        if (executionContext === NoContext) {
+				          flushSyncCallbackQueue(); // 取消schedule调度 ,主动刷新回调队列,
+				        }
+				      }
+				    } else {
+				      // concurrent模式
+				      ensureRootIsScheduled(root, eventTime);
+				    }
+				  }
+				  ```
 				- 当`lane === SyncLane`也就是 legacy 或 blocking 模式中, 注册完回调任务之后(`ensureRootIsScheduled(root, eventTime)`), 如果执行上下文为空, 会取消 schedule 调度, 主动刷新回调队列`flushSyncCallbackQueue()`.
+				- [[#green]]==这里包含了一个热点问题(`setState到底是同步还是异步`)的标准答案:==
+					- 如果逻辑进入`flushSyncCallbackQueue`(`executionContext === NoContext`), 则会主动取消调度, 并刷新回调, 立即进入`fiber树`构造过程. 当执行`setState`下一行代码时, `fiber树`已经重新渲染了, 故`setState`体现为同步.
+					- 正常情况下, 不会取消`schedule调度`. 由于`schedule调度`是通过`MessageChannel`触发(宏任务), 故体现为异步.
+		- #### `渲染` 优先级(renderLanes)
+		  background-color:: green
+			- 这是一个全局概念, 每一次`render`之前, 首先要确定本次`render`的优先级. 具体对应到源码如下:
+				- ```js
+				  // ...省略无关代码
+				  function performSyncWorkOnRoot(root) {
+				    let lanes;
+				    let exitStatus;
+				    // 获取本次`render`的优先级
+				    lanes = getNextLanes(root, lanes);
+				    exitStatus = renderRootSync(root, lanes);
+				  }
+				  // ...省略无关代码
+				  function performConcurrentWorkOnRoot(root) {
+				    // 获取本次`render`的优先级
+				    let lanes = getNextLanes(
+				      root,
+				      root === workInProgressRoot ? workInProgressRootRenderLanes : NoLanes,
+				    );
+				    if (lanes === NoLanes) {
+				      return null;
+				    }
+				    let exitStatus = renderRootConcurrent(root, lanes);
+				  }
+				  ```
+			- 可以看到, 无论是`Legacy`还是`Concurrent`模式, 在正式`render`之前, 都会[[#green]]==调用`getNextLanes`==获取一个优先级([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L249-L303)).
+				- ```js
+				  // ...省略部分代码
+				  export function getNextLanes(root: FiberRoot, wipLanes: Lanes): Lanes {
+				    // 1. check是否有等待中的lanes
+				    const pendingLanes = root.pendingLanes;
+				    if (pendingLanes === NoLanes) {
+				      return_highestLanePriority = NoLanePriority;
+				      return NoLanes;
+				    }
+				    let nextLanes = NoLanes;
+				    let nextLanePriority = NoLanePriority;
+				    const expiredLanes = root.expiredLanes;
+				    const suspendedLanes = root.suspendedLanes;
+				    const pingedLanes = root.pingedLanes;
+				    // 2. check是否有已过期的lanes
+				    if (expiredLanes !== NoLanes) {
+				      nextLanes = expiredLanes;
+				      nextLanePriority = return_highestLanePriority = SyncLanePriority;
+				    } else {
+				      const nonIdlePendingLanes = pendingLanes & NonIdleLanes;
+				      if (nonIdlePendingLanes !== NoLanes) {
+				        // 非Idle任务 ...
+				      } else {
+				        // Idle任务 ...
+				      }
+				    }
+				    if (nextLanes === NoLanes) {
+				      return NoLanes;
+				    }
+				    return nextLanes;
+				  }
+				  ```
 				-
-			-
