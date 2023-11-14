@@ -227,5 +227,14 @@
 					    return lane;
 					  }
 					  ```
-				-
+					- 可以看到`requestUpdateLane`的作用是返回一个合适的 update 优先级.
+						- [[#green]]==legacy 模式==: 返回`SyncLane`
+						  logseq.order-list-type:: number
+						- blocking 模式: 返回`SyncLane`
+						  logseq.order-list-type:: number
+						- [[#blue]]==concurrent 模式:==
+						  logseq.order-list-type:: number
+							- 正常情况下, 根据当前的`调度优先级`来生成一个`lane`.
+							  logseq.order-list-type:: number
+							- logseq.order-list-type:: number
 			-
