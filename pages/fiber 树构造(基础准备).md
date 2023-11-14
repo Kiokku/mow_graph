@@ -121,5 +121,6 @@
 				- ![image.png](../assets/image_1699953192569_0.png)
 			- 构造完成并渲染, 切换`fiberRoot.current`指针, 使其继续指向当前界面对应的`fiber`树(原来代表界面的 fiber 树, 变成了内存中).
 			  logseq.order-list-type:: number
-				-
--
+				- ![image.png](../assets/image_1699955072953_0.png)
+	- ### 优先级 {\#lanes}
+		-
