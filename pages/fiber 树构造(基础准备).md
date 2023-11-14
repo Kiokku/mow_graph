@@ -118,5 +118,6 @@
 		- 用图来表述`double buffering`的概念如下:
 			- 构造过程中, `fiberRoot.current`指向当前界面对应的`fiber`树.
 			  logseq.order-list-type:: number
+				- ![image.png](../assets/image_1699953192569_0.png)
 				-
 -
