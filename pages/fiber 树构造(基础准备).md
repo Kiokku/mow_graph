@@ -124,4 +124,25 @@
 				- ![image.png](../assets/image_1699955072953_0.png)
 	- ### 优先级 {\#lanes}
 	  background-color:: pink
-		-
+		- >> 现在`fiber树构造`过程中, 将要深入分析车道模型`Lane`的具体应用.
+		- 在整个`react-reconciler`包中, `Lane`的应用可以分为 3 个方面:
+		- #### `update` 优先级(update.lane) {\#update-lane}
+		  background-color:: green
+			- `update`对象是一个环形链表. 对于单个`update`对象来讲, `update.lane`代表它的优先级, 称之为`update`优先级.
+			- 观察其构造函数([源码链接](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactUpdateQueue.old.js#L152-L163)),其优先级是**由外界传入**.
+				- ```js
+				  export function createUpdate(eventTime: number, lane: Lane): Update<*> {
+				    const update: Update<*> = {
+				      eventTime,
+				      lane,
+				      tag: UpdateState,
+				      payload: null,
+				      callback: null,
+				      next: null,
+				    };
+				    return update;
+				  }
+				  ```
+			- 在`React`体系中, 有 2 种情况会创建`update`对象:
+				- logseq.order-list-type:: number
+			-
