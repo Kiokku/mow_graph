@@ -92,5 +92,97 @@
 		    }
 		  }
 		  ```
-	-
+		- 可以看到, 在[[#green]]==`Legacy`模式下且首次渲染==时, 有 2 个函数[markUpdateLaneFromFiberToRoot](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L625-L667)和[performSyncWorkOnRoot](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L965-L1045).
+		- 其中`markUpdateLaneFromFiberToRoot(fiber, lane)`函数在`fiber树构造(对比更新)`中才会发挥作用, 因为在`初次创建`时并没有与当前页面所对应的`fiber树`, 所以核心代码并没有执行, 最后直接返回了`FiberRoot`对象.
+		- `performSyncWorkOnRoot`看起来源码很多, `初次创建`中真正用到的就 2 个函数:
+			- ```js
+			  function performSyncWorkOnRoot(root) {
+			    let lanes;
+			    let exitStatus;
+			    if (
+			      root === workInProgressRoot &&
+			      includesSomeLane(root.expiredLanes, workInProgressRootRenderLanes)
+			    ) {
+			      // 初次构造时(因为root=fiberRoot, workInProgressRoot=null), 所以不会进入
+			    } else {
+			      // 1. 获取本次render的优先级, 初次构造返回 NoLanes
+			      lanes = getNextLanes(root, NoLanes);
+			      // 2. 从root节点开始, 至上而下更新
+			      exitStatus = renderRootSync(root, lanes);
+			    }
+			  
+			    // 将最新的fiber树挂载到root.finishedWork节点上
+			    const finishedWork: Fiber = (root.current.alternate: any);
+			    root.finishedWork = finishedWork;
+			    root.finishedLanes = lanes;
+			    // 进入commit阶段
+			    commitRoot(root);
+			  
+			    // ...后面的内容本节不讨论
+			  }
+			  ```
+		- [renderRootSync](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1490-L1553):
+			- ```js
+			  function renderRootSync(root: FiberRoot, lanes: Lanes) {
+			    const prevExecutionContext = executionContext;
+			    executionContext |= RenderContext;
+			    // 如果fiberRoot变动, 或者update.lane变动, 都会刷新栈帧, 丢弃上一次渲染进度
+			    if (workInProgressRoot !== root || workInProgressRootRenderLanes !== lanes) {
+			      // 刷新栈帧, legacy模式下都会进入
+			      prepareFreshStack(root, lanes);
+			    }
+			    do {
+			      try {
+			        workLoopSync();
+			        break;
+			      } catch (thrownValue) {
+			        handleError(root, thrownValue);
+			      }
+			    } while (true);
+			    executionContext = prevExecutionContext;
+			    // 重置全局变量, 表明render结束
+			    workInProgressRoot = null;
+			    workInProgressRootRenderLanes = NoLanes;
+			    return workInProgressRootExitStatus;
+			  }
+			  ```
+			- 在`renderRootSync`中, 在执行`fiber树构造`前(`workLoopSync`)会先刷新栈帧`prepareFreshStack`.在这里创建了`HostRootFiber.alternate`, 重置全局变量`workInProgress`和`workInProgressRoot`等.
+		- ![image.png](../assets/image_1700060205440_0.png)
+	- ### 循环构造
+	  background-color:: pink
+		- 逻辑来到`workLoopSync`,对比一下`workLoopConcurrent`:
+			- ```js
+			  function workLoopSync() {
+			    while (workInProgress !== null) {
+			      performUnitOfWork(workInProgress);
+			    }
+			  }
+			  
+			  function workLoopConcurrent() {
+			    // Perform work until Scheduler asks us to yield
+			    while (workInProgress !== null && !shouldYield()) {
+			      performUnitOfWork(workInProgress);
+			    }
+			  }
+			  ```
+			- 可以看到`workLoopConcurrent`相比于`Sync`, 会多一个**停顿机制**, 这个机制实现了`时间切片`和`可中断渲染`(参考[React 调度原理](https://7km.top/main/scheduler#%E6%97%B6%E9%97%B4%E5%88%87%E7%89%87%E5%8E%9F%E7%90%86))
+		- `performUnitOfWork函数`([源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L1642-L1668)):
+			- ```js
+			  // ... 省略部分无关代码
+			  function performUnitOfWork(unitOfWork: Fiber): void {
+			    // unitOfWork就是被传入的workInProgress
+			    const current = unitOfWork.alternate;
+			    let next;
+			    next = beginWork(current, unitOfWork, subtreeRenderLanes);
+			    unitOfWork.memoizedProps = unitOfWork.pendingProps;
+			    if (next === null) {
+			      // 如果没有派生出新的节点, 则进入completeWork阶段, 传入的是当前unitOfWork
+			      completeUnitOfWork(unitOfWork);
+			    } else {
+			      workInProgress = next;
+			    }
+			  }
+			  ```
+		-
+		-
 -
