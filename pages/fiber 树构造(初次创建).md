@@ -32,5 +32,8 @@
   export default App;
   ```
 - ## 启动阶段
+	- 在进入`react-reconciler`包之前(调用`updateContainer`之前), 内存状态图如下:
+	- ![image.png](../assets/image_1699973560836_0.png)
+	- 根据这个结构, 可以在控制台中打出当前页面对应的`fiber`树(用于观察其结构):
 	-
 -
