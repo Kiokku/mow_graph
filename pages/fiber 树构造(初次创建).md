@@ -65,4 +65,32 @@
 		    return lane;
 		  }
 		  ```
-		-
+	- 由于[[#green]]==`update`对象的创建==, 此时的内存结构如下:
+	- ![image.png](../assets/image_1700059680864_0.png)
+- ## 构造阶段
+	- 为了突出构造过程,排除干扰,先把内存状态图中的`FiberRoot`和`HostRootFiber`单独提出来:
+	- ![image.png](../assets/image_1700059772491_0.png){:height 258, :width 314}
+	- 在[scheduleUpdateOnFiber 函数](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L517-L619)中:
+		- ```js
+		  // ...省略部分代码
+		  export function scheduleUpdateOnFiber(
+		    fiber: Fiber,
+		    lane: Lane,
+		    eventTime: number,
+		  ) {
+		    // 标记优先级
+		    const root = markUpdateLaneFromFiberToRoot(fiber, lane);
+		    if (lane === SyncLane) {
+		      if (
+		        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+		        (executionContext & (RenderContext | CommitContext)) === NoContext
+		      ) {
+		        // 首次渲染, 直接进行`fiber构造`
+		        performSyncWorkOnRoot(root);
+		      }
+		      // ...
+		    }
+		  }
+		  ```
+	-
+-
