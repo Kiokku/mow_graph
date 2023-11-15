@@ -183,6 +183,20 @@
 			    }
 			  }
 			  ```
-		-
+			- 可以明显的看出, 整个`fiber树构造`是一个深度优先遍历,其中有 2 个重要的变量`workInProgress`和`current`:
+				- `workInProgress`和`current`都视为指针
+				  logseq.order-list-type:: number
+				- `workInProgress`指向当前正在构造的`fiber`节点
+				  logseq.order-list-type:: number
+				- `current = workInProgress.alternate`(即`fiber.alternate`), 指向当前页面正在使用的`fiber`节点. 初次构造时, 页面还未渲染, 此时`current = null`.
+				  logseq.order-list-type:: number
+			- 在深度优先遍历中, 每个`fiber`节点都会经历 2 个阶段:
+				- 探寻阶段 `beginWork`
+				  logseq.order-list-type:: number
+				- 回溯阶段 `completeWork`
+				  logseq.order-list-type:: number
+			- 这 2 个阶段共同完成了每一个`fiber`节点的创建, 所有`fiber`节点则构成了`fiber树`.
+	- ### 探寻阶段 beginWork
+	  background-color:: pink
 		-
 -
