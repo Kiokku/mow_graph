@@ -154,7 +154,6 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
-  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
@@ -189,6 +188,7 @@
 			- 第四章 commit阶段
 				- [[commit流程概览]]
 	- [[React基础与进阶]]
+	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 		- [[React 之元素与组件的区别]]
 		- [[React 之 Refs 的使用和 forwardRef 的源码解读]]
