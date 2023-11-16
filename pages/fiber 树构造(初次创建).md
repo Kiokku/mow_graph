@@ -199,5 +199,55 @@
 	- ### 探寻阶段 beginWork
 	  background-color:: pink
 		- `beginWork(current, unitOfWork, subtreeRenderLanes)`([源码地址](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberBeginWork.old.js#L3083-L3494))针对所有的 Fiber 类型, 其中的每一个 case 处理一种 Fiber 类型. `updateXXX`函数(如: `updateHostRoot`, `updateClassComponent` 等)的主要逻辑:
+			- 根据 `ReactElement`对象创建所有的`fiber`节点, 最终构造出`fiber树形结构`(设置`return`和`sibling`指针)
+			  logseq.order-list-type:: number
+			- 设置`fiber.flags`(二进制形式变量, 用来标记 `fiber`节点 的`增,删,改`状态, 等待`completeWork阶段处理`)
+			  logseq.order-list-type:: number
+			- 设置`fiber.stateNode`局部状态(如`Class类型`节点: `fiber.stateNode=new Class()`)
+			  logseq.order-list-type:: number
+		- ```js
+		  function beginWork(
+		    current: Fiber | null,
+		    workInProgress: Fiber,
+		    renderLanes: Lanes,
+		  ): Fiber | null {
+		    const updateLanes = workInProgress.lanes;
+		    if (current !== null) {
+		      // update逻辑, 首次render不会进入
+		    } else {
+		      didReceiveUpdate = false;
+		    }
+		    // 1. 设置workInProgress优先级为NoLanes(最高优先级)
+		    workInProgress.lanes = NoLanes;
+		    // 2. 根据workInProgress节点的类型, 用不同的方法派生出子节点
+		    switch (
+		      workInProgress.tag // 只保留了本例使用到的case
+		    ) {
+		      case ClassComponent: {
+		        const Component = workInProgress.type;
+		        const unresolvedProps = workInProgress.pendingProps;
+		        const resolvedProps =
+		          workInProgress.elementType === Component
+		            ? unresolvedProps
+		            : resolveDefaultProps(Component, unresolvedProps);
+		        return updateClassComponent(
+		          current,
+		          workInProgress,
+		          Component,
+		          resolvedProps,
+		          renderLanes,
+		        );
+		      }
+		      case HostRoot:
+		        return updateHostRoot(current, workInProgress, renderLanes);
+		      case HostComponent:
+		        return updateHostComponent(current, workInProgress, renderLanes);
+		      case HostText:
+		        return updateHostText(current, workInProgress);
+		      case Fragment:
+		        return updateFragment(current, workInProgress, renderLanes);
+		    }
+		  }
+		  ```
 		-
 -
