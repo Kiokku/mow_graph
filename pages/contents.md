@@ -196,6 +196,7 @@
 	- [[useEffect 完整指南]] #DanAbramov
 	- [[在你写 memo() 之前]]#DanAbramov
 	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
+	- [[A Brief History of Reactivity]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   collapsed:: true
 	- [[shell]]
