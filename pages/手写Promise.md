@@ -1,4 +1,5 @@
 - > https://github.com/xieranmaya/blog/issues/3
+- > https://leetcode.cn/leetbook/read/javascript-interview-2/7m4ryc/
 -
 - ## Promise标准解读
   collapsed:: true
@@ -18,8 +19,10 @@
 	  background-color:: pink
 	- [更具体的标准见这里](https://promisesaplus.com/)
 - ## 一步一步实现一个Promise
+  collapsed:: true
 	- ### 构造函数
 	  background-color:: green
+	  collapsed:: true
 		- 因为标准并没有指定如何构造一个Promise对象，所以我们同样以目前一般Promise实现中通用的方法来构造一个Promise对象，也是ES6原生Promise里所使用的方式，即：
 		- ```
 		  // Promise构造函数接收一个executor函数，executor函数执行完同步或异步操作后，调用它的两个参数resolve和reject
@@ -515,12 +518,14 @@
 	  
 	  ```
 - ## 测试
+  collapsed:: true
 	- Promise有一个配套的[测试脚本](https://github.com/promises-aplus/promises-tests)，只需要我们在一个CommonJS的模块中暴露一个deferred方法（即exports.deferred方法），就可以了，代码见上述代码的最后。然后执行如下代码即可执行测试：
 	- ```
 	  npm i -g promises-aplus-tests
 	  promises-aplus-tests Promise.js
 	  ```
 - ## 关于Promise的其它问题
+  collapsed:: true
 	- ### Promise的性能问题
 	  background-color:: pink
 		- 理论上说，不能叫做“性能问题”，而只是有可能出现的延迟问题。什么意思呢，记得刚刚我们说需要把4块代码包在setTimeout里吧，先考虑如下代码：
