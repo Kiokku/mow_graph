@@ -1,0 +1,3 @@
+- > https://sw.kovidgoyal.net/kitty/
+- *快速、功能丰富、基于 GPU 的终端仿真器*
+-
