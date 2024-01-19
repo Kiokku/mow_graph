@@ -215,3 +215,4 @@
 - 工具箱
 	- [[kitty]]
 	- yazi
+	- [[使用 reveal-md 来写 Slides]]
