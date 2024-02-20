@@ -1,6 +1,5 @@
 - >> https://note.isshikih.top/others/reveal-md2Slides/
-- >> `reveal-md` 是 `reveal.js` 的一个扩展工具，类似于一个预编译工具。利用 `reveal-md`，你可以通过编写一个 `Markdown` 文件来快速简便地生成一个基于网页的 Slides，你也可以将它导出为静态资源并部署在类似 github pages 等平台来分享静态页面。
+- >> `reveal-md` 是`reveal.js` 的一个扩展工具，类似于一个预编译工具。利用 `reveal-md`，你可以通过编写一个 `Markdown` 文件来快速简便地生成一个基于网页的 Slides，你也可以将它导出为静态资源并部署在类似 github pages 等平台来分享静态页面。
 - [reveal.js 的官方 demo](https://revealjs.com/?demo)
 - [reveal-md 的 github repo](https://github.com/webpro/reveal-md)
--
 -
