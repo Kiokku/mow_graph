@@ -3,5 +3,14 @@
 - [reveal.js 的官方 demo](https://revealjs.com/?demo)
 - [reveal-md 的 github repo](https://github.com/webpro/reveal-md)
 -
-- ## 安装
--
+- ## 安装与演示
+	- `npm install -g reveal-md`
+	- 核心命令：
+		- ```js
+		  ## 最基础的命令，根据 Markdown 文件在本地 1948 端口生成 Slides 服务。
+		  $ reveal-md your-md-file.md
+		  
+		  ## 为了实现在线部署，需要导出为静态资源。
+		  $ reveal-md your-md-file.md --static your-static-dir
+		  ```
+		-
