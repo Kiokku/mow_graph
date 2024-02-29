@@ -3,3 +3,5 @@
 - [reveal.js 的官方 demo](https://revealjs.com/?demo)
 - [reveal-md 的 github repo](https://github.com/webpro/reveal-md)
 -
+- ## 安装
+-
