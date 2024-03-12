@@ -21,4 +21,44 @@
 		- 5. 按下`v`或`.`黑屏。
 - ## 文档编写
 	- ### 分页
-		-
+		- 两种 `separator` 和 `vertical separator` 两种，顾名思义，分别对应着左右分页和上下分页。默认情况下，separator 是 `\n---\n`，而 vertical separator 是 `\n----\n`。
+			- ```markdown
+			  ### Part 1
+			  
+			  ---
+			  
+			  #### Part 1.1
+			  
+			  - Orderred List
+			  - Next Line
+			  
+			  1. Numberred List
+			  2. Next Line
+			  
+			  ----
+			  
+			  #### Part 1.2
+			  
+			  {code block here}
+			  
+			  ----
+			  
+			  #### Part 1.3
+			  
+			  > Everthings seems ok!
+			  
+			  ```
+		- 如何修改默认的 separator：
+			- 一种是通过在命令行中的附加参数实现
+			  logseq.order-list-type:: number
+				- ![image.png](../assets/image_1710253139794_0.png)
+			- 另一种则是在`md`文件开头写好配置文件实现。
+			  logseq.order-list-type:: number
+				- ```
+				  ---
+				  separator: <!--s-->
+				  verticalSeparator: <!--v-->
+				  ---
+				  ```
+			- 这里将 `<!--s-->` 设为 separator，将 `<!--v-->` 设为 vertical separator‘’
+			-
