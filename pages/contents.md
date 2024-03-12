@@ -197,7 +197,6 @@
 	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
 	- [[A Brief History of Reactivity]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
-  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 - Mathematics

@@ -1,5 +1,4 @@
 - > https://missing-semester-cn.github.io/2020/course-shell/
--
 - ## The Shell
 	- 它允许你执行程序，输入并获取某种半结构化的输出。
 	- [[#blue]]==Bourne Again SHell==, 简称 “**bash**”

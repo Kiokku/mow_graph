@@ -128,4 +128,11 @@
 	  background-color:: green
 		- 创建一个 Repo 来存放你的静态资源，例如。我个人的做法是直接把初始的 `md` 文本和静态资源文本都放在一个地方了。 接下来，我们需要导出静态资源，使用的是这条指令：
 		- `reveal-md your-md-file.md --static your-static-dir`
-		-
+		- 接下来，你会得到一个文件夹，包含这个 Slides 所需要的所有资源。你只需要将它传到你的 Repo 里即可:
+		- ![image.png](../assets/image_1710254647193_0.png)
+		- ![image.png](../assets/image_1710254697689_0.png)
+		- 其中的 `index.html` 和 `slides.html` 都是 Slides 的 `html` 文件。区别貌似是 `index.html`会 有一个弹窗告诉你使用的是 `reveal.js`。
+	- ### 设置 pages 服务
+	  background-color:: blue
+		- 设置 pages 服务以后通过 `https://<github_id>.github.io/<repo_name>/.../slides.html`即可访问到页面.
+	-
