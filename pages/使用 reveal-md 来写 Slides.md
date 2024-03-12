@@ -102,4 +102,30 @@
 	- ### 格式支持
 		- 在文本格式排版方面，`Markdown` 的原生语法都是支持的，此外你当然也可以使用 `html` 标签来编辑你的文字，例如修改颜色、设置居中/靠左/靠右、修改大小
 - ## 定制与美化
-	-
+	- 源`md`文件开头配置的模板：
+		- ```
+		  ---
+		  title: Title
+		  separator: <!--s-->
+		  verticalSeparator: <!--v-->
+		  theme: league
+		  highlightTheme: tomorrow-night-bright
+		  revealOptions:
+		    width: 1520
+		    height: 950
+		    margin: 0.04
+		    transition: 'convex'
+		    slideNumber: true
+		  ---
+		  ```
+		- `title` 即显示在网页标签上内容；
+		- `(vertical)separator` 即之前提到过的两个 `separator`；
+		- `theme` 为 Slides 主题，可供使用的官方默认主题可以看这里：[🔗](https://revealjs.com/themes/)；
+		- `highlightTheme` 为代码框高亮主题，官方对高亮主题的说明在这里：[🔗](https://revealjs.com/code/)；
+		- `revealOptions` 则对应了 `reveal.js` 中 [config](https://revealjs.com/config/) 的内容；
+- ## 通过 GitHub Pages 实现静态部署
+	- ### 静态资源
+	  background-color:: green
+		- 创建一个 Repo 来存放你的静态资源，例如。我个人的做法是直接把初始的 `md` 文本和静态资源文本都放在一个地方了。 接下来，我们需要导出静态资源，使用的是这条指令：
+		- `reveal-md your-md-file.md --static your-static-dir`
+		-
