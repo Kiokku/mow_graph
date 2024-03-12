@@ -60,5 +60,46 @@
 				  verticalSeparator: <!--v-->
 				  ---
 				  ```
-			- 这里将 `<!--s-->` 设为 separator，将 `<!--v-->` 设为 vertical separator‘’
-			-
+			- 这里将 `<!--s-->` 设为 separator，将 `<!--v-->` 设为 vertical separator，在这种情况下，除了开头配置文件的部分，其他的 `---` 则会被认为是 `md` 的语法，渲染为正常的分割线。
+	- ### 代码框
+		- **代码框高亮**
+			- ![image.png](../assets/image_1710253857734_0.png)
+			- ```
+			  - 前面的数字是为了标记它们属于代码框的第几行而写的，实际不需要写这些数字（废话）
+			  - 反斜杠是为了防止md渲染错误，实际上不需要加
+			  
+			  \```cpp
+			  1        #include <iostream>
+			  2        int main(){
+			  3            std::cout << "Hello World!\n";
+			  4          return 0;
+			  5        }
+			  \```
+			  ```
+			- 在语言后面加上一个方括号 `[...]` 来标记高亮行即可，比如 `[2-5]` 就是标记 2～5 行，也就是整个 `main()` 函数。此外，你还可以用`|`来分隔多个高亮块，来实现动画的效果，例如 `[1|2-5]` 就是先高亮预编译，再高亮 `main()` 函数。
+			- ```
+			  ---
+			  separator: <!--s-->
+			  verticalSeparator: <!--v-->
+			  ---
+			  
+			  #### Part 1.2
+			  
+			  \```cpp[1|2-5]
+			  #include <iostream>
+			  int main(){
+			      std::cout << "Hello World!\n";
+			      return 0;
+			  }
+			  \```
+			  
+			  <!--v-->
+			  
+			  #### Part 1.3
+			  
+			  > Everthings seems ok!
+			  ```
+	- ### 格式支持
+		- 在文本格式排版方面，`Markdown` 的原生语法都是支持的，此外你当然也可以使用 `html` 标签来编辑你的文字，例如修改颜色、设置居中/靠左/靠右、修改大小
+- ## 定制与美化
+	-
