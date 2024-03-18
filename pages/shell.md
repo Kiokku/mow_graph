@@ -35,8 +35,14 @@
 			- **mv 操作文件时是移动并且重命名**
 			- ![image.png](../assets/image_1710776068263_0.png)
 		- `cp`: 拷贝文件
-			-
+			- ```
+			  cp [options] source dest
+			  cp [options] source... directory
+			  ```
+			- `-r` 或 `--recursive`：用于[[#green]]==递归==复制目录及其所有的子目录和文件，如果要复制目录，需要使用该选项。
+			- `-i` 或 `--interactive`：在复制前提示确认，如果目标文件已存在，则会询问是否覆盖，回答 **y** 时目标文件将被覆盖。
 		- `mkdir`: 新建文件夹
+		- `rmdir`: 移除目录（如果它是空的）
 		- `man`: 接受一个程序名作为参数，然后将它的文档（用户手册）展现给您。注意，使用 `q` 可以退出该程序。
 	- ### 在程序间创建连接
 	  background-color:: blue
