@@ -28,7 +28,14 @@
 			- 第一个字符 `d` 表示 `missing` 是一个目录。
 			- 然后接下来的九个字符，每三个字符构成一组（`rwx`），它们分别代表了**文件所有者**（`missing`），**用户组**（`users`） 以及**其他所有人**具有的权限，`r`- read, `w`- write, `x` - exacute
 		- `mv`: 用于重命名或移动文件
+			- ```
+			  mv [options] source dest
+			  mv [options] source... directory
+			  ```
+			- **mv 操作文件时是移动并且重命名**
+			- ![image.png](../assets/image_1710776068263_0.png)
 		- `cp`: 拷贝文件
+			-
 		- `mkdir`: 新建文件夹
 		- `man`: 接受一个程序名作为参数，然后将它的文档（用户手册）展现给您。注意，使用 `q` 可以退出该程序。
 	- ### 在程序间创建连接
