@@ -204,6 +204,7 @@
 - Mathematics
   collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
+	  id:: 649da508-200d-45c4-a0ad-b44ad5516590
 	  collapsed:: true
 		- [[Study Materials]]
 		- [[Lecture 1: The geometry of linear equations]]
