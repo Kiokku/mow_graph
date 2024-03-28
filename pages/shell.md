@@ -72,6 +72,26 @@
 		- `sudo`:  它的作用是让您可以以 su（**super user** 或 **root** 的简写）的身份执行一些操作。 当您遇到拒绝访问（**permission denied**）的错误时，通常是因为此时您必须是根用户才能操作。
 - ## 习题解答
   background-color:: red
-	- 在 /tmp 下新建一个名为 missing 的文件夹。
+	- 在 /tmp 下新建一个名为 missing 的文件夹。[[#green]]==`mkdir missing`==
 	  logseq.order-list-type:: number
+		- ![image.png](../assets/image_1711637412532_0.png)
+	- 用 man 查看程序 touch 的使用手册。 [[#blue]]==`man touch`==
+	  logseq.order-list-type:: number
+	- 用 touch 在 missing 文件夹中新建一个叫 semester 的文件。 [[#green]]==`touch semester`==
+	  logseq.order-list-type:: number
+		- touch命令用于修改文件或者目录的时间属性，包括存取时间和更改时间。[[#green]]==若文件不存在，系统会建立一个新的文件。==
+	- 将以下内容一行一行地写入 semester 文件：
+	  logseq.order-list-type:: number
+		- ```
+		  #!/bin/sh
+		   curl --head --silent https://missing.csail.mit.edu
+		  ```
+		- 第一行可能有点棘手， `#` 在Bash中表示注释，而 `!` 即使被双引号（`"`）包裹也具有特殊的含义。单引号（`'`）则不一样，此处利用这一点解决输入问题
+		- ![image.png](../assets/image_1711637681525_0.png)
+	- 使用 chmod 命令改变权限，使 `./semester` 能够成功执行.
+	  logseq.order-list-type:: number
+		- chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令
+		- ![image.png](../assets/image_1711637845934_0.png)
+		- ![image.png](../assets/image_1711637860508_0.png)
 		-
+-
