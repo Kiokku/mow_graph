@@ -88,10 +88,13 @@
 		  ```
 		- 第一行可能有点棘手， `#` 在Bash中表示注释，而 `!` 即使被双引号（`"`）包裹也具有特殊的含义。单引号（`'`）则不一样，此处利用这一点解决输入问题
 		- ![image.png](../assets/image_1711637681525_0.png)
-	- 使用 chmod 命令改变权限，使 `./semester` 能够成功执行.
+	- 使用 chmod 命令改变权限，使 `./semester` 能够成功执行. [[#green]]==`chmod 777 semester`==
 	  logseq.order-list-type:: number
 		- chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令
 		- ![image.png](../assets/image_1711637845934_0.png)
 		- ![image.png](../assets/image_1711637860508_0.png)
-		-
+	- 使用 `|` 和 `>` ，将 semester 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中.
+	  logseq.order-list-type:: number
+		- ![image.png](../assets/image_1711637943836_0.png)
+		- `grep` (global regular expression) 命令用于查找文件里符合条件的字符串或正则表达式。
 -
