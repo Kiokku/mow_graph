@@ -212,6 +212,7 @@
 - Python
 - [[计算机书籍]]
 - 计算机网络
+  id:: 66194946-6963-4f94-a804-a32eba3c725a
 	- [[Beej's Guide to Network Concepts]]
 	- [[图解计算机网络]]
 - 工具箱
