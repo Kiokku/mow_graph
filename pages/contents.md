@@ -209,7 +209,6 @@
 - Python
 - [[计算机书籍]]
 - 工具箱
-  collapsed:: true
 	- [[kitty]]
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
