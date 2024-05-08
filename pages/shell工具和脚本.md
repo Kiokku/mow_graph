@@ -87,6 +87,19 @@
 	  background-color:: pink
 	- **[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))**
 	  background-color:: pink
+		- 注意，脚本并不一定只有用 bash 写才能在终端里调用。比如说，这是一段 Python 脚本，作用是将输入的参数倒序输出：
+			- ```
+			  #!/usr/local/bin/python
+			  import sys
+			  for arg in reversed(sys.argv[1:]):
+			      print(arg)
+			  ```
+		- 内核知道去用 python 解释器而不是 shell 命令来运行这段脚本，是因为脚本的开头第一行的 [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))。
+		- [[#green]]==在 `shebang` 行中使用 [`env`](https://man7.org/linux/man-pages/man1/env.1.html) 命令==是一种好的实践，它会利用环境变量中的程序来解析该脚本，这样就提高了您的脚本的可移植性。[[#green]]==不同操作系统中代码解释器的位置可能不同==，`env` 会利用我们第一节讲座中介绍过的`PATH` 环境变量来进行定位。
+			- ```
+			  #!/usr/bin/env python
+			  env 会定位 python 解释器在系统中的位置进行调用
+			  ```
 - ## Shell 工具
 	- ### 查看命令如何使用
 	  background-color:: pink
