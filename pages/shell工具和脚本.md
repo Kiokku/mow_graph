@@ -141,3 +141,10 @@
 	- ### 文件夹导航
 	  background-color:: pink
 		- 我们可以使用[`fasd`](https://github.com/clvv/fasd)和 [autojump](https://github.com/wting/autojump) 这两个工具来查找最常用或最近使用的文件和目录。
+- ## 习题解答
+  background-color:: red
+	- 1. 阅读 [`man ls`](https://man7.org/linux/man-pages/man1/ls.1.html) ，然后使用`ls` 命令进行如下操作：
+		- 所有文件（包括隐藏文件）
+		- 文件打印以人类可以理解的格式输出 (例如，使用454M 而不是 454279954)
+		- 文件以最近访问顺序排序
+		- 以彩色文本显示输出结果
