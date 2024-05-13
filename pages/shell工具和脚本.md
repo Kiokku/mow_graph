@@ -155,5 +155,13 @@
 	- 2. 编写两个bash函数 marco 和 polo 执行下面的操作。 每当你执行 marco 时，当前的工作目录应当以某种形式保存，当执行 polo 时，无论现在处在什么目录下，都应当 cd 回到当时执行 marco 的目录。 为了方便debug，你可以把代码写在单独的文件 marco.sh 中，并通过 source marco.sh命令，（重新）加载函数。通过source 来加载函数，随后可以在 bash 中直接使用。
 		- ```shell
 		  #!/bin/bash
+		  marco() {
+		  	echo "$(pwd)" > $HOME/marco_history.log
+		      echo "save pwd $(pwd)"
+		  }
 		  
+		  polo() {
+		  	cd "$(cat "$HOME/marco_history.log")"
+		  }
 		  ```
+	- 3. 假设您有一个命令，它很少出错。因此为了在出错时能够对其进行调试，需要花费大量的时间重现错误并捕获输出。 编写一段bash脚本，运行如下的脚本直到它出错，将它的标准输出和标准错误流记录到文件，并在最后输出所有内容。 加分项：报告脚本在失败前共运行了多少次。
