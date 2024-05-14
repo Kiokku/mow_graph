@@ -199,6 +199,7 @@
   id:: 64a1826f-ccde-4703-acab-075543313ba5
 	- [[shell]]
 	- [[shell工具和脚本]]
+	- [[编辑器 Vim]]
 - Mathematics
   collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
