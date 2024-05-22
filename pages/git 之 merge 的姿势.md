@@ -15,4 +15,12 @@ background-color:: pink
 - ## 2. git merge --strategy 和 git merge --strategy-options
   background-color:: gray
 	- 采用 `git`的合并策略： [merge strategy](https://blog.walterlv.com/post/git-merge-strategy.html)
-	- 但是，`git merge -X ours <branch_name>`只适合两边都有
+	- 但是，`git merge -X ours <branch_name>`只适合两边都有修改的情况，在<rename/delete>、<modify/delete>的情况下依然会有冲突需要手动解决；
+- ## 3. gitignore
+  background-color:: purple
+	- 在两个分支添加 `.gitignore`让 git 不跟踪分支上不需要合并的文件夹，然后用`git rm -r --cached <filepath>`取消已跟踪的文件，然后再将 `master`合并到`test`上来；
+	- 合并完成后记得去掉 `.gitignore`，然后重新提交之前取消跟踪的文件
+- ## 4. git checkout -b <new_branch>
+  background-color:: blue
+	- 其实最简单的方法就是从`master`拉取一个新分支，对新分支替换`test`上修改的入口程序的build包，其他的不变即可。
+	- 当然这种方法就会丢失掉`test`上的提交comment
