@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[33-js-concepts]]
 	  id:: 66194703-1639-4fe3-adab-7a662686e7e4
 	- [[JavaScript深入系列]]
@@ -66,6 +67,7 @@
 	- [[JavaScript错题集]]
 	- [[函数式编程指南]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -142,6 +144,7 @@
 		- [[完全背包问题]]
 		- [[编辑距离问题]]
 - 设计模式
+  collapsed:: true
 	- 创建型模式
 	- 结构型模式
 	- 行为模式
@@ -153,17 +156,20 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
   collapsed:: true
 	- [[React18 结合TS旅游电商平台]]
 - 前端面试
+  collapsed:: true
 	- [[前端技术一面]]
 	- [[面试企业背调]]
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
+  collapsed:: true
 	- React技术揭秘
 		- 理念篇
 			- 第一章 React理念
@@ -197,6 +203,7 @@
 	- [[A Brief History of Reactivity]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
+  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	- [[编辑器 Vim]]
@@ -212,11 +219,16 @@
 - [[计算机书籍]]
 - 计算机网络
   id:: 66194946-6963-4f94-a804-a32eba3c725a
+  collapsed:: true
 	- [[Beej's Guide to Network Concepts]]
 	- [[图解计算机网络]]
 - 工具箱
+  collapsed:: true
 	- [[kitty]]
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
+- Notebook
+	- [[git 之 merge 的姿势 ]]
 - TodoList
+  collapsed:: true
 	- [[2024]]
