@@ -3,6 +3,7 @@
 - ## React15架构
 	- `Reconciler（协调器）`—— 负责找出变化的组件
 	- `Renderer（渲染器）`—— 负责将变化的组件渲染到页面上
+	- ![image.png](../assets/image_1717684136749_0.png)
 	- ### Reconciler（协调器）
 	  background-color:: blue
 		- 在`React`中可以通过`this.setState`、`this.forceUpdate`、`ReactDOM.render`等API触发更新。
