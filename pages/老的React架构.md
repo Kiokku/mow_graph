@@ -3,8 +3,6 @@
 - ## React15架构
 	- `Reconciler（协调器）`—— 负责找出变化的组件
 	- `Renderer（渲染器）`—— 负责将变化的组件渲染到页面上
-	-
-	- /iframe
 	- ![image.png](../assets/image_1717684136749_0.png)
 	- ### Reconciler（协调器）
 	  background-color:: blue
