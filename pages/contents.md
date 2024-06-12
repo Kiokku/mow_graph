@@ -148,6 +148,7 @@
 	- 创建型模式
 	- 结构型模式
 	- 行为模式
+	  collapsed:: true
 		- [[观察者模式]]
 		- [[工厂方法模式]]
 - 正则表达式
@@ -230,5 +231,4 @@
 	- [[git 之 merge 的姿势 ]]
 	- [[微前端框架 qiankun 指北]]
 - TodoList
-  collapsed:: true
 	- [[2024]]
