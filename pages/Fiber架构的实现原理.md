@@ -119,4 +119,4 @@
 		  ```
 - ## 参考资料
 	- [Lin Clark - A Cartoon Intro to Fiber - React Conf 2017](https://www.bilibili.com/video/BV1it411p7v6?from=search&seid=3508901752524570226)
-	-
+	- [Fiber Principles: Contributing To Fiber](https://github.com/facebook/react/issues/7942)
