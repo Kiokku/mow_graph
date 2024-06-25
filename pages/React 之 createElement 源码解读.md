@@ -122,6 +122,7 @@
 		  ```
 		- [[#blue]]==`ReactCurrentOwner.current`==： 就是指向处于构建过程中的组件的 owner，具体作用在以后的文章中还有介绍，现在可以简单的理解为，它就是用于**记录临时变量**。
 - ## ReactElement
+  collapsed:: true
 	- ### 源码
 	  background-color:: pink
 		- ```
