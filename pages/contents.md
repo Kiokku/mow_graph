@@ -184,6 +184,7 @@
 				- [[调试源码]]
 				- [[深入理解JSX]]
 		- 架构篇
+		  collapsed:: true
 			- 第三章 render阶段
 				- [[render流程概览]]
 				- [[beginWork]]
@@ -191,6 +192,7 @@
 			- 第四章 commit阶段
 				- [[commit流程概览]]
 	- [[React基础与进阶]]
+	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 		- [[React 之元素与组件的区别]]
 		- [[React 之 Refs 的使用和 forwardRef 的源码解读]]
