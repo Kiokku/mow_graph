@@ -23,7 +23,7 @@
 		- 所以我们可以[[#blue]]==通过`current === null ?`来区分组件是处于`mount`还是`update`。==
 		- 基于此，`beginWork`的工作可以分为两部分：
 			- [[#green]]==`update`时==：如果`current`存在，在满足一定条件时可以复用`current`节点，这样就能克隆`current.child`作为`workInProgress.child`，而不需要新建`workInProgress.child`。
-			- [[#green]]==`mount`时==：除`fiberRootNode`以外，`current === null`。会根据`fiber.tag`不同，创建不同类型的`子Fiber节点`
+			- [[#green]]==`mount`时==：除[[$blue]]==`fiberRootNode`==以外，`current === null`。会根据`fiber.tag`不同，创建不同类型的`子Fiber节点`
 		- ```
 		  function beginWork(
 		    current: Fiber | null,
