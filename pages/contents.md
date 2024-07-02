@@ -185,7 +185,6 @@
 				- [[调试源码]]
 				- [[深入理解JSX]]
 		- 架构篇
-		  collapsed:: true
 			- 第三章 render阶段
 				- [[render流程概览]]
 				- [[beginWork]]
