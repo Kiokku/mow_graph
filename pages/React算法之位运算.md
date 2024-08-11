@@ -127,7 +127,7 @@
 			  }
 			  ```
 			- 在方法定义中, 也是通过位掩码的特性来判断二进制形式变量之间的关系. 除了常规的位掩码操作外, 特别说明其中 2 个技巧性强的函数:
-				- `getHighestPriorityLane`: 分离出最高优先级
+				- `getHighestPriorityLane`: 分离出最[[#green]]==高优先级==
 				  logseq.order-list-type:: number
 					- ```
 					  function getHighestPriorityLane(lanes: Lanes) {
@@ -140,4 +140,25 @@
 						- 所以 `lanes & -lanes = 0b0000000000000000000000000001000`
 						- 相比最初的 InputDiscreteLanes, 分离出来了`最右边的1`
 						- 通过 lanes 的定义, 数字越小的优先级越高, 所以此方法可以获取`最高优先级的lane`
-				- logseq.order-list-type:: number
+				- `getLowestPriorityLane`: 分离出[[#red]]==最低优先级==
+				  logseq.order-list-type:: number
+					- ```
+					  function getLowestPriorityLane(lanes: Lanes): Lane {
+					    // This finds the most significant non-zero bit.
+					    const index = 31 - clz32(lanes);
+					    return index < 0 ? NoLanes : 1 << index;
+					  }
+					  ```
+					- `clz32(lanes)`返回一个数字在转换成 32 无符号整形数字的二进制形式后, 前导 0 的个数
+						- 假设 `lanes(InputDiscreteLanes) = 0b0000000000000000000000000011000`
+						- 那么 `clz32(lanes) = 27`
+						- `index = 31 - clz32(lanes) = 4`
+						- 最后 `1 << index = 0b0000000000000000000000000010000`
+						- 相比最初的 InputDiscreteLanes, 分离出来了`最左边的1`
+						- 通过 lanes 的定义, 数字越小的优先级越高, 所以此方法可以获取最低优先级的 lane
+	- ### 执行上下文 ExecutionContext
+	  background-color:: green
+		- `ExecutionContext`定义于`react-reconciler`包中, 代表`reconciler`在运行时的上下文状态。
+		- [变量定义](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L247-L256):
+			- ```
+			  ```
