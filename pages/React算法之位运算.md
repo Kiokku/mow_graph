@@ -161,4 +161,48 @@
 		- `ExecutionContext`定义于`react-reconciler`包中, 代表`reconciler`在运行时的上下文状态。
 		- [变量定义](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberWorkLoop.old.js#L247-L256):
 			- ```
+			  export const NoContext = /*             */ 0b0000000;
+			  const BatchedContext = /*               */ 0b0000001;
+			  const EventContext = /*                 */ 0b0000010;
+			  const DiscreteEventContext = /*         */ 0b0000100;
+			  const LegacyUnbatchedContext = /*       */ 0b0001000;
+			  const RenderContext = /*                */ 0b0010000;
+			  const CommitContext = /*                */ 0b0100000;
+			  export const RetryAfterError = /*       */ 0b1000000;
+			  
+			  // ...
+			  
+			  // Describes where we are in the React execution stack
+			  let executionContext: ExecutionContext = NoContext;
 			  ```
+		- 使用：
+			- ```
+			  // scheduleUpdateOnFiber函数中包含了好多关于executionContext的判断(都是使用位运算)
+			  export function scheduleUpdateOnFiber(
+			    fiber: Fiber,
+			    lane: Lane,
+			    eventTime: number,
+			  ) {
+			    if (root === workInProgressRoot) {
+			      // 判断: executionContext 不包含 RenderContext
+			      if (
+			        deferRenderPhaseUpdateToNextBatch ||
+			        (executionContext & RenderContext) === NoContext
+			      ) {
+			        // ...
+			      }
+			    }
+			    if (lane === SyncLane) {
+			      if (
+			        // 判断: executionContext 包含 LegacyUnbatchedContext
+			        (executionContext & LegacyUnbatchedContext) !== NoContext &&
+			        // 判断: executionContext 不包含 RenderContext或CommitContext
+			        (executionContext & (RenderContext | CommitContext)) === NoContext
+			      ) {
+			        // ...
+			      }
+			    }
+			    // ...
+			  }
+			  ```
+			-
