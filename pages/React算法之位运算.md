@@ -43,4 +43,18 @@
 		- 通过位移定义的一组枚举常量, 可以利用位掩码的特性, 快速操作这些枚举产量(增加, 删除, 比较).
 		- 属性增加`|`
 		  logseq.order-list-type:: number
-			-
+			- `ABC = A | B | C`
+			  logseq.order-list-type:: number
+		- 属性删除`& ~`
+		  logseq.order-list-type:: number
+			- `AB = ABC & ~C`
+			  logseq.order-list-type:: number
+		- 属性比较
+		  logseq.order-list-type:: number
+			- AB 当中包含 B: `AB & B === B`
+			  logseq.order-list-type:: number
+			- AB 当中不包含 C: `AB & C === 0`
+			  logseq.order-list-type:: number
+			- A 和 B 相等: `A === B`
+			  logseq.order-list-type:: number
+		- logseq.order-list-type:: number
