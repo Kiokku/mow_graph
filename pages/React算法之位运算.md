@@ -108,4 +108,31 @@
 			  
 			  export const OffscreenLane: Lane = /*                   */ 0b1000000000000000000000000000000;
 			  ```
-			-
+		- #### [方法定义](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L121-L194)
+			- ```
+			  function getHighestPriorityLanes(lanes: Lanes | Lane): Lanes {
+			    // 判断 lanes中是否包含 SyncLane
+			    if ((SyncLane & lanes) !== NoLanes) {
+			      return_highestLanePriority = SyncLanePriority;
+			      return SyncLane;
+			    }
+			    // 判断 lanes中是否包含 SyncBatchedLane
+			    if ((SyncBatchedLane & lanes) !== NoLanes) {
+			      return_highestLanePriority = SyncBatchedLanePriority;
+			      return SyncBatchedLane;
+			    }
+			    // ...
+			    // ... 省略其他代码
+			    return lanes;
+			  }
+			  ```
+			- 在方法定义中, 也是通过位掩码的特性来判断二进制形式变量之间的关系. 除了常规的位掩码操作外, 特别说明其中 2 个技巧性强的函数:
+				- `getHighestPriorityLane`: 分离出最高优先级
+				  logseq.order-list-type:: number
+					- ```
+					  function getHighestPriorityLane(lanes: Lanes) {
+					    return lanes & -lanes;
+					  }
+					  ```
+					- 通过`lanes & -lanes`可以分离出所有比特位中最右边的 1, 具体来讲:
+					-
