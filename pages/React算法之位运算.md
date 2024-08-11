@@ -41,3 +41,6 @@
 	- ### 位掩码
 	  background-color:: pink
 		- 通过位移定义的一组枚举常量, 可以利用位掩码的特性, 快速操作这些枚举产量(增加, 删除, 比较).
+		- 属性增加`|`
+		  logseq.order-list-type:: number
+			-
