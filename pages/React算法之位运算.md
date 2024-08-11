@@ -57,4 +57,55 @@
 			  logseq.order-list-type:: number
 			- A 和 B 相等: `A === B`
 			  logseq.order-list-type:: number
-		- logseq.order-list-type:: number
+		- ```
+		  const A = 1 << 0; // 0b00000001
+		  const B = 1 << 1; // 0b00000010
+		  const C = 1 << 2; // 0b00000100
+		  
+		  // 增加属性
+		  const ABC = A | B | C; // 0b00000111
+		  // 删除属性
+		  const AB = ABC & ~C; // 0b00000011
+		  
+		  // 属性比较
+		  // 1. AB当中包含B
+		  console.log((AB & B) === B); // true
+		  // 2. AB当中不包含C
+		  console.log((AB & C) === 0); // true
+		  // 3. A和B相等
+		  console.log(A === B); // false
+		  ```
+- ## React 当中的使用场景
+	- ### 优先级管理 lanes
+	  background-color:: green
+		- lanes 是`17.x`版本中开始引入的重要概念, 代替了`16.x`版本中的`expirationTime`, 作为`fiber`对象的一个属性(位于`react-reconciler`包), 主要控制 fiber 树在构造过程中的优先级。
+		- #### 变量定义
+			- 源码[ReactFiberLane.js](https://github.com/facebook/react/blob/v17.0.2/packages/react-reconciler/src/ReactFiberLane.js#L74-L103)中的定义
+			- ```
+			  //类型定义
+			  export opaque type Lanes = number;
+			  export opaque type Lane = number;
+			  
+			  // 变量定义
+			  export const NoLanes: Lanes = /*                        */ 0b0000000000000000000000000000000;
+			  export const NoLane: Lane = /*                          */ 0b0000000000000000000000000000000;
+			  
+			  export const SyncLane: Lane = /*                        */ 0b0000000000000000000000000000001;
+			  export const SyncBatchedLane: Lane = /*                 */ 0b0000000000000000000000000000010;
+			  
+			  export const InputDiscreteHydrationLane: Lane = /*      */ 0b0000000000000000000000000000100;
+			  const InputDiscreteLanes: Lanes = /*                    */ 0b0000000000000000000000000011000;
+			  
+			  const InputContinuousHydrationLane: Lane = /*           */ 0b0000000000000000000000000100000;
+			  const InputContinuousLanes: Lanes = /*                  */ 0b0000000000000000000000011000000;
+			  // ...
+			  // ...
+			  
+			  const NonIdleLanes = /*                                 */ 0b0000111111111111111111111111111;
+			  
+			  export const IdleHydrationLane: Lane = /*               */ 0b0001000000000000000000000000000;
+			  const IdleLanes: Lanes = /*                             */ 0b0110000000000000000000000000000;
+			  
+			  export const OffscreenLane: Lane = /*                   */ 0b1000000000000000000000000000000;
+			  ```
+			-
