@@ -56,4 +56,5 @@
 	  
 	  ```
 	- 1. `useEffect`相关的处理。
-	- 2.
+	- 2. 性能追踪相关。
+	- 3. 在`commit`阶段会触发一些生命周期钩子（如 `componentDidXXX`）和`hook`（如`useLayoutEffect`、`useEffect`）。
