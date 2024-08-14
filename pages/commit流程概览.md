@@ -1,3 +1,11 @@
 - > https://react.iamkasong.com/renderer/prepare.html
 -
 - `commitRoot`方法是`commit阶段`工作的起点。`fiberRootNode`会作为传参。
+- `commit`阶段的主要工作（即`Renderer`的工作流程）分为三部分：
+	- [[#blue]]==before mutation 阶段==（执行`DOM`操作前）
+	- [[#blue]]==mutation 阶段==（执行`DOM`操作）
+	- [[#blue]]==layout 阶段==（执行`DOM`操作后）
+- ## before mutation 之前
+	- `commitRootImpl`方法中直到第一句`if (firstEffect !== null)`之前属于`before mutation`之前。
+	- ```
+	  ```
