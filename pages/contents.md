@@ -170,6 +170,7 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
+  collapsed:: true
 	- React技术揭秘
 		- 理念篇
 			- 第一章 React理念
@@ -184,6 +185,7 @@
 				- [[调试源码]]
 				- [[深入理解JSX]]
 		- 架构篇
+		  collapsed:: true
 			- 第三章 render阶段
 				- [[render流程概览]]
 				- [[beginWork]]
@@ -191,6 +193,7 @@
 			- 第四章 commit阶段
 				- [[commit流程概览]]
 	- [[React基础与进阶]]
+	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
 		- [[React 之元素与组件的区别]]
 		- [[React 之 Refs 的使用和 forwardRef 的源码解读]]
@@ -205,6 +208,7 @@
 	- [[shell]]
 	- [[shell工具和脚本]]
 	- [[编辑器 Vim]]
+	  collapsed:: true
 - Mathematics
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
 	  id:: 649da508-200d-45c4-a0ad-b44ad5516590
