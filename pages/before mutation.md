@@ -57,5 +57,26 @@
 	- 调度`useEffect`。
 	  logseq.order-list-type:: number
 - ## 调用getSnapshotBeforeUpdate
-	- 从`React`v16开始，`componentWillXXX`钩子前增加了`UNSAFE_`前缀。
-	-
+	- 从`React`v16开始，`componentWillXXX`钩子前增加了[[#red]]==`UNSAFE_`==前缀。
+	- 究其原因，是因为`Stack Reconciler`重构为`Fiber Reconciler`后，`render阶段`的任务可能中断/重新开始，对应的组件在`render阶段`的生命周期钩子（即`componentWillXXX`）可能触发多次。
+	- 这种行为和`React`v15不一致，所以标记为`UNSAFE_`。
+	- `React`提供了替代的生命周期钩子`getSnapshotBeforeUpdate`。
+	- `getSnapshotBeforeUpdate`是在`commit阶段`内的`before mutation阶段`调用的，由于`commit阶段`是同步的，所以不会遇到多次调用的问题。
+- ## 调度 `useEffect`
+	- ```
+	  // 调度useEffect
+	  if ((effectTag & Passive) !== NoEffect) {
+	    if (!rootDoesHavePassiveEffects) {
+	      rootDoesHavePassiveEffects = true;
+	      scheduleCallback(NormalSchedulerPriority, () => {
+	        // 触发useEffect
+	        flushPassiveEffects();
+	        return null;
+	      });
+	    }
+	  }
+	  ```
+	- 异步调度的回调函数就是触发`useEffect`的方法`flushPassiveEffects`。
+	- 接下来讨论`useEffect`如何被异步调度，以及为什么要异步（而不是同步）调度。
+	- ### 如何异步调度
+		-
