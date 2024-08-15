@@ -79,4 +79,21 @@
 	- 异步调度的回调函数就是触发`useEffect`的方法`flushPassiveEffects`。
 	- 接下来讨论`useEffect`如何被异步调度，以及为什么要异步（而不是同步）调度。
 	- ### 如何异步调度
-		-
+	  background-color:: green
+		- `effectList`中保存了需要执行副作用的`Fiber节点`。其中副作用包括:
+			- 插入`DOM节点`（Placement）
+			  logseq.order-list-type:: number
+			- 更新`DOM节点`（Update）
+			  logseq.order-list-type:: number
+			- 删除`DOM节点`（Deletion）
+			  logseq.order-list-type:: number
+		- 整个`useEffect`异步调用分为三步：
+			- `before mutation阶段`在`scheduleCallback`中调度`flushPassiveEffects`
+			  logseq.order-list-type:: number
+			- `layout阶段`之后将`effectList`赋值给`rootWithPendingPassiveEffects`
+			  logseq.order-list-type:: number
+			- `scheduleCallback`触发`flushPassiveEffects`，`flushPassiveEffects`内部遍历`rootWithPendingPassiveEffects` （即`effectList`）
+			  logseq.order-list-type:: number
+	- ### 为什么需要异步调用
+	  background-color:: green
+		- `useEffect`异步执行的原因主要是防止同步执行时阻塞浏览器渲染。
