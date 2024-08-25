@@ -172,6 +172,7 @@
 - React
   collapsed:: true
 	- React技术揭秘
+	  collapsed:: true
 		- 理念篇
 		  collapsed:: true
 			- 第一章 React理念
@@ -186,6 +187,7 @@
 				- [[调试源码]]
 				- [[深入理解JSX]]
 		- 架构篇
+		  collapsed:: true
 			- 第三章 render阶段
 				- [[render流程概览]]
 				- [[beginWork]]
@@ -206,11 +208,13 @@
 	- [[A Brief History of Reactivity]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
+  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	- [[编辑器 Vim]]
 	  collapsed:: true
 - Mathematics
+  collapsed:: true
 	- [Linear Algebra](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/)
 	  id:: 649da508-200d-45c4-a0ad-b44ad5516590
 	  collapsed:: true
@@ -230,6 +234,7 @@
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
 - Notebook
+  collapsed:: true
 	- [[git 之 merge 的姿势 ]]
 	- [[微前端框架 qiankun 指北]]
 - TodoList
