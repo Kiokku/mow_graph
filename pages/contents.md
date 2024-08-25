@@ -170,6 +170,7 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
+  collapsed:: true
 	- React技术揭秘
 		- 理念篇
 		  collapsed:: true
@@ -205,7 +206,6 @@
 	- [[A Brief History of Reactivity]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
-  collapsed:: true
 	- [[shell]]
 	- [[shell工具和脚本]]
 	- [[编辑器 Vim]]
