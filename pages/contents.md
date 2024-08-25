@@ -229,10 +229,10 @@
 	- [[Beej's Guide to Network Concepts]]
 	- [[图解计算机网络]]
 - 工具箱
-  collapsed:: true
 	- [[kitty]]
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
+	- [[Datalog]]
 - Notebook
   collapsed:: true
 	- [[git 之 merge 的姿势 ]]
