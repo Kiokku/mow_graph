@@ -2,7 +2,7 @@
 -
 - ## Chapter 1 - Basic Queries
   background-color:: blue
-	- ### **datoms**
+	- ### datoms
 		- A datom is a 4-tuple consisting of
 			- `Entity ID`
 			- `Attribute`
@@ -19,4 +19,12 @@
 			  [ 235    :movie/director  167                102  ]
 			  ...
 			  ```
-		-
+	- ### query
+		- A **query** is represented as a [[#green]]==vector== starting with the keyword `:find` followed by one or more **pattern variables** (symbols starting with `?`, e.g. `?title`).
+		- ```
+		  [:find ?e
+		   :where
+		   [?e :person/name "Ridley Scott"]]
+		  ```
+		- this query finds all entity-ids that have the attribute `:person/name` with a value of `"Ridley Scott"`
+-
