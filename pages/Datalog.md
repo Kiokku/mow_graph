@@ -2,6 +2,7 @@
 -
 - ## Chapter 1 - Basic Queries
   background-color:: blue
+  collapsed:: true
 	- ### datoms
 		- A datom is a 4-tuple consisting of
 			- `Entity ID`
@@ -30,6 +31,8 @@
 		  ```
 		- this query finds all entity-ids that have the attribute `:person/name` with a value of `"Ridley Scott"`
 - ## Chapter 2 - Data patterns
+  background-color:: blue
+  collapsed:: true
 	- There can be many data patterns in a `:where` clause:
 	- ```
 	  [:find ?title
@@ -64,4 +67,14 @@
 		  ```
 	- >  exercise 4. Find directors who have directed Arnold Schwarzenegger in a movie.
 		- ```
+		  [:find ?name
+		   :where
+		   [?p :person/name "Arnold Schwarzenegger"]
+		   [?m :movie/cast ?p]
+		   [?m :movie/director ?d]
+		   [?d :person/name ?name]]
 		  ```
+- ## Chapter 3 - Parameterized queries
+  background-color:: blue
+	- `:in` - query with input parameters.
+	-
