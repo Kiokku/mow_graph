@@ -77,4 +77,13 @@
 - ## Chapter 3 - Parameterized queries
   background-color:: blue
 	- `:in` - query with input parameters.
-	-
+	- ```
+	  [:find ?title
+	   :in $ ?name
+	   :where
+	   [?p :person/name ?name]
+	   [?m :movie/cast ?p]
+	   [?m :movie/title ?title]]
+	  ```
+	- [[#green]]==Two arguments:==
+		-
