@@ -27,4 +27,5 @@
 		   [?e :person/name "Ridley Scott"]]
 		  ```
 		- this query finds all entity-ids that have the attribute `:person/name` with a value of `"Ridley Scott"`
--
+- ## Chapter 2 - Data patterns
+	-
