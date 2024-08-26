@@ -53,3 +53,15 @@
 		   [?m :movie/title "Alien"]
 		   [?m :movie/year ?year]]
 		  ```
+	- > exercise 3. Who directed RoboCop? You will need to use `[<movie-eid> :movie/director <person-eid>]` to find the director for a movie.
+		- ```
+		  [:find ?name
+		   :where
+		   [?m :movie/title "RoboCop"]
+		   [?m :movie/director ?p]
+		   [?p :person/name ?name]
+		   ]
+		  ```
+	- >  exercise 4. Find directors who have directed Arnold Schwarzenegger in a movie.
+		- ```
+		  ```
