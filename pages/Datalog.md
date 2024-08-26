@@ -18,6 +18,8 @@
 			  [ 235    :movie/title     "Terminator"       102  ]
 			  [ 235    :movie/director  167                102  ]
 			  ...
+			  
+			  e.g. [?e :person/name ?p _]
 			  ```
 	- ### query
 		- A **query** is represented as a [[#green]]==vector== starting with the keyword `:find` followed by one or more **pattern variables** (symbols starting with `?`, e.g. `?title`).
