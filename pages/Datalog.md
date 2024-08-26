@@ -30,4 +30,14 @@
 		  ```
 		- this query finds all entity-ids that have the attribute `:person/name` with a value of `"Ridley Scott"`
 - ## Chapter 2 - Data patterns
-	-
+	- There can be many data patterns in a `:where` clause:
+	- ```
+	  [:find ?title
+	   :where
+	   [?e :movie/year 1987]
+	   [?e :movie/title ?title]]
+	  ```
+		- the pattern variable `?e` is used in both data patterns.
+		- the query engine requires `?e` to be bound to the [[#blue]]==same value== in each place.
+	- > exercise 1: Find movie titles made in 1985
+		-
