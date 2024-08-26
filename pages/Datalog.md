@@ -39,5 +39,17 @@
 	  ```
 		- the pattern variable `?e` is used in both data patterns.
 		- the query engine requires `?e` to be bound to the [[#blue]]==same value== in each place.
-	- > exercise 1: Find movie titles made in 1985
-		-
+	- > exercise 1. Find movie titles made in 1985
+		- ```
+		  [:find ?title
+		   :where
+		   [?m :movie/title ?title]
+		   [?m :movie/year 1985]]
+		  ```
+	- > exercise 2. What year was "Alien" released?
+		- ```
+		  [:find ?year
+		   :where
+		   [?m :movie/title "Alien"]
+		   [?m :movie/year ?year]]
+		  ```
