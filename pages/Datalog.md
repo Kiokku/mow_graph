@@ -76,14 +76,21 @@
 		  ```
 - ## Chapter 3 - Parameterized queries
   background-color:: blue
-	- `:in` - query with input parameters.
-	- ```
-	  [:find ?title
-	   :in $ ?name
-	   :where
-	   [?p :person/name ?name]
-	   [?m :movie/cast ?p]
-	   [?m :movie/title ?title]]
-	  ```
-	- [[#green]]==Two arguments:==
+	- ### query with input parameters
+	  background-color:: pink
+		- ```
+		  [:find ?title
+		   :in $ ?name
+		   :where
+		   [?p :person/name ?name]
+		   [?m :movie/cast ?p]
+		   [?m :movie/title ?title]]
+		  ```
+		- `:in` - [[#green]]==Two arguments:==
+			- `$`: the database.
+				- In query, each of these data patterns is actually a **5 tuple**, of the form:
+				  `[<database> <entity-id> <attribute> <value> <transaction-id>]`
+			- `?name`
+	- ### Tuples
+	  background-color:: pink
 		-
