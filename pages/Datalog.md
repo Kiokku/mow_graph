@@ -93,4 +93,5 @@
 			- `?name`
 	- ### Tuples
 	  background-color:: pink
+		- A tuple input is written as e.g. `[?name ?age]` and can be used when you want to destructure an input.
 		-
