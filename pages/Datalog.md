@@ -94,4 +94,30 @@
 	- ### Tuples
 	  background-color:: pink
 		- A tuple input is written as e.g. `[?name ?age]` and can be used when you want to destructure an input.
+		- `:in $ [?name ?age]` = `:in $ ?name ?age`
+	- ### Collections
+	  background-color:: pink
+		- Use collection destructuring to implement a kind of logical **or**.
+		- ```
+		  [:find ?title
+		   :in $ [?director ...]
+		   :where
+		   [?p :person/name ?director]
+		   [?m :movie/director ?p]
+		   [?m :movie/title ?title]]
+		  ```
+	- ### Relations
+	  background-color:: pink
+		- Relations - a set of tuples - are the most interesting and powerful of input types, since you can join external relations with the datoms in your database.
+		- A relation with tuples `[movie-title box-office-earnings]`:
+			- ```
+			  [
+			   ...
+			   ["Die Hard" 140700000]
+			   ["Alien" 104931801]
+			   ["Lethal Weapon" 120207127]
+			   ["Commando" 57491000]
+			   ...
+			  ]
+			  ```
 		-
