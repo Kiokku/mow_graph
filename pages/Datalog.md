@@ -100,6 +100,7 @@
 		- Use collection destructuring to implement a kind of logical **or**.
 		- ```
 		  [:find ?title
+		  // ... is needed
 		   :in $ [?director ...]
 		   :where
 		   [?p :person/name ?director]
@@ -120,4 +121,13 @@
 			   ...
 			  ]
 			  ```
-		-
+		- Use this data and the data in the database to find box office earnings for a particular director:
+			- ```
+			  [:find ?title ?box-office
+			   :in $ ?director [[?title ?box-office]]
+			   :where
+			   [?p :person/name ?director]
+			   [?m :movie/director ?p]
+			   [?m :movie/title ?title]]
+			  ```
+		- Note that the `?box-office` pattern variable does not appear in any of the data patterns in the [[#red]]==`:where`== clause.
