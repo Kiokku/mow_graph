@@ -76,6 +76,7 @@
 		  ```
 - ## Chapter 3 - Parameterized queries
   background-color:: blue
+  collapsed:: true
 	- ### query with input parameters
 	  background-color:: pink
 		- ```
@@ -131,3 +132,6 @@
 			   [?m :movie/title ?title]]
 			  ```
 		- Note that the `?box-office` pattern variable does not appear in any of the data patterns in the [[#red]]==`:where`== clause.
+- ## Chapter 4 - More queries
+  background-color:: blue
+	-
