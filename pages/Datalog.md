@@ -136,4 +136,12 @@
   background-color:: blue
 	- ### Attributes
 	  background-color:: pink
-		-
+		- ```
+		  [:find ?attr
+		   :where
+		   [?p :person/name]
+		   [?p ?a]
+		   [?a :db/ident ?attr]]
+		  ```
+		- `:db/ident` - get the actual keywords
+	- ## Transactions
