@@ -156,5 +156,16 @@
 - ## Chapter 5 - Predicates
   background-color:: blue
 	- **data patterns**: `[?m :movie/year ?year]`
-	- **predicate clauses**: `[(< ?year 1984 )]`
+	- [[#green]]==**predicate clauses**: `[(< ?year 1984 )]`==
+	- `<、>、<=、>=、=、not=`
+	- The predicate clause filters the result set to only include results for which the predicate returns a "truthy" (non-nil, non-false) value.
+	- ```
+	  [:find ?title
+	   :where
+	   [?m :movie/title ?title]
+	   [?m :movie/year ?year]
+	   [(< ?year 1984)]]
+	  ```
+- ## Chapter 6 - Transformation functions
+  background-color:: blue
 	-
