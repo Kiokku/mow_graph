@@ -195,4 +195,4 @@
 		- > Note: transformation functions can't be nested.
 			- [[#red]]==Wrong:== `[(f (g ?x)) ?a]`
 			- [[#green]]==Right:== `[(g ?x) ?t]` `[(f ?t) ?a]`
-		-
+-
