@@ -144,4 +144,17 @@
 		   [?a :db/ident ?attr]]
 		  ```
 		- `:db/ident` - get the actual keywords
-	- ## Transactions
+	- ### Transactions
+	  background-color:: pink
+		- ```
+		  [:find ?timestamp
+		   :where
+		   [?p :person/name "James Cameron" ?tx]
+		   [?tx :db/txInstant ?timestamp]]
+		  ```
+		- `:db/txInstant` - the instant in time when the transaction was committed to the database.
+- ## Chapter 5 - Predicates
+  background-color:: blue
+	- **data patterns**: `[?m :movie/year ?year]`
+	- **predicate clauses**: `[(< ?year 1984 )]`
+	-
