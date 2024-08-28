@@ -168,4 +168,31 @@
 	  ```
 - ## Chapter 6 - Transformation functions
   background-color:: blue
-	-
+	- **Transformation functions** are pure (= side-effect free) functions or methods which can be used in queries to [[#green]]==transform values== and bind their results to pattern variables.
+	- ```
+	  (defn age [birthday today]
+	    (quot (- (.getTime today)
+	             (.getTime birthday))
+	          (* 1000 60 60 24 365)))
+	  ```
+	- with this function, we can now calculate the age of a person **inside the query itself**:
+	- ```
+	  [:find ?age
+	   :in $ ?name ?today
+	   :where
+	   [?p :person/name ?name]
+	   [?p :person/born ?born]
+	   [(tutorial.fns/age ?born ?today) ?age]]
+	  ```
+	- ### Transformation function clause
+	  background-color:: pink
+		- `[(<fn> <arg1> <arg2> ...) <result-binding>]`
+		- [[#green]]==**<result-binding>:**==
+			- Scalar: `?age`
+			- Tuple: `[?foo ?bar ?baz]`
+			- Collection: `[?name ...]`
+			- Relation: `[[?title ?rating]]`
+		- > Note: transformation functions can't be nested.
+			- [[#red]]==Wrong:== `[(f (g ?x)) ?a]`
+			- [[#green]]==Right:== `[(g ?x) ?t]` `[(f ?t) ?a]`
+		-
