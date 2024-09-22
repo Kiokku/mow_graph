@@ -175,7 +175,7 @@
  ;; the "NEXT" query asks the future tasks.
  :default-queries
  {:journals
-  [{:title "🔨 NOW"
+  [{:title "🔨 NOW (LATER TODO at today or DOING NOW)"
     :query [:find (pull ?b [*])
             :in $ ?today
             :where
@@ -194,19 +194,65 @@
                                    (get h :block/priority "Z"))
                                  result))
     :collapsed? false}
+   {:title "🔥 OVERDUE"
+    :query [:find (pull ?b [*])
+            :in $ ?start ?today
+            :where
+            [?b :block/marker ?marker]
+            (or-join [?b ?marker ?d]
+                     (and
+                      [(contains? #{"LATER" "TODO"} ?marker)]
+                      (or-join [?b ?d]
+                               [?b :block/deadline ?d]
+                               [?b :block/scheduled ?d]))
+                     (and
+                      [(contains? #{"NOW" "DOING"} ?marker)]
+                      [?b :block/deadline ?d]))
+            [(>= ?d ?start)]
+            [(< ?d ?today)]]
+    :inputs [:-56d :today]
+    :result-transform (fn [result]
+                        (sort-by  (fn [h]
+                                    [(get h :block/priority "Z")
+                                     (or
+                                      (get h :block/deadline)
+                                      (get h :block/scheduled))])
+                                  result))
+    :collapsed? false}
    {:title "📅 NEXT"
-    :query [:find (pull ?h [*])
+    :query [:find (pull ?b [*])
             :in $ ?start ?next
             :where
-            [?h :block/marker ?marker]
-            [(contains? #{"NOW" "LATER" "TODO"} ?marker)]
-            [?h :block/page ?p]
-            [?p :block/journal? true]
-            [?p :block/journal-day ?d]
-            [(> ?d ?start)]
+            [?b :block/marker ?marker]
+            [(contains? #{"LATER" "TODO"} ?marker)]
+            (or-join [?b ?d]
+                     [?b :block/deadline ?d]
+                     [?b :block/scheduled ?d])
+            [(>= ?d ?start)]
             [(< ?d ?next)]]
-    :inputs [:today :7d-after]
-    :collapsed? false}]}
+    :inputs [:+1d :+10d]
+    :result-transform (fn [result]
+                        (sort-by (fn [h]
+                                   [(or
+                                     (get h :block/deadline)
+                                     (get h :block/scheduled))
+                                    (get h :block/priority "Z")])
+                                 result))
+    :collapsed? true}
+   {:title "🚧 UNPLANNED"
+    :query [:find (pull ?b [*])
+            :where
+            [?b :block/marker ?marker]
+            [(contains? #{"LATER" "TODO"} ?marker)]
+            (not
+             (or-join [?b]
+                      [?b :block/deadline _]
+                      [?b :block/scheduled _]))]
+    :result-transform (fn [result]
+                        (sort-by (fn [h]
+                                   (get h :block/priority "Z"))
+                                 result))
+    :collapsed? true}]}
 
  ;; Add your own commands to slash menu to speedup.
  ;; E.g.
