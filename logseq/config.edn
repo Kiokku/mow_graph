@@ -176,20 +176,23 @@
  :default-queries
  {:journals
   [{:title "🔨 NOW"
-    :query [:find (pull ?h [*])
-            :in $ ?start ?today
+    :query [:find (pull ?b [*])
+            :in $ ?today
             :where
-            [?h :block/marker ?marker]
-            [(contains? #{"NOW" "DOING"} ?marker)]
-            [?h :block/page ?p]
-            [?p :block/journal? true]
-            [?p :block/journal-day ?d]
-            [(>= ?d ?start)]
-            [(<= ?d ?today)]]
-    :inputs [:14d :today]
+            [?b :block/marker ?marker]
+            (or-join [?b ?marker ?today]
+                     (and
+                      [(contains? #{"NOW" "LATER" "TODO" "DOING"} ?marker)]
+                      (or-join [?b ?d]
+                               [?b :block/deadline ?d]
+                               [?b :block/scheduled ?d])
+                      [(= ?d ?today)])
+                     [(contains? #{"DOING" "NOW"} ?marker)])]
+    :inputs [:today]
     :result-transform (fn [result]
                         (sort-by (fn [h]
-                                   (get h :block/priority "Z")) result))
+                                   (get h :block/priority "Z"))
+                                 result))
     :collapsed? false}
    {:title "📅 NEXT"
     :query [:find (pull ?h [*])
