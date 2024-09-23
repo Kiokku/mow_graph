@@ -1,2 +1,2 @@
-- #2024-okr-o2-kr-1 减重
-	-
+- #2024-okr-o2-kr-1 减重至65Kg
+	- {{renderer :luckysheet, workbook@1727104292849}}
