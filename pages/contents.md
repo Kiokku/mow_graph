@@ -195,8 +195,6 @@
 				- [[commit流程概览]]
 				- [[before mutation]]
 				- [[mutation]]
-		- 实现篇
-			-
 	- [[React基础与进阶]]
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
