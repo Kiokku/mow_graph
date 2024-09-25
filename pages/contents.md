@@ -170,10 +170,8 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
-  collapsed:: true
 	- React技术揭秘
 	  id:: 6499b665-7fd5-4391-8061-9ee0f5d79c2f
-	  collapsed:: true
 		- 理念篇
 		  collapsed:: true
 			- 第一章 React理念
@@ -197,6 +195,8 @@
 				- [[commit流程概览]]
 				- [[before mutation]]
 				- [[mutation]]
+		- 实现篇
+			-
 	- [[React基础与进阶]]
 	  collapsed:: true
 		- [[React 之 createElement 源码解读]]
