@@ -67,7 +67,6 @@
 	- [[JavaScript错题集]]
 	- [[函数式编程指南]]
 - TypeScript
-  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -234,7 +233,6 @@
 	- [[使用 reveal-md 来写 Slides]]
 	- [[Datalog]]
 - Notebook
-  collapsed:: true
 	- [[git 之 merge 的姿势 ]]
 	- [[微前端框架 qiankun 指北]]
 - TodoList
