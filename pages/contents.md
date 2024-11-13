@@ -1,5 +1,4 @@
 - JavaScript
-  collapsed:: true
 	- [[33-js-concepts]]
 	  id:: 66194703-1639-4fe3-adab-7a662686e7e4
 	- [[JavaScript深入系列]]
@@ -171,6 +170,7 @@
 - React
 	- React技术揭秘
 	  id:: 6499b665-7fd5-4391-8061-9ee0f5d79c2f
+	  collapsed:: true
 		- 理念篇
 		  collapsed:: true
 			- 第一章 React理念
@@ -205,6 +205,8 @@
 	- [[在你写 memo() 之前]]#DanAbramov
 	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
 	- [[A Brief History of Reactivity]]
+	- [[从0实现React18]]
+		- [[1. 搭建项目架构]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
