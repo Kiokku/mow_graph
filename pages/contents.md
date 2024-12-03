@@ -2,7 +2,6 @@
 	- [[33-js-concepts]]
 	  id:: 66194703-1639-4fe3-adab-7a662686e7e4
 	- [[JavaScript深入系列]]
-	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
@@ -22,7 +21,6 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
-	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -45,7 +43,6 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
-	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
