@@ -1,2 +1,5 @@
 - > https://appjiz2zqrn2142.pc.xiaoe-tech.com/p/t_pc/goods_pc_detail/goods_detail/p_638035c1e4b07b05581d25db?fromH5=true&type=3
 - [[1. 搭建项目架构]]
+- - [slidev](https://sli.dev/)制作流程演示文稿
+-
+-
