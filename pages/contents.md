@@ -2,6 +2,7 @@
 	- [[33-js-concepts]]
 	  id:: 66194703-1639-4fe3-adab-7a662686e7e4
 	- [[JavaScript深入系列]]
+	  collapsed:: true
 		- [[JavaScript深入之从原型到原型链]]
 		- [[JavaScript深入之词法作用域和动态作用域]]
 		- [[JavaScript深入之执行上下文栈]]
