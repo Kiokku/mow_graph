@@ -21,6 +21,7 @@
 		- [[JavaScript深入之头疼的类型转换(上)]]
 		- [[JavaScript深入之头疼的类型转换(下)]]
 	- [[JavaScript专题系列]]
+	  collapsed:: true
 		- [[JavaScript专题之跟着underscore学防抖]]
 		- [[JavaScript专题之跟着underscore学节流]]
 		- [[JavaScript专题之数组去重]]
@@ -43,6 +44,7 @@
 		- [[JavaScript专题之解读 v8 排序源码]]
 		- [[JavaScript 专题之花式表示 26 个字母]]
 	- [[ES6系列]]
+	  collapsed:: true
 		- [[ES6 系列之 let 和 const]]
 		- [[ES6 系列之模板字符串]]
 		- [[ES6 系列之箭头函数]]
@@ -164,6 +166,7 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
+  collapsed:: true
 	- React技术揭秘
 	  id:: 6499b665-7fd5-4391-8061-9ee0f5d79c2f
 	  collapsed:: true
@@ -236,4 +239,4 @@
 	- [[git 之 merge 的姿势 ]]
 	- [[微前端框架 qiankun 指北]]
 - TodoList
-	- [[2024]]
+	- [[2024-2025]]
