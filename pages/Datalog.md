@@ -134,6 +134,7 @@
 		- Note that the `?box-office` pattern variable does not appear in any of the data patterns in the [[#red]]==`:where`== clause.
 - ## Chapter 4 - More queries
   background-color:: blue
+  collapsed:: true
 	- ### Attributes
 	  background-color:: pink
 		- ```
@@ -155,6 +156,7 @@
 		- `:db/txInstant` - the instant in time when the transaction was committed to the database.
 - ## Chapter 5 - Predicates
   background-color:: blue
+  collapsed:: true
 	- **data patterns**: `[?m :movie/year ?year]`
 	- [[#green]]==**predicate clauses**: `[(< ?year 1984 )]`==
 	- `<、>、<=、>=、=、not=`
@@ -168,6 +170,7 @@
 	  ```
 - ## Chapter 6 - Transformation functions
   background-color:: blue
+  collapsed:: true
 	- **Transformation functions** are pure (= side-effect free) functions or methods which can be used in queries to [[#green]]==transform values== and bind their results to pattern variables.
 	- ```
 	  (defn age [birthday today]

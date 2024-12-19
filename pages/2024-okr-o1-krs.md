@@ -7,7 +7,7 @@
 	  :END:
 		- ((6499b665-7fd5-4391-8061-9ee0f5d79c2f))
 	- TODO  ((655b2d55-9531-4b70-8c0e-8c2d4a2430d8))
-	- DOING [从0实现React18](https://appjiz2zqrn2142.pc.xiaoe-tech.com/p/t_pc/goods_pc_detail/goods_detail/p_638035c1e4b07b05581d25db?fromH5=true&type=3)
+	- DOING [[从0实现React18]]
 	  :LOGBOOK:
 	  CLOCK: [2024-11-13 Wed 21:47:22]
 	  :END:

@@ -1,4 +1,5 @@
 - JavaScript
+  collapsed:: true
 	- [[33-js-concepts]]
 	  id:: 66194703-1639-4fe3-adab-7a662686e7e4
 	- [[JavaScript深入系列]]
@@ -66,6 +67,7 @@
 	- [[JavaScript错题集]]
 	- [[函数式编程指南]]
 - TypeScript
+  collapsed:: true
 	- [[TypeScript中文文档]]
 	  collapsed:: true
 		- 基础
@@ -167,7 +169,6 @@
 	  collapsed:: true
 	- [[项目面试相关]]
 - React
-  collapsed:: true
 	- React技术揭秘
 	  id:: 6499b665-7fd5-4391-8061-9ee0f5d79c2f
 	  collapsed:: true
@@ -232,6 +233,7 @@
 	- [[Beej's Guide to Network Concepts]]
 	- [[图解计算机网络]]
 - 工具箱
+  collapsed:: true
 	- [[kitty]]
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
