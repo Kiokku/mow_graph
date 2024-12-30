@@ -2,4 +2,12 @@
 	- [openAI](https://openai.com/)
 	- [anthropic](https://www.anthropic.com/)（Claude）
 - ## **2. 使用官方授权的聚合平台**
-	-
+	- [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)：国内唯一合法使用openAI模型的渠道，需要使用公司邮箱注册
+	- [Amazon Bedrock](https://aws.amazon.com/cn/bedrock/)：模型不多（没有openAI）开通平台后，使用具体的模型需要申请。申请Claude需要填写使用目的，国内用户申请Claude不通过
+	- [Google Vertex AI](https://cloud.google.com/vertex-ai?hl=zh_cn)：使用谷歌Gemini模型
+- ## **3. 本地部署开源模型**
+	- [Ollama](https://ollama.com/)
+- ## **4. 使用国内模型平台**
+- ## **5. 使用第三方代理**
+	- [openrouter.ai](https://openrouter.ai/)
+	- [302.AI](https://302.ai/)
