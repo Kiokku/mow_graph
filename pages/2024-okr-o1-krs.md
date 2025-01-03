@@ -13,6 +13,12 @@
 	  :END:
 - #2024-okr-o1-kr-2 算法
 	- TODO Leetcode hot100+
-	- TODO [代码随想录 - 刷题](https://programmercarl.com/)
-- #2024-okr-01-kr-3 前端AI转型项目
-	-
+	- DOING [代码随想录 - 刷题](https://programmercarl.com/)
+	  :LOGBOOK:
+	  CLOCK: [2025-01-03 Fri 23:45:44]
+	  :END:
+- #2024-okr-01-kr-3 前端 AI 转型探索
+	- DOING ((6772ade5-b5c7-420f-b0dd-676ad1b4dcd4))
+	  :LOGBOOK:
+	  CLOCK: [2025-01-03 Fri 23:45:41]
+	  :END:
