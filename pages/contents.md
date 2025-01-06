@@ -166,7 +166,6 @@
   collapsed:: true
 	- [[前端技术一面]]
 	- [[面试企业背调]]
-	  collapsed:: true
 	- [[项目面试相关]]
 - React
 	- React技术揭秘
