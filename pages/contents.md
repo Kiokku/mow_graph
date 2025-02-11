@@ -214,7 +214,7 @@
 		- [[如何接入AI]]
 		- [[前端怎么理解大模型]]
 		- [[提示词工程：概论]]
-		-
+		- [[提示词工程：示例]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
