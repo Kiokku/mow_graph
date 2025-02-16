@@ -215,7 +215,7 @@
 		- [[前端怎么理解大模型]]
 		- [[提示词工程：概论]]
 		- [[提示词工程：用专业知识明确需求]]
-		-
+		- [[提示词工程：选择合适的模型]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
