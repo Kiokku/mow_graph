@@ -212,7 +212,6 @@
 		- [[3. 实现 reconciler]]
 	- [[前端+AI探索营]]
 	  id:: 6772ade5-b5c7-420f-b0dd-676ad1b4dcd4
-	  collapsed:: true
 		- [[如何接入AI]]
 		- [[前端怎么理解大模型]]
 		- [[提示词工程：概论]]
