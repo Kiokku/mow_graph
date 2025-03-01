@@ -18,4 +18,14 @@
 	- > **选择原则**
 	  > 优先从 提效最明显 的环节下手
 - ## 确定 工作模式
+	- 两种工作模式：[[#green]]==agent== 与 [[#green]]==workflow==
+	  id:: 67c296db-2689-454f-bd5f-87d3be88ddee
+		- `workflow`：遵循固定的处理流程，步骤是预先确定的
+			- v0
+			- Cursor Chat、Cursor Composer Mode
+		- `agent`：根据任务动态由大模型自主决定下一步行动，具有更强的自主性和适应性
+			- Cursor Agent Mode
+			- Devin
+- ## 大模型的三重约束
+	-
 	-
