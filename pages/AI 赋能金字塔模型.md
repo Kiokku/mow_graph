@@ -27,5 +27,24 @@
 			- Cursor Agent Mode
 			- Devin
 - ## 大模型的三重约束
-	-
-	-
+	- 制约 AI 应用能力的三重约束：
+		- 模型理解能力
+		  logseq.order-list-type:: number
+		- [[#red]]==**模型上下文长度**==
+		  logseq.order-list-type:: number
+		- 模型的私域知识储备
+		  logseq.order-list-type:: number
+	- 对于 [[#blue]]==软件开发== 场景：
+		- 业务代码 = 私域知识，业务代码量增加 -> 私域知识增加
+		  logseq.order-list-type:: number
+		- 不管是 RAG 还是其他方式，私域知识会占据上下文长度
+		  logseq.order-list-type:: number
+		- 上下文长度越接近理论极限，理解能力衰减越快
+		  logseq.order-list-type:: number
+- ## 总结：AI 提效工作流程 决策步骤
+	- 工作流程按照 金字塔模型 拆分
+	  logseq.order-list-type:: number
+	- 选择金字塔中 性价比最高的环节 作为应用场景，确定工作模式
+	  logseq.order-list-type:: number
+	- 在 AI 三重约束 下持续迭代
+	  logseq.order-list-type:: number
