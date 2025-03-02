@@ -220,6 +220,7 @@
 		- [[提示词工程：提示词技巧1]]
 		- [[提示词工程：提示词技巧2]]
 		- [[AI 赋能金字塔模型]]
+		- [[AI 友好的整洁业务组件架构]]
 		-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
