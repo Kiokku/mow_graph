@@ -22,4 +22,22 @@
 		  ├─ BizComponentExample.tsx // 组件的主体样式和主体逻辑，如果组件太大(超过500行)可以拆分为其它的文件，样式使用 tailwindcss 编写
 		  ├─ helpers.ts // 组件所有的工具函数存放在此 (如有)
 		  ```
+	- ### AI 友好架构 VS 传统架构
+	  background-color:: blue
+		- ![image.png](../assets/image_1741013217953_0.png)
+		- **传统组件架构**：
+			- 务组件直接与 API 请求耦合
+			- 修改 API 类型需要修改每个组件
+			- 维护成本高，容易出错
+		- **整洁组件架构**：
+			- 业务组件与 API 层完全解耦
+			- 通过 Service Layer 统一管理数据流
+			- 切换 API 类型只需要修改 API Layer
+			- 更容易维护，降低出错风险
+- ## 如何渐进式落地这套架构？
+	- **已有稳定业务**：
+		- ![image.png](../assets/image_1741013512873_0.png){:height 409, :width 345}
+	- **对于新的业务来说**：
+		- ![image.png](../assets/image_1741013555429_0.png){:height 570, :width 426}
+		-
 -
