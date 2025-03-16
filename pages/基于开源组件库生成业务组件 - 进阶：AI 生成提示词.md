@@ -16,5 +16,9 @@
 - ## 使用 Cursor 生成一个 `生成提示词的提示词`
 	- 新建一个提示词的 md 文件，用来存放生成的提示词
 	- 打开 Cursor 的 `Composer Agent`，输入如下内容：
-		- ```
+		- ```markdown
+		  请帮我生成一个提示词，能够根据用户输入的需求来生成符合下面 LangGPT md 格式的提示词:
+		  
+		  https://github.com/langgptai/LangGPT
 		  ```
+	- 在 [Dify](https://dify.ai/) 中根据提示词模版创建生成提示词的应用，类似 [Kimi 提示词专家](https://kimi.moonshot.cn/kimiplus/conpg00t7lagbbsfqkq0)
