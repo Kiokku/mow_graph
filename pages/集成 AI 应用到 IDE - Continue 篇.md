@@ -8,6 +8,8 @@
 		- Context Provider：在 Chat 中通过`@`来调用
 - ## 集成 AI 应用
 	- ### Command
+	  background-color:: pink
+	  collapsed:: true
 		- `集成步骤`:
 			- 打开 Contunue 的配置文件`~/.continue/config.json`文件
 			  logseq.order-list-type:: number
@@ -15,4 +17,13 @@
 			- 配置`customCommands`:
 			  logseq.order-list-type:: number
 				- ![image.png](../assets/image_1742393742012_0.png)
-			- logseq.order-list-type:: number
+	- ### Context Provider
+	  background-color:: pink
+		- `集成步骤`
+			- 在项目根目录新建`.continue/prompts/antd-component-codegen.prompt`文件
+			  logseq.order-list-type:: number
+				- ![image.png](../assets/image_1742395372067_0.png)
+			- 通过 `@Prompt Files` 调用 prompt 文件
+			  logseq.order-list-type:: number
+				- ![image.png](../assets/image_1742395473929_0.png)
+	-
