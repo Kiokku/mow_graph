@@ -11,11 +11,15 @@
 	  :LOGBOOK:
 	  CLOCK: [2024-11-13 Wed 21:47:22]
 	  :END:
-- #2024-okr-o1-kr-2 算法
+- #2024-okr-o1-kr-2 算法（每周目标 16 题+）
 	- TODO Leetcode hot100+
 	- DOING [代码随想录 - 刷题](https://programmercarl.com/)
 	  :LOGBOOK:
 	  CLOCK: [2025-01-03 Fri 23:45:44]
+	  :END:
+	- DOING [labuladong算法笔记 - 刷题](https://labuladong.online/algo/)
+	  :LOGBOOK:
+	  CLOCK: [2025-03-20 Thu 23:26:42]
 	  :END:
 - #2024-okr-01-kr-3 前端 AI 转型探索
 	- DOING ((6772ade5-b5c7-420f-b0dd-676ad1b4dcd4))

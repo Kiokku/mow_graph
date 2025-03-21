@@ -9,7 +9,6 @@
 - ## 集成 AI 应用
 	- ### Command
 	  background-color:: pink
-	  collapsed:: true
 		- `集成步骤`:
 			- 打开 Contunue 的配置文件`~/.continue/config.json`文件
 			  logseq.order-list-type:: number
@@ -46,4 +45,7 @@
 	- ### MCP
 	  background-color:: green
 		- `MCP 定义`：Model Context Protocol 是一个开放的协议，用于帮助 AI 模型与外部系统进行交互，从而让 AI 可以获取外部的资源，或者调度外部系统的能力。
-		-
+		- `LLM Host MCP Client、MCP Server 之间的数据流转`
+			- ![image.png](../assets/image_1742483931308_0.png)
+		- `集成步骤`：
+			- logseq.order-list-type:: number
