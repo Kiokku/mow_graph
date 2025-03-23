@@ -48,4 +48,6 @@
 		- `LLM Host MCP Client、MCP Server 之间的数据流转`
 			- ![image.png](../assets/image_1742483931308_0.png)
 		- `集成步骤`：
+			- 准备一个 MCP Server
+			  logseq.order-list-type:: number
 			- logseq.order-list-type:: number
