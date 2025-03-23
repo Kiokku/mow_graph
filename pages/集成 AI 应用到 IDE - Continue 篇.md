@@ -50,4 +50,23 @@
 		- `集成步骤`：
 			- 准备一个 MCP Server
 			  logseq.order-list-type:: number
-			- logseq.order-list-type:: number
+			- 在 Continue 中配置 MCP Server
+			  logseq.order-list-type:: number
+				- ```markdown
+				  {
+				    "experimental": {
+				      "modelContextProtocolServers": [
+				        {
+				          "transport": {
+				            "type": "stdio",
+				            "command": "/Users/lv/.nvm/versions/node/v23.5.0/bin/node",
+				            "args": ["/Users/lv/workspace/dify-mcp-server/build/index.js"],
+				            "env": {
+				              "DIFY_API_KEY": "app-wT7iLq0uGhEvjKrx9lgeGhmj"
+				            }
+				          }
+				        }
+				      ]
+				    }
+				  }
+				  ```
