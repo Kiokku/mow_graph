@@ -31,4 +31,27 @@
 			  logseq.order-list-type:: number
 			- 新增一个 prompt role
 			  logseq.order-list-type:: number
-			-
+			- ![image.png](../assets/image_1742915924295_0.png){:height 475, :width 274}
+	- ### 方式四：MCP
+	  background-color:: green
+		- `集成步骤`
+			- 打开 MCP setting 文件
+			  logseq.order-list-type:: number
+			- 写入下面的内容
+			  logseq.order-list-type:: number
+				- ```json
+				  {
+				    "mcpServers": {
+				      "dify": {
+				        "command": "node",
+				        "args": ["/Users/lv/workspace/dify-mcp-server/build/index.js"],
+				        "env": {
+				          "DIFY_API_KEY": "app-wT7iLq0uGhEvjKrx9lgeGhmj"
+				        },
+				        "disabled": false,
+				        "alwaysAllow": []
+				      }
+				    }
+				  }
+				  ```
+	-
