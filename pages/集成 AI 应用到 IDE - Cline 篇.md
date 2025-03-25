@@ -14,4 +14,7 @@
 			- 在`.clinerules`文件中写入提示词
 			  logseq.order-list-type:: number
 			- ![image.png](../assets/image_1742829547991_0.png)
-	-
+	- ### 方式二：.clinerules + prompt file
+	  background-color:: green
+		- `集成步骤`
+			- logseq.order-list-type:: number
