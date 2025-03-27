@@ -211,7 +211,6 @@
 		- [[3. 实现 reconciler]]
 	- [[前端+AI探索营]]
 	  id:: 6772ade5-b5c7-420f-b0dd-676ad1b4dcd4
-	  collapsed:: true
 		- [[如何接入AI]]
 		- [[前端怎么理解大模型]]
 		- [[提示词工程：概论]]
@@ -226,6 +225,7 @@
 		- [[基于开源组件库生成业务组件 - 进阶：AI 生成提示词]]
 		- [[集成 AI 应用到 IDE - Continue 篇]]
 		- [[集成 AI 应用到 IDE - Cline 篇]]
+		- [[集成 AI 应用到 IDE - Cursor 篇]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
