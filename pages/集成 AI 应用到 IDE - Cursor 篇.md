@@ -7,5 +7,9 @@
 		  logseq.order-list-type:: number
 			- ![image.png](../assets/image_1743088733503_0.png)
 		- **提示词调度分析**:
-			-
+			- 类似于 `Cline` 的`clinerules`调度机制
+			- 通过 `system prompt` 注入的方式
+	- ### 方式二：Notepad
+	  background-color:: green
+		-
 -
