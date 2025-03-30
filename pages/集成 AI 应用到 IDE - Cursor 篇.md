@@ -11,5 +11,6 @@
 			- 通过 `system prompt` 注入的方式
 	- ### 方式二：Notepad
 	  background-color:: green
+		- [Cursor Notepad](https://docs.cursor.com/features/beta/notepads#what-should-i-write-in-notepads)
 		-
 -
