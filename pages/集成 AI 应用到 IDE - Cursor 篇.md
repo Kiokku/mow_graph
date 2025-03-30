@@ -12,5 +12,9 @@
 	- ### 方式二：Notepad
 	  background-color:: green
 		- [Cursor Notepad](https://docs.cursor.com/features/beta/notepads#what-should-i-write-in-notepads)
-		-
+	- ### 方式三：cursorrules + prompt file
+	  background-color:: green
+	- ### 方式四：.cursor/rules
+	  background-color:: green
+	- ### 方式五：自定义 Composer Agent Command Tools
 -
