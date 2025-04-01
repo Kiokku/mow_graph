@@ -25,4 +25,9 @@
 		- 修改`cursorrules`，注入`生成业务组件`场景需要调度执行的 `command tools`
 		  logseq.order-list-type:: number
 - ## Continue VS Cline VS Cursor
-	-
+	- ### 场景
+		- 场景：基于开源组件库生成业务组件
+	- ### 选择标准
+		- 使用体验
+		- 数据私密性
+		- 成本
