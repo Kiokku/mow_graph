@@ -18,4 +18,11 @@
 	  background-color:: green
 	- ### 方式五：自定义 Composer Agent Command Tools
 	  background-color:: green
-		-
+		- 修改`dify-mcp-server`，兼容通过 command 执行直接输出`console log`
+		  logseq.order-list-type:: number
+		- 新增 package.json 中的 script：`npm run biz-component-codegen`
+		  logseq.order-list-type:: number
+		- 修改`cursorrules`，注入`生成业务组件`场景需要调度执行的 `command tools`
+		  logseq.order-list-type:: number
+- ## Continue VS Cline VS Cursor
+	-
