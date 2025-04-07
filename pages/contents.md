@@ -222,10 +222,12 @@
 		- [[AI 赋能金字塔模型]]
 		- [[AI 友好的整洁业务组件架构]]
 		- [[基于开源组件库生成业务组件 - 使用 dify 构建 AI 应用]]
+		  collapsed:: true
 			- [[基于开源组件库生成业务组件 - 进阶：AI 生成提示词]]
 			- [[集成 AI 应用到 IDE - Continue 篇]]
 			- [[集成 AI 应用到 IDE - Cline 篇]]
 			- [[集成 AI 应用到 IDE - Cursor 篇]]
+		- [[基于公司私有组件库生成业务组件]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
