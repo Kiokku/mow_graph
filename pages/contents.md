@@ -229,6 +229,7 @@
 			- [[集成 AI 应用到 IDE - Cursor 篇]]
 		- [[基于公司私有组件库生成业务组件]]
 			- [[RAG 知识库数据准备]]
+			- [[使用 Dify 构建 RAG 应用]]
 			-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
