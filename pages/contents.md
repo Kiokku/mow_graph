@@ -230,6 +230,7 @@
 		- [[基于公司私有组件库生成业务组件]]
 			- [[RAG 知识库数据准备]]
 			- [[使用 Dify 构建 RAG 应用]]
+		- [[实现基于私有库的代码生成器]]
 		-
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
