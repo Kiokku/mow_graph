@@ -168,6 +168,7 @@
 	- [[项目面试相关]]
 	- [[项目经历]]
 - React
+  collapsed:: true
 	- React技术揭秘
 	  id:: 6499b665-7fd5-4391-8061-9ee0f5d79c2f
 	  collapsed:: true
@@ -254,6 +255,8 @@
   collapsed:: true
 	- [[Beej's Guide to Network Concepts]]
 	- [[图解计算机网络]]
+- 数据库
+	- [[postgresql-for-everybody]]
 - 工具箱
   collapsed:: true
 	- [[kitty]]

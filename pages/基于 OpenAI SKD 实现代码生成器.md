@@ -10,5 +10,6 @@
 			- `content`：文本内容，text 类型，不允许为空
 			- `embedding`：向量类型字段，维度为 1536，不允许为空
 		- [[#green]]==`向量索引`==：HNSW 算法的向量索引，用于**余弦相似度**搜索
-	-
+		- [[#green]]==`生成迁移表`==：`db: generate  db:migrate`
+-
 -
