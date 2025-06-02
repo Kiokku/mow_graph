@@ -20,5 +20,3 @@
 		- `\dt`: list relations
 		- `CREATE TABLE` [[#blue]]==users( name VARCHAR(128), email VARCHAR(128) )==: create table
 		- `\d+` [[#blue]]==users==: detail of table 'users'
-	-
-	- ####
