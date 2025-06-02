@@ -19,5 +19,6 @@
 		- `psql` [[#green]]==database== [[#green]]==username==: connecting to the database with user & password
 		- `\dt`: list relations
 		- `CREATE TABLE` [[#blue]]==users( name VARCHAR(128), email VARCHAR(128) )==: create table
-		-
+		- `\d+` [[#blue]]==users==: detail of table 'users'
+	-
 	- ####
