@@ -1,3 +1,3 @@
-- > [postgrespl-for-ecerybody](https://www.coursera.org/specializations/postgresql-for-everybody#courses)
+- > [postgresql-for-everybody](pg4e.com)
 - > {{video https://www.bilibili.com/video/BV1tj421U7GK?spm_id_from=333.788.videopod.sections&vd_source=32cba6d34e0b86d47c47da960353d1d0&p=4}}
 -
