@@ -258,6 +258,7 @@
 - 数据库
 	- [[postgresql-for-everybody]]
 		- [[SQL Architecture]]
+		- [[Working With Tables & SQL]]
 		-
 - 工具箱
   collapsed:: true
