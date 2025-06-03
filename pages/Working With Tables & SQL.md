@@ -1,5 +1,9 @@
 - > PostgreSQL 表操作实践
 - ### Insert
-	- `INSERT INTO` [[#green]]==database (col1, col2, ...)== `VALUES` [[#green]]==(value1, value2, ...)==
+	- `INSERT INTO` [[#green]]==database (col1, col2, ...)== `VALUES` [[#green]]==(value1, value2, ...)==;
 - ### Delete
-	- `DELETE FROM `
+	- `DELETE FROM` [[#green]]==database== `WHERE` [[#green]]==email='ted@unich.edu'==;
+		- `DELETE FROM` - 隐式循环，不加 `WHERE` 将删除整个表
+- ### Update
+	- `UPDATE ` [[#green]]==database== `SET` [[#green]]==name='Charles'== `WHERE` [[#green]]==email='ted@umich.edu'==;
+- ### Retrieve（检索）
