@@ -6,4 +6,8 @@
 		- `DELETE FROM` - 隐式循环，不加 `WHERE` 将删除整个表
 - ### Update
 	- `UPDATE ` [[#green]]==database== `SET` [[#green]]==name='Charles'== `WHERE` [[#green]]==email='ted@umich.edu'==;
-- ### Retrieve（检索）
+- ### Retrieve（检索）- Select
+	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `WHERE` [[#green]]==email='csev@umich.edu'==;
+	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `ORDER BY` [[#green]]==email== `DESC/ASC`;
+	- `SELECT` * `FROM` [[#green]]==database== `WHERE` name `LIKE` '';
+-
