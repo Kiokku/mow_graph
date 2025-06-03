@@ -11,4 +11,8 @@
 	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `ORDER BY` [[#green]]==email== `DESC/ASC`;
 	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `WHERE` [[#green]]==name== `LIKE` [[#green]]=='%e%'==;
 		- `LIKE`: wildcard matching - 通配符匹配
--
+	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `ORDER BY` [[#green]]==email== `DESC` `OFFSET` [[#green]]==0== `LIMIT` [[#green]]==20==;
+		- `OFFSET/LIMIT` : pagination - 分页
+	- `SELECT` `COUNT`(*) `FROM` [[#green]]==database== `WHERE` [[#green]]==email='csev@umich.edu'==;
+		- `COUNT`: counting
+	-
