@@ -9,5 +9,6 @@
 - ### Retrieve（检索）- Select
 	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `WHERE` [[#green]]==email='csev@umich.edu'==;
 	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `ORDER BY` [[#green]]==email== `DESC/ASC`;
-	- `SELECT` * `FROM` [[#green]]==database== `WHERE` name `LIKE` '';
+	- `SELECT` [[#green]]==*== `FROM` [[#green]]==database== `WHERE` [[#green]]==name== `LIKE` [[#green]]=='%e%'==;
+		- `LIKE`: wildcard matching - 通配符匹配
 -
