@@ -2,4 +2,4 @@
 - ### Insert
 	- `INSERT INTO` [[#green]]==database (col1, col2, ...)== `VALUES` [[#green]]==(value1, value2, ...)==
 - ### Delete
-	-
+	- `DELETE FROM `
