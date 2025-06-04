@@ -12,4 +12,7 @@
 	- `DOUBLE PRECISION`: (64-bit) 10**308 with 14 digits of accuracy
 	- `NUMERIC`: (accuracy, decimal) Specified digits of accuracy and digits after the decimal point
 - ## Dates
-	-
+	- `TIMESTAMP`: 'YYYY-MM-DD HH:MM:SS'
+	- `DATE`: 'YYYY-MM-DD'
+	- `TIME`: 'HH:MM:SS'
+-
