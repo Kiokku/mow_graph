@@ -2,4 +2,14 @@
 	- `CHAR(n)`: allocates the entire space - 固定长度字符串
 	- `VARCHAR(n)`: allocates a variable amount of space depending on the data length - 不固定长度
 - ## Text
+	- `TEXT`: a character set varying length
+- ## Integer Numbers
+	- `SMALLINT`: (-32768, +32768)
+	- `INTEGER`: (2 Billion)
+	- `BIGINT`: (10**18 ish)
+- ## Floating Point Numbers
+	- `REAL`: (32-bit) 10**38 with 7 digits of accuracy
+	- `DOUBLE PRECISION`: (64-bit) 10**308 with 14 digits of accuracy
+	- `NUMERIC`: (accuracy, decimal) Specified digits of accuracy and digits after the decimal point
+- ## Dates
 	-
