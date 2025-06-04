@@ -259,7 +259,7 @@
 	- [[postgresql-for-everybody]]
 		- [[SQL Architecture]]
 		- [[Working With Tables & SQL]]
-		-
+		- [[Data Types in PostgreSQL]]
 - 工具箱
   collapsed:: true
 	- [[kitty]]
