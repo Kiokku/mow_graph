@@ -16,4 +16,6 @@
 		- 平衡树
 	- ### Hash
 		- maps large data sets to smaller data sets
-	-
+		- 精确搜索
+		- 主键、GUID
+-
