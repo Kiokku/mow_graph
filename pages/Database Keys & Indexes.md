@@ -11,4 +11,9 @@
 	- `PRIMARY KEY`: 索引主键
 - ## Indexes
 	- **Indexes** are shortcuts
+	- ### B-Trees
+		- 有序的
+		- 平衡树
+	- ### Hash
+		- maps large data sets to smaller data sets
 	-
