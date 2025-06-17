@@ -261,7 +261,7 @@
 		- [[Working With Tables & SQL]]
 		- [[Data Types in PostgreSQL]]
 		- [[Database Keys & Indexes]]
-		-
+		- [[Relational Database Design]]
 - 工具箱
   collapsed:: true
 	- [[kitty]]
