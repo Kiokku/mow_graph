@@ -1,7 +1,12 @@
 ## Keys
-- ### Primary Key
-	- generally an integer auto-increment field - 主键
-- ### Logical Key
-	- what the outside world uses for lookup - 逻辑键，
-- ### Foreign Key
-	- generally an integer key pointing to a row in another table -
+	- ### Primary Key
+		- generally an integer auto-increment field - 主键
+			- Never use your logical key as the primary key. - 不要使用逻辑键作为主键
+			- Relationships that are based on matching string fields are less efficient than **integers**. - 使用整数比使用字符串(GUIDs)更高效
+	- ### Logical Key
+		- what the outside world uses for lookup - 逻辑键，具有实际意义的键，用作搜索等
+	- ### Foreign Key
+		- generally an integer key pointing to a row in another table - 外键
+			- A foreign key is when a table has a column containing a key that points to the primary key of another table. - 外键是其他表的主键
+			- **Integer**
+-
