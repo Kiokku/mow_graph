@@ -10,5 +10,30 @@
 			- A foreign key is when a table has a column containing a key that points to the primary key of another table. - 外键是其他表的主键
 			- **Integer**
 - ## Create Relational Database
-	-
--
+	- ```
+	  CREATE TABLE artist (
+	  
+	  id SERIAL,
+	  
+	  name VARCHAR(128) UNIQUE,
+	  
+	  PRIMARY_KEY(id)
+	  
+	  );
+	  
+	  CREATE TABLE album (
+	  
+	  id SERIAL,
+	  
+	  title VARCHAR(128) UNIQUE,
+	  
+	  artist_id INTEGER REFERENCES artist(id) ON DELETE CASCADE,
+	  
+	  PRIMARY KEY(id)
+	  
+	  );
+	  ```
+	- `SERIAL`、`PRIMARY_KEY` - Primary Key
+	- `UNIQUE` - Logical Key
+	- `REFERENCES` - Foreign Key
+	- `ON DELETE CASCADE` - 级联删除
