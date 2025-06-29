@@ -47,4 +47,7 @@
 	  ON album.artist_id = artist.id;
 	  ```
 	- `JOIN` table2 `ON`table1.ForeignKey = table2.PrimaryKey
+	- `INNER JOIN`: 连接时，不匹配的组合会被筛除
+	- `CROSS JOIN`:  连接所有组合，没有`ON` 语句
+	-
 	-
