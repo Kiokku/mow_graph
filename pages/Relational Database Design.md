@@ -46,4 +46,5 @@
 	  
 	  ON album.artist_id = artist.id;
 	  ```
+	- `JOIN` table2 `ON`table1.ForeignKey = table2.PrimaryKey
 	-
