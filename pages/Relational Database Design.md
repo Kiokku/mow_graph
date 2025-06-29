@@ -38,3 +38,12 @@
 	- `REFERENCES` - Foreign Key
 	- `ON DELETE CASCADE` - 级联删除
 - ## JOIN
+	- The JOIN operation links **across several tables** as part of a **SELECT** operation.
+	- ```
+	  SELECT album.title, artist.name
+	  
+	  FROM album JOIN artist
+	  
+	  ON album.artist_id = artist.id;
+	  ```
+	-
