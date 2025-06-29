@@ -1,4 +1,18 @@
 ## Member Table
 	- **中间表**
 	- ![image.png](../assets/image_1751209297362_0.png)
-	-
+- ## quiz
+	- Foreign
+	- 3
+	- 3
+	- 2
+	- 4
+	- 1
+	- 3
+	- 3
+	- 5
+	- 2
+	- 2
+	- 1
+	- 1 3
+	- 4
