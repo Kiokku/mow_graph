@@ -36,7 +36,7 @@
 	- `SERIAL`、`PRIMARY_KEY` - Primary Key
 	- `UNIQUE` - Logical Key
 	- `REFERENCES` - Foreign Key
-	- `ON DELETE CASCADE` - 级联删除
+	- `ON DELETE CASCADE` - 级联删除，Foreign Key
 - ## JOIN
 	- The JOIN operation links **across several tables** as part of a **SELECT** operation.
 	- ```
