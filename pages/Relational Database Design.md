@@ -36,7 +36,8 @@
 	- `SERIAL`、`PRIMARY_KEY` - Primary Key
 	- `UNIQUE` - Logical Key
 	- `REFERENCES` - Foreign Key
-	- `ON DELETE CASCADE` - 级联删除，Foreign Key
+	- `ON DELETE CASCADE` - 级联删除，Foreign Key 关联的行会被一起删除
+		- ![image.png](../assets/image_1751207815834_0.png)
 - ## JOIN
 	- The JOIN operation links **across several tables** as part of a **SELECT** operation.
 	- ```
@@ -49,5 +50,6 @@
 	- `JOIN` table2 `ON`table1.ForeignKey = table2.PrimaryKey
 	- `INNER JOIN`: 连接时，不匹配的组合会被筛除
 	- `CROSS JOIN`:  连接所有组合，没有`ON` 语句
-	-
+- ## Delete
+	- ![image.png](../assets/image_1751207936228_0.png)
 	-
