@@ -15,4 +15,3 @@
 		- `OFFSET/LIMIT` : pagination - 分页
 	- `SELECT` `COUNT`(*) `FROM` [[#green]]==database== `WHERE` [[#green]]==email='csev@umich.edu'==;
 		- `COUNT`: counting
-	-

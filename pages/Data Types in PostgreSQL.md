@@ -15,4 +15,3 @@
 	- `TIMESTAMP`: 'YYYY-MM-DD HH:MM:SS'
 	- `DATE`: 'YYYY-MM-DD'
 	- `TIME`: 'HH:MM:SS'
--
