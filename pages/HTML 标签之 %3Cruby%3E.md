@@ -1,0 +1,5 @@
+- >> **HTML `<ruby>` 元素** 被用来展示东亚文字注音或字符注释。
+- ## 示例
+	- @@html: <ruby>汉 <rp>(</rp><rt>han</rt><rp>)</rp> 字 <rp>(</rp><rt>zi</rt><rp>)</rp></ruby>@@
+	- @@html: <ruby>I might keep bothering for a while<rp>(</rp><rt>これからもよろしくお願いします！</rt><rp>)</rp></ruby>@@
+-
