@@ -5,6 +5,8 @@
 		- `AI_BASE_URL`：https://api.302.ai/v1
 		- `EMBEDDING`：text-embedding-ada-002
 	- ### **1、Postgres数据表初始化**
+	  background-color:: green
+		- > [[#blue]]==`drizzle`==:  TypeScript ORM（对象关系映射）工具，定义数据库 Schema，并通过类型安全的方式与数据库进行交互
 		- [[#green]]==`schema`==：open_ai_embeddings
 			- `id`：使用 nanoid 生成的主键，varchar(191) 类型
 			- `content`：文本内容，text 类型，不允许为空
