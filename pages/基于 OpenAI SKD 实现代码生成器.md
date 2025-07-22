@@ -13,6 +13,7 @@
 			- `embedding`：向量类型字段，维度为 1536，不允许为空
 		- [[#green]]==`向量索引`==：HNSW 算法的向量索引，用于**余弦相似度**搜索
 		- [[#green]]==`生成迁移表`==：`db: generate  db:migrate` 将生成的数据库 table 迁移到 `supabase`
-		- [[#green]]==`数据库 action`==：接受数据源，保存到 `db`
+		- [[#green]]==`数据库 action`==：接受数据源(embeddings)，保存到 `db`)
+		- [[#blue]]==`脚本`==：将组件库文档转化为 embeddings，并保存到数据库
 		-
 -
