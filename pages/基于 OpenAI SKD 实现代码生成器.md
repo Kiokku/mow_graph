@@ -15,5 +15,7 @@
 		- [[#green]]==`生成迁移表`==：`db: generate  db:migrate` 将生成的数据库 table 迁移到 `supabase`
 		- [[#green]]==`数据库 action`==：接受数据源(embeddings)，保存到 `db`)
 		- [[#blue]]==`脚本`==：将组件库文档转化为 embeddings，并保存到数据库
+	- ### **2、RAG API**
+	  background-color:: green
 		-
 -
