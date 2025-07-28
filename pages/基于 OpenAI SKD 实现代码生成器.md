@@ -25,5 +25,7 @@
 			- 返回相似度最高的 N 个结果，包含原始内容和相似度分数
 			- 使用 `drizzle-orm` 实现数据库查询
 		- [[#green]]==`Embedding Query`==：针对用户提问的 embedding 函数及召回
+	- ### 3、RAG API 路由
+	  background-color:: green
 		-
 -
