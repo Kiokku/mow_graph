@@ -27,5 +27,11 @@
 		- [[#green]]==`Embedding Query`==：针对用户提问的 embedding 函数及召回
 	- ### 3、RAG API 路由
 	  background-color:: green
-		-
+		- 基于用户的最后一条消息使用向量嵌入（embeddings）查找相关内容，`retrieveEmbedding`
+		- 创建 OpenAI 的流式对话补全
+			- 将相关内容整合到系统提示词中
+			- 使用服务器发送事件（SSE）进行流式响应
+			- 在流中同时返回 AI 响应片段和相关内容
+- ## RAG 对接
+	-
 -
