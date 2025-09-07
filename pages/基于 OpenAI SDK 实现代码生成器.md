@@ -33,5 +33,6 @@
 			- 使用服务器发送事件（SSE）进行流式响应
 			- 在流中同时返回 AI 响应片段和相关内容
 - ## RAG 对接
+	- UI组件 `ChatMessages` 与 `OpenAI SDK` 对接
 	-
 -
