@@ -34,5 +34,4 @@
 			- 在流中同时返回 AI 响应片段和相关内容
 - ## RAG 对接
 	- UI组件 `ChatMessages` 与 `OpenAI SDK` 对接
-	-
--
+	- ![image.png](../assets/image_1757254686091_0.png)
