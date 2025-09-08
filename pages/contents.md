@@ -230,6 +230,7 @@
 			- [[使用 Dify 构建 RAG 应用]]
 		- [[实现基于私有库的代码生成器]]
 			- [[基于 OpenAI SDK 实现代码生成器]]
+			- [[基于Vercel AI SDK 实现代码生成器]]
 - [The Missing Semester of Your CS Education](https://missing-semester-cn.github.io/)
   id:: 64a1826f-ccde-4703-acab-075543313ba5
   collapsed:: true
