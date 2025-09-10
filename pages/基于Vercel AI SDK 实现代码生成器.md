@@ -16,4 +16,9 @@
 			  logseq.order-list-type:: number
 			- **vercelai 的 llms.txt**：[https://sdk.vercel.ai/llms.txt](https://sdk.vercel.ai/llms.txt)
 			  logseq.order-list-type:: number
--
+	- ### **3.编写脚本，将私有组件知识库转换为 embeddings，保存到数据库中**
+	  background-color:: green
+		- `embedDocs.ts`
+		- `pnpm run embedDocs:vercelai`
+- ## 实现 RAG API 的逻辑
+	-
