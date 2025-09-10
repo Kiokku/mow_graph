@@ -12,7 +12,7 @@
 	- ### **2、将基于 openai 的 embedding 逻辑重构为基于 vercelai 的逻辑**
 	  background-color:: green
 		- 使用 `cursor` 重构 embedding 逻辑时，添加 `@Docs`
-			- **llms.txt**：[https://llmstxt.org/](https://llmstxt.org/)
+			- **llms.txt**：[https://llmstxt.org/](https://llmstxt.org/) - to provide information to help LLMs use a website at inference time
 			  logseq.order-list-type:: number
 			- **vercelai 的 llms.txt**：[https://sdk.vercel.ai/llms.txt](https://sdk.vercel.ai/llms.txt)
 			  logseq.order-list-type:: number
