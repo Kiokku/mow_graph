@@ -21,4 +21,5 @@
 		- `embedDocs.ts`
 		- `pnpm run embedDocs:vercelai`
 - ## 实现 RAG API 的逻辑
-	-
+	- `route.ts`重构
+	- `types.ts`重构
