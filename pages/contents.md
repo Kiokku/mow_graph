@@ -143,9 +143,11 @@
 		- [[完全背包问题]]
 		- [[编辑距离问题]]
 - 设计模式
+  collapsed:: true
 	- 创建型模式
 	- 结构型模式
 	- 行为模式
+	  collapsed:: true
 		- [[观察者模式]]
 		- [[工厂方法模式]]
 - 正则表达式
@@ -154,6 +156,7 @@
 	- [[正则表达式初阶技能]]
 	- [[正则表达式高阶技能-零宽断言]]
 - 前端工程化
+  collapsed:: true
 	- [[webpack深入浅出]]
 	- [[前端性能优化]]
 - 实战项目
@@ -204,6 +207,7 @@
 	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
 	- [[A Brief History of Reactivity]]
 	- [[从0实现React18]]
+	  collapsed:: true
 		- [[1. 搭建项目架构]]
 		- [[2. 实现 JSX]]
 		- [[3. 实现 reconciler]]
@@ -263,7 +267,6 @@
 		- [[Many-to-Many Relationships]]
 		- [[Tools and Techniques]]
 - 工具箱
-  collapsed:: true
 	- [[kitty]]
 	- yazi
 	- [[使用 reveal-md 来写 Slides]]
