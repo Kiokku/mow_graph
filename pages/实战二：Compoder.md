@@ -9,4 +9,5 @@
 - ## 环境准备与项目启动
 	- [环境搭建](https://github.com/IamLiuLv/compoder/blob/main/CONTRIBUTING_CN.md)
 - ## 设计理念
-	-
+	- ### 产品设计
+		- ![image.png](../assets/image_1761488911792_0.png)
