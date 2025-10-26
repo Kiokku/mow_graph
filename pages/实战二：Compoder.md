@@ -8,4 +8,5 @@
 	- 代码实时预览：自建了一套代码实时预览沙箱环境，支持多种技术栈（如：React、Vue、开源包、私有包）的秒级渲染
 - ## 环境准备与项目启动
 	- [环境搭建](https://github.com/IamLiuLv/compoder/blob/main/CONTRIBUTING_CN.md)
--
+- ## 设计理念
+	-
