@@ -15,4 +15,16 @@
 		- 助力前端**定制专属技术栈 & 特定业务场景**下的前端组件代码生成器，通过 `Prompt to code` 高效生成对应的组件代码。
 		- 助力前端转型成为 AI 时代下的 Design Engineer，一个人搞定 UI 设计，前端研发。
 - ## 技术架构设计
+	- ### 技术模块
+	  background-color:: pink
+		- **数据库模块：**
+			- `lib/db`
+		- **前端模块：**
+			- `components/ui`
+			- `components/biz`
+			- `app/**/*/page.tsx`
+		- **后端模块：**
+			- `app/api/codegen/list/route.ts`
+		- **AI 模块：**
+			- `app/api/ai-core`
 	-
