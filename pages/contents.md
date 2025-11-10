@@ -207,7 +207,6 @@
 	- [[A Complete Guide to Server-Side Rendering (SSR) with React.js]]
 	- [[A Brief History of Reactivity]]
 	- [[从0实现React18]]
-	  collapsed:: true
 		- [[1. 搭建项目架构]]
 		- [[2. 实现 JSX]]
 		- [[3. 实现 reconciler]]
